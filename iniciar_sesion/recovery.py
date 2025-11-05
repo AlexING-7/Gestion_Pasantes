@@ -14,6 +14,7 @@ import random
 import string
 import hashlib
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
 
 User=db.User
 TSession=db.TSession
@@ -22,11 +23,12 @@ session=db.session
 class RecoveryWindow:
     
     def __init__(self):
+        load_dotenv()
         self.recovery_system = EmailPasswordRecovery(
                                 smtp_server="smtp.gmail.com",
                                 port=587,
-                                email="juegosintercarreras@gmail.com",
-                                password="pxgt sqzr thfp rqel")
+                                email=os.getenv('SMTP_PASSWORD'),
+                                password=os.getenv('SMTP_EMAIL'))
         self.window=cargar_ui("recovery.ui")
         self.conectar_eventos()
     
