@@ -40,6 +40,7 @@ class Login:
     def conectar_eventos(self):
         self.window.check_view_password.toggled.connect(self.mostrar_password)
         self.window.login_Button.clicked.connect(self.iniciar_mainview)
+        self.window.Olvido_ContrasenaButton.clicked.connect(self.open_recovery_window)
 
     def mostrar_password(self,clicked):
         if clicked:
@@ -86,6 +87,11 @@ class Login:
         from main import MainWindow
         self.main_window=MainWindow()
         self.main_window.show()
+        
+    def open_recovery_window(self):
+        from recovery import RecoveryWindow
+        self.recovery_window=RecoveryWindow()
+        self.recovery_window.show()
         
         
 if __name__=="__main__":

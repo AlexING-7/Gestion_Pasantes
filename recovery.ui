@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>731</height>
+    <width>470</width>
+    <height>748</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Dialog</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -47,18 +53,18 @@
        <number>50</number>
       </property>
       <property name="topMargin">
-       <number>20</number>
+       <number>50</number>
       </property>
       <property name="rightMargin">
        <number>50</number>
       </property>
       <property name="bottomMargin">
-       <number>20</number>
+       <number>50</number>
       </property>
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="0" column="0">
+      <item row="0" column="1">
        <widget class="QFrame" name="frame_2">
         <property name="styleSheet">
          <string notr="true">QFrame{
@@ -82,64 +88,69 @@ QLabel{
         <property name="frameShadow">
          <enum>QFrame::Shadow::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
-          <widget class="QLabel" name="label">
-           <property name="styleSheet">
-            <string notr="true">font: 600 20pt &quot;Segoe UI&quot;;
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="styleSheet">
+              <string notr="true">font: 600 20pt &quot;Segoe UI&quot;;
 padding:0px 0px;</string>
-           </property>
-           <property name="text">
-            <string>Recuperar Contraseña</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-           <property name="margin">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="styleSheet">
-            <string notr="true">QLabel{
+             </property>
+             <property name="text">
+              <string>Recuperar Contraseña</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+             <property name="margin">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap>../../Downloads/emblemencryptedunlocked_93483.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="styleSheet">
+              <string notr="true">QLabel{
 	
 	font: 12pt &quot;Segoe UI&quot;;
 	color: rgb(102, 102, 102);
 	
 }</string>
-           </property>
-           <property name="text">
-            <string>Ingresa tu correo electrónico y el código de verificación que hemos enviado.</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
+             </property>
+             <property name="text">
+              <string>Ingresa tu correo electrónico y el código de verificación que hemos enviado.</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>38</width>
-               <height>17</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QFrame" name="frame_4">
-             <property name="styleSheet">
-              <string notr="true">QFrame{
+          <widget class="QFrame" name="frame_4">
+           <property name="styleSheet">
+            <string notr="true">QFrame{
 background:transparent;
 }
 QPushButton{
@@ -149,28 +160,42 @@ QPushButton{
 	font: 400 14pt &quot;Segoe UI&quot;;
 	color: rgb(255, 255, 255);
  }</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Shape::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Shadow::Raised</enum>
-             </property>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QLabel" name="user_label_2">
+              <property name="text">
+               <string>Correo electrónico</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="correo_input">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="placeholderText">
+               <string>usuario@correo.com</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <layout class="QVBoxLayout" name="verticalLayout_2">
-              <item>
-               <widget class="QLabel" name="user_label_2">
-                <property name="text">
-                 <string>Correo electrónico</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="user_input_2">
-                <property name="placeholderText">
-                 <string>usuario@correo.com</string>
-                </property>
-               </widget>
-              </item>
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <item>
                <widget class="QLabel" name="password_label_2">
                 <property name="styleSheet">
@@ -181,22 +206,37 @@ font: 350 14pt &quot;Segoe UI&quot;;
                 <property name="text">
                  <string>Código de verificación</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
                 <item>
-                 <widget class="QLineEdit" name="password_input_2">
+                 <widget class="QLineEdit" name="codigo_input1">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>50</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -223,17 +263,23 @@ font: 550 12pt &quot;Segoe UI&quot;;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="password_input_3">
+                 <widget class="QLineEdit" name="codigo_input2">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>50</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -260,17 +306,23 @@ font: 550 12pt &quot;Segoe UI&quot;;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="password_input_4">
+                 <widget class="QLineEdit" name="codigo_input3">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>50</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -297,17 +349,23 @@ font: 550 12pt &quot;Segoe UI&quot;;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="password_input_5">
+                 <widget class="QLineEdit" name="codigo_input4">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>50</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -334,17 +392,23 @@ font: 550 12pt &quot;Segoe UI&quot;;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="password_input_6">
+                 <widget class="QLineEdit" name="codigo_input5">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>50</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -371,17 +435,23 @@ font: 550 12pt &quot;Segoe UI&quot;;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="password_input_7">
+                 <widget class="QLineEdit" name="codigo_input6">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>50</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -410,22 +480,85 @@ font: 550 12pt &quot;Segoe UI&quot;;
                </layout>
               </item>
              </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Orientation::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>38</width>
-               <height>17</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="styleSheet">
+                 <string notr="true">QLabel{
+	background-color: transparent;
+	font: 9pt &quot;Segoe UI&quot;;
+	color: #000000;
+	padding:0;
+
+}</string>
+                </property>
+                <property name="text">
+                 <string>¿No recibiste el código? </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="ReenviarCodigoButton">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LayoutDirection::LeftToRight</enum>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+	background-color: transparent;
+	font: 9pt &quot;Segoe UI&quot;;
+	color: rgb(0, 51, 102);
+	padding:0;
+}
+QPushButton:hover{
+	
+	font: 9pt &quot;Segoe UI&quot;;
+	text-decoration: underline;
+	color: rgb(0, 89, 179);
+}</string>
+                </property>
+                <property name="text">
+                 <string>Reenviar Codigo</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </item>
          <item>
           <widget class="QFrame" name="frame_3">
@@ -452,16 +585,16 @@ QPushButton{
              <number>6</number>
             </property>
             <property name="leftMargin">
-             <number>0</number>
+             <number>9</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>9</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>9</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>9</number>
             </property>
             <item>
              <widget class="QLabel" name="user_label">
@@ -471,7 +604,13 @@ QPushButton{
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="user_input">
+             <widget class="QLineEdit" name="newpassword_input">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="echoMode">
                <enum>QLineEdit::EchoMode::Password</enum>
               </property>
@@ -488,7 +627,13 @@ QPushButton{
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="password_input">
+             <widget class="QLineEdit" name="repeatpassword_input">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -513,19 +658,6 @@ padding-bottom: 10px;</string>
             </item>
            </layout>
           </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Orientation::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>34</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </widget>
