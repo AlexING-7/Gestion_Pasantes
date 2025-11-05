@@ -114,7 +114,7 @@ padding:0px 0px;</string>
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>../../Downloads/emblemencryptedunlocked_93483.png</pixmap>
+              <pixmap>emblemencryptedunlocked_93483.png</pixmap>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignCenter</set>
