@@ -22,8 +22,9 @@ class BaseModel(Base):
 class User(BaseModel):
     __tablename__="users"
     
-    username: Mapped[str]=mapped_column(String(30))
+    username: Mapped[str]=mapped_column(String(30),unique=True)
     password: Mapped[str]=mapped_column(String(20))
+    email: Mapped[str]=mapped_column(String(100), unique=True)
     rol: Mapped[Optional[str]]=mapped_column(String(20))
     
     tsessions: Mapped[List["TSession"]] = relationship()
