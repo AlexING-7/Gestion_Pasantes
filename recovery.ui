@@ -587,7 +587,7 @@ font: 550 12pt &quot;Segoe UI&quot;;
              </layout>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="comprobarButton">
               <property name="text">
                <string>Comprobar Codigo</string>
               </property>
@@ -718,7 +718,7 @@ QPushButton{
             <item>
              <widget class="QLineEdit" name="newpassword_input">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -729,8 +729,11 @@ QPushButton{
               <property name="echoMode">
                <enum>QLineEdit::EchoMode::Password</enum>
               </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
               <property name="placeholderText">
-               <string/>
+               <string>Ingrese Contraseña</string>
               </property>
              </widget>
             </item>
@@ -744,7 +747,7 @@ QPushButton{
             <item>
              <widget class="QLineEdit" name="repeatpassword_input">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -758,10 +761,16 @@ QPushButton{
               <property name="echoMode">
                <enum>QLineEdit::EchoMode::Password</enum>
               </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="placeholderText">
+               <string>Repitir Contraseña</string>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="login_Button">
+             <widget class="QPushButton" name="restablecerButton">
               <property name="autoFillBackground">
                <bool>false</bool>
               </property>
