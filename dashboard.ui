@@ -511,6 +511,37 @@ font: 350 12pt &quot;Segoe UI&quot;;</string>
         <property name="frameShadow">
          <enum>QFrame::Shadow::Raised</enum>
         </property>
+        <widget class="QWidget" name="widget" native="true">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>270</y>
+           <width>120</width>
+           <height>80</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 85, 0);</string>
+         </property>
+        </widget>
+        <widget class="QWebEngineView" name="webEngineView">
+         <property name="geometry">
+          <rect>
+           <x>200</x>
+           <y>20</y>
+           <width>300</width>
+           <height>200</height>
+          </rect>
+         </property>
+         <property name="url">
+          <url>
+           <string>about:blank</string>
+          </url>
+         </property>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -518,6 +549,13 @@ font: 350 12pt &quot;Segoe UI&quot;;</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header location="global">QtWebEngineWidgets/QWebEngineView</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

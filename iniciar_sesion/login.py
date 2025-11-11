@@ -4,7 +4,7 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 import modelos.modulo as db
 import os
 import time
-from PySide6.QtWidgets import (QApplication, QLabel,QWidget,QLineEdit,QPushButton,QMessageBox,QCheckBox)
+from PySide6.QtWidgets import (QApplication, QLabel,QMainWindow,QLineEdit,QPushButton,QMessageBox,QCheckBox)
 from PySide6.QtGui import QFont, QPixmap
 from getmac import get_mac_address as gma
 from plantilla_ui import cargar_ui
@@ -15,27 +15,23 @@ User=db.User
 TSession=db.TSession
 session=db.session
 
-class Login:
+class Login(QMainWindow):
     
     def __init__(self):
+        super(Login,self).__init__()
         self.logged=False
-        self.window=cargar_ui("login.ui")
+        self.window=cargar_ui("login.ui",self)
         self.conectar_eventos()
         
-    def show(self):
-        self.sesion_activa()
-        if not self.logged:
-            self.window.show()
 
-    
-    def close(self):
-        self.window.close()
     
     def sesion_activa(self):
         sesion_mac=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none()
         if sesion_mac:
             self.logged=True
             self.open_main_window()
+        else:
+            self.show()
    
     def conectar_eventos(self):
         self.window.check_view_password.toggled.connect(self.mostrar_password)
@@ -97,5 +93,5 @@ class Login:
 if __name__=="__main__":
     app = QApplication(sys.argv)
     login=Login()
-    login.show()
+    login.sesion_activa()
     sys.exit(app.exec())
