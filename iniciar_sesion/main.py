@@ -4,10 +4,10 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import os
 from PySide6.QtWidgets import QWidget, QLabel, QMessageBox,QMainWindow,QFileDialog
-from PySide6.QtCore import QFile, QIODevice,QUrl
+from PySide6.QtCore import QFile, QIODevice,QUrl,Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from PySide6.QtWebEngineCore import QWebEngineSettings
+from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
 import modelos.modulo as db
 from getmac import get_mac_address as gma
 from plantilla_ui import cargar_ui
@@ -29,8 +29,22 @@ class MainWindow(QMainWindow):
         
         self.window.web_view.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
         self.window.web_view.settings().setAttribute(QWebEngineSettings.PdfViewerEnabled, True)
-        url = QUrl.fromLocalFile("C:/Users/alexa/Desktop/Tesis/prueba.pdf")
+        self.window.web_view.setContextMenuPolicy(Qt.NoContextMenu)
+        #self.disable_features()
+        url = QUrl.fromLocalFile("C:Users/HP/Desktop/Gestion_Pasantes/prueba.pdf")
         self.window.web_view.load(url)
+
+    def disable_features(self):
+        """Desactivar características específicas del WebEngine"""
+        # Desactivar JavaScript si no es necesario
+        self.window.web_view.settings().setAttribute(QWebEngineSettings.JavascriptEnabled, False)
+        
+        # Desactivar enlaces externos
+        #self.window.web_view.page().setLinkDelegationPolicy(QWebEnginePage.DelegateAllLinks)
+        
+        # Desactivar más características
+        #self.window.web_view.settings().setAttribute(QWebEngineSettings.WebAttribute.ShowScrollBars, False)
+        self.window.web_view.settings().setAttribute(QWebEngineSettings.WebAttribute.AllowWindowActivationFromJavaScript, False)    
     
     def conectar_eventos(self):
         #realizar una clase de usuario autenticado
