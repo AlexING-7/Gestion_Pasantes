@@ -4,7 +4,7 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 import modelos.modulo as db
 import os
 import time
-from PySide6.QtWidgets import (QApplication, QLabel,QMainWindow,QLineEdit,QPushButton,QMessageBox,QCheckBox)
+from PySide6.QtWidgets import (QApplication, QLabel,QMainWindow,QLineEdit,QPushButton,QMessageBox,QFileDialog)
 from PySide6.QtGui import QFont, QPixmap
 from getmac import get_mac_address as gma
 from plantilla_ui import cargar_ui
