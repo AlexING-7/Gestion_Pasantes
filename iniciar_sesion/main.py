@@ -10,7 +10,8 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
 import modelos.modulo as db
 from getmac import get_mac_address as gma
-from plantilla_ui import cargar_ui
+from iniciar_sesion.plantilla_ui import cargar_ui
+from dotenv import load_dotenv
 
 User=db.User
 TSession=db.TSession
@@ -20,6 +21,7 @@ class MainWindow(QMainWindow):
     
     def __init__(self):
         super(MainWindow,self).__init__()
+        load_dotenv()
         self.user_authenticated=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none().user
         self.window=cargar_ui("dashboard.ui",self)
         self.conectar_eventos()
@@ -31,8 +33,17 @@ class MainWindow(QMainWindow):
         self.window.web_view.settings().setAttribute(QWebEngineSettings.PdfViewerEnabled, True)
         self.window.web_view.setContextMenuPolicy(Qt.NoContextMenu)
         #self.disable_features()
-        url = QUrl.fromLocalFile("C:Users/HP/Desktop/Gestion_Pasantes/prueba.pdf")
-        self.window.web_view.load(url)
+        # Cargar el PDF desde fichero local y pedir al visualizador que abra sin la sidebar
+        # Añadimos el fragmento 'pagemode=none' (y opcional 'toolbar=0') para cerrar la barra lateral
+        file_path = os.getenv('prueba')
+        if file_path:
+            url = QUrl.fromLocalFile(file_path)
+            # Establecer fragmento para controlar la vista del PDF (p.ej. cerrar sidebar)
+            # Algunos visores (Chromium) respetan '#pagemode=none' para ocultar miniaturas/bookmarks
+            url.setFragment("pagemode=none&toolbar=0")
+            self.window.web_view.load(url)
+        else:
+            QMessageBox.warning(self, "Archivo no encontrado", "No se encontró la ruta al PDF en la variable de entorno 'prueba'.")
 
     def disable_features(self):
         """Desactivar características específicas del WebEngine"""

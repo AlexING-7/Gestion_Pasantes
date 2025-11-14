@@ -7,7 +7,7 @@ import time
 from PySide6.QtWidgets import (QApplication, QLabel,QMainWindow,QLineEdit,QPushButton,QMessageBox,QFileDialog)
 from PySide6.QtGui import QFont, QPixmap
 from getmac import get_mac_address as gma
-from plantilla_ui import cargar_ui
+from iniciar_sesion.plantilla_ui import cargar_ui
 
 
 
@@ -80,12 +80,12 @@ class Login(QMainWindow):
                                 QMessageBox.StandardButton.Close)
         
     def open_main_window(self):
-        from main import MainWindow
+        from iniciar_sesion.main import MainWindow
         self.main_window=MainWindow()
         self.main_window.show()
         
     def open_recovery_window(self):
-        from recovery import RecoveryWindow
+        from iniciar_sesion.recovery import RecoveryWindow
         self.recovery_window=RecoveryWindow()
         self.recovery_window.show()
         
