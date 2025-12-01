@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         super(MainWindow,self).__init__()
         load_dotenv()
         self.user_authenticated=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none().user
-        self.window=cargar_ui("dashboard_prueba.ui",self)
+        self.window=cargar_ui("menu.ui",self)
         self.conectar_eventos()
         self.web()
     
@@ -60,10 +60,13 @@ class MainWindow(QMainWindow):
     def conectar_eventos(self):
         #realizar una clase de usuario autenticado
         self.window.cerrar_sesionButton.clicked.connect(self.logout)
-        self.window.username_Label.setText(self.user_authenticated.username)
-        self.window.rol_Label.setText(self.user_authenticated.rol)
+        self.window.usernameLabel.setText(self.user_authenticated.username)
+        self.window.rolLabel.setText(self.user_authenticated.rol)
         self.window.InicioButton.clicked.connect(self.change_widget)
         self.window.UsuariosButton.clicked.connect(self.change_widget)
+        self.window.EmpresasButton.clicked.connect(self.change_widget)
+        self.window.EstudiantesButton.clicked.connect(self.change_widget)
+        self.window.TutoresButton.clicked.connect(self.change_widget)
     
     def change_widget(self):
         buttom=self.sender()
@@ -71,6 +74,12 @@ class MainWindow(QMainWindow):
             self.window.stackedWidget.setCurrentIndex(0)
         elif buttom.text().lower()=="usuarios":
             self.window.stackedWidget.setCurrentIndex(1)
+        elif buttom.text().lower()=="estudiantes":
+            self.window.stackedWidget.setCurrentIndex(2)
+        elif buttom.text().lower()=="tutores":
+            self.window.stackedWidget.setCurrentIndex(3)
+        elif buttom.text().lower()=="empresas":
+            self.window.stackedWidget.setCurrentIndex(4)
     
     def logout(self):
         sesion_mac=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none()

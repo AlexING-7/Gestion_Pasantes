@@ -1,0 +1,19 @@
+<RCC>
+  <qresource>
+    <file>images/enterprise-svgrepo-com.svg</file>
+    <file>images/log-out-svgrepo-com.svg</file>
+    <file>images/student-cap-svgrepo-com.svg</file>
+    <file>images/user-home-svgrepo-com.svg</file>
+    <file>images/user-id-svgrepo-com.svg</file>
+    <file>images/user-suit-male-svgrepo-com.svg</file>
+    <file>images/user-svgrepo-com.svg</file>
+    <file>images/user-waiter-female-svgrepo-com.svg</file>
+    <file>images/student-cap-svgrepo-com.svg</file>
+    <file>images/enterprise-svgrepo-com.svg</file>
+    <file>images/user-home-svgrepo-com.svg</file>
+    <file>images/user-id-svgrepo-com.svg</file>
+    <file>images/user-suit-male-svgrepo-com.svg</file>
+    <file>images/user-svgrepo-com.svg</file>
+    <file>images/user-waiter-female-svgrepo-com.svg</file>
+  </qresource>
+</RCC>
