@@ -46,7 +46,68 @@ class TSession(BaseModel):
     
     def __repr__(self) -> str:
         return f"User(id={self.user_id!r}, mac_adresss={self.mac_adresss!r}, last_activity={self.last_activity!r})"
+    
+class Student(BaseModel):
+    __tablename__="students"
+    
+    primer_nombre: Mapped[str]=mapped_column(String(20))
+    segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
+    primer_apellido: Mapped[str]=mapped_column(String(20))
+    segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
+    cedula:Mapped[int]=mapped_column(unique=True)
+    email: Mapped[str]=mapped_column(String(100), unique=True)
+    carrera: Mapped[str]=mapped_column(String(100))
+    semestre: Mapped[int]
+    telefono: Mapped[str]=mapped_column(String(7))
+    direccion: Mapped[str]
+    
+    def __repr__(self) -> str:
+        return f"Student {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
 
+class Enterprise(BaseModel):
+    __tablename__="enterprises"
+    
+    rif:Mapped[int]=mapped_column(unique=True)
+    razon_social: Mapped[str]
+    direccion: Mapped[str]
+    telefono: Mapped[str]=mapped_column(String(7))
+    rubro: Mapped[str]
+    
+    tutores: Mapped[List["Tutor_Empresarial"]] = relationship()
+    
+    
+class Turtor_Academico:
+    __tablename__="tutores_academicos"
+    
+    primer_nombre: Mapped[str]=mapped_column(String(20))
+    segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
+    primer_apellido: Mapped[str]=mapped_column(String(20))
+    segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
+    cedula:Mapped[int]=mapped_column(unique=True)
+    email: Mapped[str]=mapped_column(String(100), unique=True)
+    especialidad= Mapped[str]
+
+class Tutor_Empresarial:
+    __tablename__="tutores_empresariales"
+    
+    id_empresa:Mapped[int]=mapped_column(ForeignKey("enterprises.id"))
+    primer_nombre: Mapped[str]=mapped_column(String(20))
+    segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
+    primer_apellido: Mapped[str]=mapped_column(String(20))
+    segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
+    cedula:Mapped[int]=mapped_column(unique=True)
+    email: Mapped[str]=mapped_column(String(100), unique=True)
+    telefono: Mapped[str]=mapped_column(String(7))
+    cargo: Mapped[str]
+    
+    empresa: Mapped["Enterprise"] = relationship(back_populates="tutores")
+    
+    
+
+class Pasantia:
+    __tablename__="pasantias"
+    pass
+    
 if __name__=="__main__":
     if not database_exists(mysql_db_url):
         create_database(mysql_db_url)
