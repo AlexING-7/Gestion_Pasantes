@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import os
-from PySide6.QtWidgets import QWidget, QLabel, QMessageBox,QMainWindow,QFileDialog
+from PySide6.QtWidgets import QWidget, QPushButton, QMessageBox,QMainWindow,QTableWidgetItem,QHBoxLayout
 from PySide6.QtCore import QFile, QIODevice,QUrl,Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 
 User=db.User
 TSession=db.TSession
+Student=db.Student
 session=db.session
 
 class MainWindow(QMainWindow):
@@ -26,6 +27,7 @@ class MainWindow(QMainWindow):
         self.window=cargar_ui("menu.ui",self)
         self.conectar_eventos()
         self.web()
+        self.pag_tabla_estudiantes()
     
     def web(self):
         
@@ -67,7 +69,8 @@ class MainWindow(QMainWindow):
         self.window.EmpresasButton.clicked.connect(self.change_widget)
         self.window.EstudiantesButton.clicked.connect(self.change_widget)
         self.window.TutoresButton.clicked.connect(self.change_widget)
-    
+        self.window.nuevostudentButton.clicked.connect(self.open_newstudent)
+
     def change_widget(self):
         buttom=self.sender()
         if buttom.text().lower()=="inicio":
@@ -81,6 +84,48 @@ class MainWindow(QMainWindow):
         elif buttom.text().lower()=="empresas":
             self.window.stackedWidget.setCurrentIndex(4)
     
+    def pag_tabla_estudiantes(self):
+        estudiantes=session.query(Student).all()
+        tabla=self.window.tabla_estudiantes
+        for fila,estudiante in enumerate(estudiantes):
+            tabla.insertRow(fila)
+            
+            tabla.setItem(fila,0,QTableWidgetItem(str(estudiante.cedula)))
+            tabla.setItem(fila,1,QTableWidgetItem(str(estudiante.primer_nombre)))
+            tabla.setItem(fila,2,QTableWidgetItem(str(estudiante.segundo_nombre if estudiante.segundo_nombre else "")))
+            tabla.setItem(fila,3,QTableWidgetItem(str(estudiante.primer_apellido)))
+            tabla.setItem(fila,4,QTableWidgetItem(estudiante.segundo_apellido))
+            tabla.setItem(fila,5,QTableWidgetItem(str(estudiante.email)))
+            tabla.setItem(fila,6,QTableWidgetItem(str(estudiante.carrera)))
+            tabla.setItem(fila,7,QTableWidgetItem(str(estudiante.telefono)))
+                       
+            widget_contenedor = QWidget()
+            
+            layout_botones = QHBoxLayout(widget_contenedor)
+            
+            layout_botones.setContentsMargins(5, 2, 5, 2) 
+            layout_botones.setSpacing(10) 
+
+            boton_ver=QPushButton("Ver")
+            btn_editar = QPushButton("Editar")
+            btn_borrar = QPushButton("Borrar")
+
+            btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
+            btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
+            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+
+            layout_botones.addWidget(boton_ver)
+            layout_botones.addWidget(btn_editar)
+            layout_botones.addWidget(btn_borrar)
+
+            # 6. Insertar el contenedor en la celda
+            tabla.setCellWidget(fila, 8, widget_contenedor)
+    
+    def open_newstudent(self):
+        from iniciar_sesion.nuevo_estudiante import NewStudent
+        self.newstudent_window=NewStudent()
+        self.newstudent_window.show()
+
     def logout(self):
         sesion_mac=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none()
         if sesion_mac:

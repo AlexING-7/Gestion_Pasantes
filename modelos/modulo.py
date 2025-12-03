@@ -34,9 +34,7 @@ class User(BaseModel):
     
 class TSession(BaseModel):
     __tablename__="sessions"
-    
-    
-    
+       
     user_id:Mapped[int]=mapped_column(ForeignKey("users.id"))
     mac_adresss: Mapped[str]=mapped_column(String(25))
     data_session= Column(LONGTEXT)
@@ -58,8 +56,8 @@ class Student(BaseModel):
     email: Mapped[str]=mapped_column(String(100), unique=True)
     carrera: Mapped[str]=mapped_column(String(100))
     semestre: Mapped[int]
-    telefono: Mapped[str]=mapped_column(String(7))
-    direccion: Mapped[str]
+    telefono: Mapped[str]=mapped_column(String(11))
+    direccion: Mapped[str]=mapped_column(String(255))
     
     def __repr__(self) -> str:
         return f"Student {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
@@ -68,15 +66,18 @@ class Enterprise(BaseModel):
     __tablename__="enterprises"
     
     rif:Mapped[int]=mapped_column(unique=True)
-    razon_social: Mapped[str]
-    direccion: Mapped[str]
+    razon_social: Mapped[str]=mapped_column(String(50))
+    direccion: Mapped[str]=mapped_column(String(255))
     telefono: Mapped[str]=mapped_column(String(7))
-    rubro: Mapped[str]
+    rubro: Mapped[str]=mapped_column(String(20))
     
     tutores: Mapped[List["Tutor_Empresarial"]] = relationship()
+
+    def __repr__(self) -> str:
+        return f"Enterprise {self.razon_social} RIF:{self.rif}"
     
     
-class Turtor_Academico:
+class Tutor_Academico(BaseModel):
     __tablename__="tutores_academicos"
     
     primer_nombre: Mapped[str]=mapped_column(String(20))
@@ -85,9 +86,12 @@ class Turtor_Academico:
     segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
     cedula:Mapped[int]=mapped_column(unique=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
-    especialidad= Mapped[str]
+    especialidad: Mapped[str]=mapped_column(String(20))
 
-class Tutor_Empresarial:
+    def __repr__(self) -> str:
+        return f"Tutor Academico {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
+
+class Tutor_Empresarial(BaseModel):
     __tablename__="tutores_empresariales"
     
     id_empresa:Mapped[int]=mapped_column(ForeignKey("enterprises.id"))
@@ -98,11 +102,12 @@ class Tutor_Empresarial:
     cedula:Mapped[int]=mapped_column(unique=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
     telefono: Mapped[str]=mapped_column(String(7))
-    cargo: Mapped[str]
+    cargo: Mapped[str]=mapped_column(String(20))
     
     empresa: Mapped["Enterprise"] = relationship(back_populates="tutores")
     
-    
+    def __repr__(self) -> str:
+        return f"Tutores Empresariales {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
 
 class Pasantia:
     __tablename__="pasantias"
