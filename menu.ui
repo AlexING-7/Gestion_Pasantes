@@ -1159,6 +1159,9 @@ font: 800 16pt &quot;Segoe UI&quot;;</string>
         color: white;
     }</string>
                   </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+                  </property>
                   <property name="showGrid">
                    <bool>true</bool>
                   </property>
