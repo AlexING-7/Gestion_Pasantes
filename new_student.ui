@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>533</width>
+    <width>705</width>
     <height>753</height>
    </rect>
   </property>
@@ -416,7 +416,7 @@ border-radius: 6px;
                  <bool>false</bool>
                 </property>
                 <property name="placeholderText">
-                 <string>Ingrese Télefono</string>
+                 <string>Ingrese Carrera</string>
                 </property>
                </widget>
               </item>
@@ -452,7 +452,7 @@ border-radius: 6px;
                  <bool>false</bool>
                 </property>
                 <property name="placeholderText">
-                 <string>Ingrese Télefono</string>
+                 <string>Ingrese Semestre</string>
                 </property>
                </widget>
               </item>
@@ -460,6 +460,9 @@ border-radius: 6px;
             </item>
             <item>
              <widget class="QPushButton" name="RegistrarButton">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="styleSheet">
                <string notr="true">margin-left:20px;
 margin-right:20px;

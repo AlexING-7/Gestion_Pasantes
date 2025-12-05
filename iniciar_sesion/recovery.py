@@ -8,7 +8,7 @@ from PySide6.QtWidgets import QWidget, QLabel, QMessageBox
 # from PySide6.QtUiTools import QUiLoader
 import modelos.modulo as db
 # from getmac import get_mac_address as gma
-from plantilla_ui import cargar_ui
+from iniciar_sesion.plantilla_ui import cargar_ui
 import smtplib
 import random
 import string

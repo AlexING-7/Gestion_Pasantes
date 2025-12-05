@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QFile, QIODevice
 from PySide6.QtUiTools import QUiLoader
 
-def cargar_ui(UI,widget):
+def cargar_ui(UI,widget=None):
     try:
         ui_file_path = os.path.join(".", UI)
         

@@ -56,7 +56,7 @@ class Student(BaseModel):
     email: Mapped[str]=mapped_column(String(100), unique=True)
     carrera: Mapped[str]=mapped_column(String(100))
     semestre: Mapped[int]
-    telefono: Mapped[str]=mapped_column(String(11))
+    telefono: Mapped[str]=mapped_column(String(11))#unique
     direccion: Mapped[str]=mapped_column(String(255))
     
     def __repr__(self) -> str:
@@ -68,7 +68,7 @@ class Enterprise(BaseModel):
     rif:Mapped[int]=mapped_column(unique=True)
     razon_social: Mapped[str]=mapped_column(String(50))
     direccion: Mapped[str]=mapped_column(String(255))
-    telefono: Mapped[str]=mapped_column(String(7))
+    telefono: Mapped[str]=mapped_column(String(11))#unique
     rubro: Mapped[str]=mapped_column(String(20))
     
     tutores: Mapped[List["Tutor_Empresarial"]] = relationship()

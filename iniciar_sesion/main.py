@@ -87,6 +87,7 @@ class MainWindow(QMainWindow):
     def pag_tabla_estudiantes(self):
         estudiantes=session.query(Student).all()
         tabla=self.window.tabla_estudiantes
+        tabla.setRowCount(0)
         for fila,estudiante in enumerate(estudiantes):
             tabla.insertRow(fila)
             
@@ -120,11 +121,15 @@ class MainWindow(QMainWindow):
 
             # 6. Insertar el contenedor en la celda
             tabla.setCellWidget(fila, 8, widget_contenedor)
+        # Esto elimina todas las filas, pero DEJA los títulos de las columnas intactos.
+        
     
     def open_newstudent(self):
         from iniciar_sesion.nuevo_estudiante import NewStudent
         self.newstudent_window=NewStudent()
-        self.newstudent_window.show()
+        self.newstudent_window.exec()
+        self.pag_tabla_estudiantes()
+        
 
     def logout(self):
         sesion_mac=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none()
@@ -132,7 +137,7 @@ class MainWindow(QMainWindow):
             session.delete(sesion_mac)
             session.commit()
         self.close()
-        from login import Login
+        from iniciar_sesion.login import Login
         self.login = Login()
         self.login.show()
 
