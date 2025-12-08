@@ -1272,7 +1272,7 @@ font: 800 16pt &quot;Segoe UI&quot;;</string>
                   <rect>
                    <x>10</x>
                    <y>10</y>
-                   <width>121</width>
+                   <width>111</width>
                    <height>41</height>
                   </rect>
                  </property>
@@ -1287,12 +1287,13 @@ background-color: rgb(0, 51, 102);
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset theme="QIcon::ThemeIcon::MediaSeekBackward"/>
+                  <iconset>
+                   <normaloff>../resources/images/back-svgrepo-com.svg</normaloff>../resources/images/back-svgrepo-com.svg</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>25</width>
-                   <height>25</height>
+                   <width>35</width>
+                   <height>35</height>
                   </size>
                  </property>
                 </widget>
@@ -1309,6 +1310,206 @@ background-color: rgb(0, 51, 102);
                 <property name="frameShadow">
                  <enum>QFrame::Shadow::Raised</enum>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_15">
+                 <item>
+                  <widget class="QFrame" name="frame_10">
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item>
+                     <widget class="QLabel" name="label_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>20</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Detalles Del Pasante</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_2">
+                      <property name="orientation">
+                       <enum>Qt::Orientation::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>401</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton">
+                      <property name="styleSheet">
+                       <string notr="true">background-color: #003366;
+            color: white;</string>
+                      </property>
+                      <property name="text">
+                       <string>Exportar Datos</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_11">
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_14">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_6">
+                      <item>
+                       <widget class="QLabel" name="label_4">
+                        <property name="font">
+                         <font>
+                          <pointsize>22</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Alexander Jose</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_3">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_5">
+                      <item>
+                       <widget class="QLabel" name="label_8">
+                        <property name="font">
+                         <font>
+                          <pointsize>22</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Rodríguez Martinez</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_4">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTabWidget" name="detallesTab">
+                   <property name="styleSheet">
+                    <string notr="true">QLabel{
+	font: 700 12pt &quot;Times New Roman&quot;;
+}
+</string>
+                   </property>
+                   <property name="tabPosition">
+                    <enum>QTabWidget::TabPosition::North</enum>
+                   </property>
+                   <property name="currentIndex">
+                    <number>0</number>
+                   </property>
+                   <widget class="QWidget" name="Informacion">
+                    <attribute name="title">
+                     <string>Información Personal</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout_17">
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_8">
+                       <item>
+                        <widget class="QLabel" name="label_9">
+                         <property name="text">
+                          <string>Cedula</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="lineEdit">
+                         <property name="enabled">
+                          <bool>false</bool>
+                         </property>
+                         <property name="text">
+                          <string>30.409.477</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_10">
+                       <property name="text">
+                        <string>Fecha de Nacimiento</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_11">
+                       <property name="text">
+                        <string>Teléfono</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_12">
+                       <property name="text">
+                        <string>Dirección</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="educacion">
+                    <attribute name="title">
+                     <string>Educación</string>
+                    </attribute>
+                   </widget>
+                   <widget class="QWidget" name="tab">
+                    <attribute name="title">
+                     <string>Pasantía</string>
+                    </attribute>
+                   </widget>
+                   <widget class="QWidget" name="tab_2">
+                    <attribute name="title">
+                     <string>Notas</string>
+                    </attribute>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
