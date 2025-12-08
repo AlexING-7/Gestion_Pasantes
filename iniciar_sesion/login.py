@@ -1,26 +1,21 @@
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-import modelos.modulo as db
+from modelos.modulo import User,TSession,session
 import os
 import time
 from PySide6.QtWidgets import (QApplication, QLabel,QMainWindow,QLineEdit,QPushButton,QMessageBox,QFileDialog)
 from PySide6.QtGui import QFont, QPixmap
 from getmac import get_mac_address as gma
-from iniciar_sesion.plantilla_ui import cargar_ui
+from herramientas.plantilla_ui import cargar_ui
 
-
-
-User=db.User
-TSession=db.TSession
-session=db.session
 
 class Login(QMainWindow):
     
     def __init__(self):
         super(Login,self).__init__()
         self.logged=False
-        self.window=cargar_ui("login.ui",self)
+        self.window=cargar_ui("UI/login.ui",self)
         self.conectar_eventos()
         
 
@@ -80,7 +75,7 @@ class Login(QMainWindow):
                                 QMessageBox.StandardButton.Close)
         
     def open_main_window(self):
-        from iniciar_sesion.main import MainWindow
+        from admin.main import MainWindow
         self.main_window=MainWindow()
         self.main_window.show()
         

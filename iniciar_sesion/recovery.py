@@ -6,19 +6,16 @@ import os
 from PySide6.QtWidgets import QWidget, QLabel, QMessageBox
 # from PySide6.QtCore import QFile, QIODevice
 # from PySide6.QtUiTools import QUiLoader
-import modelos.modulo as db
+from modelos.modulo import User,TSession,session
+
 # from getmac import get_mac_address as gma
-from iniciar_sesion.plantilla_ui import cargar_ui
+from herramientas.plantilla_ui import cargar_ui
 import smtplib
 import random
 import string
 import hashlib
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
-
-User=db.User
-TSession=db.TSession
-session=db.session
 
 class RecoveryWindow:
     
@@ -29,7 +26,7 @@ class RecoveryWindow:
                                 port=587,
                                 email=os.getenv('SMTP_EMAIL'),
                                 password=os.getenv('SMTP_PASSWORD'))
-        self.window=cargar_ui("recovery.ui")
+        self.window=cargar_ui("UI/recovery.ui")
         self.conectar_eventos()
     
     def show(self):

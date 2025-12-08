@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QWidget, QLabel, QMessageBox,QMainWindow
 # from PySide6.QtUiTools import QUiLoader
 from modelos.modulo import Student,session
 # from getmac import get_mac_address as gma
-from iniciar_sesion.plantilla_ui import cargar_ui
+from herramientas.plantilla_ui import cargar_ui
 
 from dotenv import load_dotenv
 

@@ -110,11 +110,14 @@ padding:0px 0px;</string>
            </item>
            <item>
             <widget class="QLabel" name="label_3">
+             <property name="layoutDirection">
+              <enum>Qt::LayoutDirection::LeftToRight</enum>
+             </property>
              <property name="text">
-              <string/>
+              <string notr="true"/>
              </property>
              <property name="pixmap">
-              <pixmap>emblemencryptedunlocked_93483.png</pixmap>
+              <pixmap>../resources/images/emblemencryptedunlocked_93483.png</pixmap>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -215,7 +218,7 @@ background-color: transparent;</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>sendmail.png</normaloff>sendmail.png</iconset>
+                  <normaloff>../resources/images/sendmail.png</normaloff>../resources/images/sendmail.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>

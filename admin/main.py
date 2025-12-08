@@ -8,15 +8,11 @@ from PySide6.QtCore import QFile, QIODevice,QUrl,Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
-import modelos.modulo as db
+from modelos.modulo import User,TSession,session,Student
 from getmac import get_mac_address as gma
-from iniciar_sesion.plantilla_ui import cargar_ui
+from herramientas.plantilla_ui import cargar_ui
 from dotenv import load_dotenv
 
-User=db.User
-TSession=db.TSession
-Student=db.Student
-session=db.session
 
 class MainWindow(QMainWindow):
     
@@ -24,7 +20,7 @@ class MainWindow(QMainWindow):
         super(MainWindow,self).__init__()
         load_dotenv()
         self.user_authenticated=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none().user
-        self.window=cargar_ui("menu.ui",self)
+        self.window=cargar_ui("UI/menu.ui",self)
         self.conectar_eventos()
         self.web()
         self.pag_tabla_estudiantes()
@@ -70,6 +66,7 @@ class MainWindow(QMainWindow):
         self.window.EstudiantesButton.clicked.connect(self.change_widget)
         self.window.TutoresButton.clicked.connect(self.change_widget)
         self.window.nuevostudentButton.clicked.connect(self.open_newstudent)
+        self.window.regresarButton.clicked.connect(lambda :self.window.StackedEstudiantes.setCurrentIndex(0))
 
     def change_widget(self):
         buttom=self.sender()
@@ -77,12 +74,16 @@ class MainWindow(QMainWindow):
             self.window.stackedWidget.setCurrentIndex(0)
         elif buttom.text().lower()=="usuarios":
             self.window.stackedWidget.setCurrentIndex(1)
+            self.window.StackedEstudiantes.setCurrentIndex(0)
         elif buttom.text().lower()=="estudiantes":
             self.window.stackedWidget.setCurrentIndex(2)
         elif buttom.text().lower()=="tutores":
             self.window.stackedWidget.setCurrentIndex(3)
         elif buttom.text().lower()=="empresas":
-            self.window.stackedWidget.setCurrentIndex(4)
+            self.window.stackedWidget.setCurrentIndex(4)          
+            
+    def ver_estudiantes(self):
+        self.window.StackedEstudiantes.setCurrentIndex(1)
     
     def pag_tabla_estudiantes(self):
         estudiantes=session.query(Student).all()
@@ -108,6 +109,7 @@ class MainWindow(QMainWindow):
             layout_botones.setSpacing(10) 
 
             boton_ver=QPushButton("Ver")
+            boton_ver.clicked.connect(lambda : self.window.StackedEstudiantes.setCurrentIndex(1))
             btn_editar = QPushButton("Editar")
             btn_borrar = QPushButton("Borrar")
 
@@ -125,7 +127,7 @@ class MainWindow(QMainWindow):
         
     
     def open_newstudent(self):
-        from iniciar_sesion.nuevo_estudiante import NewStudent
+        from admin.nuevo_estudiante import NewStudent
         self.newstudent_window=NewStudent()
         self.newstudent_window.exec()
         self.pag_tabla_estudiantes()
