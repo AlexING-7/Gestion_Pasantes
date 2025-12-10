@@ -14,9 +14,10 @@ from dotenv import load_dotenv
 
 class NewStudent:
     
-    def __init__(self):
+    def __init__(self,estudiante=None):
         load_dotenv()
-        self.window=cargar_ui("new_student.ui")
+        self.estudiante=estudiante
+        self.window=cargar_ui("UI/new_student.ui")
         self.conectar_eventos()
     
     def exec(self):
@@ -34,9 +35,9 @@ class NewStudent:
                            cedula=int(self.window.cedula_input.text()),
                            telefono=self.window.telefono_input.text(),
                            email=self.window.email_input.text(),
-                           carrera=self.window.carrera_input.text(),
-                           semestre=int(self.window.semestre_input.text()),
-                           direccion="Barinas")
+                           carrera=self.window.carrera_input.currentText(),
+                           semestre=int(self.window.semestre_input.value()),
+                           direccion=self.window.direccion_input.toPlainText())
         session.add(estudiante)
         session.commit()
         QMessageBox.information(self.window,"Usuario creado",
@@ -44,10 +45,49 @@ class NewStudent:
                                     QMessageBox.StandardButton.Ok,
                                     QMessageBox.StandardButton.Ok)
         self.close()
-    def conectar_eventos(self):
-        self.window.RegistrarButton.clicked.connect(self.registrar)
-
     
+    def actualizar(self):
+        self.estudiante.primer_hombre=self.window.primernombre_input.text()
+        self.estudiante.segundo_nombre=self.window.segundonombre_input.text()
+        self.estudiante.primer_apellido=self.window.primerapellido_input.text()
+        self.estudiante.segundo_apellido=self.window.segundoapellido_input.text()
+        self.estudiante.cedula=int(self.window.cedula_input.text())
+        self.estudiante.telefono=int(self.window.telefono_input.text())
+        self.estudiante.email=self.window.email_input.text()
+        self.estudiante.carrera=self.window.carrera_input.currentText()
+        self.estudiante.semestre=int(self.window.semestre_input.value())
+        self.estudiante.direccion=self.window.direccion_input.toPlainText()
+        session.commit()
+        QMessageBox.information(self.window,"Usuario Actualizado",
+                                    "Se a actualizado satisfactoriamente",
+                                    QMessageBox.StandardButton.Ok,
+                                    QMessageBox.StandardButton.Ok)
+        self.close()
+    
+
+    def conectar_eventos(self):
+        if not self.estudiante:
+            self.window.RegistrarButton.setText("Registrar")
+            self.window.RegistrarButton.clicked.connect(self.registrar)
+        else:
+            self.datos()
+            self.window.RegistrarButton.setText("Actualizar")
+            self.window.RegistrarButton.clicked.connect(self.actualizar)
+
+
+    def datos(self):
+        self.window.label.setText("Editar Datos de Estudiante")
+        self.window.primernombre_input.setText(self.estudiante.primer_nombre)
+        self.window.segundonombre_input.setText(self.estudiante.segundo_nombre)
+        self.window.primerapellido_input.setText(self.estudiante.primer_apellido)
+        self.window.segundoapellido_input.setText(self.estudiante.segundo_apellido)
+        self.window.cedula_input.setText(str(self.estudiante.cedula))
+        self.window.telefono_input.setText(str(self.estudiante.telefono))
+        self.window.email_input.setText(self.estudiante.email)
+        self.window.carrera_input.setCurrentText(self.estudiante.carrera)
+        self.window.semestre_input.setValue(self.estudiante.semestre)
+        self.window.direccion_input.setPlainText(self.estudiante.direccion)
+
     
 
 

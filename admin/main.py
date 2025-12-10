@@ -11,7 +11,9 @@ from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
 from modelos.modulo import User,TSession,session,Student
 from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
+from herramientas.modern_messagebox import ModernMessageBox
 from dotenv import load_dotenv
+from herramientas.docs import reemplazar_texto
 
 
 class MainWindow(QMainWindow):
@@ -109,9 +111,11 @@ class MainWindow(QMainWindow):
             layout_botones.setSpacing(10) 
 
             boton_ver=QPushButton("Ver")
-            boton_ver.clicked.connect(lambda : self.window.StackedEstudiantes.setCurrentIndex(1))
+            boton_ver.clicked.connect(lambda checked,x=estudiante: self.read_student(x))
             btn_editar = QPushButton("Editar")
+            btn_editar.clicked.connect(lambda checked,x=estudiante: self.edit_student(x))
             btn_borrar = QPushButton("Borrar")
+            btn_borrar.clicked.connect(lambda checked,x=estudiante: self.delete_student(x))
 
             btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
             btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
@@ -124,14 +128,51 @@ class MainWindow(QMainWindow):
             # 6. Insertar el contenedor en la celda
             tabla.setCellWidget(fila, 8, widget_contenedor)
         # Esto elimina todas las filas, pero DEJA los títulos de las columnas intactos.
-        
+
+    def read_student(self,estudiante):
+        self.window.nombresLabel.clear()
+        self.window.nombresLabel.setText(estudiante.primer_nombre+" "+estudiante.segundo_nombre)
+        self.window.apellidosLabel.clear()
+        self.window.apellidosLabel.setText(estudiante.primer_apellido+" "+estudiante.segundo_apellido)
+        self.window.cedulaInput.clear()
+        self.window.cedulaInput.setText(str(estudiante.cedula))
+        self.window.telefonoInput.clear()
+        self.window.telefonoInput.setText(str(estudiante.telefono))
+        self.window.direccionInput.setPlainText(str(estudiante.direccion))
+        self.window.StackedEstudiantes.setCurrentIndex(1)
+        self.window.pushButton.clicked.connect(lambda: reemplazar_texto(estudiante))
     
+    def edit_student(self,estudiante):
+        from admin.nuevo_estudiante import NewStudent
+        self.newstudent_window=NewStudent(estudiante)
+        self.newstudent_window.exec()
+        self.pag_tabla_estudiantes()
     def open_newstudent(self):
         from admin.nuevo_estudiante import NewStudent
         self.newstudent_window=NewStudent()
         self.newstudent_window.exec()
         self.pag_tabla_estudiantes()
+
+    def delete_student(self,estudiante):
+        msg = ModernMessageBox(
+                title="Advertencia",
+                text="<h3 style='color: #ff5555'>Eliminar Estudiante</h3>",
+                informative_text="¿Esta seguro de eliminar esta información?",
+                parent=self
+            )
+
+        btn_save, btn_cancel = msg.add_custom_buttons()
+            
+            # Ejecutamos el diálogo (Modal loop)
+        msg.exec()
+
+        # Verificamos qué botón fue presionado
+        clicked = msg.clickedButton()
         
+        if clicked == btn_save:
+            session.delete(estudiante)
+            session.commit()
+            self.pag_tabla_estudiantes()
 
     def logout(self):
         sesion_mac=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none()

@@ -532,7 +532,7 @@ border-radius: 6px;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboBox">
+                 <widget class="QComboBox" name="carrera_input">
                   <property name="placeholderText">
                    <string>Ingrese carrera</string>
                   </property>
@@ -565,7 +565,7 @@ border-radius: 6px;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBox"/>
+                 <widget class="QSpinBox" name="semestre_input"/>
                 </item>
                </layout>
               </item>
@@ -603,7 +603,7 @@ border-radius: 6px;
              </layout>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="plainTextEdit">
+             <widget class="QPlainTextEdit" name="direccion_input">
               <property name="styleSheet">
                <string notr="true">border: 3px solid #003366;
 color:rgb(0, 0, 0);</string>
