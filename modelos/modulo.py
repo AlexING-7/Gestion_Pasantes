@@ -58,8 +58,7 @@ class Student(BaseModel):
     semestre: Mapped[int]
     telefono: Mapped[str]=mapped_column(String(11))#unique
     direccion: Mapped[str] = mapped_column(LONGTEXT)
-    #fecha de nacimiento
-    #genero
+
     
     def __repr__(self) -> str:
         return f"Student {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
