@@ -1,5 +1,35 @@
 <RCC>
-  <qresource>
+  <qresource prefix="../resources">
+    <file>images/regresar.svg</file>
+    <file>images/back2-svgrepo-com.svg</file>
+    <file>images/back-svgrepo-com.svg</file>
+    <file>images/emblemencryptedunlocked_93483.png</file>
+    <file>images/enterprise-svgrepo-com.svg</file>
+    <file>images/log-out-svgrepo-com.svg</file>
+    <file>images/Screenshot 2025-10-11 095433.png</file>
+    <file>images/sendmail.png</file>
+    <file>images/student-cap-svgrepo-com.svg</file>
+    <file>images/upload-img-base.svg</file>
+    <file>images/upload-img-white.svg</file>
+    <file>images/user-home-svgrepo-com.svg</file>
+    <file>images/user-id-svgrepo-com.svg</file>
+    <file>images/user-suit-male-svgrepo-com.svg</file>
+    <file>images/user-svgrepo-com.svg</file>
+    <file>images/user-waiter-female-svgrepo-com.svg</file>
+    <file>images/back2-svgrepo-com.svg</file>
+    <file>images/back-svgrepo-com.svg</file>
+    <file>images/emblemencryptedunlocked_93483.png</file>
+    <file>images/enterprise-svgrepo-com.svg</file>
+    <file>images/log-out-svgrepo-com.svg</file>
+    <file>images/sendmail.png</file>
+    <file>images/student-cap-svgrepo-com.svg</file>
+    <file>images/upload-img-base.svg</file>
+    <file>images/upload-img-white.svg</file>
+    <file>images/user-home-svgrepo-com.svg</file>
+    <file>images/user-id-svgrepo-com.svg</file>
+    <file>images/user-suit-male-svgrepo-com.svg</file>
+    <file>images/user-svgrepo-com.svg</file>
+    <file>images/user-waiter-female-svgrepo-com.svg</file>
     <file>images/enterprise-svgrepo-com.svg</file>
     <file>images/log-out-svgrepo-com.svg</file>
     <file>images/student-cap-svgrepo-com.svg</file>

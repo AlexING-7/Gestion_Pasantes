@@ -6,22 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
-    <height>941</height>
+    <width>565</width>
+    <height>748</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(0, 51, 102);
-</string>
+   <string notr="true">background-color: rgb(0, 51, 102);</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>
@@ -31,16 +24,16 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
-    <number>30</number>
+    <number>20</number>
    </property>
    <property name="topMargin">
-    <number>30</number>
+    <number>20</number>
    </property>
    <property name="rightMargin">
-    <number>30</number>
+    <number>20</number>
    </property>
    <property name="bottomMargin">
-    <number>30</number>
+    <number>20</number>
    </property>
    <property name="spacing">
     <number>0</number>
@@ -76,24 +69,21 @@ QLabel{
        <number>0</number>
       </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>25</number>
       </property>
       <property name="topMargin">
-       <number>0</number>
+       <number>25</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>25</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>25</number>
       </property>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <property name="spacing">
          <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>10</number>
         </property>
         <item>
          <widget class="QLabel" name="label">
@@ -104,7 +94,7 @@ color: #003366;
 </string>
           </property>
           <property name="text">
-           <string>Nuevo Estudiante</string>
+           <string>Nuevo Tutor Empresarial</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -117,13 +107,15 @@ color: #003366;
         <item>
          <widget class="QLabel" name="label_2">
           <property name="styleSheet">
-           <string notr="true">
+           <string notr="true">QLabel{
+	
 	font: 12pt &quot;Segoe UI&quot;;
 	color: rgb(102, 102, 102);
-</string>
+	
+}</string>
           </property>
           <property name="text">
-           <string>Ingrese Datos del estudiante</string>
+           <string>Ingrese Datos del Tutor Empresarial</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -138,21 +130,17 @@ color: #003366;
       <item>
        <widget class="QFrame" name="frame_3">
         <property name="styleSheet">
-         <string notr="true">#frame_3{
+         <string notr="true">QFrame{
 	background-color: transparent;
 }
+
 QLineEdit, QComboBox, QDateEdit, QSpinBox{
     border: 1px solid #ced4da;
     border-radius: 4px;
     padding: 5px 10px;
     background-color: #f8f9fa;
 }
-QComboBox:on {
-	color:#333333;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    background-color: #ffffff;
-}
+
 QLineEdit:focus {
     border: 1px solid #0056b3;
     background-color: #ffffff;
@@ -167,6 +155,7 @@ QLineEdit[state=&quot;valid&quot;] {
  QLineEdit[state=&quot;empty&quot;] {
         border-color: #555; /* Gris */
  }
+
 </string>
         </property>
         <property name="frameShape">
@@ -175,19 +164,7 @@ QLineEdit[state=&quot;valid&quot;] {
         <property name="frameShadow">
          <enum>QFrame::Shadow::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_18">
-         <property name="leftMargin">
-          <number>20</number>
-         </property>
-         <property name="topMargin">
-          <number>10</number>
-         </property>
-         <property name="rightMargin">
-          <number>20</number>
-         </property>
-         <property name="bottomMargin">
-          <number>20</number>
-         </property>
+        <layout class="QVBoxLayout" name="verticalLayout_11">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
@@ -507,7 +484,7 @@ QPushButton:hover {
              <item>
               <widget class="QLabel" name="cedula_label_2">
                <property name="text">
-                <string>Fecha de Nacimiento</string>
+                <string>Fecha de Nacimiento *</string>
                </property>
               </widget>
              </item>
@@ -663,9 +640,9 @@ QPushButton:hover {
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QLabel" name="email_label_5">
+            <widget class="QLabel" name="email_label_4">
              <property name="styleSheet">
               <string notr="true">QLabel{
 	color: rgb(0, 51, 102);
@@ -674,12 +651,12 @@ QPushButton:hover {
 }</string>
              </property>
              <property name="text">
-              <string>Dirección</string>
+              <string>Información Empresarial</string>
              </property>
             </widget>
            </item>
            <item>
-            <spacer name="horizontalSpacer_4">
+            <spacer name="horizontalSpacer_2">
              <property name="orientation">
               <enum>Qt::Orientation::Horizontal</enum>
              </property>
@@ -694,204 +671,80 @@ QPushButton:hover {
           </layout>
          </item>
          <item>
-          <widget class="QPlainTextEdit" name="direccion_input">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>160000</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPlainTextEdit{
-	background-color: transparent;
-	border:1px solid #ced4da;
-}
-</string>
-           </property>
-           <property name="backgroundVisible">
-            <bool>false</bool>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,1">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="QLabel" name="carrera_label_4">
+               <property name="text">
+                <string>Empresa *</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="empresa_input">
+               <property name="placeholderText">
+                <string>Ingrese Empresa</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QLabel" name="especialidad_label">
+               <property name="text">
+                <string>Cargo *</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2">
+               <item>
+                <widget class="QLineEdit" name="cargo_input">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="echoMode">
+                  <enum>QLineEdit::EchoMode::Normal</enum>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Ingrese Cargo</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox">
-           <property name="styleSheet">
-            <string notr="true">QCheckBox { spacing: 15px; font-size: 15px; }
-
-QCheckBox::indicator {
- width: 12px; height: 12px;
- border: 2px solid #555; border-radius: 6px;
- background: #2b2b2b;
-}
-
-QCheckBox::indicator:checked {
-                background-color: #003366; border-color: #003366;
-            }
-</string>
-           </property>
-           <property name="text">
-            <string>Datos para Pasantias</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-           <property name="tristate">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QFrame" name="frame_pasantia">
-           <property name="styleSheet">
-            <string notr="true">QComboBox:on {
-	color:#333333;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    background-color: #ffffff;
-}</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::Shape::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Shadow::Raised</enum>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_17">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>8</number>
-            </property>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_7">
-              <item>
-               <widget class="QLabel" name="email_label_4">
-                <property name="styleSheet">
-                 <string notr="true">QLabel{
-	color: rgb(0, 51, 102);
-	background-color: transparent;
-	font: 18pt &quot;Segoe UI&quot;;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Información Academica</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_10">
-                <item>
-                 <widget class="QLabel" name="carrera_label">
-                  <property name="text">
-                   <string>Carrera *</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="carrera_input">
-                  <property name="placeholderText">
-                   <string>Ingrese carrera</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Ingeniería Informática</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Arquitectura</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>TSU Civil</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_11">
-                <item>
-                 <widget class="QLabel" name="semestre_label">
-                  <property name="text">
-                   <string>Semestre *</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSpinBox" name="semestre_input"/>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_16">
-                <item>
-                 <widget class="QLabel" name="primerapellido_label_2">
-                  <property name="text">
-                   <string>Lapso Academico*</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="lapso_input">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="echoMode">
-                   <enum>QLineEdit::EchoMode::Normal</enum>
-                  </property>
-                  <property name="readOnly">
-                   <bool>false</bool>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Ingrese Lapso Academico</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QPushButton" name="RegistrarButton">

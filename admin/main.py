@@ -3,17 +3,20 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import os
-from PySide6.QtWidgets import QWidget, QPushButton, QMessageBox,QMainWindow,QTableWidgetItem,QHBoxLayout
-from PySide6.QtCore import QFile, QIODevice,QUrl,Qt
-from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWebEngineWidgets import QWebEngineView
+from PySide6.QtWidgets import QMessageBox,QMainWindow
+from PySide6.QtCore import QUrl,Qt
 from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
-from modelos.modulo import User,TSession,session,Student
+from modelos.modulo import User,TSession,session
+
 from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
-from herramientas.modern_messagebox import ModernMessageBox
+
 from dotenv import load_dotenv
-from herramientas.docs import reemplazar_texto
+from admin.main_estudiantes import StackStudent
+from admin.main_empresa import StackEnterprise
+from admin.main_tutor_academico import StackTutorA
+from admin.main_tutor_empresarial import StackTutorE
+from admin.main_pasante import StackPasante
 
 
 class MainWindow(QMainWindow):
@@ -23,10 +26,30 @@ class MainWindow(QMainWindow):
         load_dotenv()
         self.user_authenticated=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none().user
         self.window=cargar_ui("UI/menu.ui",self)
+        self.setWindowTitle("menu")
+        self.resize(1120, 680)
         self.conectar_eventos()
-        self.web()
-        self.pag_tabla_estudiantes()
+        #self.web()
+        
+        
+
+        
     
+    def eventFilter(self, source, event):
+        if self.window.stackedWidget.currentIndex()==2:
+            self.student.eventFilter(source,event)
+        elif self.window.stackedWidget.currentIndex()==3:
+            self.enterprise.eventFilter(source,event)
+        elif self.window.stackedWidget.currentIndex()==4:
+            self.tutorA.eventFilter(source,event)
+        elif self.window.stackedWidget.currentIndex()==5:
+            self.tutorE.eventFilter(source,event)
+        elif self.window.stackedWidget.currentIndex()==6:
+            self.pasante.eventFilter(source,event)
+            
+        return super().eventFilter(source, event)
+
+       
     def web(self):
         
         self.window.web_view.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
@@ -59,6 +82,7 @@ class MainWindow(QMainWindow):
     
     def conectar_eventos(self):
         #realizar una clase de usuario autenticado
+        self.window.stackedWidget.setCurrentIndex(0)
         self.window.cerrar_sesionButton.clicked.connect(self.logout)
         self.window.usernameLabel.setText(self.user_authenticated.username)
         self.window.rolLabel.setText(self.user_authenticated.rol)
@@ -67,113 +91,35 @@ class MainWindow(QMainWindow):
         self.window.EmpresasButton.clicked.connect(self.change_widget)
         self.window.EstudiantesButton.clicked.connect(self.change_widget)
         self.window.TutoresButton.clicked.connect(self.change_widget)
-        self.window.nuevostudentButton.clicked.connect(self.open_newstudent)
-        self.window.regresarButton.clicked.connect(lambda :self.window.StackedEstudiantes.setCurrentIndex(0))
-
+        self.window.TutoresEButton.clicked.connect(self.change_widget)
+        self.window.PasantiasButton.clicked.connect(self.change_widget)
+        
+        
+        
     def change_widget(self):
         buttom=self.sender()
         if buttom.text().lower()=="inicio":
             self.window.stackedWidget.setCurrentIndex(0)
         elif buttom.text().lower()=="usuarios":
             self.window.stackedWidget.setCurrentIndex(1)
-            self.window.StackedEstudiantes.setCurrentIndex(0)
         elif buttom.text().lower()=="estudiantes":
-            self.window.stackedWidget.setCurrentIndex(2)
-        elif buttom.text().lower()=="tutores":
-            self.window.stackedWidget.setCurrentIndex(3)
+            self.student=StackStudent(self)
+            self.window.stackedWidget.setCurrentIndex(2)          
         elif buttom.text().lower()=="empresas":
-            self.window.stackedWidget.setCurrentIndex(4)          
-            
-    def ver_estudiantes(self):
-        self.window.StackedEstudiantes.setCurrentIndex(1)
-    
-    def pag_tabla_estudiantes(self):
-        estudiantes=session.query(Student).all()
-        tabla=self.window.tabla_estudiantes
-        tabla.setRowCount(0)
-        for fila,estudiante in enumerate(estudiantes):
-            tabla.insertRow(fila)
-            
-            tabla.setItem(fila,0,QTableWidgetItem(str(estudiante.cedula)))
-            tabla.setItem(fila,1,QTableWidgetItem(str(estudiante.primer_nombre)))
-            tabla.setItem(fila,2,QTableWidgetItem(str(estudiante.segundo_nombre if estudiante.segundo_nombre else "")))
-            tabla.setItem(fila,3,QTableWidgetItem(str(estudiante.primer_apellido)))
-            tabla.setItem(fila,4,QTableWidgetItem(estudiante.segundo_apellido))
-            tabla.setItem(fila,5,QTableWidgetItem(str(estudiante.email)))
-            tabla.setItem(fila,6,QTableWidgetItem(str(estudiante.carrera)))
-            tabla.setItem(fila,7,QTableWidgetItem(str(estudiante.telefono)))
-                       
-            widget_contenedor = QWidget()
-            
-            layout_botones = QHBoxLayout(widget_contenedor)
-            
-            layout_botones.setContentsMargins(5, 2, 5, 2) 
-            layout_botones.setSpacing(10) 
-
-            boton_ver=QPushButton("Ver")
-            boton_ver.clicked.connect(lambda checked,x=estudiante: self.read_student(x))
-            btn_editar = QPushButton("Editar")
-            btn_editar.clicked.connect(lambda checked,x=estudiante: self.edit_student(x))
-            btn_borrar = QPushButton("Borrar")
-            btn_borrar.clicked.connect(lambda checked,x=estudiante: self.delete_student(x))
-
-            btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
-            btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
-            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
-
-            layout_botones.addWidget(boton_ver)
-            layout_botones.addWidget(btn_editar)
-            layout_botones.addWidget(btn_borrar)
-
-            # 6. Insertar el contenedor en la celda
-            tabla.setCellWidget(fila, 8, widget_contenedor)
-        # Esto elimina todas las filas, pero DEJA los títulos de las columnas intactos.
-
-    def read_student(self,estudiante):
-        self.window.nombresLabel.clear()
-        self.window.nombresLabel.setText(estudiante.primer_nombre+" "+estudiante.segundo_nombre)
-        self.window.apellidosLabel.clear()
-        self.window.apellidosLabel.setText(estudiante.primer_apellido+" "+estudiante.segundo_apellido)
-        self.window.cedulaInput.clear()
-        self.window.cedulaInput.setText(str(estudiante.cedula))
-        self.window.telefonoInput.clear()
-        self.window.telefonoInput.setText(str(estudiante.telefono))
-        self.window.direccionInput.setPlainText(str(estudiante.direccion))
-        self.window.StackedEstudiantes.setCurrentIndex(1)
-        self.window.pushButton.clicked.connect(lambda: reemplazar_texto(estudiante))
-    
-    def edit_student(self,estudiante):
-        from admin.nuevo_estudiante import NewStudent
-        self.newstudent_window=NewStudent(estudiante)
-        self.newstudent_window.exec()
-        self.pag_tabla_estudiantes()
-    def open_newstudent(self):
-        from admin.nuevo_estudiante import NewStudent
-        self.newstudent_window=NewStudent()
-        self.newstudent_window.exec()
-        self.pag_tabla_estudiantes()
-
-    def delete_student(self,estudiante):
-        msg = ModernMessageBox(
-                title="Advertencia",
-                text="<h3 style='color: #ff5555'>Eliminar Estudiante</h3>",
-                informative_text="¿Esta seguro de eliminar esta información?",
-                parent=self
-            )
-
-        btn_save, btn_cancel = msg.add_custom_buttons()
-            
-            # Ejecutamos el diálogo (Modal loop)
-        msg.exec()
-
-        # Verificamos qué botón fue presionado
-        clicked = msg.clickedButton()
-        
-        if clicked == btn_save:
-            session.delete(estudiante)
-            session.commit()
-            self.pag_tabla_estudiantes()
-
+            self.enterprise=StackEnterprise(self)
+            self.window.stackedWidget.setCurrentIndex(3)
+        elif buttom.text().lower()=="tutores acad.":
+            self.tutorA=StackTutorA(self)
+            self.window.stackedWidget.setCurrentIndex(4)        
+        elif buttom.text().lower()=="tutores empr.":
+            self.tutorE=StackTutorE(self)
+            self.window.stackedWidget.setCurrentIndex(5)
+        elif buttom.text().lower()=="pasantias":
+            self.pasante=StackPasante(self)
+            self.window.stackedWidget.setCurrentIndex(6)
+        elif buttom.text().lower()=="configuración":
+            self.window.stackedWidget.setCurrentIndex(7)          
+                     
     def logout(self):
         sesion_mac=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none()
         if sesion_mac:

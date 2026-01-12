@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>565</width>
+    <height>746</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 51, 102);</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame_2">
+     <property name="styleSheet">
+      <string notr="true">
+QWidget {
+    background-color: rgba(255, 255, 255, 0.95);
+    font-family: &quot;Segoe UI&quot;, sans-serif;
+    color: #333333;
+}
+
+QFrame{
+border-radius: 12px;
+width: 100%;          
+}
+QLabel{
+	color: rgb(0, 51, 102);
+	background-color: transparent;
+	font: 14pt &quot;Segoe UI&quot;;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_13" stretch="14">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="frame_3">
+        <property name="styleSheet">
+         <string notr="true">#frame_3{
+	background-color: transparent;
+}
+QLineEdit, QComboBox, QDateEdit, QSpinBox{
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background-color: #f8f9fa;
+}
+QComboBox:on {
+	color:#333333;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: #ffffff;
+}
+QLineEdit:focus {
+    border: 1px solid #0056b3;
+    background-color: #ffffff;
+}
+
+QLineEdit[state=&quot;valid&quot;] {
+                border-color: #2ecc71; /* Verde */
+  }
+ QLineEdit[state=&quot;invalid&quot;] {
+                border-color: #e74c3c; /* Rojo */
+  }
+ QLineEdit[state=&quot;empty&quot;] {
+        border-color: #555; /* Gris */
+ }
+
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>35</number>
+         </property>
+         <property name="topMargin">
+          <number>25</number>
+         </property>
+         <property name="rightMargin">
+          <number>35</number>
+         </property>
+         <property name="bottomMargin">
+          <number>25</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QLabel" name="email_label_2">
+             <property name="styleSheet">
+              <string notr="true">QLabel{
+	color: rgb(0, 51, 102);
+	background-color: transparent;
+	font: 18pt &quot;Segoe UI&quot;;
+}</string>
+             </property>
+             <property name="text">
+              <string>Datos de Pasantias</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_14">
+             <item>
+              <widget class="QLabel" name="carrera_label_2">
+               <property name="text">
+                <string>Estudiante *</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="estudiante_input">
+               <property name="placeholderText">
+                <string>Ingrese Estudiante</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <item>
+              <widget class="QLabel" name="carrera_label_3">
+               <property name="text">
+                <string>Empresa</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="empresa_input">
+               <property name="placeholderText">
+                <string>Ingrese Empresa</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_16">
+             <item>
+              <widget class="QLabel" name="carrera_label_5">
+               <property name="text">
+                <string>Tutor Academico</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="tutorA_input">
+               <property name="placeholderText">
+                <string>Ingrese Tutor Academico</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_17">
+             <item>
+              <widget class="QLabel" name="carrera_label_6">
+               <property name="text">
+                <string>Tutor Empresarial</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="tutorE_input">
+               <property name="placeholderText">
+                <string>Ingrese Tutor Empresarial</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1">
+             <item>
+              <widget class="QLabel" name="primernombre_label">
+               <property name="text">
+                <string>Lapso Academico *</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lapso_input">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Normal</enum>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Ingrese Lapso</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_18" stretch="1,1">
+             <item>
+              <widget class="QLabel" name="carrera_label_7">
+               <property name="text">
+                <string>Estado</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="estado_input">
+               <property name="placeholderText">
+                <string/>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Solicitada</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Aprobada</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>En Curso</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Finalizada</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Cancelada</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="QLabel" name="carrera_label">
+               <property name="text">
+                <string>Carrera *</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="carrera_input">
+               <property name="placeholderText">
+                <string>Ingrese carrera</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Ingeniería Informática</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Arquitectura</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>TSU Civil</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <widget class="QLabel" name="semestre_label">
+               <property name="text">
+                <string>Semestre *</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="semestre_input"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_19" stretch="3,4">
+             <item>
+              <widget class="QLabel" name="cedula_label_3">
+               <property name="text">
+                <string>Fecha de Inicio</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="inicio_input">
+               <property name="styleSheet">
+                <string notr="true">
+            QDateEdit {
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                padding:5px 10px;
+                color: #333333;
+                font-size: 13px;
+                background-color: white;
+            }
+            QDateEdit::drop-down {
+                subcontrol-origin: padding;
+                subcontrol-position: top right;
+                width: 30px;
+                border-left: 1px solid #f8f9fa;
+            }
+            /* Estilo para el calendario desplegable */
+            QCalendarWidget QWidget {
+                background-color: #003366;
+                color: white;
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+                background-color: white;
+                color: #003366;
+                selection-background-color: #003366;
+                selection-color: white;
+            }
+</string>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="minimumDate">
+                <date>
+                 <year>1940</year>
+                 <month>1</month>
+                 <day>1</day>
+                </date>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_12" stretch="3,4">
+             <item>
+              <widget class="QLabel" name="cedula_label_2">
+               <property name="text">
+                <string>Fecha Final</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="final_input">
+               <property name="styleSheet">
+                <string notr="true">
+            QDateEdit {
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                padding:5px 10px;
+                color: #333333;
+                font-size: 13px;
+                background-color: white;
+            }
+            QDateEdit::drop-down {
+                subcontrol-origin: padding;
+                subcontrol-position: top right;
+                width: 30px;
+                border-left: 1px solid #f8f9fa;
+            }
+            /* Estilo para el calendario desplegable */
+            QCalendarWidget QWidget {
+                background-color: #003366;
+                color: white;
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+                background-color: white;
+                color: #003366;
+                selection-background-color: #003366;
+                selection-color: white;
+            }
+</string>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="minimumDate">
+                <date>
+                 <year>1940</year>
+                 <month>1</month>
+                 <day>1</day>
+                </date>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QLabel" name="primernombre_label_3">
+             <property name="text">
+              <string>Departamento</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="departamento_input">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::EchoMode::Normal</enum>
+             </property>
+             <property name="readOnly">
+              <bool>false</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Ingrese Departamento</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="primernombre_label_2">
+             <property name="text">
+              <string>Trabajo Asignado</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPlainTextEdit" name="trabajo_input">
+             <property name="styleSheet">
+              <string notr="true">QPlainTextEdit{
+	background-color: transparent;
+	border:1px solid #ced4da;
+}
+</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLabel" name="primernombre_label_4">
+             <property name="text">
+              <string>Titulo del Informe</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="titulo_input">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::EchoMode::Normal</enum>
+             </property>
+             <property name="readOnly">
+              <bool>false</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Ingrese Titulo del Informe</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>452</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="RegistrarButton">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">
+QPushButton{
+	background-color: rgb(0, 51, 102);
+	border: none;
+    border-radius: 6px;
+	font: 400 14pt &quot;Segoe UI&quot;;
+	color: rgb(255, 255, 255);
+	margin-left:20px;
+	margin-right:20px;
+	padding: 10px;
+ }
+
+
+QPushButton:hover {
+    background-color: #004a99;
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Registrar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources/resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -117,7 +117,7 @@ padding:0px 0px;</string>
               <string notr="true"/>
              </property>
              <property name="pixmap">
-              <pixmap>../resources/images/emblemencryptedunlocked_93483.png</pixmap>
+              <pixmap>resources/images/emblemencryptedunlocked_93483.png</pixmap>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -218,7 +218,7 @@ background-color: transparent;</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>../resources/images/sendmail.png</normaloff>../resources/images/sendmail.png</iconset>
+                  <normaloff>resources/images/sendmail.png</normaloff>resources/images/sendmail.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -797,6 +797,8 @@ padding-bottom: 10px;</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

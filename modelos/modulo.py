@@ -1,9 +1,10 @@
 
 
-from sqlalchemy import (create_engine,ForeignKey,Column,Integer,String)
+from sqlalchemy import (create_engine,ForeignKey,Column,Integer,String,Date,Float,DateTime,Boolean)
 from sqlalchemy.orm import Mapped, mapped_column,declarative_base,relationship,sessionmaker
 from sqlalchemy.dialects.mysql import LONGTEXT
 from typing import Optional,List
+from datetime import date, datetime
 from sqlalchemy_utils import database_exists,create_database
 mysql_db_url="mysql+pymysql://root@127.0.0.1/gestion_pasantes"
 
@@ -17,7 +18,7 @@ class BaseModel(Base):
     __abstract__=True
     __allow_unmapped__=True
     
-    id=Column(Integer,primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, sort_order=-1)
     
 class User(BaseModel):
     __tablename__="users"
@@ -52,13 +53,15 @@ class Student(BaseModel):
     segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
     primer_apellido: Mapped[str]=mapped_column(String(20))
     segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
+    sexo: Mapped[Optional[str]] = mapped_column(String(3))
     cedula:Mapped[int]=mapped_column(unique=True)
+    telefono: Mapped[str]=mapped_column(String(11),nullable=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
-    carrera: Mapped[str]=mapped_column(String(100))
-    semestre: Mapped[int]
-    telefono: Mapped[str]=mapped_column(String(11))#unique
-    direccion: Mapped[str] = mapped_column(LONGTEXT)
+    foto: Mapped[str]=mapped_column(String(255),nullable=True)  
+    direccion: Mapped[str] = mapped_column(LONGTEXT,nullable=True)
+    fecha_de_nacimiento: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
 
+    pasantias: Mapped[List["Pasantia"]] = relationship()
     
     def __repr__(self) -> str:
         return f"Student {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
@@ -68,11 +71,13 @@ class Enterprise(BaseModel):
     
     rif:Mapped[int]=mapped_column(unique=True)
     razon_social: Mapped[str]=mapped_column(String(50))
-    direccion: Mapped[str]=mapped_column(String(255))
-    telefono: Mapped[str]=mapped_column(String(11))#unique
-    rubro: Mapped[str]=mapped_column(String(20))
+    direccion: Mapped[str]=mapped_column(String(255),default="Edo Barinas")
+    email: Mapped[str]=mapped_column(String(100), unique=True)
+    telefono: Mapped[str]=mapped_column(String(11), nullable=True)
+    rubro: Mapped[str]=mapped_column (String(20),nullable=True)
     
     tutores: Mapped[List["Tutor_Empresarial"]] = relationship()
+    pasantias: Mapped[List["Pasantia"]] = relationship()
 
     def __repr__(self) -> str:
         return f"Enterprise {self.razon_social} RIF:{self.rif}"
@@ -85,9 +90,15 @@ class Tutor_Academico(BaseModel):
     segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
     primer_apellido: Mapped[str]=mapped_column(String(20))
     segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
+    sexo: Mapped[Optional[str]] = mapped_column(String(3))
+    foto: Mapped[str]=mapped_column(String(255),nullable=True)
     cedula:Mapped[int]=mapped_column(unique=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
+    fecha_de_nacimiento: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    telefono: Mapped[str]=mapped_column(String(11))
+
     especialidad: Mapped[str]=mapped_column(String(20))
+    pasantias: Mapped[List["Pasantia"]] = relationship()
 
     def __repr__(self) -> str:
         return f"Tutor Academico {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
@@ -100,21 +111,82 @@ class Tutor_Empresarial(BaseModel):
     segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
     primer_apellido: Mapped[str]=mapped_column(String(20))
     segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
+    sexo: Mapped[Optional[str]] = mapped_column(String(3), nullable=True)
+    foto: Mapped[str]=mapped_column(String(255),nullable=True)
     cedula:Mapped[int]=mapped_column(unique=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
-    telefono: Mapped[str]=mapped_column(String(7))
+    fecha_de_nacimiento: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    telefono: Mapped[str]=mapped_column(String(11), unique=True)
+    
     cargo: Mapped[str]=mapped_column(String(20))
     
+    pasantias: Mapped[List["Pasantia"]] = relationship()
     empresa: Mapped["Enterprise"] = relationship(back_populates="tutores")
     
     def __repr__(self) -> str:
         return f"Tutores Empresariales {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
 
-class Pasantia:
-    __tablename__="pasantias"
-    pass
+class Pasantia(BaseModel):
+    __tablename__ = "pasantias"
+
+    # Claves foráneas
+    student_id: Mapped[int] = mapped_column(ForeignKey("students.id"))
+    empresa_id: Mapped[Optional[int]] = mapped_column(ForeignKey("enterprises.id"), nullable=True)
+    tutor_academico_id: Mapped[Optional[int]] = mapped_column(ForeignKey("tutores_academicos.id"), nullable=True)
+    tutor_empresarial_id: Mapped[Optional[int]] = mapped_column(ForeignKey("tutores_empresariales.id"), nullable=True)
+
+    # Campos de la pasantía
+    carrera: Mapped[str]=mapped_column(String(100))
+    semestre: Mapped[int]
+    lapso_academico: Mapped[str] = mapped_column(String(50))
+    inicio_pasantias: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    final_pasantias: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    departamento: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    estado: Mapped[str] = mapped_column(String(20), default="solicitada")
+    trabajo_asignado: Mapped[Optional[str]] = mapped_column(LONGTEXT, nullable=True)
+    titulo_de_informe: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+
+    # Relaciones (opcionalmente navegables desde la pasantía)
+    student: Mapped["Student"] = relationship(back_populates="pasantias")
+    empresa: Mapped["Enterprise"] = relationship(back_populates="pasantias")
+    tutor_academico: Mapped["Tutor_Academico"] = relationship(back_populates="pasantias")
+    tutor_empresarial: Mapped["Tutor_Empresarial"] = relationship(back_populates="pasantias")
+    evaluacion: Mapped[Optional["Evaluacion"]] = relationship(
+        back_populates="pasantia", 
+        cascade="all, delete-orphan"
+    )
+    documentos: Mapped[List["DocumentoAdjunto"]] = relationship(back_populates="pasantia")
+
+class Evaluacion(BaseModel):
+    __tablename__ = "evaluaciones"
+
+    pasantia_id: Mapped[int] = mapped_column(ForeignKey("pasantias.id"))
+    nota_tutor_aca: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    nota_tutor_emp: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    exposicion: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    taller_induccion: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    total: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     
+    pasantia: Mapped["Pasantia"] = relationship(back_populates="evaluacion")
+
+    def __repr__(self) -> str:
+        return f"Evaluacion(pasantia_id={self.pasantia_id!r}, nota_tutor_aca={self.nota_tutor_aca!r})"
+
+class DocumentoAdjunto(BaseModel):
+    __tablename__ = "documentos_adjuntos"
+
+    pasantia_id: Mapped[int] = mapped_column(ForeignKey("pasantias.id"))
+    tipo_de_documento: Mapped[str] = mapped_column(String(100))
+    ruta: Mapped[str] = mapped_column(String(255))
+    fecha_subida: Mapped[Optional[datetime]] = mapped_column(DateTime, default=datetime.utcnow)
+    estado: Mapped[str] = mapped_column(String(20), default="revision")  # aprobado, revision, denegado
+
+    pasantia: Mapped["Pasantia"] = relationship(back_populates="documentos")
+
+    def __repr__(self) -> str:
+        return f"DocumentoAdjunto(pasantia_id={self.pasantia_id!r}, tipo={self.tipo_de_documento!r})"
+
 if __name__=="__main__":
     if not database_exists(mysql_db_url):
         create_database(mysql_db_url)
-    Base.metadata.create_all(engine)
+    #Base.metadata.create_all(engine)
