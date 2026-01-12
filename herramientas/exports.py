@@ -2,9 +2,6 @@ import pandas as pd
 import json
 
 def exportar_modelo_a_excel(datos,ruta_archivo):
-
-    
-    
     data = []
     for p in datos:
         data.append({

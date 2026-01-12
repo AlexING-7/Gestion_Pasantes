@@ -1,15 +1,22 @@
 from docxtpl import DocxTemplate
+from modelos.modulo import Pasantia
 import os
 
-def reemplazar_texto(datos,filename="herramientas/2.CARTA ACEPTACION DEL PASANTE.docx"):
+def reemplazar_texto(datos:Pasantia,filename="herramientas/2.CARTA ACEPTACION DEL PASANTE.docx"):
     doc = DocxTemplate(filename)
 
     # 2. Crear el diccionario de datos (el contexto)
     # Las claves deben coincidir EXACTAMENTE con lo que pusiste en las {{ }}
     context = {
-        'nombre': str(datos.primer_nombre),
-        'apellido': str(datos.primer_apellido),
-        'cedula': str(datos.cedula),
+        #estudiante
+        'primer_nombre_estudiante': str(datos.student.primer_nombre),
+        'segundo_nombre_estudiante': str(datos.student.segundo_nombre),
+        'primer_apellido_estudiante': str(datos.student.primer_apellido),
+        'segundo_apellido_estudiante': str(datos.student.segundo_apellido),
+        'cedula_estudiante': str(datos.student.cedula),
+        'sexo_estudiante': str(datos.student.sexo),
+        'telefono_estudiante': str(datos.student.telefono),
+        'email_estudiante': str(datos.student.email),
         'carrera': str(datos.carrera),
         'semestre': str(datos.semestre)
     }
