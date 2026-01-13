@@ -95,7 +95,7 @@ class Tutor_Academico(BaseModel):
     cedula:Mapped[int]=mapped_column(unique=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
     fecha_de_nacimiento: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
-    telefono: Mapped[str]=mapped_column(String(11))
+    telefono: Mapped[str]=mapped_column(String(11),nullable=True)
 
     especialidad: Mapped[str]=mapped_column(String(20))
     pasantias: Mapped[List["Pasantia"]] = relationship()
