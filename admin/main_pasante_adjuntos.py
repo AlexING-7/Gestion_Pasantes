@@ -1,10 +1,12 @@
 import os
+import sys
 from datetime import datetime
 from pathlib import Path
 from PySide6.QtGui import  QIcon
 from modelos.modulo import Pasantia
 from PySide6.QtWidgets import QWidget, QPushButton, QMessageBox,QFileDialog,QTableWidgetItem,QHBoxLayout,QStyle,QLineEdit,QAbstractScrollArea
 import shutil
+from herramientas.docs import reemplazar_texto
 from modelos.modulo import DocumentoAdjunto,session
 
 class show_documentos():
@@ -13,11 +15,13 @@ class show_documentos():
         self.pasante=pasante
         self.window=window
         self.comboDoc=window.comboDoc
+        self.comboDoc_2=window.comboDoc_2
         self.comboDoc.setCurrentIndex(-1)
         self.lineRuta=window.lineRuta
         self.lineRuta.clear()
         self.file_path=None
         self.btnSubirDoc=window.btnSubirDoc
+        self.btnGenDoc=window.btnGenDoc
         self.tabla_documentos=window.tabla_documentos
         self.regresarButtonP_2=self.window.regresarButtonP_2
         self.window.StackedPsa.setCurrentIndex(2)
@@ -42,24 +46,23 @@ class show_documentos():
         self.icon = self.lineRuta.addAction(icon, QLineEdit.ActionPosition.LeadingPosition)
             
         try:
-            self.window.btnSubirDoc.clicked.disconnect()
-            
+            self.btnSubirDoc.clicked.disconnect()
+            self.btnGenDoc.clicked.disconnect()
         except Exception:
             pass
         self.btnSubirDoc.clicked.connect(self.subir_documento)
         self.icon.triggered.connect(self.path_file)
+        self.btnGenDoc.clicked.connect(self.generar_doc)
     
     def path_file(self):
         self.file_path, _ = QFileDialog.getOpenFileName(
             self.window, "Seleccionar Archivo", "", "Archivos (*.pdf *.doc *.docx)"
         )
         self.lineRuta.setText(self.file_path)
-        print(self)
+        
     
     def subir_documento(self):
-        print(self)
-        print(self.pasante.student.cedula)
-        print(self.file_path)
+
         if self.file_path:
             # 2. Crear carpeta de destino si no existe
             destino_dir = f"resources/documentos/{self.pasante.carrera}/{self.pasante.student.cedula}"
@@ -105,4 +108,17 @@ class show_documentos():
         pass
     
     def generar_doc(self):
-        pass
+        if self.comboDoc_2.currentData():
+            return
+
+        doc=self.comboDoc_2.currentText()
+        if doc=="Carta de Solicitud de Pasantia":
+            file="formatos/1. CARTA SOLICITUD DE PASANTIA.docx"
+        
+        
+        doc_name,_=QFileDialog.getSaveFileName(self.window,
+                                                   "Guardar Documento",
+                                                   f"{self.comboDoc_2.currentText()}.docx",
+                                                   "Documento (*.docx)")
+        
+        reemplazar_texto(self.pasante,file,doc_name)

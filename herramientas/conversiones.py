@@ -29,3 +29,32 @@ def calcular_duracion_meses(inicio: date | None, final: date | None) -> int | No
     dias_correction = 1 if final.day < inicio.day else 0
     total_meses = años * 12 + meses - dias_correction
     return total_meses
+
+def convertir_a_romano(numero):
+
+    
+    # Mapeo de valores
+    roman_map = {
+        1000: 'M', 900: 'CM', 500: 'D', 400: 'CD',
+        100: 'C', 90: 'XC', 50: 'L', 40: 'XL',
+        10: 'X', 9: 'IX', 5: 'V', 4: 'IV', 1: 'I'
+    }
+    
+    # Conversión
+    resultado = []
+    for valor in sorted(roman_map.keys(), reverse=True):
+        while numero >= valor:
+            resultado.append(roman_map[valor])
+            numero -= valor
+    
+    return ''.join(resultado)
+
+def fecha_espanol(fecha):
+    meses = ("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
+    mes = meses[fecha.month - 1]
+    return f"{fecha.day} de {mes} de {fecha.year}"
+
+def formato_miles(valor):
+    if valor is None: return "0"
+    # Formatea con coma (1,500) y luego reemplaza por punto (1.500)
+    return "{:,.0f}".format(valor).replace(",", ".")
