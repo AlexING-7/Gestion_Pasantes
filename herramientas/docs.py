@@ -7,13 +7,16 @@ import jinja2
 from modelos.modulo import Pasantia,session
 import datetime
 import os
-from herramientas.conversiones import null_string,convertir_a_romano,fecha_espanol,formato_miles
+from herramientas.conversiones import mes_espanol,convertir_a_romano,fecha_espanol,formato_miles, nombreCompleto
 
 def reemplazar_texto(datos:Pasantia,filename,name):
     doc = DocxTemplate(filename)
     jinja_env = jinja2.Environment()
     jinja_env.filters['fecha_es'] = fecha_espanol
     jinja_env.filters['miles'] = formato_miles
+    jinja_env.filters['romanos'] = convertir_a_romano
+    jinja_env.filters['mes'] = mes_espanol
+    jinja_env.filters['completo'] = nombreCompleto
     context = {
         #estudiante
         'primer_nombre_estudiante': str(datos.student.primer_nombre),
@@ -75,8 +78,8 @@ def reemplazar_texto(datos:Pasantia,filename,name):
         'tutor_academico':datos.tutor_academico,
         'tutor_empresarial':datos.tutor_academico,
         'carrera': str(datos.carrera),
-        'semestre': convertir_a_romano(datos.semestre),
-        'lapso_academico': str(datos.lapso_academico),
+        'semestre': datos.semestre,
+        'lapso': str(datos.lapso_academico),
         'inicio': datos.inicio_pasantias,
         'final': datos.final_pasantias,
         'departamento': datos.departamento,

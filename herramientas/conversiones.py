@@ -50,11 +50,20 @@ def convertir_a_romano(numero):
     return ''.join(resultado)
 
 def fecha_espanol(fecha):
-    meses = ("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
-    mes = meses[fecha.month - 1]
+    mes = mes_espanol(fecha.month)
     return f"{fecha.day} de {mes} de {fecha.year}"
+
+def mes_espanol(fecha):
+    meses = ("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
+    mes=meses[fecha.month - 1]
+    return mes
 
 def formato_miles(valor):
     if valor is None: return "0"
     # Formatea con coma (1,500) y luego reemplaza por punto (1.500)
     return "{:,.0f}".format(valor).replace(",", ".")
+
+def nombreCompleto(name):
+    segundoN=" "+name.segundo_nombre+" " if name.segundo_nombre else " "
+    segundoA=" "+name.segundo_apellido if name.segundo_apellido else ""
+    return f"{name.primer_nombre}{segundoN}{name.primer_apellido}{segundoA}"

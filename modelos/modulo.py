@@ -186,6 +186,10 @@ class DocumentoAdjunto(BaseModel):
     def __repr__(self) -> str:
         return f"DocumentoAdjunto(pasantia_id={self.pasantia_id!r}, tipo={self.tipo_de_documento!r})"
 
+#datos pasantes
+
+#constantes de los formatos
+
 if __name__=="__main__":
     if not database_exists(mysql_db_url):
         create_database(mysql_db_url)
