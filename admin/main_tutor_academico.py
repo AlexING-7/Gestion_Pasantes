@@ -20,6 +20,7 @@ from herramientas.variables import semestre
 from dotenv import load_dotenv
 from herramientas.docs import reemplazar_texto
 from herramientas.img_py import convertir_pil_a_pixmap
+from herramientas.conversiones import nombreCompleto,calcular_edad
 from PySide6.QtWidgets import QHeaderView
 from PySide6.QtCore import QEvent
 
@@ -137,9 +138,9 @@ class StackTutorA():
             boton_ver=QPushButton("Ver")
             #boton_ver.clicked.connect(lambda checked,x=tutores: self.read_student(x))
             btn_editar = QPushButton("Editar")
-            btn_editar.clicked.connect(lambda checked,x=tutores: self.edit_student(x))
+            btn_editar.clicked.connect(lambda checked,x=tutores: self.edit_tutor(x))
             btn_borrar = QPushButton("Borrar")
-            btn_borrar.clicked.connect(lambda checked,x=tutores: self.delete_student(x))
+            btn_borrar.clicked.connect(lambda checked,x=tutores: self.delete_tutor(x))
 
             btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
             btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
@@ -209,21 +210,27 @@ class StackTutorA():
         search_query=self.window.searchTutorA.text()
         self.pag_tabla_tutorA(search_query)
             
-    """def read_student(self,estudiante):
-        self.window.nombresLabel.clear()
-        self.window.nombresLabel.setText(estudiante.primer_nombre+" "+estudiante.segundo_nombre if estudiante.segundo_nombre else estudiante.primer_nombre)
-        self.window.apellidosLabel.clear()
-        self.window.apellidosLabel.setText(estudiante.primer_apellido+" "+estudiante.segundo_apellido if estudiante.segundo_apellido else estudiante.primer_apellido)
-        self.window.cedulaInput.clear()
-        self.window.cedulaInput.setText(str(estudiante.cedula))
-        self.window.telefonoInput.clear()
-        self.window.telefonoInput.setText(str(estudiante.telefono))
-        self.window.direccionInput.setPlainText(str(estudiante.direccion))
-        self.window.StackedEstudiantes.setCurrentIndex(1)
-        self.window.perfil_input.setPixmap(convertir_pil_a_pixmap(estudiante.foto))
-        self.window.pushButton.clicked.connect(lambda: reemplazar_texto(estudiante))"""
+    def read_tutor(self,tutor:Tutor_Academico):
+        self.window.nombre_completoA.clear()
+        self.window.nombre_completoA.setText(nombreCompleto(tutor))
+        self.window.cedulaA.clear()
+        self.window.cedulaA.setText()
+        self.window.sexEdadA.clear()
+        self.window.sexEdadA.setText(str(tutor.sexo)+" • "+str(calcular_edad(tutor.fecha_de_nacimiento)))
+        self.window.emailA.clear()
+        self.window.emailA.setText(tutor.email)
+        self.window.tlfA.clear()
+        self.window.tlfA.setText(tutor.telefono)
+        self.window.especialidadA.clear()
+        self.window.especialidadA.setText(tutor.especialidad)
+        self.window.fechaNA.clear()
+        self.window.fechaNA.setText(tutor.fecha_de_nacimiento)
+        self.window.StackedTutorA.setCurrentIndex(1)
+        self.window.perfil_A.setPixmap(convertir_pil_a_pixmap(tutor.foto))
+        self.window.editarA.clicked.connect(lambda: self.edit_tutor(tutor))
+        self.window.EliminarEmp.clicked.connect(lambda: self.delete_tutor(tutor))
     
-    def edit_student(self,tutor):
+    def edit_tutor(self,tutor):
         from admin.nuevo_tutorA import NewTutorA
         self.newtutor_window=NewTutorA(tutor)
         self.newtutor_window.exec()
@@ -235,7 +242,7 @@ class StackTutorA():
         self.newtutor_window.exec()
         self.pag_tabla_tutorA()
 
-    def delete_student(self,tutor):
+    def delete_tutor(self,tutor):
         msg = ModernMessageBox(
                 title="Advertencia",
                 text="<h3 style='color: #ff5555'>Eliminar Estudiante</h3>",

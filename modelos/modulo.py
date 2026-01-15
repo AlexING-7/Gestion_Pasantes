@@ -26,7 +26,7 @@ class User(BaseModel):
     username: Mapped[str]=mapped_column(String(30),unique=True)
     password: Mapped[str]=mapped_column(String(20))
     email: Mapped[str]=mapped_column(String(100), unique=True)
-    rol: Mapped[Optional[str]]=mapped_column(String(20))
+    rol: Mapped[Optional[str]]=mapped_column(String(20))#(admin,coordinador)
     
     tsessions: Mapped[List["TSession"]] = relationship()
     
@@ -73,7 +73,7 @@ class Enterprise(BaseModel):
     razon_social: Mapped[str]=mapped_column(String(50))
     direccion: Mapped[str]=mapped_column(String(255),default="Edo Barinas")
     email: Mapped[str]=mapped_column(String(100), unique=True)
-    telefono: Mapped[str]=mapped_column(String(11), nullable=True)
+    telefono: Mapped[str]=mapped_column(String(11), unique=True)
     rubro: Mapped[str]=mapped_column (String(20),nullable=True)
     
     tutores: Mapped[List["Tutor_Empresarial"]] = relationship()
@@ -145,6 +145,13 @@ class Pasantia(BaseModel):
     estado: Mapped[str] = mapped_column(String(20), default="solicitada")
     trabajo_asignado: Mapped[Optional[str]] = mapped_column(LONGTEXT, nullable=True)
     titulo_de_informe: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    plan_de_trabajo: Mapped[Optional[str]] = mapped_column(LONGTEXT, nullable=True)
+    sede: Mapped[Optional[bool]] = mapped_column(Boolean, nullable=True)
+    direccion: Mapped[str] = mapped_column(String(255), nullable=True)
+    jefe_de_carta: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    cargo_jefe_de_carta: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    #lugar_de_entrenamiento
+    #escuela
 
     # Relaciones (opcionalmente navegables desde la pasantía)
     student: Mapped["Student"] = relationship(back_populates="pasantias")
@@ -186,11 +193,54 @@ class DocumentoAdjunto(BaseModel):
     def __repr__(self) -> str:
         return f"DocumentoAdjunto(pasantia_id={self.pasantia_id!r}, tipo={self.tipo_de_documento!r})"
 
-#datos pasantes
+class Configuracion(BaseModel):
+    __tablename__ = "configuraciones"
+    clave:Mapped[str] = mapped_column(String(100))
+    valor:Mapped[str] = mapped_column(String(100))
 
-#constantes de los formatos
+    def __repr__(self) -> str:
+        return f"Variable(clave={self.clave!r}, valor={self.valor!r})"
 
-#logs (bitacora de auditoria)
+class SistemaLog(BaseModel):
+    __tablename__ = "sistema_logs"
+
+    fecha_hora: Mapped[Optional[datetime]] = mapped_column(DateTime, default=datetime.utcnow)
+    usuario: Mapped[str] = mapped_column(String(50), nullable=False)
+    accion: Mapped[str] = mapped_column(String(20), nullable=False)
+    tabla_afectada: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    id_registro_afectado: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    valores_anteriores = Column(LONGTEXT, nullable=True)
+    valores_nuevos = Column(LONGTEXT, nullable=True)
+    mensaje: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+    ip_maquina: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+
+    def __repr__(self) -> str:
+        return (
+            f"SistemaLog(id={self.id!r}, usuario={self.usuario!r}, accion={self.accion!r}, "
+            f"tabla={self.tabla_afectada!r}, id_registro={self.id_registro_afectado!r})"
+        )
+
+    @classmethod
+    def crear_log(cls, session, usuario: str, accion: str, tabla_afectada: Optional[str] = None,
+                  id_registro_afectado: Optional[int] = None, valores_anteriores: Optional[str] = None,
+                  valores_nuevos: Optional[str] = None, mensaje: Optional[str] = None,
+                  ip_maquina: Optional[str] = None):
+        log = cls(
+            usuario=usuario,
+            accion=accion,
+            tabla_afectada=tabla_afectada,
+            id_registro_afectado=id_registro_afectado,
+            valores_anteriores=valores_anteriores,
+            valores_nuevos=valores_nuevos,
+            mensaje=mensaje,
+            ip_maquina=ip_maquina,
+        )
+        session.add(log)
+        try:
+            session.commit()
+        except Exception:
+            session.rollback()
+            raise
 
 if __name__=="__main__":
     if not database_exists(mysql_db_url):

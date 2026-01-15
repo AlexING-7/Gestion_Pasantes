@@ -197,20 +197,22 @@ class StackEnterprise():
         search_query=self.window.searchEmpr.text()
         self.pag_tabla_empresa(search_query)
             
-    """def read_student(self,estudiante):
-        self.window.nombresLabel.clear()
-        self.window.nombresLabel.setText(estudiante.primer_nombre+" "+estudiante.segundo_nombre if estudiante.segundo_nombre else estudiante.primer_nombre)
-        self.window.apellidosLabel.clear()
-        self.window.apellidosLabel.setText(estudiante.primer_apellido+" "+estudiante.segundo_apellido if estudiante.segundo_apellido else estudiante.primer_apellido)
-        self.window.cedulaInput.clear()
-        self.window.cedulaInput.setText(str(estudiante.cedula))
-        self.window.telefonoInput.clear()
-        self.window.telefonoInput.setText(str(estudiante.telefono))
-        self.window.direccionInput.setPlainText(str(estudiante.direccion))
-        self.window.StackedEstudiantes.setCurrentIndex(1)
-        self.window.perfil_input.setPixmap(convertir_pil_a_pixmap(estudiante.foto))
-        self.window.pushButton.clicked.connect(lambda: reemplazar_texto(estudiante))
-    """
+    def read_empresa(self,empresa:Enterprise):
+        self.window.rif_Emp.clear()
+        self.window.rif_Emp.setText(str(empresa.rif))
+        self.window.razon_Emp.clear()
+        self.window.razon_Emp.setText(empresa.razon_social)
+        self.window.rubro_Emp.clear()
+        self.window.rubro_Emp.setText(str(empresa.rubro))
+        self.window.email_Emp.clear()
+        self.window.email_Emp.setText(empresa.email)
+        self.window.tlf_Emp.clear()
+        self.window.tlf_Emp.setText(empresa.telefono)
+        self.window.direccionInput.setPlainText(str(empresa.direccion))
+        self.window.StackedEmpresas.setCurrentIndex(1)
+        self.window.editarEmp.clicked.connect(self.edit_empresa(empresa))
+        self.window.EliminarEmp.clicked.connect(self.delete_empresa(empresa))
+    
     
     def edit_empresa(self,empresa):
         from admin.nuevo_empresa import NewEnterprise

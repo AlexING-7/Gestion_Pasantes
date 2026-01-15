@@ -103,4 +103,4 @@ def run_seeds():
         session.close()
 
 if __name__ == "__main__":
-    run_seeds()
+    reiniciar_base_de_datos()

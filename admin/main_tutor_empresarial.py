@@ -20,6 +20,7 @@ from herramientas.variables import semestre
 from dotenv import load_dotenv
 from herramientas.docs import reemplazar_texto
 from herramientas.img_py import convertir_pil_a_pixmap
+from herramientas.conversiones import calcular_edad,nombreCompleto
 from PySide6.QtWidgets import QHeaderView
 from PySide6.QtCore import QEvent
 
@@ -213,19 +214,25 @@ class StackTutorE():
         search_query=self.window.searchTutorA.text()
         self.pag_tabla_tutorE(search_query)
             
-    """def read_student(self,estudiante):
-        self.window.nombresLabel.clear()
-        self.window.nombresLabel.setText(estudiante.primer_nombre+" "+estudiante.segundo_nombre if estudiante.segundo_nombre else estudiante.primer_nombre)
-        self.window.apellidosLabel.clear()
-        self.window.apellidosLabel.setText(estudiante.primer_apellido+" "+estudiante.segundo_apellido if estudiante.segundo_apellido else estudiante.primer_apellido)
-        self.window.cedulaInput.clear()
-        self.window.cedulaInput.setText(str(estudiante.cedula))
-        self.window.telefonoInput.clear()
-        self.window.telefonoInput.setText(str(estudiante.telefono))
-        self.window.direccionInput.setPlainText(str(estudiante.direccion))
-        self.window.StackedEstudiantes.setCurrentIndex(1)
-        self.window.perfil_input.setPixmap(convertir_pil_a_pixmap(estudiante.foto))
-        self.window.pushButton.clicked.connect(lambda: reemplazar_texto(estudiante))"""
+    def read_tutor(self,tutor:Tutor_Empresarial):
+        self.window.nombre_completoE.clear()
+        self.window.nombre_completoE.setText(nombreCompleto(tutor))
+        self.window.cedulaE.clear()
+        self.window.cedulaE.setText()
+        self.window.sexEdadE.clear()
+        self.window.sexEdadE.setText(str(tutor.sexo)+" • "+str(calcular_edad(tutor.fecha_de_nacimiento)))
+        self.window.emailE.clear()
+        self.window.emailE.setText(tutor.email)
+        self.window.tlfE.clear()
+        self.window.tlfE.setText(tutor.telefono)
+        self.window.especialidadE.clear()
+        self.window.especialidadE.setText(tutor.especialidad)
+        self.window.fechaNE.clear()
+        self.window.fechaNE.setText(tutor.fecha_de_nacimiento)
+        self.window.StackedTutorE.setCurrentIndex(1)
+        self.window.perfil_E.setPixmap(convertir_pil_a_pixmap(tutor.foto))
+        self.window.editarE.clicked.connect(lambda: self.edit_tutor(tutor))
+        self.window.EliminarEmp.clicked.connect(lambda: self.delete_tutor(tutor))
     
     def edit_student(self,tutor):
         from admin.nuevo_tutorE import NewTutorE
