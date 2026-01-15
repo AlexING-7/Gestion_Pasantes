@@ -190,6 +190,8 @@ class DocumentoAdjunto(BaseModel):
 
 #constantes de los formatos
 
+#logs (bitacora de auditoria)
+
 if __name__=="__main__":
     if not database_exists(mysql_db_url):
         create_database(mysql_db_url)
