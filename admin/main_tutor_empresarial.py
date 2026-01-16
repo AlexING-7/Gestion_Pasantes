@@ -9,7 +9,7 @@ from PySide6.QtGui import  QIcon
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
-from modelos.modulo import session,Tutor_Empresarial,Enterprise
+from modelos.modulo import session,Tutor_Empresarial,Enterprise,Pasantia
 from sqlalchemy import select
 from sqlalchemy import or_,and_
 from getmac import get_mac_address as gma
@@ -33,6 +33,7 @@ class StackTutorE():
         self.tamano_pagina = 15
         self.numero_pagina = 1
         self.window.frame_TutorE.installEventFilter(main)
+        self.tabla_pasantes=self.window.tabla_PTE
         self.conectar_eventos()
     
     def eventFilter(self,source,event):
@@ -47,7 +48,6 @@ class StackTutorE():
     def conectar_eventos(self):
         self.window.btnExportarTutorE.clicked.connect(self.exportar)
         self.window.btnNuevoTutorE.clicked.connect(self.open_newtutor)
-        #self.window.regresarButton.clicked.connect(lambda :self.window.StackedEstudiantes.setCurrentIndex(0))
         self.window.btnAntTutorE.clicked.connect(lambda :self.change_table(self.window.btnAntTutorE.text()))
         self.window.btnSigTutorE.clicked.connect(lambda :self.change_table(self.window.btnSigTutorE.text()))
         self.window.searchTutorE.textChanged.connect(self.search)
@@ -66,10 +66,7 @@ class StackTutorE():
             
             # Solo agregamos la acción si no existía ninguna
             self.search_icon = self.window.searchTutorE.addAction(search_icon, QLineEdit.ActionPosition.LeadingPosition)
-                     
-    def ver_estudiantes(self):
-        self.window.StackedTutorE.setCurrentIndex(1)
-    
+                         
     def cambio_programa(self):
         self.numero_pagina=1
         self.window.btnIndTutorE.setText(str(self.numero_pagina))
@@ -140,11 +137,11 @@ class StackTutorE():
             layout_botones.setSpacing(10) 
 
             boton_ver=QPushButton("Ver")
-            #boton_ver.clicked.connect(lambda checked,x=tutores: self.read_student(x))
+            boton_ver.clicked.connect(lambda checked,x=tutores: self.read_tutor(x))
             btn_editar = QPushButton("Editar")
-            btn_editar.clicked.connect(lambda checked,x=tutores: self.edit_student(x))
+            btn_editar.clicked.connect(lambda checked,x=tutores: self.edit_tutor(x))
             btn_borrar = QPushButton("Borrar")
-            btn_borrar.clicked.connect(lambda checked,x=tutores: self.delete_student(x))
+            btn_borrar.clicked.connect(lambda checked,x=tutores: self.delete_tutor(x))
 
             btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
             btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
@@ -215,26 +212,50 @@ class StackTutorE():
         self.pag_tabla_tutorE(search_query)
             
     def read_tutor(self,tutor:Tutor_Empresarial):
+        self.window.empresaE.clear()
+        self.window.empresaE.setText(tutor.empresa.razon_social)
         self.window.nombre_completoE.clear()
         self.window.nombre_completoE.setText(nombreCompleto(tutor))
         self.window.cedulaE.clear()
-        self.window.cedulaE.setText()
+        self.window.cedulaE.setText(str(tutor.cedula))
         self.window.sexEdadE.clear()
         self.window.sexEdadE.setText(str(tutor.sexo)+" • "+str(calcular_edad(tutor.fecha_de_nacimiento)))
         self.window.emailE.clear()
         self.window.emailE.setText(tutor.email)
         self.window.tlfE.clear()
         self.window.tlfE.setText(tutor.telefono)
-        self.window.especialidadE.clear()
-        self.window.especialidadE.setText(tutor.especialidad)
+        self.window.cargoE.clear()
+        self.window.cargoE.setText(tutor.cargo)
         self.window.fechaNE.clear()
-        self.window.fechaNE.setText(tutor.fecha_de_nacimiento)
+        self.window.fechaNE.setText(tutor.fecha_de_nacimiento.isoformat())
         self.window.StackedTutorE.setCurrentIndex(1)
         self.window.perfil_E.setPixmap(convertir_pil_a_pixmap(tutor.foto))
+        
         self.window.editarE.clicked.connect(lambda: self.edit_tutor(tutor))
-        self.window.EliminarEmp.clicked.connect(lambda: self.delete_tutor(tutor))
+        self.window.EliminarE.clicked.connect(lambda: self.delete_tutor(tutor))
+        self.window.regresarButtonTE.clicked.connect(lambda: self.window.StackedTutorE.setCurrentIndex(0))
+        self.pag_tabla_pasantes(tutor.pasantias)
     
-    def edit_student(self,tutor):
+    def pag_tabla_pasantes(self,entidad):
+        header=self.tabla_pasantes.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
+
+        self.tabla_pasantes.setRowCount(0)
+        for fila,pasante in enumerate(entidad):
+            pasante:Pasantia
+            self.tabla_pasantes.insertRow(fila)
+            
+            self.tabla_pasantes.setItem(fila,0,QTableWidgetItem(str(nombreCompleto(pasante.student))))
+            self.tabla_pasantes.setItem(fila,1,QTableWidgetItem(str(pasante.student.cedula)))
+            self.tabla_pasantes.setItem(fila,2,QTableWidgetItem(str(pasante.carrera)))
+            self.tabla_pasantes.setItem(fila,3,QTableWidgetItem(str(pasante.lapso_academico)))
+            self.tabla_pasantes.setItem(fila,4,QTableWidgetItem(str(pasante.estado)))
+            
+    def edit_tutor(self,tutor):
         from admin.nuevo_tutorE import NewTutorE
         self.newtutor_window=NewTutorE(tutor)
         self.newtutor_window.exec()
@@ -246,7 +267,7 @@ class StackTutorE():
         self.newtutor_window.exec()
         self.pag_tabla_tutorE()
 
-    def delete_student(self,tutor):
+    def delete_tutor(self,tutor):
         msg = ModernMessageBox(
                 title="Advertencia",
                 text="<h3 style='color: #ff5555'>Eliminar Estudiante</h3>",

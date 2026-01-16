@@ -9,7 +9,7 @@ from PySide6.QtGui import  QIcon
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
-from modelos.modulo import session,Student,Tutor_Academico
+from modelos.modulo import session,Student,Tutor_Academico,Pasantia
 from sqlalchemy import select
 from sqlalchemy import or_,and_
 from getmac import get_mac_address as gma
@@ -32,6 +32,7 @@ class StackTutorA():
         self.window.StackedTutorA.setCurrentIndex(0)
         self.tamano_pagina = 15
         self.numero_pagina = 1
+        self.tabla_pasantes=self.window.tabla_PTA
         self.window.frame_tutorA.installEventFilter(main)
         self.conectar_eventos()
     
@@ -214,7 +215,7 @@ class StackTutorA():
         self.window.nombre_completoA.clear()
         self.window.nombre_completoA.setText(nombreCompleto(tutor))
         self.window.cedulaA.clear()
-        self.window.cedulaA.setText()
+        self.window.cedulaA.setText(str(tutor.cedula))
         self.window.sexEdadA.clear()
         self.window.sexEdadA.setText(str(tutor.sexo)+" • "+str(calcular_edad(tutor.fecha_de_nacimiento)))
         self.window.emailA.clear()
@@ -224,11 +225,34 @@ class StackTutorA():
         self.window.especialidadA.clear()
         self.window.especialidadA.setText(tutor.especialidad)
         self.window.fechaNA.clear()
-        self.window.fechaNA.setText(tutor.fecha_de_nacimiento)
+        self.window.fechaNA.setText(tutor.fecha_de_nacimiento.isoformat())
         self.window.StackedTutorA.setCurrentIndex(1)
+        
         self.window.perfil_A.setPixmap(convertir_pil_a_pixmap(tutor.foto))
         self.window.editarA.clicked.connect(lambda: self.edit_tutor(tutor))
-        self.window.EliminarEmp.clicked.connect(lambda: self.delete_tutor(tutor))
+        self.window.EliminarA.clicked.connect(lambda: self.delete_tutor(tutor))
+        self.window.regresarButtonTA.clicked.connect(lambda: self.window.StackedTutorA.setCurrentIndex(0))
+        self.pag_tabla_pasantes(tutor.pasantias)
+    
+    def pag_tabla_pasantes(self,entidad):
+        header=self.tabla_pasantes.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(5, QHeaderView.ResizeMode.ResizeToContents)
+        self.tabla_pasantes.setRowCount(0)
+        for fila,pasante in enumerate(entidad):
+            pasante:Pasantia
+            self.tabla_pasantes.insertRow(fila)
+            
+            self.tabla_pasantes.setItem(fila,0,QTableWidgetItem(str(nombreCompleto(pasante.student))))
+            self.tabla_pasantes.setItem(fila,1,QTableWidgetItem(str(pasante.student.cedula)))
+            self.tabla_pasantes.setItem(fila,2,QTableWidgetItem(str(pasante.carrera)))
+            self.tabla_pasantes.setItem(fila,2,QTableWidgetItem(str(pasante.empresa.razon_social)))
+            self.tabla_pasantes.setItem(fila,3,QTableWidgetItem(str(pasante.lapso_academico)))
+            self.tabla_pasantes.setItem(fila,4,QTableWidgetItem(str(pasante.estado)))
     
     def edit_tutor(self,tutor):
         from admin.nuevo_tutorA import NewTutorA
@@ -245,7 +269,7 @@ class StackTutorA():
     def delete_tutor(self,tutor):
         msg = ModernMessageBox(
                 title="Advertencia",
-                text="<h3 style='color: #ff5555'>Eliminar Estudiante</h3>",
+                text="<h3 style='color: #ff5555'>Eliminar Tutor</h3>",
                 informative_text="¿Esta seguro de eliminar esta información?",
                 parent=self
             )

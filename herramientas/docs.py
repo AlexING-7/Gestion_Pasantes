@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from docxtpl import DocxTemplate
 import jinja2
-from modelos.modulo import Pasantia,session
+from modelos.modulo import Pasantia,Enterprise,session
 import datetime
 import os
 from herramientas.conversiones import mes_espanol,convertir_a_romano,fecha_espanol,formato_miles, nombreCompleto
@@ -102,6 +102,7 @@ def reemplazar_texto(datos:Pasantia,filename,name):
         print("os.startfile solo funciona en Windows.")
 
 if __name__ == "__main__":
-    pasante=session.query(Pasantia).where(Pasantia.id==8).one_or_none()
-    reemplazar_texto(pasante,"formatos/1. CARTA SOLICITUD DE PASANTIA.docx","prueba.docx")
+    pasante=session.query(Enterprise).where(Enterprise.id==8).one_or_none()
+    print(type(pasante.pasantias))
+    #reemplazar_texto(pasante,"formatos/1. CARTA SOLICITUD DE PASANTIA.docx","prueba.docx")
 

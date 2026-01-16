@@ -30,6 +30,7 @@ class StackEnterprise():
         self.window.StackedEmpresas.setCurrentIndex(0)
         self.tamano_pagina = 15
         self.numero_pagina = 1
+        self.tabla_pasantes=self.window.tabla_pasantes_activos_Emp
         self.window.frame_TablaEmpresa.installEventFilter(main)
         self.conectar_eventos()
     
@@ -212,7 +213,27 @@ class StackEnterprise():
         self.window.StackedEmpresas.setCurrentIndex(1)
         self.window.editarEmp.clicked.connect(self.edit_empresa(empresa))
         self.window.EliminarEmp.clicked.connect(self.delete_empresa(empresa))
+        self.window.regresarButtonEmp.clicked.connect(lambda: self.window.StackedEmpresas.setCurrentIndex(0))
+        self.pag_tabla_pasantes(empresa.pasantias)
     
+    def pag_tabla_pasantes(self,entidad):
+        header=self.tabla_pasantes.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
+
+        self.tabla_pasantes.setRowCount(0)
+        for fila,pasante in enumerate(entidad):
+            pasante:Pasantia
+            self.tabla_pasantes.insertRow(fila)
+            
+            self.tabla_pasantes.setItem(fila,0,QTableWidgetItem(str(nombreCompleto(pasante.student))))
+            self.tabla_pasantes.setItem(fila,1,QTableWidgetItem(str(pasante.student.cedula)))
+            self.tabla_pasantes.setItem(fila,2,QTableWidgetItem(str(pasante.carrera)))
+            self.tabla_pasantes.setItem(fila,3,QTableWidgetItem(str(pasante.lapso_academico)))
+            self.tabla_pasantes.setItem(fila,4,QTableWidgetItem(str(pasante.estado)))
     
     def edit_empresa(self,empresa):
         from admin.nuevo_empresa import NewEnterprise

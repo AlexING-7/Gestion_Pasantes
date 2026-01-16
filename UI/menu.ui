@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1093</width>
-    <height>839</height>
+    <width>1113</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -450,7 +450,7 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
          <number>0</number>
         </property>
         <property name="currentIndex">
-         <number>4</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="Pag1_Inicio">
          <property name="enabled">
@@ -2812,7 +2812,7 @@ color:#fff;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="regresarButtonP_4">
+                     <widget class="QPushButton" name="regresarButtonEmp">
                       <property name="text">
                        <string>Volver</string>
                       </property>
@@ -2829,7 +2829,7 @@ color:#fff;
                    <property name="frameShadow">
                     <enum>QFrame::Shadow::Raised</enum>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_103" stretch="8,6,1">
+                   <layout class="QVBoxLayout" name="verticalLayout_103" stretch="6,8,1">
                     <item>
                      <widget class="QFrame" name="frame_69">
                       <property name="styleSheet">
@@ -3885,7 +3885,7 @@ padding:5px 15px;</string>
 	border-top-right-radius:5px;
 }
 
-#regresarButtonP_2{
+#regresarButtonTA{
 background-color:#1a4775;
 color:#fff;
 padding: 8px;
@@ -3914,7 +3914,7 @@ color:#fff;
                     <item>
                      <widget class="QLabel" name="label_109">
                       <property name="text">
-                       <string>Documentos Adjuntos</string>
+                       <string>Ficha Tutor Academico</string>
                       </property>
                      </widget>
                     </item>
@@ -3932,7 +3932,7 @@ color:#fff;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="regresarButtonP_5">
+                     <widget class="QPushButton" name="regresarButtonTA">
                       <property name="text">
                        <string>Volver</string>
                       </property>
@@ -4386,7 +4386,7 @@ color: rgb(0, 0, 0);</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QTableWidget" name="tabla_documentos_4">
+                        <widget class="QTableWidget" name="tabla_PTA">
                          <property name="enabled">
                           <bool>true</bool>
                          </property>
@@ -4583,7 +4583,7 @@ border-radius:10px;</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QPushButton" name="EliminarSt_4">
+                        <widget class="QPushButton" name="EliminarA">
                          <property name="styleSheet">
                           <string notr="true">color: rgb(0, 51, 102);
 border: 1px solid #003366;
@@ -5094,7 +5094,7 @@ padding:5px 15px;</string>
 	border-top-right-radius:5px;
 }
 
-#regresarButtonP_2{
+#regresarButtonTE{
 background-color:#1a4775;
 color:#fff;
 padding: 8px;
@@ -5123,7 +5123,7 @@ color:#fff;
                     <item>
                      <widget class="QLabel" name="label_111">
                       <property name="text">
-                       <string>Documentos Adjuntos</string>
+                       <string>Ficha Tutor Empresarial</string>
                       </property>
                      </widget>
                     </item>
@@ -5141,7 +5141,7 @@ color:#fff;
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="regresarButtonP_6">
+                     <widget class="QPushButton" name="regresarButtonTE">
                       <property name="text">
                        <string>Volver</string>
                       </property>
@@ -5158,7 +5158,7 @@ color:#fff;
                    <property name="frameShadow">
                     <enum>QFrame::Shadow::Raised</enum>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_118" stretch="8,6,1">
+                   <layout class="QVBoxLayout" name="verticalLayout_118" stretch="6,8,1">
                     <item>
                      <widget class="QFrame" name="frame_81">
                       <property name="styleSheet">
@@ -5265,7 +5265,7 @@ max-height:200px;</string>
                              <number>0</number>
                             </property>
                             <item row="0" column="0">
-                             <widget class="QLabel" name="perfil_St_input_3">
+                             <widget class="QLabel" name="perfil_E">
                               <property name="text">
                                <string/>
                               </property>
@@ -5298,7 +5298,7 @@ max-height:200px;</string>
                               </widget>
                              </item>
                              <item>
-                              <widget class="QLabel" name="telefonoInput_16">
+                              <widget class="QLabel" name="empresaE">
                                <property name="font">
                                 <font>
                                  <pointsize>12</pointsize>
@@ -5316,7 +5316,7 @@ max-height:200px;</string>
                             </layout>
                            </item>
                            <item>
-                            <layout class="QHBoxLayout" name="horizontalLayout_15">
+                            <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="2,1,1">
                              <item>
                               <layout class="QVBoxLayout" name="verticalLayout_36">
                                <item>
@@ -5336,7 +5336,7 @@ max-height:200px;</string>
                                 </widget>
                                </item>
                                <item>
-                                <widget class="QLabel" name="telefonoInput_4">
+                                <widget class="QLabel" name="nombre_completoE">
                                  <property name="font">
                                   <font>
                                    <pointsize>12</pointsize>
@@ -5348,6 +5348,9 @@ max-height:200px;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
+                                 </property>
+                                 <property name="wordWrap">
+                                  <bool>true</bool>
                                  </property>
                                 </widget>
                                </item>
@@ -5372,7 +5375,7 @@ max-height:200px;</string>
                                 </widget>
                                </item>
                                <item>
-                                <widget class="QLabel" name="telefonoInput_10">
+                                <widget class="QLabel" name="cedulaE">
                                  <property name="font">
                                   <font>
                                    <pointsize>12</pointsize>
@@ -5380,7 +5383,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -5408,7 +5411,7 @@ max-height:200px;</string>
                                 </widget>
                                </item>
                                <item>
-                                <widget class="QLabel" name="telefonoInput_11">
+                                <widget class="QLabel" name="sexEdadE">
                                  <property name="font">
                                   <font>
                                    <pointsize>12</pointsize>
@@ -5416,7 +5419,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -5428,7 +5431,7 @@ max-height:200px;</string>
                             </layout>
                            </item>
                            <item>
-                            <layout class="QHBoxLayout" name="horizontalLayout_26">
+                            <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="2,1,1">
                              <item>
                               <layout class="QVBoxLayout" name="verticalLayout_39">
                                <item>
@@ -5448,7 +5451,7 @@ max-height:200px;</string>
                                 </widget>
                                </item>
                                <item>
-                                <widget class="QLabel" name="telefonoInput_12">
+                                <widget class="QLabel" name="emailE">
                                  <property name="font">
                                   <font>
                                    <pointsize>12</pointsize>
@@ -5456,7 +5459,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -5484,7 +5487,7 @@ max-height:200px;</string>
                                 </widget>
                                </item>
                                <item>
-                                <widget class="QLabel" name="telefonoInput_13">
+                                <widget class="QLabel" name="tlfE">
                                  <property name="font">
                                   <font>
                                    <pointsize>12</pointsize>
@@ -5492,7 +5495,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -5520,7 +5523,7 @@ max-height:200px;</string>
                                 </widget>
                                </item>
                                <item>
-                                <widget class="QLabel" name="telefonoInput_14">
+                                <widget class="QLabel" name="fechaNE">
                                  <property name="font">
                                   <font>
                                    <pointsize>12</pointsize>
@@ -5528,7 +5531,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -5553,12 +5556,12 @@ max-height:200px;</string>
                                 <string notr="true">color: rgb(106, 114, 130);</string>
                                </property>
                                <property name="text">
-                                <string>Especialidad</string>
+                                <string>Cargo</string>
                                </property>
                               </widget>
                              </item>
                              <item>
-                              <widget class="QLabel" name="telefonoInput_15">
+                              <widget class="QLabel" name="cargoE">
                                <property name="font">
                                 <font>
                                  <pointsize>12</pointsize>
@@ -5566,7 +5569,7 @@ max-height:200px;</string>
                                 </font>
                                </property>
                                <property name="styleSheet">
-                                <string notr="true">color: #0;</string>
+                                <string notr="true">color: #000;</string>
                                </property>
                                <property name="text">
                                 <string>04126385967</string>
@@ -5631,7 +5634,7 @@ color: rgb(0, 0, 0);</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QTableWidget" name="tabla_documentos_5">
+                        <widget class="QTableWidget" name="tabla_PTE">
                          <property name="enabled">
                           <bool>true</bool>
                          </property>
@@ -5704,7 +5707,7 @@ QTableCornerButton::section {
                           <bool>true</bool>
                          </property>
                          <property name="rowCount">
-                          <number>3</number>
+                          <number>0</number>
                          </property>
                          <property name="setAlternatingRowColors" stdset="0">
                           <bool>true</bool>
@@ -5736,21 +5739,6 @@ QTableCornerButton::section {
                          <attribute name="verticalHeaderDefaultSectionSize">
                           <number>24</number>
                          </attribute>
-                         <row>
-                          <property name="text">
-                           <string>New Row</string>
-                          </property>
-                         </row>
-                         <row>
-                          <property name="text">
-                           <string>New Row</string>
-                          </property>
-                         </row>
-                         <row>
-                          <property name="text">
-                           <string>New Row</string>
-                          </property>
-                         </row>
                          <column>
                           <property name="text">
                            <string>Nombre</string>
@@ -5809,7 +5797,7 @@ QTableCornerButton::section {
                         </spacer>
                        </item>
                        <item>
-                        <widget class="QPushButton" name="editarSt_5">
+                        <widget class="QPushButton" name="editarE">
                          <property name="styleSheet">
                           <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(0, 51, 102);
@@ -5823,7 +5811,7 @@ border-radius:10px;</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QPushButton" name="EliminarSt_5">
+                        <widget class="QPushButton" name="EliminarE">
                          <property name="styleSheet">
                           <string notr="true">color: rgb(0, 51, 102);
 border: 1px solid #003366;
@@ -5874,7 +5862,7 @@ border-radius:10px;</string>
              <string notr="true"/>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="gestion_5">
              <property name="styleSheet">
@@ -7755,7 +7743,19 @@ padding:8px;</string>
                    <property name="frameShadow">
                     <enum>QFrame::Shadow::Raised</enum>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_72">
+                   <layout class="QHBoxLayout" name="horizontalLayout_27" stretch="1,1,1,1,1">
+                    <item>
+                     <widget class="QPushButton" name="btnviewDocumentos_2">
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(0, 51, 102);
+padding:8px;
+font: 600 12pt &quot;Segoe UI&quot;;</string>
+                      </property>
+                      <property name="text">
+                       <string>Otros Datos</string>
+                      </property>
+                     </widget>
+                    </item>
                     <item>
                      <widget class="QPushButton" name="btnviewDocumentos">
                       <property name="styleSheet">
@@ -7780,6 +7780,34 @@ font: 600 12pt &quot;Segoe UI&quot;;</string>
                        </size>
                       </property>
                      </spacer>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="editarE_2">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(0, 51, 102);
+padding:6px;
+font: 11pt &quot;Segoe UI&quot;;
+border-radius:10px;</string>
+                      </property>
+                      <property name="text">
+                       <string>Editar</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="EliminarE_2">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(0, 51, 102);
+border: 1px solid #003366;
+padding:6px;
+font: 11pt &quot;Segoe UI&quot;;
+border-radius:10px;</string>
+                      </property>
+                      <property name="text">
+                       <string>Eliminar</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
