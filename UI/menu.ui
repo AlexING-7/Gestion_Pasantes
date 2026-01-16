@@ -450,7 +450,7 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
          <number>0</number>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>7</number>
         </property>
         <widget class="QWidget" name="Pag1_Inicio">
          <property name="enabled">
@@ -1925,7 +1925,7 @@ border-radius:20px;</string>
                                  </font>
                                 </property>
                                 <property name="styleSheet">
-                                 <string notr="true">color: #0;</string>
+                                 <string notr="true">color: #000;</string>
                                 </property>
                                 <property name="text">
                                  <string>04126385967</string>
@@ -4099,7 +4099,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -4135,7 +4135,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -4171,7 +4171,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -4211,7 +4211,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -4247,7 +4247,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -4283,7 +4283,7 @@ max-height:200px;</string>
                                   </font>
                                  </property>
                                  <property name="styleSheet">
-                                  <string notr="true">color: #0;</string>
+                                  <string notr="true">color: #000;</string>
                                  </property>
                                  <property name="text">
                                   <string>04126385967</string>
@@ -4321,7 +4321,7 @@ max-height:200px;</string>
                                 </font>
                                </property>
                                <property name="styleSheet">
-                                <string notr="true">color: #0;</string>
+                                <string notr="true">color: #000;</string>
                                </property>
                                <property name="text">
                                 <string>04126385967</string>
@@ -8446,7 +8446,203 @@ QTableCornerButton::section {
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="Pag_Configuracion"/>
+        <widget class="QWidget" name="Pag_Configuracion">
+         <layout class="QGridLayout" name="gridLayout_10">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QFrame" name="frame_15">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);
+margin:0px;</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QTabWidget" name="conf_tab">
+               <property name="styleSheet">
+                <string notr="true">/* 1. El Panel (Contenedor principal) */
+QTabWidget::pane {
+    border: none;
+    /* Esta es la línea gris fina que recorre todo el ancho */
+    border-top: 1px solid #dcdcdc; 
+    background: #ffffff;
+    /* Sube el panel 1px para conectarse con las pestañas */
+    top: -1px; 
+}
+
+/* 2. Estilo base de la pestaña (INACTIVA) */
+QTabBar::tab {
+    background: #fff;
+    color: #606060; /* Gris oscuro suave */
+    font-size: 14px;
+    padding: 10px 20px;
+    
+    /* Borde inferior invisible para reservar el espacio */
+    border-bottom: 3px solid transparent; 
+    
+    /* Importante: hace que la pestaña pise la línea gris del panel */
+    margin-bottom: -1px; 
+}
+
+/* 3. Efecto al pasar el mouse (Hover) */
+QTabBar::tab:hover {
+    color: #003366;
+    background-color: #f5f5f5;
+}
+
+/* 4. Estilo de la pestaña SELECCIONADA */
+QTabBar::tab:selected {
+    color: #003366; /* Tu azul Oxford */
+    background: #ffffff;
+    
+    /* La línea gruesa azul característica */
+    border-bottom: 3px solid #003366; 
+    
+    font-weight: bold;
+}</string>
+               </property>
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <widget class="QWidget" name="tab">
+                <attribute name="title">
+                 <string>Institución y Academico</string>
+                </attribute>
+                <widget class="QFrame" name="frame_60">
+                 <property name="geometry">
+                  <rect>
+                   <x>200</x>
+                   <y>30</y>
+                   <width>533</width>
+                   <height>176</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:20px;
+color: rgb(0, 0, 0);</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Shape::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Shadow::Sunken</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>2</number>
+                 </property>
+                 <widget class="QLabel" name="label_101">
+                  <property name="geometry">
+                   <rect>
+                    <x>20</x>
+                    <y>20</y>
+                    <width>129</width>
+                    <height>21</height>
+                   </rect>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                    <fontweight>DemiBold</fontweight>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(0, 51, 102);</string>
+                  </property>
+                  <property name="text">
+                   <string>Datos del Pasante</string>
+                  </property>
+                 </widget>
+                 <widget class="QLineEdit" name="lineEdit">
+                  <property name="geometry">
+                   <rect>
+                    <x>40</x>
+                    <y>70</y>
+                    <width>171</width>
+                    <height>31</height>
+                   </rect>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+border-radius: 4px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Autoridad Firmante</string>
+                  </property>
+                 </widget>
+                 <widget class="QLineEdit" name="lineEdit_2">
+                  <property name="geometry">
+                   <rect>
+                    <x>260</x>
+                    <y>70</y>
+                    <width>171</width>
+                    <height>31</height>
+                   </rect>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+border-radius: 4px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Cargo de Autoridad</string>
+                  </property>
+                 </widget>
+                </widget>
+               </widget>
+               <widget class="QWidget" name="tab_2">
+                <attribute name="title">
+                 <string>Sistema y Seguridad</string>
+                </attribute>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
      </layout>

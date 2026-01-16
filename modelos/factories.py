@@ -39,7 +39,7 @@ class StudentFactory(factory.alchemy.SQLAlchemyModelFactory):
     )
 
     # 3. SEXO
-    sexo = factory.Faker('random_element', elements=['M', 'F'])
+    sexo = factory.Faker('random_element', elements=['Masculino', 'Femenino'])
 
     # 4. CÉDULA (Unique):
     # Iniciamos en 20 millones para que parezcan cédulas reales y usamos Sequence para no repetir
