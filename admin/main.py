@@ -17,7 +17,7 @@ from admin.main_empresa import StackEnterprise
 from admin.main_tutor_academico import StackTutorA
 from admin.main_tutor_empresarial import StackTutorE
 from admin.main_pasante import StackPasante
-
+from PySide6.QtWidgets import QHeaderView  # O PySide6.QtWidgets
 
 class MainWindow(QMainWindow):
     
@@ -29,6 +29,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("menu")
         self.resize(1120, 680)
         self.conectar_eventos()
+        self.window.tablaUser.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.window.tablaLogs.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         #self.web()
         
         
