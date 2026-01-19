@@ -50,7 +50,7 @@ def convertir_a_romano(numero):
     return ''.join(resultado)
 
 def fecha_espanol(fecha):
-    mes = mes_espanol(fecha.month)
+    mes = mes_espanol(fecha)
     return f"{fecha.day} de {mes} de {fecha.year}"
 
 def mes_espanol(fecha):

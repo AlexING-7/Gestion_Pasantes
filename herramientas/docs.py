@@ -4,12 +4,14 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from docxtpl import DocxTemplate
 import jinja2
-from modelos.modulo import Pasantia,Enterprise,session
+from modelos.modulo import Pasantia,Enterprise,session,Configuracion
 import datetime
 import os
 from herramientas.conversiones import mes_espanol,convertir_a_romano,fecha_espanol,formato_miles, nombreCompleto
 
 def reemplazar_texto(datos:Pasantia,filename,name):
+    conf=session.query(Configuracion).all()
+    dic_conf=dict((i.clave,i.valor) for i in conf)
     doc = DocxTemplate(filename)
     jinja_env = jinja2.Environment()
     jinja_env.filters['fecha_es'] = fecha_espanol
@@ -86,7 +88,10 @@ def reemplazar_texto(datos:Pasantia,filename,name):
         'estado': datos.estado,
         'trabajo_asignado': datos.trabajo_asignado,
         'titulo_de_informe': datos.titulo_de_informe,
+        'autoridad_empresa':datos.jefe_de_carta,
+        'cargo_empresa':datos.cargo_jefe_de_carta
        }
+    contexto.update(dic_conf)
 
     # 3. Renderizar (rellenar) el documento
     doc.render(contexto,jinja_env)
@@ -104,5 +109,7 @@ def reemplazar_texto(datos:Pasantia,filename,name):
 if __name__ == "__main__":
     pasante=session.query(Enterprise).where(Enterprise.id==8).one_or_none()
     print(type(pasante.pasantias))
+    conf=session.query(Configuracion).all()
+    print(dict((i.clave,i.valor) for i in conf))
     #reemplazar_texto(pasante,"formatos/1. CARTA SOLICITUD DE PASANTIA.docx","prueba.docx")
 

@@ -4,10 +4,11 @@ from datetime import datetime
 from pathlib import Path
 from PySide6.QtGui import  QIcon
 from modelos.modulo import Pasantia
-from PySide6.QtWidgets import QWidget, QPushButton, QMessageBox,QFileDialog,QTableWidgetItem,QHBoxLayout,QStyle,QLineEdit,QAbstractScrollArea
+from PySide6.QtWidgets import QWidget,QHBoxLayout, QPushButton, QMessageBox,QFileDialog,QTableWidgetItem,QTableWidget,QStyle,QLineEdit,QAbstractScrollArea
 import shutil
 from herramientas.docs import reemplazar_texto
 from modelos.modulo import DocumentoAdjunto,session
+from PySide6.QtWidgets import QHeaderView
 
 class show_documentos():
     
@@ -27,7 +28,43 @@ class show_documentos():
         self.window.StackedPsa.setCurrentIndex(2)
         self.conectar_eventos()
 
-        
+    def pag_tabla(self):
+        self.tabla_documentos:QTableWidget
+        header=self.tabla_documentos.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
+        self.tabla_documentos.setRowCount(0)
+        for fila,doc in enumerate(self.pasante.documentos):
+            self.tabla_documentos.insertRow(fila)
+            ruta=doc.ruta.split("/")
+            self.tabla_documentos.setItem(fila,0,QTableWidgetItem(str(doc.tipo_de_documento)))
+            self.tabla_documentos.setItem(fila,1,QTableWidgetItem(str(ruta[-1])))
+            self.tabla_documentos.setItem(fila,2,QTableWidgetItem(str(doc.fecha_subida)))
+            self.tabla_documentos.setItem(fila,3,QTableWidgetItem(str(doc.estado)))
+            
+            widget_contenedor = QWidget()
+            
+            layout_botones = QHBoxLayout(widget_contenedor)
+            
+            layout_botones.setContentsMargins(5, 2, 5, 2) 
+            layout_botones.setSpacing(10) 
+
+            boton_ver=QPushButton("Ver")
+            boton_ver.clicked.connect(lambda checked,x=doc: self.ver_documento(x))
+            btn_borrar = QPushButton("Borrar")
+            #btn_borrar.clicked.connect(lambda checked,x=empresa: self.delete_empresa(x))
+
+            btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
+            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+
+            layout_botones.addWidget(boton_ver)
+            layout_botones.addWidget(btn_borrar)
+
+            # 6. Insertar el contenedor en la celda
+            self.tabla_documentos.setCellWidget(fila, 4, widget_contenedor)
     def conectar_eventos(self):
         self.regresarButtonP_2.clicked.connect(lambda: self.window.StackedPsa.setCurrentIndex(1))
         lista_acciones = self.lineRuta.actions()
@@ -53,6 +90,7 @@ class show_documentos():
         self.btnSubirDoc.clicked.connect(self.subir_documento)
         self.icon.triggered.connect(self.path_file)
         self.btnGenDoc.clicked.connect(self.generar_doc)
+        self.pag_tabla()
     
     def path_file(self):
         self.file_path, _ = QFileDialog.getOpenFileName(
@@ -85,6 +123,7 @@ class show_documentos():
         session.commit()
         self.guardar_archivo()
         QMessageBox.information(self.window, "Éxito", "Archivo Guardado correctamente.")
+        self.pag_tabla()
         
             
     def guardar_archivo(self):
@@ -95,18 +134,15 @@ class show_documentos():
         except Exception as e:
             QMessageBox.critical(self.window, "Error", f"No se pudo copiar el archivo: {e}")         
     
-    def ver_documento(self):
-        pass
+    def ver_documento(self,doc):
+        from admin.ver_documento import WebViewDoc
+        self.ver=WebViewDoc(doc)
+        self.ver.exec()
+        self.pag_tabla()
     
     def eliminar_documento(self):
         pass
-    
-    def header(self):
-        pass
-    
-    def pag_tabla_documentos(self):
-        pass
-    
+        
     def generar_doc(self):
         if self.comboDoc_2.currentData():
             return

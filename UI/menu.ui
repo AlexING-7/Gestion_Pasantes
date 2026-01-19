@@ -263,7 +263,7 @@ QPushButton:hover {
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="cerrar_sesionButton_2">
+          <widget class="QPushButton" name="confButton">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
@@ -314,6 +314,12 @@ QPushButton:hover {
       <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_12">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QFrame" name="frame_6">
         <property name="frameShape">
@@ -450,7 +456,7 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
          <number>0</number>
         </property>
         <property name="currentIndex">
-         <number>7</number>
+         <number>6</number>
         </property>
         <widget class="QWidget" name="Pag1_Inicio">
          <property name="enabled">
@@ -5862,7 +5868,7 @@ border-radius:10px;</string>
              <string notr="true"/>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="gestion_5">
              <property name="styleSheet">
@@ -8463,8 +8469,10 @@ QTableCornerButton::section {
           <item row="0" column="0">
            <widget class="QFrame" name="frame_15">
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);
-margin:0px;</string>
+             <string notr="true">
+#frame_15{
+background-color: rgb(255, 255, 255);
+margin:0px;}</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::Shape::StyledPanel</enum>
@@ -8493,7 +8501,7 @@ QTabWidget::pane {
     border: none;
     /* Esta es la línea gris fina que recorre todo el ancho */
     border-top: 1px solid #dcdcdc; 
-    background: #ffffff;
+    background-color: #f8fafc;
     /* Sube el panel 1px para conectarse con las pestañas */
     top: -1px; 
 }
@@ -8521,7 +8529,7 @@ QTabBar::tab:hover {
 /* 4. Estilo de la pestaña SELECCIONADA */
 QTabBar::tab:selected {
     color: #003366; /* Tu azul Oxford */
-    background: #ffffff;
+    background-color: #ffffff;
     
     /* La línea gruesa azul característica */
     border-bottom: 3px solid #003366; 
@@ -8530,111 +8538,1911 @@ QTabBar::tab:selected {
 }</string>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="tab">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
                 <attribute name="title">
                  <string>Institución y Academico</string>
                 </attribute>
-                <widget class="QFrame" name="frame_60">
-                 <property name="geometry">
-                  <rect>
-                   <x>200</x>
-                   <y>30</y>
-                   <width>533</width>
-                   <height>176</height>
-                  </rect>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color: rgb(255, 255, 255);
+                <layout class="QVBoxLayout" name="verticalLayout_94">
+                 <item>
+                  <widget class="QFrame" name="frame_60">
+                   <property name="styleSheet">
+                    <string notr="true">
+QLabel{
+color: rgb(0, 51, 102);
+font: 600 15pt &quot;Segoe UI&quot;;
+padding:0px;
+}
+
+QFrame{
+background-color: rgb(255, 255, 255);
 border-radius:20px;
-color: rgb(0, 0, 0);</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::Shape::Box</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Shadow::Sunken</enum>
-                 </property>
-                 <property name="lineWidth">
-                  <number>2</number>
-                 </property>
-                 <widget class="QLabel" name="label_101">
-                  <property name="geometry">
-                   <rect>
-                    <x>20</x>
-                    <y>20</y>
-                    <width>129</width>
-                    <height>21</height>
-                   </rect>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>12</pointsize>
-                    <fontweight>DemiBold</fontweight>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(0, 51, 102);</string>
-                  </property>
-                  <property name="text">
-                   <string>Datos del Pasante</string>
-                  </property>
-                 </widget>
-                 <widget class="QLineEdit" name="lineEdit">
-                  <property name="geometry">
-                   <rect>
-                    <x>40</x>
-                    <y>70</y>
-                    <width>171</width>
-                    <height>31</height>
-                   </rect>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QLineEdit{
+
+}
+/*
+QLineEdit{
 border: 1px solid rgb(206, 206, 206);
+color: #000;
+font: 12pt &quot;Segoe UI&quot;;
 border-radius: 4px;
+padding:8px;
 }
 
 QLineEdit:focus {
     border: 2px solid #000;
     background-color: #ffffff;
-}</string>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Autoridad Firmante</string>
-                  </property>
-                 </widget>
-                 <widget class="QLineEdit" name="lineEdit_2">
-                  <property name="geometry">
-                   <rect>
-                    <x>260</x>
-                    <y>70</y>
-                    <width>171</width>
-                    <height>31</height>
-                   </rect>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QLineEdit{
-border: 1px solid rgb(206, 206, 206);
-border-radius: 4px;
+}*/</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Sunken</enum>
+                   </property>
+                   <property name="lineWidth">
+                    <number>2</number>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_129">
+                    <property name="leftMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>15</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_101">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>Segoe UI</family>
+                        <pointsize>15</pointsize>
+                        <italic>false</italic>
+                        <fontweight>DemiBold</fontweight>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(0, 51, 102);</string>
+                      </property>
+                      <property name="text">
+                       <string>Datos del Pasante</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_28" stretch="1,1">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_2">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Autoridad Firmante 1</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_99">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_2">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string>Ej: Juan Gutierrez</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Cargo de Autoridad Firmante 1</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_28">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string>Ej: Jefe de Pasantes</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_29" stretch="1,1">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_3">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Autoridad Firmante 2</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_100">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_3">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string>Ej: Juan Gutierrez</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_4">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Cargo de Autoridad Firmante 2</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_101">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_4">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string>Ej: Jefe de Pasantes</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_34">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_5">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Lapso Actual</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_126">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_5">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string>Ej: 2026-1</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_6">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Inicio de Lapso Actual</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_127">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_11">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string>Ej: 02/02/2026</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_7">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Final de Lapso Actual</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_128">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_12">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string>Ej: 06/06/2026</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_62">
+                   <property name="styleSheet">
+                    <string notr="true">
+QLabel{
+color: rgb(0, 51, 102);
+font: 600 15pt &quot;Segoe UI&quot;;
+padding:0px;
 }
 
-QLineEdit:focus {
-    border: 2px solid #000;
-    background-color: #ffffff;
-}</string>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Cargo de Autoridad</string>
-                  </property>
-                 </widget>
-                </widget>
+QFrame{
+background-color: rgb(255, 255, 255);
+border-radius:20px;
+color: rgb(0, 0, 0);
+}
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Sunken</enum>
+                   </property>
+                   <property name="lineWidth">
+                    <number>2</number>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_93">
+                    <property name="leftMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>15</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_103">
+                      <property name="font">
+                       <font>
+                        <family>Segoe UI</family>
+                        <pointsize>15</pointsize>
+                        <italic>false</italic>
+                        <fontweight>DemiBold</fontweight>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(0, 51, 102);</string>
+                      </property>
+                      <property name="text">
+                       <string>Parámetros Académicos</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_35">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_8">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Horas Minimas</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_130">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_6">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_9">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Escala de Notas</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_131">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_7">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_10">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>Nota Minima</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_132">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_8">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_126">
+                      <property name="font">
+                       <font>
+                        <family>Segoe UI</family>
+                        <pointsize>15</pointsize>
+                        <italic>false</italic>
+                        <fontweight>DemiBold</fontweight>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(0, 51, 102);</string>
+                      </property>
+                      <property name="text">
+                       <string>Distribución de Evaluación (%)</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_36">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_11">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>% Tutor Académico</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_133">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_9">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_12">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>% Tutor Empresarial</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_134">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_10">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_13">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>% Taller de Inducción</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_135">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_13">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_14">
+                        <property name="styleSheet">
+                         <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                        </property>
+                        <property name="title">
+                         <string>% Exposición</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_136">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>10</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>5</number>
+                         </property>
+                         <item>
+                          <widget class="QLineEdit" name="lineEdit_14">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true"/>
+                           </property>
+                           <property name="placeholderText">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="QGroupBox" name="groupBox_15">
+                      <property name="styleSheet">
+                       <string notr="true">QGroupBox {
+                /* Borde gris azulado delgado */
+                border: 1px solid #003366;
+                border-radius: 4px;
+                
+				background-color: rgb(255, 255, 255);
+                /* Margen superior para que el título no choque */
+                margin-top: 8px; 
+                
+                /* Fuente del título */
+				font: 12pt &quot;Segoe UI&quot;;
+            }
+
+            /* Pseudo-elemento para el título &quot;Docker subnet&quot; */
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+                padding: 0 3px;
+                left: 10px; /* Distancia desde la izquierda */
+                
+                /* Color del texto del título (gris azulado) */
+                color: #003366; 
+                
+                /* IMPORTANTE: El fondo debe ser igual al de la ventana 
+                   para dar la ilusión de que corta el borde */
+                background-color: rgb(255, 255, 255); 
+            }
+
+            QLineEdit {
+                /* Quitamos el borde nativo del input */
+                border: none;
+                
+				background-color: transparent;
+                
+                /* Estilo del texto IP (blanco y negrita) */
+                color: rgb(0, 0, 0);
+				font: 300 12pt &quot;Segoe UI&quot;;
+            }</string>
+                      </property>
+                      <property name="title">
+                       <string>Semestre Mínimo Requerido</string>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_137">
+                       <property name="spacing">
+                        <number>0</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>10</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>10</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>10</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>5</number>
+                       </property>
+                       <item>
+                        <widget class="QLineEdit" name="lineEdit_15">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
+                         <property name="placeholderText">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>91</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_47">
+                   <item>
+                    <spacer name="horizontalSpacer_5">
+                     <property name="orientation">
+                      <enum>Qt::Orientation::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="editarE_3">
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(0, 51, 102);
+padding:12px;
+font: 11pt &quot;Segoe UI&quot;;
+border-radius:8px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Guarda Cambios</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
                </widget>
                <widget class="QWidget" name="tab_2">
                 <attribute name="title">
                  <string>Sistema y Seguridad</string>
                 </attribute>
+                <layout class="QVBoxLayout" name="verticalLayout_95" stretch="4,2,4,5,1">
+                 <item>
+                  <widget class="QFrame" name="frame_63">
+                   <property name="styleSheet">
+                    <string notr="true">
+QLabel{
+color: rgb(0, 51, 102);
+font: 600 15pt &quot;Segoe UI&quot;;
+padding:0px;
+}
+
+QFrame{
+background-color: rgb(252, 252, 252);
+border-radius:20px;
+color: rgb(0, 0, 0);
+
+}
+
+QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+color: #000;
+font: 12pt &quot;Segoe UI&quot;;
+border-radius: 4px;
+padding:8px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Sunken</enum>
+                   </property>
+                   <property name="lineWidth">
+                    <number>2</number>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_96">
+                    <property name="leftMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_127">
+                      <property name="font">
+                       <font>
+                        <family>Segoe UI</family>
+                        <pointsize>15</pointsize>
+                        <italic>false</italic>
+                        <fontweight>DemiBold</fontweight>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(0, 51, 102);</string>
+                      </property>
+                      <property name="text">
+                       <string>Usuario y Seguridad</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_48">
+                      <item>
+                       <widget class="QLineEdit" name="lineEdit_19">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+border-radius: 4px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                        </property>
+                        <property name="placeholderText">
+                         <string>Nuevo Nombre de Usuario</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLineEdit" name="lineEdit_20">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+border-radius: 4px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                        </property>
+                        <property name="placeholderText">
+                         <string>Contraseña Actual</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_49">
+                      <item>
+                       <widget class="QLineEdit" name="lineEdit_21">
+                        <property name="styleSheet">
+                         <string notr="true">QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+border-radius: 4px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="placeholderText">
+                         <string>Nueva Contraseña</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLineEdit" name="lineEdit_22">
+                        <property name="styleSheet">
+                         <string notr="true">QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+border-radius: 4px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                        </property>
+                        <property name="placeholderText">
+                         <string>Confirmar Nueva Contraseña</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_64">
+                   <property name="styleSheet">
+                    <string notr="true">
+QLabel{
+color: rgb(0, 51, 102);
+font: 600 15pt &quot;Segoe UI&quot;;
+padding:0px;
+}
+
+QFrame{
+background-color: rgb(252, 252, 252);
+border-radius:20px;
+color: rgb(0, 0, 0);
+
+}
+
+QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+color: #000;
+font: 12pt &quot;Segoe UI&quot;;
+border-radius: 4px;
+padding:8px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Sunken</enum>
+                   </property>
+                   <property name="lineWidth">
+                    <number>2</number>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_97">
+                    <property name="leftMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_128">
+                      <property name="font">
+                       <font>
+                        <family>Segoe UI</family>
+                        <pointsize>15</pointsize>
+                        <italic>false</italic>
+                        <fontweight>DemiBold</fontweight>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(0, 51, 102);</string>
+                      </property>
+                      <property name="text">
+                       <string>Datos del Pasante</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_50">
+                      <item>
+                       <widget class="QPushButton" name="editarE_4">
+                        <property name="styleSheet">
+                         <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(0, 51, 102);
+padding:6px;
+font: 11pt &quot;Segoe UI&quot;;
+border-radius:10px;</string>
+                        </property>
+                        <property name="text">
+                         <string>Generar Copia de Seguridad</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="editarE_5">
+                        <property name="styleSheet">
+                         <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(0, 51, 102);
+padding:6px;
+font: 11pt &quot;Segoe UI&quot;;
+border-radius:10px;</string>
+                        </property>
+                        <property name="text">
+                         <string>Restaurar Base de Datos</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="editarE_6">
+                        <property name="styleSheet">
+                         <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(0, 51, 102);
+padding:6px;
+font: 11pt &quot;Segoe UI&quot;;
+border-radius:10px;</string>
+                        </property>
+                        <property name="text">
+                         <string>Borrar logs antiguos</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_6">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_67">
+                   <property name="styleSheet">
+                    <string notr="true">
+QLabel{
+color: rgb(0, 51, 102);
+font: 600 15pt &quot;Segoe UI&quot;;
+padding:0px;
+}
+
+QFrame{
+background-color: rgb(252, 252, 252);
+border-radius:20px;
+color: rgb(0, 0, 0);
+
+}
+
+QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+color: #000;
+font: 12pt &quot;Segoe UI&quot;;
+border-radius: 4px;
+padding:8px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::Box</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Sunken</enum>
+                   </property>
+                   <property name="lineWidth">
+                    <number>2</number>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_98">
+                    <property name="leftMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>20</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_129">
+                      <property name="font">
+                       <font>
+                        <family>Segoe UI</family>
+                        <pointsize>15</pointsize>
+                        <italic>false</italic>
+                        <fontweight>DemiBold</fontweight>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(0, 51, 102);</string>
+                      </property>
+                      <property name="text">
+                       <string>Ruta y Archivos</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_51">
+                      <item>
+                       <widget class="QLineEdit" name="lineEdit_23">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+border-radius: 4px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                        </property>
+                        <property name="placeholderText">
+                         <string>Ruta de Documentos</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_52">
+                      <item>
+                       <widget class="QLineEdit" name="lineEdit_25">
+                        <property name="styleSheet">
+                         <string notr="true">QLineEdit{
+border: 1px solid rgb(206, 206, 206);
+border-radius: 4px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #000;
+    background-color: #ffffff;
+}</string>
+                        </property>
+                        <property name="placeholderText">
+                         <string>Ruta temporales</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>137</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_53">
+                   <item>
+                    <spacer name="horizontalSpacer_7">
+                     <property name="orientation">
+                      <enum>Qt::Orientation::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="editarE_7">
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(0, 51, 102);
+padding:8px;
+font: 11pt &quot;Segoe UI&quot;;
+border-radius:10px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Guarda Cambios</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
                </widget>
               </widget>
              </item>

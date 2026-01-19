@@ -1,6 +1,6 @@
 import factory
 from datetime import date, timedelta
-from modelos.modulo import session,User,Student,Enterprise,Tutor_Academico,Tutor_Empresarial,Pasantia
+from modelos.modulo import session,User,Student,Enterprise,Tutor_Academico,Tutor_Empresarial,Pasantia,Configuracion
 
 class UserFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:
@@ -197,3 +197,15 @@ class PasantiaFactory(factory.alchemy.SQLAlchemyModelFactory):
         estado = factory.Faker('random_element', elements=['solicitada', 'aprobada', 'en progreso', 'finalizada'])
         trabajo_asignado = factory.Faker('paragraph', nb_sentences=3, locale='es_ES')
         titulo_de_informe = factory.LazyAttribute(lambda o: f"Informe de {o.carrera} - {o.lapso_academico}")
+
+
+class ConfiguracionFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = Configuracion
+        sqlalchemy_session = session
+        sqlalchemy_session_persistence = 'commit'
+
+    # Clave única para la variable de configuración
+    clave = factory.Sequence(lambda n: f"clave_{n}")
+    # Valor puede ser cualquier cadena; usamos una frase corta en español
+    valor = factory.Faker('sentence', nb_words=4, locale='es_ES')

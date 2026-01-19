@@ -1,6 +1,6 @@
 
 
-from sqlalchemy import (create_engine,ForeignKey,Column,Integer,String,Date,Float,DateTime,Boolean)
+from sqlalchemy import (create_engine,ForeignKey,Column,Integer,String,Date,Float,DateTime,Boolean,event)
 from sqlalchemy.orm import Mapped, mapped_column,declarative_base,relationship,sessionmaker
 from sqlalchemy.dialects.mysql import LONGTEXT
 from typing import Optional,List
@@ -164,6 +164,19 @@ class Pasantia(BaseModel):
     )
     documentos: Mapped[List["DocumentoAdjunto"]] = relationship(back_populates="pasantia")
 
+
+@event.listens_for(Pasantia, "before_insert")
+@event.listens_for(Pasantia, "before_update")
+def _pasantia_empty_strings_to_none(mapper, connection, target):
+    """Convertir atributos tipo str con cadena vacía a None antes de persistir."""
+    for col in target.__table__.columns:
+        try:
+            val = getattr(target, col.name)
+        except AttributeError:
+            continue
+        if isinstance(val, str) and val == "":
+            setattr(target, col.name, None)
+
 class Evaluacion(BaseModel):
     __tablename__ = "evaluaciones"
 
@@ -199,7 +212,7 @@ class Configuracion(BaseModel):
     valor:Mapped[str] = mapped_column(String(100))
 
     def __repr__(self) -> str:
-        return f"Variable(clave={self.clave!r}, valor={self.valor!r})"
+        return (f"Variable(clave={self.clave!r}, valor={self.valor!r})")
 
 class SistemaLog(BaseModel):
     __tablename__ = "sistema_logs"

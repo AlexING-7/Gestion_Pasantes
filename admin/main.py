@@ -47,38 +47,7 @@ class MainWindow(QMainWindow):
         elif self.window.stackedWidget.currentIndex()==6:
             self.pasante.eventFilter(source,event)
             
-        return super().eventFilter(source, event)
-
-       
-    def web(self):
-        
-        self.window.web_view.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
-        self.window.web_view.settings().setAttribute(QWebEngineSettings.PdfViewerEnabled, True)
-        self.window.web_view.setContextMenuPolicy(Qt.NoContextMenu)
-        #self.disable_features()
-        # Cargar el PDF desde fichero local y pedir al visualizador que abra sin la sidebar
-        # Añadimos el fragmento 'pagemode=none' (y opcional 'toolbar=0') para cerrar la barra lateral
-        file_path = os.getenv('prueba')
-        if file_path:
-            url = QUrl.fromLocalFile(file_path)
-            # Establecer fragmento para controlar la vista del PDF (p.ej. cerrar sidebar)
-            # Algunos visores (Chromium) respetan '#pagemode=none' para ocultar miniaturas/bookmarks
-            url.setFragment("pagemode=none&toolbar=0")
-            self.window.web_view.load(url)
-        else:
-            QMessageBox.warning(self, "Archivo no encontrado", "No se encontró la ruta al PDF en la variable de entorno 'prueba'.")
-
-    def disable_features(self):
-        """Desactivar características específicas del WebEngine"""
-        # Desactivar JavaScript si no es necesario
-        self.window.web_view.settings().setAttribute(QWebEngineSettings.JavascriptEnabled, False)
-        
-        # Desactivar enlaces externos
-        #self.window.web_view.page().setLinkDelegationPolicy(QWebEnginePage.DelegateAllLinks)
-        
-        # Desactivar más características
-        #self.window.web_view.settings().setAttribute(QWebEngineSettings.WebAttribute.ShowScrollBars, False)
-        self.window.web_view.settings().setAttribute(QWebEngineSettings.WebAttribute.AllowWindowActivationFromJavaScript, False)    
+        return super().eventFilter(source, event) 
     
     def conectar_eventos(self):
         #realizar una clase de usuario autenticado
@@ -93,6 +62,7 @@ class MainWindow(QMainWindow):
         self.window.TutoresButton.clicked.connect(self.change_widget)
         self.window.TutoresEButton.clicked.connect(self.change_widget)
         self.window.PasantiasButton.clicked.connect(self.change_widget)
+        self.window.confButton.clicked.connect(self.change_widget)
         
         
         

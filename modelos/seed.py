@@ -8,7 +8,7 @@ import logging
 from modelos.modulo import session, engine, Base,User, Student,Enterprise,Tutor_Academico,Tutor_Empresarial
 
 # 2. Importa tus Factories
-from factories import UserFactory, StudentFactory,EnterpriseFactory,TutorAcademicoFactory,TutorEmpresarialFactory,PasantiaFactory
+from factories import UserFactory, StudentFactory,EnterpriseFactory,TutorAcademicoFactory,TutorEmpresarialFactory,PasantiaFactory,ConfiguracionFactory
 
 # Configuración básica de logs para ver qué pasa en la consola
 logging.basicConfig(level=logging.INFO)
@@ -44,6 +44,43 @@ def crear_usuarios_sistema():
         email="control_estudios@psm.edu.ve",
         rol="Secretaria"
     )
+    
+    ConfiguracionFactory(
+        clave="autoridad_firmante_1",
+        valor="Ing. Franklin España"   
+    )
+    
+    ConfiguracionFactory(
+        clave="cargo_autoridad_firmante_1",
+        valor="Jefe del departamento de pasantías"   
+    )
+    
+    ConfiguracionFactory(
+        clave="autoridad_firmante_2",
+        valor="Lcda Maria Rosa"   
+    )
+    
+    ConfiguracionFactory(
+        clave="cargo_autoridad_firmante_2",
+        valor="Coordinadora de la Extensión"   
+    )
+    
+    ConfiguracionFactory(
+        clave="lapso_actual",
+        valor="2025-2"   
+    )
+    
+    ConfiguracionFactory(
+        clave="inicio_lapso_actual",
+        valor="22/09/2025"   
+    )
+    
+    ConfiguracionFactory(
+        clave="final_lapso_actual",
+        valor="02/02/2026"   
+    )
+    
+    
 
 def crear_estudiantes_prueba():
     """Crea estudiantes aleatorios y casos específicos."""
