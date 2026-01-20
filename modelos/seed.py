@@ -42,7 +42,7 @@ def crear_usuarios_sistema():
         username="secretaria",
         password="123",
         email="control_estudios@psm.edu.ve",
-        rol="Secretaria"
+        rol="coord"
     )
     
     ConfiguracionFactory(

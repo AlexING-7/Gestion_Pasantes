@@ -24,7 +24,11 @@ class Login(QMainWindow):
         sesion_mac=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none()
         if sesion_mac:
             self.logged=True
-            self.open_main_window()
+            
+            if sesion_mac.user.rol.lower()=="Administrador":
+                self.open_main_window()
+            elif sesion_mac.user.rol.lower()=="Coordinador":
+                self.open_main_coord_window()
         else:
             self.show()
    
@@ -78,6 +82,11 @@ class Login(QMainWindow):
         from admin.main import MainWindow
         self.main_window=MainWindow()
         self.main_window.show()
+
+    def open_main_coord_window(self):
+        from coord.main import MainWindow as coordMainWindow
+        self.main_window=coordMainWindow()
+        self.main_window.show()   
         
     def open_recovery_window(self):
         from iniciar_sesion.recovery import RecoveryWindow
