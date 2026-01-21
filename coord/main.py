@@ -12,12 +12,7 @@ from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
 
 from dotenv import load_dotenv
-from admin.main_estudiantes import StackStudent
-from admin.main_empresa import StackEnterprise
-from admin.main_tutor_academico import StackTutorA
-from admin.main_tutor_empresarial import StackTutorE
-from admin.main_pasante import StackPasante
-from PySide6.QtWidgets import QHeaderView  # O PySide6.QtWidgets
+from PySide6.QtCore import QSize, Qt # O PySide6.QtWidgets
 
 class MainWindow(QMainWindow):
     
@@ -32,7 +27,9 @@ class MainWindow(QMainWindow):
         
 
     def conectar_eventos(self):
-        #realizar una clase de usuario autenticado
+        self.window.cerrar_sesionButton.clicked.connect(self.logout)
+        self.window.btnGen.clicked.connect(self.change_widget)
+        self.window.btnSolicitud.clicked.connect(self.change_widget)
         pass
         
     def change_widget(self):
@@ -44,21 +41,16 @@ class MainWindow(QMainWindow):
             self.window.stackedWidget.setCurrentIndex(0)
             self.window.listWidget.setCurrentRow(0)
             
-            # Create the custom widget
-            widget = QWidget()
-            widget.setStyleSheet("background-color: white;")
-            layout = QHBoxLayout(widget)
-            label = QLabel("documento")
-            layout.addWidget(label)
-            button = QPushButton("generar")
-            button.setStyleSheet("background-color: blue; color: white;")
-            layout.addWidget(button)
+            docs=("1. CARTA SOLICITUD DE PASANTIA","2.CARTA ACEPTACION DEL PASANTE","3.ACTA DE INICIO","4.ACTA DE INICIO DE EJECUCIÓN DE PASANTÍA","5.CONTRATO DEL PASANTE","6. INSCRIPCION DE PASANTIA","16.CARTA DE RESPUESTA A SOLICITUD DE EXTENSIÓN DE PASANTIAS")
+            for i in docs:
             
-            # Create list item
-            item = QListWidgetItem()
-            item.setSizeHint(widget.sizeHint())
-            self.window.listWidget.addItem(item)
-            self.window.listWidget.setItemWidget(item, widget)
+                btn=cargar_ui("UI/generar_doc.ui",self)
+                btn.label_Documento.setText(i)
+                item = QListWidgetItem()
+                item.setSizeHint(QSize(430,82))
+                print(btn.sizeHint())
+                self.window.listWidget.addItem(item)
+                self.window.listWidget.setItemWidget(item, btn)
 
 
       

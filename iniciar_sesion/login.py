@@ -25,9 +25,9 @@ class Login(QMainWindow):
         if sesion_mac:
             self.logged=True
             
-            if sesion_mac.user.rol.lower()=="Administrador":
+            if sesion_mac.user.rol=="Administrador":
                 self.open_main_window()
-            elif sesion_mac.user.rol.lower()=="Coordinador":
+            elif sesion_mac.user.rol=="Coordinador":
                 self.open_main_coord_window()
         else:
             self.show()

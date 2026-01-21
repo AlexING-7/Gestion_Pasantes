@@ -128,7 +128,7 @@ QPushButton:hover {
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btnSolicitud">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
@@ -184,7 +184,7 @@ QPushButton:hover {
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_6">
+          <widget class="QPushButton" name="btnGen">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
@@ -392,6 +392,21 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
        <widget class="QStackedWidget" name="stackedWidget">
         <widget class="QWidget" name="page">
          <layout class="QVBoxLayout" name="verticalLayout_8">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QFrame" name="frame_6">
             <property name="styleSheet">
@@ -450,23 +465,9 @@ color:rgb(0, 51, 102);</string>
              <string notr="true">QListWidget {
                 background-color: #f0f0f0;
                 border: 1px solid #ccc;
+				padding:0px;
             }
-            QListWidget::item {
-                background-color: white;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                padding: 10px;
-                color: #333;
-            }
-            QListWidget::item:selected {
-                background-color: #dbeafe; /* Azul claro al seleccionar */
-                border: 1px solid #3b82f6;
-                color: black;
-            }
-            QListWidget::item:hover {
-                background-color: #ffffff;
-                border: 1px solid #aaa;
-            }</string>
+          </string>
             </property>
             <property name="movement">
              <enum>QListView::Movement::Static</enum>
@@ -474,8 +475,11 @@ color:rgb(0, 51, 102);</string>
             <property name="resizeMode">
              <enum>QListView::ResizeMode::Adjust</enum>
             </property>
+            <property name="layoutMode">
+             <enum>QListView::LayoutMode::SinglePass</enum>
+            </property>
             <property name="spacing">
-             <number>10</number>
+             <number>5</number>
             </property>
             <property name="viewMode">
              <enum>QListView::ViewMode::IconMode</enum>
@@ -487,7 +491,7 @@ color:rgb(0, 51, 102);</string>
              <bool>false</bool>
             </property>
             <property name="itemAlignment">
-             <set>Qt::AlignmentFlag::AlignLeading</set>
+             <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft</set>
             </property>
            </widget>
           </item>
