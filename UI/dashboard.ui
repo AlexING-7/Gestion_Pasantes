@@ -391,27 +391,29 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <widget class="QWidget" name="page">
-         <layout class="QVBoxLayout" name="verticalLayout_8">
+         <layout class="QVBoxLayout" name="verticalLayout_8" stretch="2,1,10">
           <property name="spacing">
-           <number>0</number>
+           <number>10</number>
           </property>
           <property name="leftMargin">
-           <number>0</number>
+           <number>15</number>
           </property>
           <property name="topMargin">
-           <number>0</number>
+           <number>10</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>15</number>
           </property>
           <property name="bottomMargin">
-           <number>0</number>
+           <number>10</number>
           </property>
           <item>
            <widget class="QFrame" name="frame_6">
             <property name="styleSheet">
              <string notr="true">#frame_6{
-	background-color: rgb(249, 243, 244);
+	background-color: white;
+
+	border-radius:8px;
 }</string>
             </property>
             <property name="frameShape">
@@ -421,10 +423,17 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
              <enum>QFrame::Shadow::Raised</enum>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_7">
+             <property name="leftMargin">
+              <number>16</number>
+             </property>
+             <property name="rightMargin">
+              <number>16</number>
+             </property>
              <item>
               <widget class="QLabel" name="label_4">
                <property name="styleSheet">
                 <string notr="true">color: rgb(106, 114, 130);
+background-color: transparent;
 font: 400 14pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="text">
@@ -451,8 +460,10 @@ border: 2px solid rgb(226, 232, 240);</string>
           <item>
            <widget class="QLabel" name="label_5">
             <property name="styleSheet">
-             <string notr="true">font: 350 20pt &quot;Segoe UI&quot;;
-color:rgb(0, 51, 102);</string>
+             <string notr="true">font: 550 20pt &quot;Segoe UI&quot;;
+color:rgb(0, 51, 102);
+background-color: transparent;
+</string>
             </property>
             <property name="text">
              <string>Formatos Disponibles</string>
@@ -463,7 +474,7 @@ color:rgb(0, 51, 102);</string>
            <widget class="QListWidget" name="listWidget">
             <property name="styleSheet">
              <string notr="true">QListWidget {
-                background-color: #f0f0f0;
+                background-color: transparent;
                 border: 1px solid #ccc;
 				padding:0px;
             }
