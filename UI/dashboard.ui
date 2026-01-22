@@ -483,6 +483,46 @@ color:rgb(0, 51, 102);</string>
                <property name="frameShadow">
                 <enum>QFrame::Shadow::Raised</enum>
                </property>
+               <widget class="QLineEdit" name="lineEdit">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>10</y>
+                  <width>113</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+               </widget>
+               <widget class="QListWidget" name="listWidget_2">
+                <property name="geometry">
+                 <rect>
+                  <x>20</x>
+                  <y>61</y>
+                  <width>91</width>
+                  <height>461</height>
+                 </rect>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Nuevo elemento</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Nuevo elemento</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Nuevo elemento</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Nuevo elemento</string>
+                 </property>
+                </item>
+               </widget>
               </widget>
              </item>
              <item>
@@ -493,6 +533,158 @@ color:rgb(0, 51, 102);</string>
                <property name="frameShadow">
                 <enum>QFrame::Shadow::Raised</enum>
                </property>
+               <layout class="QVBoxLayout" name="verticalLayout_11" stretch="1,10">
+                <item>
+                 <widget class="QFrame" name="frame_12">
+                  <property name="frameShape">
+                   <enum>QFrame::Shape::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Shadow::Raised</enum>
+                  </property>
+                  <widget class="QLabel" name="label_7">
+                   <property name="geometry">
+                    <rect>
+                     <x>10</x>
+                     <y>10</y>
+                     <width>49</width>
+                     <height>16</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>TextLabel</string>
+                   </property>
+                  </widget>
+                  <widget class="QLabel" name="label_8">
+                   <property name="geometry">
+                    <rect>
+                     <x>10</x>
+                     <y>30</y>
+                     <width>49</width>
+                     <height>16</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>TextLabel</string>
+                   </property>
+                  </widget>
+                  <widget class="QPushButton" name="pushButton">
+                   <property name="geometry">
+                    <rect>
+                     <x>120</x>
+                     <y>20</y>
+                     <width>75</width>
+                     <height>24</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>PushButton</string>
+                   </property>
+                  </widget>
+                  <widget class="QPushButton" name="pushButton_6">
+                   <property name="geometry">
+                    <rect>
+                     <x>210</x>
+                     <y>20</y>
+                     <width>75</width>
+                     <height>24</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>PushButton</string>
+                   </property>
+                  </widget>
+                  <widget class="QPushButton" name="pushButton_8">
+                   <property name="geometry">
+                    <rect>
+                     <x>300</x>
+                     <y>20</y>
+                     <width>75</width>
+                     <height>24</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>PushButton</string>
+                   </property>
+                  </widget>
+                  <widget class="QPushButton" name="pushButton_9">
+                   <property name="geometry">
+                    <rect>
+                     <x>410</x>
+                     <y>20</y>
+                     <width>75</width>
+                     <height>24</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>PushButton</string>
+                   </property>
+                  </widget>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QFrame" name="frame_13">
+                  <property name="frameShape">
+                   <enum>QFrame::Shape::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Shadow::Raised</enum>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout">
+                   <item row="0" column="0">
+                    <widget class="QFrame" name="frame_14">
+                     <property name="frameShape">
+                      <enum>QFrame::Shape::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Shadow::Raised</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QFrame" name="frame_15">
+                     <property name="frameShape">
+                      <enum>QFrame::Shape::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Shadow::Raised</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QFrame" name="frame_16">
+                     <property name="frameShape">
+                      <enum>QFrame::Shape::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Shadow::Raised</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QFrame" name="frame_17">
+                     <property name="frameShape">
+                      <enum>QFrame::Shape::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Shadow::Raised</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0" colspan="2">
+                    <widget class="QFrame" name="frame_18">
+                     <property name="frameShape">
+                      <enum>QFrame::Shape::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Shadow::Raised</enum>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
