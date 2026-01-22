@@ -35,10 +35,17 @@ class MainWindow(QMainWindow):
     def change_widget(self):
         buttom=self.sender()
         if buttom.text().lower()=="Solicitudes".lower():
-            self.window.stackedWidget.setCurrentIndex(1)
+            self.window.stackedWidget.setCurrentIndex(0)
+            self.window.listSolicitudes.setCurrentRow(0)
+            
+            soli=cargar_ui("UI/solicitud.ui",self)
+            item = QListWidgetItem()
+            item.setSizeHint(QSize(327,230))
+            self.window.listSolicitudes.addItem(item)
+            self.window.listSolicitudes.setItemWidget(item, soli)
             
         elif buttom.text().lower()=="Generación de Docs".lower():
-            self.window.stackedWidget.setCurrentIndex(0)
+            self.window.stackedWidget.setCurrentIndex(1)
             self.window.listWidget.setCurrentRow(0)
             
             docs=("1. CARTA SOLICITUD DE PASANTIA","2.CARTA ACEPTACION DEL PASANTE","3.ACTA DE INICIO","4.ACTA DE INICIO DE EJECUCIÓN DE PASANTÍA","5.CONTRATO DEL PASANTE","6. INSCRIPCION DE PASANTIA","16.CARTA DE RESPUESTA A SOLICITUD DE EXTENSIÓN DE PASANTIAS")

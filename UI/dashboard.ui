@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>880</width>
-    <height>776</height>
+    <height>764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -390,7 +390,122 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
       </item>
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
-        <widget class="QWidget" name="page">
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <widget class="QWidget" name="page_1">
+         <property name="styleSheet">
+          <string notr="true">#page_1{
+	background-color: transparent;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="styleSheet">
+             <string notr="true">font: 600 16pt &quot;Segoe UI&quot;;
+color:rgb(0, 51, 102);</string>
+            </property>
+            <property name="text">
+             <string>Bandeja de Solicitudes</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="listSolicitudes">
+            <property name="styleSheet">
+             <string notr="true">QListWidget {
+                background-color: transparent;
+                border: 1px solid #ccc;
+				padding:0px;
+            }
+          </string>
+            </property>
+            <property name="movement">
+             <enum>QListView::Movement::Static</enum>
+            </property>
+            <property name="resizeMode">
+             <enum>QListView::ResizeMode::Adjust</enum>
+            </property>
+            <property name="layoutMode">
+             <enum>QListView::LayoutMode::SinglePass</enum>
+            </property>
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <property name="viewMode">
+             <enum>QListView::ViewMode::IconMode</enum>
+            </property>
+            <property name="modelColumn">
+             <number>0</number>
+            </property>
+            <property name="uniformItemSizes">
+             <bool>false</bool>
+            </property>
+            <property name="itemAlignment">
+             <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_2">
+         <property name="styleSheet">
+          <string notr="true">#page_2{
+	background-color: transparent;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_10" stretch="1,10">
+          <item>
+           <widget class="QFrame" name="frame_7">
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_9">
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,4">
+             <item>
+              <widget class="QFrame" name="frame_10">
+               <property name="frameShape">
+                <enum>QFrame::Shape::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Shadow::Raised</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFrame" name="frame_11">
+               <property name="frameShape">
+                <enum>QFrame::Shape::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Shadow::Raised</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_6">
+         <property name="styleSheet">
+          <string notr="true">#page_6{
+background-color:transparent;
+}</string>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_8" stretch="2,1,10">
           <property name="spacing">
            <number>10</number>
@@ -508,7 +623,6 @@ background-color: transparent;
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="page_2"/>
        </widget>
       </item>
      </layout>
