@@ -1,71 +1,19 @@
 from PySide6.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QHBoxLayout,
-    QComboBox, QPushButton, QGridLayout, QLineEdit, QScrollArea, QFrame
+    QApplication, QWidget, QLabel, QComboBox, QPushButton,
+    QVBoxLayout, QHBoxLayout, QGridLayout, QScrollArea,
+    QFrame, QMessageBox, QFileDialog
 )
+from PySide6.QtGui import QFont, QPixmap
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont
 import sys
 
-# Ventana especializada para generar documentos de pasantías
-# Adaptación del módulo "Generador de Documentos de Pasantías" a PySide6
 
-class GeneradorDocumentosPasantias(QMainWindow):
+class GeneradorDocumentosPasantias(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Generador de Documentos de Pasantías")
         self.showMaximized()
-
-        # ===== Colores institucionales =====
-        self.brand_color = "#003366"
-
-        # ===== Widget central =====
-        central = QWidget()
-        self.setCentralWidget(central)
-        main_layout = QVBoxLayout(central)
-
-        # ===== Header =====
-        header = QFrame()
-        header.setStyleSheet(f"background-color:{self.brand_color};")
-        header_layout = QVBoxLayout(header)
-
-        title = QLabel("Generador de Documentos de Pasantías")
-        title.setFont(QFont("Arial", 20, QFont.Bold))
-        title.setStyleSheet("color:white;")
-
-        subtitle = QLabel("Seleccione un pasante y genere documentos institucionales automáticamente")
-        subtitle.setStyleSheet("color:#e0e0e0;")
-
-        header_layout.addWidget(title)
-        header_layout.addWidget(subtitle)
-        main_layout.addWidget(header)
-
-        # ===== Selector de pasante =====
-        selector_frame = QFrame()
-        selector_frame.setStyleSheet("background:white; border-radius:12px;")
-        selector_layout = QHBoxLayout(selector_frame)
-
-        lbl_pasante = QLabel("Pasante:")
-        lbl_pasante.setFont(QFont("Arial", 11, QFont.Bold))
-
-        self.combo_pasantes = QComboBox()
-        self.combo_pasantes.addItems([
-            "Seleccione un pasante",
-            "Juan Pérez - V-12345678",
-            "María Gómez - V-87654321",
-            "Carlos Ruiz - V-11223344"
-        ])
-
-        selector_layout.addWidget(lbl_pasante)
-        selector_layout.addWidget(self.combo_pasantes)
-        main_layout.addWidget(selector_frame)
-
-        # ===== Área de formatos =====
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-
-        formatos_container = QWidget()
-        grid = QGridLayout(formatos_container)
-        grid.setSpacing(15)
+        self.setStyleSheet("background-color: #f8fafc;")
 
         self.formatos = [
             "Carta de Presentación",
@@ -78,69 +26,131 @@ class GeneradorDocumentosPasantias(QMainWindow):
             "Informe Final",
             "Evaluación Tutor Académico",
             "Evaluación Tutor Empresarial",
-            "Acta de Inicio de Pasantía"
+            "Acta de Inicio de Pasantía",
         ]
 
-        row = col = 0
-        for formato in self.formatos:
-            card = self.crear_card_formato(formato)
-            grid.addWidget(card, row, col)
-            col += 1
-            if col == 3:
-                col = 0
-                row += 1
+        self.init_ui()
 
-        scroll.setWidget(formatos_container)
-        main_layout.addWidget(scroll)
+    def init_ui(self):
+        main_layout = QVBoxLayout(self)
 
-        # ===== Añadir nuevo formato =====
-        add_frame = QFrame()
-        add_layout = QHBoxLayout(add_frame)
+        # Header
+        header = QLabel("Generador de Documentos de Pasantías")
+        header.setAlignment(Qt.AlignCenter)
+        header.setStyleSheet(
+            "background-color: #003366; color: white; padding: 20px;"
+        )
+        header.setFont(QFont("Arial", 20, QFont.Bold))
+        main_layout.addWidget(header)
 
-        self.input_nuevo_formato = QLineEdit()
-        self.input_nuevo_formato.setPlaceholderText("Nombre del nuevo formato")
+        # Contenido principal
+        content_layout = QHBoxLayout()
+        main_layout.addLayout(content_layout)
 
-        btn_add = QPushButton("Añadir formato")
-        btn_add.clicked.connect(self.agregar_formato)
-        btn_add.setStyleSheet(f"background:{self.brand_color}; color:white; padding:6px 12px; border-radius:8px;")
+        # Panel izquierdo - Datos del pasante
+        left_panel = QFrame()
+        left_panel.setStyleSheet("background: white; border-radius: 12px;")
+        left_panel.setFixedWidth(320)
+        left_layout = QVBoxLayout(left_panel)
+        left_layout.setAlignment(Qt.AlignTop)
 
-        add_layout.addWidget(self.input_nuevo_formato)
-        add_layout.addWidget(btn_add)
-        main_layout.addWidget(add_frame)
+        # Foto del estudiante
+        self.photo_label = QLabel()
+        self.photo_label.setFixedSize(180, 180)
+        self.photo_label.setAlignment(Qt.AlignCenter)
+        self.photo_label.setStyleSheet(
+            "border: 2px dashed #003366; border-radius: 90px; color: #64748b;"
+        )
+        self.photo_label.setText("Sin foto")
+        left_layout.addWidget(self.photo_label, alignment=Qt.AlignCenter)
 
-    def crear_card_formato(self, nombre):
-        frame = QFrame()
-        frame.setStyleSheet("background:#f8fafc; border-radius:14px; padding:10px;")
-        layout = QHBoxLayout(frame)
+        btn_photo = QPushButton("Cargar foto")
+        btn_photo.clicked.connect(self.cargar_foto)
+        btn_photo.setStyleSheet(self.btn_style())
+        left_layout.addWidget(btn_photo)
 
-        lbl = QLabel(nombre)
-        lbl.setAlignment(Qt.AlignCenter)
-        lbl.setFont(QFont("Arial", 10, QFont.Bold))
+        left_layout.addSpacing(20)
 
-        btn = QPushButton("Generar documento")
-        btn.setStyleSheet(f"background:{self.brand_color}; color:white; padding:6px; border-radius:8px;")
-        btn.clicked.connect(lambda: self.generar_documento(nombre))
+        lbl_pasante = QLabel("Seleccionar pasante")
+        lbl_pasante.setFont(QFont("Arial", 10, QFont.Bold))
+        left_layout.addWidget(lbl_pasante)
 
-        layout.addWidget(lbl)
-        layout.addWidget(btn)
-        return frame
+        self.combo_pasantes = QComboBox()
+        self.combo_pasantes.addItems([
+            "Carlos Ruiz - V-12345678",
+            "María López - V-87654321",
+            "José Fernández - V-11223344",
+        ])
+        left_layout.addWidget(self.combo_pasantes)
+
+        content_layout.addWidget(left_panel)
+
+        # Panel derecho - formatos
+        right_panel = QFrame()
+        right_panel.setStyleSheet("background: white; border-radius: 12px;")
+        right_layout = QVBoxLayout(right_panel)
+
+        title = QLabel("Formatos disponibles")
+        title.setFont(QFont("Arial", 14, QFont.Bold))
+        right_layout.addWidget(title)
+
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll_content = QWidget()
+        grid = QGridLayout(scroll_content)
+
+        for i, formato in enumerate(self.formatos):
+            card = QFrame()
+            card.setStyleSheet(
+                "border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px;"
+            )
+            card_layout = QVBoxLayout(card)
+
+            lbl = QLabel(formato)
+            lbl.setFont(QFont("Arial", 10, QFont.Bold))
+            card_layout.addWidget(lbl)
+
+            btn = QPushButton("Generar documento")
+            btn.setStyleSheet(self.btn_style())
+            btn.clicked.connect(lambda _, f=formato: self.generar_documento(f))
+            card_layout.addWidget(btn)
+
+            grid.addWidget(card, i // 3, i % 3)
+
+        scroll.setWidget(scroll_content)
+        right_layout.addWidget(scroll)
+
+        content_layout.addWidget(right_panel)
+
+    def btn_style(self):
+        return (
+            "QPushButton {"
+            "background-color: #003366; color: white; padding: 8px;"
+            "border-radius: 6px;}"
+            "QPushButton:hover { background-color: #002244; }"
+        )
+
+    def cargar_foto(self):
+        file, _ = QFileDialog.getOpenFileName(
+            self, "Seleccionar foto", "", "Imágenes (*.png *.jpg *.jpeg)"
+        )
+        if file:
+            pixmap = QPixmap(file).scaled(
+                180, 180, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation
+            )
+            self.photo_label.setPixmap(pixmap)
+            self.photo_label.setStyleSheet("border-radius: 90px;")
 
     def generar_documento(self, formato):
         pasante = self.combo_pasantes.currentText()
-        if pasante == "Seleccione un pasante":
-            print("Debe seleccionar un pasante")
-            return
-        print(f"Generando '{formato}' para {pasante}")
-        # Aquí se integraría la generación real de PDF/DOCX
-
-    def agregar_formato(self):
-        nombre = self.input_nuevo_formato.text().strip()
-        if nombre:
-            print(f"Nuevo formato agregado: {nombre}")
-            self.input_nuevo_formato.clear()
+        QMessageBox.information(
+            self,
+            "Documento generado",
+            f"Se ha generado el formato:\n\n{formato}\n\nPara el pasante:\n{pasante}",
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = GeneradorDocumentosPasantias()
     window.show()
