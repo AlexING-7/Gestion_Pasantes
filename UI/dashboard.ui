@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1062</width>
-    <height>764</height>
+    <height>813</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -455,15 +455,57 @@ color:rgb(0, 51, 102);</string>
 	background-color: transparent;
 }</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_10" stretch="1,10">
+         <layout class="QVBoxLayout" name="verticalLayout_10">
           <item>
            <widget class="QFrame" name="frame_7">
+            <property name="styleSheet">
+             <string notr="true">QFrame{
+	
+	background-color: rgb(0, 51, 102);
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+}
+
+#regresarButtonSt{
+background-color:#1a4775;
+color:#fff;
+padding: 8px;
+border-radius: 10px;
+
+}
+
+QLabel{
+	font: 600 18pt &quot;Segoe UI&quot;;
+color:#fff;}</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::Shape::StyledPanel</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Raised</enum>
             </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Panel de Pasantes</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
@@ -477,55 +519,86 @@ color:rgb(0, 51, 102);</string>
             <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,4">
              <item>
               <widget class="QFrame" name="frame_10">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::Shape::StyledPanel</enum>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Shadow::Raised</enum>
                </property>
-               <widget class="QLineEdit" name="lineEdit">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>10</y>
-                  <width>113</width>
-                  <height>22</height>
-                 </rect>
+               <layout class="QGridLayout" name="gridLayout_4">
+                <property name="rightMargin">
+                 <number>0</number>
                 </property>
-               </widget>
-               <widget class="QListWidget" name="listWidget_2">
-                <property name="geometry">
-                 <rect>
-                  <x>20</x>
-                  <y>61</y>
-                  <width>91</width>
-                  <height>461</height>
-                 </rect>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">color: rgb(0, 0, 0);</string>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Nuevo elemento</string>
-                 </property>
+                <item row="0" column="0">
+                 <widget class="QFrame" name="frame_26">
+                  <property name="styleSheet">
+                   <string notr="true">QFrame{
+border:1px solid  rgb(173, 173, 173);
+border-radius:5px;
+}
+
+QLineEdit{
+font: 12pt &quot;Segoe UI&quot;;
+border-radius:6px;
+border: 1px solid rgb(173, 173, 173);
+padding:6px;
+	background-color: transparent;
+}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::Shape::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Shadow::Raised</enum>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_39" stretch="4,8">
+                   <property name="topMargin">
+                    <number>16</number>
+                   </property>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Buscar por CIV</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QListWidget" name="listWidget_2">
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(0, 0, 0);</string>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>Nuevo elemento</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Nuevo elemento</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Nuevo elemento</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Nuevo elemento</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Nuevo elemento</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Nuevo elemento</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Nuevo elemento</string>
-                 </property>
-                </item>
-               </widget>
+               </layout>
               </widget>
              </item>
              <item>
@@ -544,7 +617,7 @@ color:rgb(0, 51, 102);</string>
                  <widget class="QFrame" name="frame_12">
                   <property name="styleSheet">
                    <string notr="true">QFrame{
-border:1px solid  rgb(122, 122, 122);
+border:1px solid  rgb(173, 173, 173);
 border-top-left-radius:5px;
 	border-top-right-radius:5px;
 border-bottom:none;
@@ -571,7 +644,19 @@ padding:6px;
                   <property name="frameShadow">
                    <enum>QFrame::Shadow::Raised</enum>
                   </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="5,1,2,2,2,2">
+                   <property name="leftMargin">
+                    <number>18</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>22</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>18</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>9</number>
+                   </property>
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_12">
                      <property name="spacing">
@@ -648,6 +733,14 @@ padding:6px;
                 </item>
                 <item>
                  <widget class="QFrame" name="frame_13">
+                  <property name="styleSheet">
+                   <string notr="true">#frame_13{
+border:1px solid rgb(173, 173, 173);
+border-top:none;
+border-bottom-left-radius:5px;
+border-bottom-right-radius:5px;
+}</string>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::Shape::StyledPanel</enum>
                   </property>
@@ -671,16 +764,14 @@ padding:6px;
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QStackedWidget" name="stackedWidget_2">
+                    <widget class="QStackedWidget" name="stackedPasante">
                      <property name="styleSheet">
                       <string notr="true">
 QStackedWidget{
 background-color: transparent;
-border:1px solid rgb(122, 122, 122);
-border-top:none;
-border-bottom-left-radius:5px;
-border-bottom-right-radius:5px;
 
+padding-top:5px;
+padding-bottom:2px;
 }
 #pageP1{
 	background-color: transparent;
@@ -701,180 +792,355 @@ border:none;
 </string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>0</number>
                      </property>
                      <widget class="QWidget" name="pageP1">
-                      <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,1">
+                      <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,1,1">
+                       <property name="leftMargin">
+                        <number>15</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>15</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>15</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="spacing">
+                        <number>10</number>
+                       </property>
                        <item row="0" column="0" colspan="2">
-                        <widget class="QFrame" name="frame_15">
-                         <property name="styleSheet">
-                          <string notr="true">QFrame{
+                        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1,1">
+                         <property name="spacing">
+                          <number>10</number>
+                         </property>
+                         <item>
+                          <widget class="QFrame" name="frame_15">
+                           <property name="styleSheet">
+                            <string notr="true">QFrame{
 background-color: transparent;
-border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:none;
 }
 
 QLabel{
 border:none;
 }</string>
-                         </property>
-                         <property name="frameShape">
-                          <enum>QFrame::Shape::StyledPanel</enum>
-                         </property>
-                         <property name="frameShadow">
-                          <enum>QFrame::Shadow::Raised</enum>
-                         </property>
-                         <widget class="QFrame" name="frame_14">
-                          <property name="geometry">
-                           <rect>
-                            <x>0</x>
-                            <y>0</y>
-                            <width>200</width>
-                            <height>200</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">background-color: rgb(0, 51, 102);
+                           </property>
+                           <property name="frameShape">
+                            <enum>QFrame::Shape::StyledPanel</enum>
+                           </property>
+                           <property name="frameShadow">
+                            <enum>QFrame::Shadow::Raised</enum>
+                           </property>
+                           <layout class="QGridLayout" name="gridLayout">
+                            <property name="leftMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <item row="0" column="0">
+                             <widget class="QFrame" name="frame_14">
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(0, 51, 102);
 
-border-radius: 100px;
+border-radius: 90px;
 border: none;
-min-width:200px;
-min-height:200px;
-max-width:200px;
-max-height:200px;</string>
-                          </property>
-                          <property name="frameShape">
-                           <enum>QFrame::Shape::StyledPanel</enum>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Shadow::Raised</enum>
-                          </property>
-                          <layout class="QGridLayout" name="gridLayout_2">
-                           <property name="leftMargin">
-                            <number>0</number>
+min-width:180px;
+min-height:180px;
+max-width:180px;
+max-height:180px;</string>
+                              </property>
+                              <property name="frameShape">
+                               <enum>QFrame::Shape::StyledPanel</enum>
+                              </property>
+                              <property name="frameShadow">
+                               <enum>QFrame::Shadow::Raised</enum>
+                              </property>
+                              <layout class="QGridLayout" name="gridLayout_2">
+                               <property name="leftMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>0</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                               <item row="0" column="0">
+                                <widget class="QLabel" name="perfil_St_input">
+                                 <property name="text">
+                                  <string/>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QFrame" name="frame_25">
+                           <property name="styleSheet">
+                            <string notr="true">QFrame{
+background-color: transparent;
+border-radius:10px;
+border:1px solid rgb(173, 173, 173);
+}
+
+QLabel{
+border:none;
+}</string>
                            </property>
-                           <property name="topMargin">
-                            <number>0</number>
+                           <property name="frameShape">
+                            <enum>QFrame::Shape::StyledPanel</enum>
                            </property>
-                           <property name="rightMargin">
-                            <number>0</number>
+                           <property name="frameShadow">
+                            <enum>QFrame::Shadow::Raised</enum>
                            </property>
-                           <property name="bottomMargin">
-                            <number>0</number>
+                           <layout class="QVBoxLayout" name="verticalLayout_31">
+                            <property name="leftMargin">
+                             <number>16</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>16</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>16</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>16</number>
+                            </property>
+                            <item>
+                             <layout class="QVBoxLayout" name="verticalLayout_18">
+                              <property name="spacing">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_31">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Sexo</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_32">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Masculino</string>
+                                </property>
+                                <property name="wordWrap">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <layout class="QVBoxLayout" name="verticalLayout_17">
+                              <property name="spacing">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_17">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Cédula</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_13">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+                                </property>
+                                <property name="text">
+                                 <string>V-30.409.477</string>
+                                </property>
+                                <property name="wordWrap">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <layout class="QVBoxLayout" name="verticalLayout_19">
+                              <property name="spacing">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_22">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Edad</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_12">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+                                </property>
+                                <property name="text">
+                                 <string>22</string>
+                                </property>
+                                <property name="wordWrap">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QFrame" name="frame_24">
+                           <property name="styleSheet">
+                            <string notr="true">QFrame{
+background-color: transparent;
+border-radius:10px;
+border:1px solid rgb(173, 173, 173);
+}
+
+QLabel{
+border:none;
+}</string>
                            </property>
-                           <item row="0" column="0">
-                            <widget class="QLabel" name="perfil_St_input">
-                             <property name="text">
-                              <string/>
-                             </property>
-                             <property name="alignment">
-                              <set>Qt::AlignmentFlag::AlignCenter</set>
-                             </property>
-                            </widget>
-                           </item>
-                          </layout>
-                         </widget>
-                         <widget class="QLabel" name="label_9">
-                          <property name="geometry">
-                           <rect>
-                            <x>240</x>
-                            <y>80</y>
-                            <width>209</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                           <property name="frameShape">
+                            <enum>QFrame::Shape::StyledPanel</enum>
+                           </property>
+                           <property name="frameShadow">
+                            <enum>QFrame::Shadow::Raised</enum>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_30">
+                            <property name="leftMargin">
+                             <number>16</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>16</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>16</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>16</number>
+                            </property>
+                            <item>
+                             <layout class="QVBoxLayout" name="verticalLayout_21">
+                              <property name="spacing">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_33">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Teléfono</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_34">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Sexo</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_10">
-                          <property name="geometry">
-                           <rect>
-                            <x>240</x>
-                            <y>30</y>
-                            <width>209</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                                </property>
+                                <property name="text">
+                                 <string>0412-6385967</string>
+                                </property>
+                                <property name="wordWrap">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <layout class="QVBoxLayout" name="verticalLayout_20">
+                              <property name="spacing">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_35">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Email</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_36">
+                                <property name="styleSheet">
+                                 <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Cedula</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_13">
-                          <property name="geometry">
-                           <rect>
-                            <x>240</x>
-                            <y>140</y>
-                            <width>209</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Edad</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_12">
-                          <property name="geometry">
-                           <rect>
-                            <x>380</x>
-                            <y>30</y>
-                            <width>141</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Email</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_11">
-                          <property name="geometry">
-                           <rect>
-                            <x>370</x>
-                            <y>70</y>
-                            <width>121</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Telefono</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                        </widget>
+                                </property>
+                                <property name="text">
+                                 <string>alexander30409@gmail.com</string>
+                                </property>
+                                <property name="wordWrap">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <spacer name="verticalSpacer_3">
+                              <property name="orientation">
+                               <enum>Qt::Orientation::Vertical</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>20</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                        </layout>
                        </item>
                        <item row="1" column="0" colspan="2">
                         <widget class="QFrame" name="frame_19">
@@ -882,7 +1148,7 @@ color: rgb(0, 0, 0);</string>
                           <string notr="true">QFrame{
 background-color: transparent;
 border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:1px solid rgb(173, 173, 173);
 }
 
 QLabel{
@@ -895,26 +1161,45 @@ border:none;
                          <property name="frameShadow">
                           <enum>QFrame::Shadow::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="label_23">
-                          <property name="geometry">
-                           <rect>
-                            <x>20</x>
-                            <y>10</y>
-                            <width>141</width>
-                            <height>28</height>
-                           </rect>
+                         <layout class="QVBoxLayout" name="verticalLayout_16">
+                          <property name="leftMargin">
+                           <number>16</number>
                           </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                          <property name="topMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>16</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_14">
+                            <property name="styleSheet">
+                             <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                            </property>
+                            <property name="text">
+                             <string>Dirección</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_23">
+                            <property name="styleSheet">
+                             <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Dirección</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
+                            </property>
+                            <property name="text">
+                             <string>Barinas, edo. barinas, Parroquia Ramon Ignacio Mendez, Urbanización Dominga Ortiz de Paez, sector 3, calle 12, casa 6</string>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item row="2" column="0">
@@ -923,7 +1208,7 @@ color: rgb(0, 0, 0);</string>
                           <string notr="true">QFrame{
 background-color: transparent;
 border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:1px solid rgb(173, 173, 173);
 }
 
 QLabel{
@@ -936,66 +1221,107 @@ border:none;
                          <property name="frameShadow">
                           <enum>QFrame::Shadow::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="label_16">
-                          <property name="geometry">
-                           <rect>
-                            <x>20</x>
-                            <y>10</y>
-                            <width>141</width>
-                            <height>28</height>
-                           </rect>
+                         <layout class="QVBoxLayout" name="verticalLayout_25">
+                          <property name="leftMargin">
+                           <number>16</number>
                           </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                          <property name="topMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>16</number>
+                          </property>
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_22">
+                            <item>
+                             <widget class="QLabel" name="label_37">
+                              <property name="styleSheet">
+                               <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                              </property>
+                              <property name="text">
+                               <string>Lapso</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_40">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Lapso</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_20">
-                          <property name="geometry">
-                           <rect>
-                            <x>10</x>
-                            <y>40</y>
-                            <width>161</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                              </property>
+                              <property name="text">
+                               <string>2025-2</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_24">
+                            <item>
+                             <widget class="QLabel" name="label_39">
+                              <property name="styleSheet">
+                               <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                              </property>
+                              <property name="text">
+                               <string>Tutor Empresarial</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_42">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Tutor Academico</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_21">
-                          <property name="geometry">
-                           <rect>
-                            <x>10</x>
-                            <y>70</y>
-                            <width>161</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                              </property>
+                              <property name="text">
+                               <string>Franklin España</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_23">
+                            <item>
+                             <widget class="QLabel" name="label_38">
+                              <property name="styleSheet">
+                               <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                              </property>
+                              <property name="text">
+                               <string>Tutor Académico</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_41">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Tutor Empresarial</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
+                              </property>
+                              <property name="text">
+                               <string>Pedro Perez</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item row="2" column="1">
@@ -1004,7 +1330,7 @@ color: rgb(0, 0, 0);</string>
                           <string notr="true">QFrame{
 background-color: transparent;
 border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:1px solid rgb(173, 173, 173);
 }
 
 QLabel{
@@ -1017,79 +1343,126 @@ border:none;
                          <property name="frameShadow">
                           <enum>QFrame::Shadow::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="label_15">
-                          <property name="geometry">
-                           <rect>
-                            <x>20</x>
-                            <y>10</y>
-                            <width>121</width>
-                            <height>28</height>
-                           </rect>
+                         <layout class="QVBoxLayout" name="verticalLayout_29">
+                          <property name="leftMargin">
+                           <number>16</number>
                           </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                          <property name="topMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>16</number>
+                          </property>
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_26">
+                            <item>
+                             <widget class="QLabel" name="label_43">
+                              <property name="styleSheet">
+                               <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                              </property>
+                              <property name="text">
+                               <string>Empresa</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_44">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Empresa</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_18">
-                          <property name="geometry">
-                           <rect>
-                            <x>20</x>
-                            <y>40</y>
-                            <width>121</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                              </property>
+                              <property name="text">
+                               <string>UNELLEZ</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_27">
+                            <item>
+                             <widget class="QLabel" name="label_45">
+                              <property name="styleSheet">
+                               <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                              </property>
+                              <property name="text">
+                               <string>Inicio de Pasantías</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_46">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Inicio</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_19">
-                          <property name="geometry">
-                           <rect>
-                            <x>10</x>
-                            <y>70</y>
-                            <width>121</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                              </property>
+                              <property name="text">
+                               <string>06/10/2025</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_28">
+                            <item>
+                             <widget class="QLabel" name="label_47">
+                              <property name="styleSheet">
+                               <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                              </property>
+                              <property name="text">
+                               <string>Final de Pasantías</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_48">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Final</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
+                              </property>
+                              <property name="text">
+                               <string>23/01/2026</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                       </layout>
                      </widget>
                      <widget class="QWidget" name="pageP2">
-                      <layout class="QVBoxLayout" name="verticalLayout_14" stretch="1,2,1">
+                      <layout class="QVBoxLayout" name="verticalLayout_14" stretch="1,3,1">
+                       <property name="leftMargin">
+                        <number>18</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>18</number>
+                       </property>
                        <item>
                         <widget class="QFrame" name="frame_16">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
 border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:1px solid rgb(173, 173, 173);
 }
 
 QLabel{
@@ -1102,26 +1475,45 @@ border:none;
                          <property name="frameShadow">
                           <enum>QFrame::Shadow::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="label_24">
-                          <property name="geometry">
-                           <rect>
-                            <x>30</x>
-                            <y>10</y>
-                            <width>141</width>
-                            <height>28</height>
-                           </rect>
+                         <layout class="QVBoxLayout" name="verticalLayout_32">
+                          <property name="leftMargin">
+                           <number>16</number>
                           </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                          <property name="topMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>16</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_49">
+                            <property name="styleSheet">
+                             <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                            </property>
+                            <property name="text">
+                             <string>Titulo Informe</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_54">
+                            <property name="styleSheet">
+                             <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Titulo Informe</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
+                            </property>
+                            <property name="text">
+                             <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item>
@@ -1130,7 +1522,7 @@ color: rgb(0, 0, 0);</string>
                           <string notr="true">QFrame{
 background-color: transparent;
 border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:1px solid rgb(173, 173, 173);
 }
 
 QLabel{
@@ -1143,46 +1535,81 @@ border:none;
                          <property name="frameShadow">
                           <enum>QFrame::Shadow::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="label_25">
-                          <property name="geometry">
-                           <rect>
-                            <x>20</x>
-                            <y>20</y>
-                            <width>141</width>
-                            <height>28</height>
-                           </rect>
+                         <layout class="QVBoxLayout" name="verticalLayout_35">
+                          <property name="leftMargin">
+                           <number>16</number>
                           </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                          <property name="topMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>16</number>
+                          </property>
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_33">
+                            <item>
+                             <widget class="QLabel" name="label_50">
+                              <property name="styleSheet">
+                               <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                              </property>
+                              <property name="text">
+                               <string>Departamento</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_56">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Departamento</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_26">
-                          <property name="geometry">
-                           <rect>
-                            <x>20</x>
-                            <y>70</y>
-                            <width>141</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                              </property>
+                              <property name="text">
+                               <string>PCVA</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QVBoxLayout" name="verticalLayout_34">
+                            <item>
+                             <widget class="QLabel" name="label_51">
+                              <property name="styleSheet">
+                               <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                              </property>
+                              <property name="text">
+                               <string>Sede/Sucursal</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="label_55">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Sede/Sucursal</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
+                              </property>
+                              <property name="text">
+                               <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item>
@@ -1191,7 +1618,7 @@ color: rgb(0, 0, 0);</string>
                           <string notr="true">QFrame{
 background-color: transparent;
 border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:1px solid rgb(173, 173, 173);
 }
 
 QLabel{
@@ -1204,59 +1631,95 @@ border:none;
                          <property name="frameShadow">
                           <enum>QFrame::Shadow::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="label_27">
-                          <property name="geometry">
-                           <rect>
-                            <x>10</x>
-                            <y>10</y>
-                            <width>281</width>
-                            <height>28</height>
-                           </rect>
+                         <layout class="QVBoxLayout" name="verticalLayout_36">
+                          <property name="leftMargin">
+                           <number>16</number>
                           </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                          <property name="topMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>16</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_52">
+                            <property name="styleSheet">
+                             <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                            </property>
+                            <property name="text">
+                             <string>Representación de la Empresa</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_57">
+                            <property name="styleSheet">
+                             <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Representación de la Empresa</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
-                         <widget class="QLabel" name="label_28">
-                          <property name="geometry">
-                           <rect>
-                            <x>10</x>
-                            <y>40</y>
-                            <width>91</width>
-                            <height>28</height>
-                           </rect>
-                          </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                            </property>
+                            <property name="text">
+                             <string>Damairy</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_53">
+                            <property name="styleSheet">
+                             <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                            </property>
+                            <property name="text">
+                             <string>Cargo</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_58">
+                            <property name="styleSheet">
+                             <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Cargo</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
+                            </property>
+                            <property name="text">
+                             <string>Jefa de SubPrograma Ingeniería Informática</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                       </layout>
                      </widget>
                      <widget class="QWidget" name="pageP3">
                       <layout class="QVBoxLayout" name="verticalLayout_15" stretch="2,2,1">
+                       <property name="leftMargin">
+                        <number>18</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>18</number>
+                       </property>
                        <item>
                         <widget class="QFrame" name="frame_22">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
 border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:1px solid rgb(173, 173, 173);
 }
 
 QLabel{
@@ -1269,26 +1732,45 @@ border:none;
                          <property name="frameShadow">
                           <enum>QFrame::Shadow::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="label_29">
-                          <property name="geometry">
-                           <rect>
-                            <x>20</x>
-                            <y>20</y>
-                            <width>231</width>
-                            <height>28</height>
-                           </rect>
+                         <layout class="QVBoxLayout" name="verticalLayout_37" stretch="1,10">
+                          <property name="leftMargin">
+                           <number>16</number>
                           </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                          <property name="topMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>16</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_59">
+                            <property name="styleSheet">
+                             <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                            </property>
+                            <property name="text">
+                             <string>Trabajo Asignado</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_61">
+                            <property name="styleSheet">
+                             <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Trabajo Asignado</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
+                            </property>
+                            <property name="text">
+                             <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item>
@@ -1297,7 +1779,7 @@ color: rgb(0, 0, 0);</string>
                           <string notr="true">QFrame{
 background-color: transparent;
 border-radius:10px;
-border:1px solid rgb(122, 122, 122);
+border:1px solid rgb(173, 173, 173);
 }
 
 QLabel{
@@ -1310,26 +1792,47 @@ border:none;
                          <property name="frameShadow">
                           <enum>QFrame::Shadow::Raised</enum>
                          </property>
-                         <widget class="QLabel" name="label_30">
-                          <property name="geometry">
-                           <rect>
-                            <x>20</x>
-                            <y>20</y>
-                            <width>231</width>
-                            <height>28</height>
-                           </rect>
+                         <layout class="QVBoxLayout" name="verticalLayout_38" stretch="1,10">
+                          <property name="leftMargin">
+                           <number>16</number>
                           </property>
-                          <property name="styleSheet">
-                           <string notr="true">font: 600 14pt &quot;Segoe UI&quot;;
+                          <property name="topMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>16</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>16</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_60">
+                            <property name="styleSheet">
+                             <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                            </property>
+                            <property name="text">
+                             <string>Plan de trabajo</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_62">
+                            <property name="styleSheet">
+                             <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
-                          </property>
-                          <property name="text">
-                           <string>Plan de trabajo</string>
-                          </property>
-                          <property name="wordWrap">
-                           <bool>true</bool>
-                          </property>
-                         </widget>
+                            </property>
+                            <property name="text">
+                             <string>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. </string>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item>
@@ -1350,7 +1853,22 @@ color: rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_4">
+                    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,1,1">
+                     <property name="spacing">
+                      <number>10</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>9</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>9</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>9</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>9</number>
+                     </property>
                      <item>
                       <spacer name="horizontalSpacer_2">
                        <property name="orientation">
@@ -1366,15 +1884,29 @@ color: rgb(0, 0, 0);</string>
                      </item>
                      <item>
                       <widget class="QPushButton" name="pushButton_11">
+                       <property name="styleSheet">
+                        <string notr="true">background-color: rgb(0, 51, 102);
+color: rgb(255, 255, 255);
+font: 12pt &quot;Segoe UI&quot;;
+padding:5px;
+border-radius:4px;</string>
+                       </property>
                        <property name="text">
-                        <string>PushButton</string>
+                        <string>Anterior</string>
                        </property>
                       </widget>
                      </item>
                      <item>
                       <widget class="QPushButton" name="pushButton_10">
+                       <property name="styleSheet">
+                        <string notr="true">background-color: rgb(0, 51, 102);
+color: rgb(255, 255, 255);
+font: 12pt &quot;Segoe UI&quot;;
+padding:5px;
+border-radius:4px;</string>
+                       </property>
                        <property name="text">
-                        <string>PushButton</string>
+                        <string>Siguiente</string>
                        </property>
                       </widget>
                      </item>
