@@ -197,6 +197,17 @@ class PasantiaFactory(factory.alchemy.SQLAlchemyModelFactory):
         estado = factory.Faker('random_element', elements=['solicitada', 'aprobada', 'en progreso', 'finalizada'])
         trabajo_asignado = factory.Faker('paragraph', nb_sentences=3, locale='es_ES')
         titulo_de_informe = factory.LazyAttribute(lambda o: f"Informe de {o.carrera} - {o.lapso_academico}")
+        # Campos adicionales existentes en el modelo `Pasantia`
+        plan_de_trabajo = factory.Faker('paragraph', nb_sentences=5, locale='es_ES')
+        sede = factory.Faker('boolean')
+        
+        direccion = factory.Maybe(
+            'sede',
+            yes_declaration=None,
+            no_declaration=factory.Faker('address', locale='es_ES')
+        )
+        jefe_de_carta = factory.Faker('name', locale='es_ES')
+        cargo_jefe_de_carta = factory.Faker('job', locale='es_ES')
 
 
 class ConfiguracionFactory(factory.alchemy.SQLAlchemyModelFactory):

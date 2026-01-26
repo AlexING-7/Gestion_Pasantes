@@ -138,8 +138,9 @@ class StackEnterprise():
             layout_botones.addWidget(btn_editar)
             layout_botones.addWidget(btn_borrar)
 
+            # 6. Insertar el contenedor en la celda
             tabla.setCellWidget(fila, 4, widget_contenedor)
-        
+        # Esto elimina todas las filas, pero DEJA los títulos de las columnas intactos.
 
     def get_data(self,offset_count,search=""):
              
@@ -251,7 +252,7 @@ class StackEnterprise():
                 title="Advertencia",
                 text="<h3 style='color: #ff5555'>Eliminar Estudiante</h3>",
                 informative_text="¿Esta seguro de eliminar esta información?",
-                parent=self.main
+                parent=self
             )
 
         btn_save, btn_cancel = msg.add_custom_buttons()

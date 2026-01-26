@@ -18,3 +18,6 @@ alembic current
 
 Muestra el historial de migraciones.
 alembic history	
+
+Convertir ui a py
+pyside6-uic pasante_id.ui -o pasante_ui.py 

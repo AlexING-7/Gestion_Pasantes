@@ -12,12 +12,15 @@ from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
 
 from dotenv import load_dotenv
+from admin.main_usuarios import StackUsers
 from admin.main_estudiantes import StackStudent
 from admin.main_empresa import StackEnterprise
 from admin.main_tutor_academico import StackTutorA
 from admin.main_tutor_empresarial import StackTutorE
 from admin.main_pasante import StackPasante
-from PySide6.QtWidgets import QHeaderView  # O PySide6.QtWidgets
+from admin.main_logs import StackLogs
+from PySide6.QtWidgets import QHeaderView
+from herramientas.logs import registrar_log
 
 class MainWindow(QMainWindow):
     
@@ -29,8 +32,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("menu")
         self.resize(1120, 680)
         self.conectar_eventos()
-        self.window.tablaUser.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self.window.tablaLogs.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         #self.web()
         
         
@@ -65,15 +66,17 @@ class MainWindow(QMainWindow):
         self.window.TutoresEButton.clicked.connect(self.change_widget)
         self.window.PasantiasButton.clicked.connect(self.change_widget)
         self.window.confButton.clicked.connect(self.change_widget)
+        self.window.InicioButton.click()
         
         
         
     def change_widget(self):
         buttom=self.sender()
         if buttom.text().lower()=="inicio":
-            self.window.stackedWidget.setCurrentIndex(0)
+            StackLogs(self)
         elif buttom.text().lower()=="usuarios":
             self.window.stackedWidget.setCurrentIndex(1)
+            StackUsers(self)
         elif buttom.text().lower()=="estudiantes":
             self.student=StackStudent(self)
             self.window.stackedWidget.setCurrentIndex(2)          
@@ -98,6 +101,11 @@ class MainWindow(QMainWindow):
             session.delete(sesion_mac)
             session.commit()
         self.close()
+        registrar_log(session=session,
+                              usuario=self.user_authenticated.username,
+                              accion="LOGOUT",
+                              mensaje="Logout Rol Administrador",
+                              )
         from iniciar_sesion.login import Login
         self.login = Login()
         self.login.show()

@@ -456,7 +456,7 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
          <number>0</number>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>6</number>
         </property>
         <widget class="QWidget" name="Pag1_Inicio">
          <property name="enabled">
@@ -942,7 +942,7 @@ QTableCornerButton::section {
          </layout>
         </widget>
         <widget class="QWidget" name="Pag2_Usuarios">
-         <layout class="QVBoxLayout" name="verticalLayout_140" stretch="1,2,23,0">
+         <layout class="QVBoxLayout" name="verticalLayout_140" stretch="1,2,10,5">
           <item>
            <widget class="QLabel" name="label_30">
             <property name="styleSheet">
@@ -1001,40 +1001,96 @@ QLineEdit:focus {
               <number>20</number>
              </property>
              <item>
-              <widget class="QLabel" name="label_146">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                 <fontweight>DemiBold</fontweight>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(0, 51, 102);
+              <layout class="QHBoxLayout" name="horizontalLayout_76">
+               <item>
+                <widget class="QLabel" name="labelCrearEditarUser">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <fontweight>DemiBold</fontweight>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgb(0, 51, 102);
 background-color:transparent;</string>
-               </property>
-               <property name="text">
-                <string>Crear/Editar Usuario</string>
-               </property>
-              </widget>
+                 </property>
+                 <property name="text">
+                  <string>Crear Usuario</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_17">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QComboBox" name="comboAccionUser">
+                 <property name="styleSheet">
+                  <string notr="true">QComboBox {
+    background-color: #f0f0f0;
+    border: 1px solid #c0c0c0;
+    border-radius: 6px;
+    padding: 1px 15px;
+    padding-right: 30px; /* Espacio para la flecha */
+    font-size: 14px;
+    color: #333333;
+    min-height: 25px;
+}
+
+QComboBox QAbstractItemView {
+	color:#333333;
+    background-color: #ffffff;
+    border: 1px solid #c0c0c0;
+    selection-background-color: #0078d7; /* Color de selección azul */
+    selection-color: #ffffff;
+    outline: 0; /* Quita la línea punteada al seleccionar */
+    border-radius: 0px 0px 6px 6px;
+}</string>
+                 </property>
+                 <property name="editable">
+                  <bool>false</bool>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>Create</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Update</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_54">
                <item>
-                <widget class="QLineEdit" name="lineEdit_18">
+                <widget class="QLineEdit" name="username_input">
                  <property name="placeholderText">
                   <string>Nombre de Usuario</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit_26">
+                <widget class="QLineEdit" name="correo_input">
                  <property name="placeholderText">
                   <string>Correo</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_2">
+                <widget class="QComboBox" name="rol_input">
                  <property name="styleSheet">
                   <string notr="true">QComboBox {
     background-color: #f0f0f0;
@@ -1045,24 +1101,29 @@ background-color:transparent;</string>
     font-size: 14px;
     color: #333333;
     min-height: 25px;
+}
+
+QComboBox QAbstractItemView {
+	color:#333333;
+    background-color: #ffffff;
+    border: 1px solid #c0c0c0;
+    selection-background-color: #0078d7; /* Color de selección azul */
+    selection-color: #ffffff;
+    outline: 0; /* Quita la línea punteada al seleccionar */
+    border-radius: 0px 0px 6px 6px;
 }</string>
                  </property>
                  <property name="placeholderText">
-                  <string>Todas las Acciones</string>
+                  <string/>
                  </property>
                  <item>
                   <property name="text">
-                   <string>Update</string>
+                   <string>Coordinador</string>
                   </property>
                  </item>
                  <item>
                   <property name="text">
-                   <string>Create</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Delete</string>
+                   <string>Administrador</string>
                   </property>
                  </item>
                 </widget>
@@ -1072,14 +1133,20 @@ background-color:transparent;</string>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_55">
                <item>
-                <widget class="QLineEdit" name="lineEdit_24">
+                <widget class="QLineEdit" name="password_input">
+                 <property name="echoMode">
+                  <enum>QLineEdit::EchoMode::Password</enum>
+                 </property>
                  <property name="placeholderText">
                   <string>Contraseña</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit_27">
+                <widget class="QLineEdit" name="confirmarPassword_input">
+                 <property name="echoMode">
+                  <enum>QLineEdit::EchoMode::Password</enum>
+                 </property>
                  <property name="placeholderText">
                   <string>Confirmar Contraseña</string>
                  </property>
@@ -1090,7 +1157,7 @@ background-color:transparent;</string>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_72">
                <item>
-                <widget class="QPushButton" name="pushButton_5">
+                <widget class="QPushButton" name="usuarios_btnGuardar">
                  <property name="styleSheet">
                   <string notr="true">QPushButton{
 	background-color: rgb(0, 51, 102);
@@ -1172,7 +1239,7 @@ color: rgb(0, 0, 0);</string>
               </widget>
              </item>
              <item>
-              <widget class="QTableWidget" name="tablaUser">
+              <widget class="QTableWidget" name="tabla_users">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -3192,7 +3259,7 @@ padding:5px 15px;</string>
 	border-top-right-radius:5px;
 }
 
-#regresarButtonP_4{
+#regresarButtonEmp{
 background-color:#1a4775;
 color:#fff;
 padding: 8px;
@@ -6289,7 +6356,7 @@ border-radius:10px;</string>
              <string notr="true"/>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="gestion_5">
              <property name="styleSheet">

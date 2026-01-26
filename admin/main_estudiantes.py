@@ -17,10 +17,9 @@ from herramientas.plantilla_ui import cargar_ui
 from herramientas.modern_messagebox import ModernMessageBox
 from herramientas.exports import exportar_modelo_a_excel
 from herramientas.variables import semestre
-from herramientas.conversiones import null_string
+from herramientas.conversiones import null_string,convertir_pil_a_pixmap
 from dotenv import load_dotenv
 from herramientas.docs import reemplazar_texto
-from herramientas.img_py import convertir_pil_a_pixmap
 from PySide6.QtWidgets import QHeaderView
 from PySide6.QtCore import QEvent
 

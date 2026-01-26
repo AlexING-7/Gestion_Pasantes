@@ -2,6 +2,8 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import logging
+from herramientas.conversiones import cifrar
+
 
 # 1. Importa la configuración de tu BD
 # Ajusta los nombres de archivo según tu proyecto (ej. database.py, models.py)
@@ -32,17 +34,17 @@ def crear_usuarios_sistema():
     # Usuario Administrador (Para que puedas entrar siempre)
     UserFactory(
         username="admin",
-        password="123",  # En producción recuerda hashear esto
+        password=cifrar("123"),  # En producción recuerda hashear esto
         email="admin@psm.edu.ve",
         rol="Administrador"
     )
 
     # Usuario Secretaria
     UserFactory(
-        username="secretaria",
-        password="123",
+        username="coord",
+        password=cifrar("123"),
         email="control_estudios@psm.edu.ve",
-        rol="coord"
+        rol="Coordinador"
     )
     
     ConfiguracionFactory(
@@ -112,7 +114,7 @@ def crear_tutoresE_prueba():
 
 def crear_pasantias():
     logger.info("Generando Tutores Empresariales...")    
-    PasantiaFactory.create_batch(20)
+    PasantiaFactory.create_batch(40)
 def run_seeds():
     try:
 

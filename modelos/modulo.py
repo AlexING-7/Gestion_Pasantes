@@ -5,6 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column,declarative_base,relationship,s
 from sqlalchemy.dialects.mysql import LONGTEXT
 from typing import Optional,List
 from datetime import date, datetime
+import socket
 from sqlalchemy_utils import database_exists,create_database
 mysql_db_url="mysql+pymysql://root@127.0.0.1/gestion_pasantes"
 
@@ -24,7 +25,7 @@ class User(BaseModel):
     __tablename__="users"
     
     username: Mapped[str]=mapped_column(String(30),unique=True)
-    password: Mapped[str]=mapped_column(String(20))
+    password: Mapped[str]=mapped_column(String(255))
     email: Mapped[str]=mapped_column(String(100), unique=True)
     rol: Mapped[Optional[str]]=mapped_column(String(20))#(admin,coordinador)
     
@@ -238,6 +239,21 @@ class SistemaLog(BaseModel):
                   id_registro_afectado: Optional[int] = None, valores_anteriores: Optional[str] = None,
                   valores_nuevos: Optional[str] = None, mensaje: Optional[str] = None,
                   ip_maquina: Optional[str] = None):
+        # Si no se proporciona `ip_maquina`, intentar detectar la IP local
+        if ip_maquina is None:
+            try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                # no hace conexión real a Internet, solo resuelve la IP local usada
+                s.connect(("8.8.8.8", 80))
+                ip_maquina = s.getsockname()[0]
+            except Exception:
+                ip_maquina = "127.0.0.1"
+            finally:
+                try:
+                    s.close()
+                except Exception:
+                    pass
+
         log = cls(
             usuario=usuario,
             accion=accion,

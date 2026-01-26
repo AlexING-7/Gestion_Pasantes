@@ -2,13 +2,12 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from modelos.modulo import User,TSession,session
-import os
 import time
 from PySide6.QtWidgets import (QApplication, QLabel,QMainWindow,QLineEdit,QPushButton,QMessageBox,QFileDialog)
-from PySide6.QtGui import QFont, QPixmap
 from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
-
+from herramientas.logs import registrar_log
+from bcrypt import checkpw
 
 class Login(QMainWindow):
     
@@ -27,8 +26,18 @@ class Login(QMainWindow):
             
             if sesion_mac.user.rol=="Administrador":
                 self.open_main_window()
+                registrar_log(session=session,
+                              usuario=sesion_mac.user.username,
+                              accion="LOGIN",
+                              mensaje="Login Rol Administrador",
+                              )
             elif sesion_mac.user.rol=="Coordinador":
                 self.open_main_coord_window()
+                registrar_log(session=session,
+                              usuario=sesion_mac.user.username,
+                              accion="LOGIN",
+                              mensaje="Login Rol Coordinador",
+                              )
         else:
             self.show()
    
@@ -48,24 +57,42 @@ class Login(QMainWindow):
             )
     
     def iniciar_mainview(self):
-        user=session.query(User).where(User.username==self.window.user_input.text(),User.password==self.window.password_input.text()).one_or_none()
+        user=session.query(User).where(User.username==self.window.user_input.text()).one_or_none()
         sesion=TSession(mac_adresss=gma(),
                         data_session="uijfdiosjfoifdjiogjdfoginfdoignfdiognfdignjfdigfnjdigondfgujfndgiofdngjfdgnfdikjgnfdiogjniodgjiogjfkdijgndofigjnfiodgnfdiognfdiognfdignfdignfdiognfdiognfdiognignfdigndifgnfdignfdigndfiognfdiongifdgnfdiongfidognifdsgnaiunaiounmfusjinfugkijnb ufgjkeirngvujhynrbguhynrgahuyebngvefuhbnvguizsnburfi",
                         last_activity=int(time.time()))        
         
 
         try:
-
             if user:
-                QMessageBox.information(self.window,"Usuario Inicio Sesión",
-                                        f"Inicio Sesión Correctamente",
-                                        QMessageBox.StandardButton.Ok,
-                                        QMessageBox.StandardButton.Ok)
-                user.tsessions.append(sesion)
+                if checkpw(self.window.password_input.text().encode(),user.password.encode()):
+                    QMessageBox.information(self.window,"Usuario Inicio Sesión",
+                                            f"Inicio Sesión Correctamente",
+                                            QMessageBox.StandardButton.Ok,
+                                            QMessageBox.StandardButton.Ok)
+                    user.tsessions.append(sesion)
 
-                session.commit()
-                self.close()
-                self.open_main_window()
+                    session.commit()
+                    self.close()
+                    if user.rol=="Administrador":
+                        self.open_main_window()
+                        registrar_log(session=session,
+                              usuario=user.username,
+                              accion="LOGIN",
+                              mensaje="Login Rol Administrador",
+                              )
+                    elif user.rol=="Coordinador":
+                        self.open_main_coord_window()
+                        registrar_log(session=session,
+                              usuario=user.username,
+                              accion="LOGIN",
+                              mensaje="Login Rol Coordinador",
+                              )
+                else:
+                    QMessageBox.warning(self.window,"Error Mensaje",
+                                f"Contraseña Incorrecta",
+                                QMessageBox.StandardButton.Close,
+                                QMessageBox.StandardButton.Close)
             else:
                 QMessageBox.warning(self.window,"Error Mensaje",
                                 f"Error Usuario No Encontrado",
@@ -73,6 +100,7 @@ class Login(QMainWindow):
                                 QMessageBox.StandardButton.Close)
 
         except Exception as e:
+            print(e)
             QMessageBox.warning(self.window,"Error Mensaje",
                                 f"Error {e}",
                                 QMessageBox.StandardButton.Close,
