@@ -132,7 +132,7 @@ padding:5x;
        </layout>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox"/>
+       <widget class="QSpinBox" name="spinTutorA"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -166,7 +166,7 @@ padding:5x;
        </layout>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_2"/>
+       <widget class="QSpinBox" name="spinTutorE"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -200,7 +200,7 @@ padding:5x;
        </layout>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_3"/>
+       <widget class="QSpinBox" name="spinExpo"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -234,7 +234,7 @@ padding:5x;
        </layout>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_4"/>
+       <widget class="QSpinBox" name="spinTaller"/>
       </item>
       <item>
        <widget class="QLabel" name="label_10">
@@ -259,7 +259,7 @@ padding:5x;
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btnCalcular">
            <property name="styleSheet">
             <string notr="true">background-color: rgb(0, 51, 102);
 color: rgb(255, 255, 255);

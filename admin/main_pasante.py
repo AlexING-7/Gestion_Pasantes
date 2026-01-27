@@ -9,7 +9,7 @@ from PySide6.QtGui import  QIcon
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
-from modelos.modulo import session,Student,Pasantia
+from modelos.modulo import session,Evaluacion,Pasantia
 from sqlalchemy import select
 from sqlalchemy import or_,and_
 from getmac import get_mac_address as gma
@@ -24,6 +24,7 @@ from herramientas.conversiones import null_string,calcular_edad,calcular_duracio
 from PySide6.QtWidgets import QHeaderView
 from PySide6.QtCore import QEvent
 from admin.main_pasante_adjuntos import show_documentos
+from admin.evaluacion import show_evaluar
 
 
 class StackPasante():
@@ -59,7 +60,8 @@ class StackPasante():
         # Conectar el botón de ver documentos una sola vez; usará `self.current_pasante`
         self.window.btnviewDocumentos.clicked.connect(self._on_view_documentos)
 
-        
+        self.window.btnEvaluacion.clicked.connect(self._on_view_evaluacion)
+        self.window.btnEditarEvaluacion.clicked.connect(self._on_view_evaluacion)
         
         if not self.window.searchPsa.actions(): 
             icon_path = Path(__file__).resolve().parent.parent / "resources" / "images" / "search.svg"
@@ -318,6 +320,8 @@ class StackPasante():
             self.window.sexEdadEP.setText("-----------------")
             self.window.cargoP.clear()
             self.window.cargoP.setText("-----------------")
+            
+        self.evaFrame(pasante.evaluacion)
         self.window.StackedPsa.setCurrentIndex(1)
         self.window.regresarButtonP.clicked.connect(lambda: self.window.StackedPsa.setCurrentIndex(0),)
         # Guardamos el pasante actual; el botón ya está conectado a `_on_view_documentos`
@@ -333,6 +337,12 @@ class StackPasante():
         if not getattr(self, 'current_pasante', None):
             return
         show_documentos(self.window, self.current_pasante)
+        
+    def _on_view_evaluacion(self, checked=False):
+        if not getattr(self, 'current_pasante', None):
+            return
+        show_evaluar(self.current_pasante).exec()
+        self.evaFrame(self.current_pasante.evaluacion)
         
     def open_newpasante(self):
         from admin.nuevo_pasante import NewPasante
@@ -360,6 +370,21 @@ class StackPasante():
             session.delete(pasante)
             session.commit()
             self.pag_tabla_Psa()
+    
+    def evaFrame(self,eva:Evaluacion):
+        if eva:
+            self.window.frameEva1.setHidden(True)
+            self.window.frameEva2.setHidden(False)
+            
+            self.window.nota_tutor_aca.setText(str(eva.nota_tutor_aca))
+            self.window.nota_tutor_emp.setText(str(eva.nota_tutor_emp))
+            self.window.exposicion.setText(str(eva.exposicion))
+            self.window.taller_induccion.setText(str(eva.taller_induccion))
+            self.window.total.setText(str(eva.total))
+        else:
+            self.window.frameEva1.setHidden(False)
+            self.window.frameEva2.setHidden(True)
+    
             
     def exportar(self):
          # Abrir diálogo para guardar archivo

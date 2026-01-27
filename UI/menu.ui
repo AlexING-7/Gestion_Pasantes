@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1113</width>
-    <height>796</height>
+    <height>1129</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -6780,6 +6780,9 @@ padding:5px 15px;</string>
                  <enum>QFrame::Shadow::Raised</enum>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_43" stretch="1,8,1">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
                  <property name="leftMargin">
                   <number>0</number>
                  </property>
@@ -6886,6 +6889,9 @@ color:#fff;
                        <enum>QFrame::Shadow::Raised</enum>
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_69">
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
                        <item>
                         <widget class="QFrame" name="frame_49">
                          <property name="styleSheet">
@@ -6902,7 +6908,7 @@ color: rgb(0, 0, 0);</string>
                          <property name="lineWidth">
                           <number>2</number>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_46">
+                         <layout class="QVBoxLayout" name="verticalLayout_46" stretch="1,2,2,2">
                           <property name="leftMargin">
                            <number>20</number>
                           </property>
@@ -7196,7 +7202,7 @@ color: rgb(0, 0, 0);</string>
                          <property name="lineWidth">
                           <number>2</number>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_58">
+                         <layout class="QVBoxLayout" name="verticalLayout_58" stretch="1,2,2,2">
                           <property name="leftMargin">
                            <number>20</number>
                           </property>
@@ -7454,7 +7460,7 @@ color: rgb(0, 0, 0);</string>
                          <property name="lineWidth">
                           <number>2</number>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_68">
+                         <layout class="QVBoxLayout" name="verticalLayout_68" stretch="1,2,2">
                           <property name="leftMargin">
                            <number>20</number>
                           </property>
@@ -7485,6 +7491,9 @@ color: rgb(0, 0, 0);</string>
                           </item>
                           <item>
                            <layout class="QHBoxLayout" name="horizontalLayout_65">
+                            <property name="spacing">
+                             <number>30</number>
+                            </property>
                             <item>
                              <layout class="QVBoxLayout" name="verticalLayout_70">
                               <property name="spacing">
@@ -7605,7 +7614,7 @@ color: rgb(0, 0, 0);</string>
                            </layout>
                           </item>
                           <item>
-                           <layout class="QHBoxLayout" name="horizontalLayout_66">
+                           <layout class="QHBoxLayout" name="horizontalLayout_66" stretch="2,1">
                             <item>
                              <layout class="QVBoxLayout" name="verticalLayout_74">
                               <property name="spacing">
@@ -7680,8 +7689,14 @@ color: rgb(0, 0, 0);</string>
                                 <property name="styleSheet">
                                  <string notr="true">color: #000;</string>
                                 </property>
+                                <property name="frameShadow">
+                                 <enum>QFrame::Shadow::Raised</enum>
+                                </property>
                                 <property name="text">
                                  <string>En Proceso</string>
+                                </property>
+                                <property name="alignment">
+                                 <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
                                 </property>
                                </widget>
                               </item>
@@ -7703,7 +7718,10 @@ color: rgb(0, 0, 0);</string>
                       <property name="frameShadow">
                        <enum>QFrame::Shadow::Raised</enum>
                       </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_90" stretch="2,2,4">
+                      <layout class="QVBoxLayout" name="verticalLayout_141">
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
                        <item>
                         <widget class="QFrame" name="frame_52">
                          <property name="styleSheet">
@@ -7720,7 +7738,7 @@ color: rgb(0, 0, 0);</string>
                          <property name="lineWidth">
                           <number>2</number>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_75">
+                         <layout class="QVBoxLayout" name="verticalLayout_75" stretch="1,2,2,2">
                           <property name="leftMargin">
                            <number>20</number>
                           </property>
@@ -7928,7 +7946,7 @@ color: rgb(0, 0, 0);</string>
                          <property name="lineWidth">
                           <number>2</number>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_84">
+                         <layout class="QVBoxLayout" name="verticalLayout_84" stretch="1,2,2,2">
                           <property name="leftMargin">
                            <number>20</number>
                           </property>
@@ -8121,7 +8139,7 @@ color: rgb(0, 0, 0);</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QFrame" name="frame_54">
+                        <widget class="QFrame" name="frameEva1">
                          <property name="styleSheet">
                           <string notr="true">background-color: rgb(255, 255, 255);
 border-radius:20px;
@@ -8136,7 +8154,7 @@ color: #45556c;</string>
                          <property name="lineWidth">
                           <number>2</number>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_89" stretch="1,1,2">
+                         <layout class="QVBoxLayout" name="verticalLayout_89" stretch="0,1,2">
                           <property name="leftMargin">
                            <number>20</number>
                           </property>
@@ -8187,7 +8205,7 @@ color: #45556c;</string>
                           <item>
                            <layout class="QHBoxLayout" name="horizontalLayout_67">
                             <item>
-                             <widget class="QPushButton" name="pushButton_10">
+                             <widget class="QPushButton" name="btnEvaluacion">
                               <property name="font">
                                <font>
                                 <pointsize>10</pointsize>
@@ -8223,6 +8241,276 @@ padding:8px;</string>
                          </layout>
                         </widget>
                        </item>
+                       <item>
+                        <widget class="QFrame" name="frameEva2">
+                         <property name="styleSheet">
+                          <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:20px;
+color: #45556c;
+</string>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::Shape::Box</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Shadow::Sunken</enum>
+                         </property>
+                         <property name="lineWidth">
+                          <number>2</number>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_90" stretch="1,1,1,1,1,1,1">
+                          <property name="leftMargin">
+                           <number>30</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>20</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>30</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>20</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_125">
+                            <property name="font">
+                             <font>
+                              <pointsize>12</pointsize>
+                              <fontweight>DemiBold</fontweight>
+                             </font>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">color: rgb(0, 51, 102);</string>
+                            </property>
+                            <property name="text">
+                             <string>Evaluación</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_80">
+                            <item>
+                             <widget class="QLabel" name="label_6">
+                              <property name="styleSheet">
+                               <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>Tutor Académico</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <spacer name="horizontalSpacer_18">
+                              <property name="orientation">
+                               <enum>Qt::Orientation::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="nota_tutor_aca">
+                              <property name="styleSheet">
+                               <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>10</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_81">
+                            <item>
+                             <widget class="QLabel" name="label_9">
+                              <property name="styleSheet">
+                               <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>Tutor Empresarial</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <spacer name="horizontalSpacer_19">
+                              <property name="orientation">
+                               <enum>Qt::Orientation::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="nota_tutor_emp">
+                              <property name="styleSheet">
+                               <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>10</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_82">
+                            <item>
+                             <widget class="QLabel" name="label_12">
+                              <property name="styleSheet">
+                               <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>Exposición</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <spacer name="horizontalSpacer_22">
+                              <property name="orientation">
+                               <enum>Qt::Orientation::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="exposicion">
+                              <property name="styleSheet">
+                               <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>10</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_83">
+                            <item>
+                             <widget class="QLabel" name="label_17">
+                              <property name="styleSheet">
+                               <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>Taller de inducción</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <spacer name="horizontalSpacer_26">
+                              <property name="orientation">
+                               <enum>Qt::Orientation::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="taller_induccion">
+                              <property name="styleSheet">
+                               <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>10</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_85">
+                            <item>
+                             <widget class="QLabel" name="label_19">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>Total</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <spacer name="horizontalSpacer_28">
+                              <property name="orientation">
+                               <enum>Qt::Orientation::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="total">
+                              <property name="styleSheet">
+                               <string notr="true">font:600 11pt &quot;Segoe UI&quot;;</string>
+                              </property>
+                              <property name="text">
+                               <string>10</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_84">
+                            <item>
+                             <widget class="QPushButton" name="btnEditarEvaluacion">
+                              <property name="font">
+                               <font>
+                                <pointsize>10</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">background-color: rgb(0, 51, 102);
+color: rgb(255, 255, 255);
+border-radius: 10px;
+padding:8px;</string>
+                              </property>
+                              <property name="text">
+                               <string>Editar</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <spacer name="horizontalSpacer_27">
+                              <property name="orientation">
+                               <enum>Qt::Orientation::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
                       </layout>
                      </widget>
                     </item>
@@ -8238,6 +8526,9 @@ padding:8px;</string>
                     <enum>QFrame::Shadow::Raised</enum>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_27" stretch="1,1,1,1,1">
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
                     <item>
                      <widget class="QPushButton" name="btnviewDocumentos_2">
                       <property name="styleSheet">

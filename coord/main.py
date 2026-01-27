@@ -36,6 +36,7 @@ class MainWindow(QMainWindow):
         self.window.btnGen.clicked.connect(self.change_widget)
         self.window.btnSolicitud.clicked.connect(self.change_widget)
         self.window.btnPasante.clicked.connect(self.change_widget)
+        self.window.btnEstadistica.clicked.connect(self.change_widget)
         self.window.btnSolicitud.click()
         
     def change_widget(self):
@@ -72,8 +73,64 @@ class MainWindow(QMainWindow):
                 print(btn.sizeHint())
                 self.window.listWidget.addItem(item)
                 self.window.listWidget.setItemWidget(item, btn)
+        elif buttom.text().lower()=="Estadisticas".lower():
+            from PySide6.QtCharts import QChart, QChartView, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
+            from PySide6.QtGui import QPainter, QColor
+            from PySide6.QtCore import Qt
+            self.window.stackedWidget.setCurrentIndex(6)
+            carreras = ["Ing. Sistemas", "Administración", "Contaduría", "Diseño Gráfico", "Marketing"]
+            cantidades = [14, 22, 10, 5, 8]
+            set_pasantes = QBarSet("Pasantes Activos")
+            set_pasantes.append(cantidades)
+            
+            # Opcional: Personalizar color de las barras
+            set_pasantes.setColor(QColor(52, 152, 219)) # Azul "Peter River"
 
+            # La 'QBarSeries' agrupa los sets (en este caso solo uno)
+            series = QBarSeries()
+            series.append(set_pasantes)
+            series.setLabelsVisible(True) # Mostrar el número encima de la barra
 
+            # ---------------------------------------------------------
+            # 3. CREAR EL CHART (El Lienzo)
+            # ---------------------------------------------------------
+            chart = QChart()
+            chart.addSeries(series)
+            chart.setTitle("Distribución de Pasantes por Carrera - 2024")
+            chart.setAnimationOptions(QChart.SeriesAnimations) # Animación suave
+            
+            # Truco: Usar un tema predefinido para que se vea bonito rápido
+            # chart.setTheme(QChart.ChartThemeLight) 
+
+            # ---------------------------------------------------------
+            # 4. CREAR Y CONFIGURAR EJES (Las Reglas)
+            # ---------------------------------------------------------
+            
+            # Eje X: Categorías (Texto)
+            axis_x = QBarCategoryAxis()
+            axis_x.append(carreras) # Aquí van los nombres de las carreras
+            chart.addAxis(axis_x, Qt.AlignBottom)
+            series.attachAxis(axis_x) # IMPORTANTE: Atar eje a la serie
+
+            # Eje Y: Valores (Números)
+            axis_y = QValueAxis()
+            axis_y.setRange(0, 30) # De 0 a un poco más del máximo (22)
+            axis_y.setTitleText("Cantidad de Estudiantes")
+            axis_y.setLabelFormat("%d") # Mostrar enteros (sin decimales)
+            chart.addAxis(axis_y, Qt.AlignLeft)
+            series.attachAxis(axis_y) # IMPORTANTE: Atar eje a la serie
+
+            # ---------------------------------------------------------
+            # 5. MOSTRAR EN LA VENTANA (El Marco)
+            # ---------------------------------------------------------
+            chart.legend().setVisible(True)
+            chart.legend().setAlignment(Qt.AlignBottom)
+            
+            chart_view = QChartView(chart) 
+        
+        # 4. INSERTAR EL QCHARTVIEW EN EL LAYOUT
+        # Aquí es donde el gráfico se "pega" a la ventana
+            self.window.verticalLayout_60.addWidget(chart_view)
       
                      
     def logout(self):
