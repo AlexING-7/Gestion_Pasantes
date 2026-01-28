@@ -250,7 +250,7 @@ class StackStudent():
         
     def open_newstudent(self):
         from admin.nuevo_estudiante import NewStudent
-        self.newstudent_window=NewStudent()
+        self.newstudent_window=NewStudent(self.main.user_authenticated)
         self.newstudent_window.exec()
         self.pag_tabla_estudiantes()
 

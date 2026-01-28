@@ -9,17 +9,19 @@ from PySide6.QtGui import QRegularExpressionValidator, QValidator
 from PySide6.QtCore import QRegularExpression
 from PySide6.QtCore import QFile, Qt
 # from PySide6.QtUiTools import QUiLoader
-from modelos.modulo import Student,session,Pasantia
+from modelos.modulo import Student,session,Pasantia,User
 # from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
+from herramientas.logs import registrar_log
 
 from dotenv import load_dotenv
 
 
 class NewStudent:
     
-    def __init__(self,estudiante=None):
+    def __init__(self,user:User,estudiante=None):
         load_dotenv()
+        self.user=user
         self.estudiante=estudiante
         self.window=cargar_ui("UI/new_student.ui")
         self.conectar_eventos()
@@ -54,26 +56,93 @@ class NewStudent:
                                     "Se a registrado satisfactoriamente",
                                     QMessageBox.StandardButton.Ok,
                                     QMessageBox.StandardButton.Ok)
+        registrar_log(session=session,
+                      usuario=self.user.username,
+                      tabla_afectada="Students",
+                      id_registro_afectado=estudiante.id,
+                      accion="INSERT",
+                      mensaje=f"Registro al estudiante con CIV {estudiante.cedula}",
+                              )
         self.close()
     
     def actualizar(self):
-        self.guardar_foto()
-        self.estudiante.primer_hombre=self.window.primernombre_input.text()
-        self.estudiante.segundo_nombre=self.window.segundonombre_input.text()
-        self.estudiante.primer_apellido=self.window.primerapellido_input.text()
-        self.estudiante.segundo_apellido=self.window.segundoapellido_input.text()
-        self.estudiante.cedula=int(self.window.cedula_input.text())
-        self.estudiante.telefono=self.window.telefono_input.text()
-        self.estudiante.email=self.window.email_input.text()
-        self.estudiante.direccion=self.window.direccion_input.toPlainText()
-        self.estudiante.fecha_de_nacimiento=self.window.dateFecha.date().toString(Qt.ISODate)
-        self.estudiante.sexo=self.window.genero_input.currentText()
-        self.estudiante.foto=self.ruta_foto_guardada
+        # Capturar valores anteriores para el log
+        prev = {
+            "primer_nombre": self.estudiante.primer_nombre,
+            "segundo_nombre": self.estudiante.segundo_nombre,
+            "primer_apellido": self.estudiante.primer_apellido,
+            "segundo_apellido": self.estudiante.segundo_apellido,
+            "cedula": self.estudiante.cedula,
+            "telefono": self.estudiante.telefono,
+            "email": self.estudiante.email,
+            "direccion": self.estudiante.direccion,
+            "fecha_de_nacimiento": self.estudiante.fecha_de_nacimiento,
+            "sexo": self.estudiante.sexo,
+            "foto": getattr(self.estudiante, "foto", None),
+        }
+
+        # Intentar guardar nueva foto (si el usuario seleccionó una)
+        try:
+            self.guardar_foto()
+        except Exception:
+            # Si falla la copia, no sobreescribimos la foto
+            pass
+
+        # Aplicar cambios desde la UI
+        self.estudiante.primer_nombre = self.window.primernombre_input.text()
+        self.estudiante.segundo_nombre = self.window.segundonombre_input.text()
+        self.estudiante.primer_apellido = self.window.primerapellido_input.text()
+        self.estudiante.segundo_apellido = self.window.segundoapellido_input.text()
+        try:
+            self.estudiante.cedula = int(self.window.cedula_input.text())
+        except Exception:
+            # mantener el valor anterior si la conversión falla
+            pass
+        self.estudiante.telefono = self.window.telefono_input.text()
+        self.estudiante.email = self.window.email_input.text()
+        self.estudiante.direccion = self.window.direccion_input.toPlainText()
+        self.estudiante.fecha_de_nacimiento = self.window.dateFecha.date().toString(Qt.ISODate)
+        self.estudiante.sexo = self.window.genero_input.currentText()
+
+        # Solo actualizar la ruta de la foto si existe
+        if hasattr(self, "ruta_foto_guardada") and self.ruta_foto_guardada:
+            self.estudiante.foto = self.ruta_foto_guardada
+
         session.commit()
-        QMessageBox.information(self.window,"Usuario Actualizado",
-                                    "Se a actualizado satisfactoriamente",
-                                    QMessageBox.StandardButton.Ok,
-                                    QMessageBox.StandardButton.Ok)
+
+        QMessageBox.information(
+            self.window,
+            "Usuario Actualizado",
+            "Se ha actualizado satisfactoriamente",
+            QMessageBox.StandardButton.Ok,
+        )
+
+        # Valores nuevos para el log
+        nuevos = {
+            "primer_nombre": self.estudiante.primer_nombre,
+            "segundo_nombre": self.estudiante.segundo_nombre,
+            "primer_apellido": self.estudiante.primer_apellido,
+            "segundo_apellido": self.estudiante.segundo_apellido,
+            "cedula": self.estudiante.cedula,
+            "telefono": self.estudiante.telefono,
+            "email": self.estudiante.email,
+            "direccion": self.estudiante.direccion,
+            "fecha_de_nacimiento": self.estudiante.fecha_de_nacimiento,
+            "sexo": self.estudiante.sexo,
+            "foto": getattr(self.estudiante, "foto", None),
+        }
+
+        registrar_log(
+            session=session,
+            usuario=self.user.username,
+            tabla_afectada="Students",
+            id_registro_afectado=self.estudiante.id,
+            accion="UPDATE",
+            valores_anteriores=prev,
+            valores_nuevos=nuevos,
+            mensaje=f"Actualizó al estudiante con CIV {self.estudiante.cedula}",
+        )
+
         self.close()
     
 
