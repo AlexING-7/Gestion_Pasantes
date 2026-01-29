@@ -4,6 +4,13 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 import json
 from modelos.modulo import SistemaLog
 import socket
+from datetime import date, datetime
+
+
+def _json_default(o):
+    if isinstance(o, (date, datetime)):
+        return o.isoformat()
+    raise TypeError(f"Type {type(o)} not serializable")
 
 def registrar_log(
     session,
@@ -35,10 +42,12 @@ def registrar_log(
         accion=accion,
         tabla_afectada=tabla_afectada,
         id_registro_afectado=id_registro_afectado,
-        valores_anteriores=json.dumps(valores_anteriores, ensure_ascii=False)
-            if valores_anteriores else None,
-        valores_nuevos=json.dumps(valores_nuevos, ensure_ascii=False)
-            if valores_nuevos else None,
+        valores_anteriores=json.dumps(
+            valores_anteriores, ensure_ascii=False, default=_json_default
+        ) if valores_anteriores else None,
+        valores_nuevos=json.dumps(
+            valores_nuevos, ensure_ascii=False, default=_json_default
+        ) if valores_nuevos else None,
         mensaje=mensaje,
         ip_maquina=ip_maquina,
     )

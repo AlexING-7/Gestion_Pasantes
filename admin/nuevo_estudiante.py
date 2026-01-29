@@ -205,7 +205,7 @@ class NewStudent:
             
                 
     def guardar_foto(self):
-        try:
+        try:#aquiiiiiiii self file da error
             shutil.copy(self.file_path, self.ruta_final)
             self.ruta_foto_guardada = self.ruta_final  # Guardamos la ruta en una variable
                 

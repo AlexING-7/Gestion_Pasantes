@@ -272,7 +272,7 @@ class StackTutorE():
                 title="Advertencia",
                 text="<h3 style='color: #ff5555'>Eliminar Estudiante</h3>",
                 informative_text="¿Esta seguro de eliminar esta información?",
-                parent=self
+                parent=self.main
             )
 
         btn_save, btn_cancel = msg.add_custom_buttons()

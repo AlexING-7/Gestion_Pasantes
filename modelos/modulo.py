@@ -29,7 +29,12 @@ class User(BaseModel):
     email: Mapped[str]=mapped_column(String(100), unique=True)
     rol: Mapped[Optional[str]]=mapped_column(String(20))#(admin,coordinador)
     
-    tsessions: Mapped[List["TSession"]] = relationship()
+    tsessions: Mapped[List["TSession"]] = relationship(
+        "TSession",
+        back_populates="user",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
     
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, username={self.username!r}, rol={self.rol!r})"
@@ -37,12 +42,15 @@ class User(BaseModel):
 class TSession(BaseModel):
     __tablename__="sessions"
        
-    user_id:Mapped[int]=mapped_column(ForeignKey("users.id"))
+    user_id:Mapped[int]=mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
     mac_adresss: Mapped[str]=mapped_column(String(25))
     data_session= Column(LONGTEXT)
     last_activity:Mapped[int]
     
-    user: Mapped["User"] = relationship(back_populates="tsessions")
+    user: Mapped["User"] = relationship(
+        "User",
+        back_populates="tsessions",
+    )
     
     def __repr__(self) -> str:
         return f"User(id={self.user_id!r}, mac_adresss={self.mac_adresss!r}, last_activity={self.last_activity!r})"
@@ -62,7 +70,11 @@ class Student(BaseModel):
     direccion: Mapped[str] = mapped_column(LONGTEXT,nullable=True)
     fecha_de_nacimiento: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
 
-    pasantias: Mapped[List["Pasantia"]] = relationship()
+    pasantias: Mapped[List["Pasantia"]] = relationship(
+        "Pasantia",
+        back_populates="student",
+        passive_deletes=True,
+    )
     
     def __repr__(self) -> str:
         return f"Student {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
@@ -77,8 +89,16 @@ class Enterprise(BaseModel):
     telefono: Mapped[str]=mapped_column(String(11), unique=True)
     rubro: Mapped[str]=mapped_column (String(20),nullable=True)
     
-    tutores: Mapped[List["Tutor_Empresarial"]] = relationship()
-    pasantias: Mapped[List["Pasantia"]] = relationship()
+    tutores: Mapped[List["Tutor_Empresarial"]] = relationship(
+        "Tutor_Empresarial",
+        back_populates="empresa",
+        passive_deletes=True,
+    )
+    pasantias: Mapped[List["Pasantia"]] = relationship(
+        "Pasantia",
+        back_populates="empresa",
+        passive_deletes=True,
+    )
 
     def __repr__(self) -> str:
         return f"Enterprise {self.razon_social} RIF:{self.rif}"
@@ -99,7 +119,11 @@ class Tutor_Academico(BaseModel):
     telefono: Mapped[str]=mapped_column(String(11),nullable=True)
 
     especialidad: Mapped[str]=mapped_column(String(20))
-    pasantias: Mapped[List["Pasantia"]] = relationship()
+    pasantias: Mapped[List["Pasantia"]] = relationship(
+        "Pasantia",
+        back_populates="tutor_academico",
+        passive_deletes=True,
+    )
 
     def __repr__(self) -> str:
         return f"Tutor Academico {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
@@ -107,7 +131,7 @@ class Tutor_Academico(BaseModel):
 class Tutor_Empresarial(BaseModel):
     __tablename__="tutores_empresariales"
     
-    id_empresa:Mapped[int]=mapped_column(ForeignKey("enterprises.id"))
+    id_empresa:Mapped[Optional[int]] = mapped_column(ForeignKey("enterprises.id", ondelete="SET NULL"), nullable=True)
     primer_nombre: Mapped[str]=mapped_column(String(20))
     segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
     primer_apellido: Mapped[str]=mapped_column(String(20))
@@ -121,8 +145,14 @@ class Tutor_Empresarial(BaseModel):
     
     cargo: Mapped[str]=mapped_column(String(20))
     
-    pasantias: Mapped[List["Pasantia"]] = relationship()
-    empresa: Mapped["Enterprise"] = relationship(back_populates="tutores")
+    pasantias: Mapped[List["Pasantia"]] = relationship(
+        "Pasantia",
+        back_populates="tutor_empresarial",
+        passive_deletes=True,
+    )
+    empresa: Mapped["Enterprise"] = relationship(
+        back_populates="tutores",
+    )
     
     def __repr__(self) -> str:
         return f"Tutores Empresariales {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
@@ -131,10 +161,10 @@ class Pasantia(BaseModel):
     __tablename__ = "pasantias"
 
     # Claves foráneas
-    student_id: Mapped[int] = mapped_column(ForeignKey("students.id"))
-    empresa_id: Mapped[Optional[int]] = mapped_column(ForeignKey("enterprises.id"), nullable=True)
-    tutor_academico_id: Mapped[Optional[int]] = mapped_column(ForeignKey("tutores_academicos.id"), nullable=True)
-    tutor_empresarial_id: Mapped[Optional[int]] = mapped_column(ForeignKey("tutores_empresariales.id"), nullable=True)
+    student_id: Mapped[int] = mapped_column(ForeignKey("students.id", ondelete="CASCADE"))
+    empresa_id: Mapped[Optional[int]] = mapped_column(ForeignKey("enterprises.id", ondelete="SET NULL"), nullable=True)
+    tutor_academico_id: Mapped[Optional[int]] = mapped_column(ForeignKey("tutores_academicos.id", ondelete="SET NULL"), nullable=True)
+    tutor_empresarial_id: Mapped[Optional[int]] = mapped_column(ForeignKey("tutores_empresariales.id", ondelete="SET NULL"), nullable=True)
 
     # Campos de la pasantía
     carrera: Mapped[str]=mapped_column(String(100))
@@ -155,15 +185,35 @@ class Pasantia(BaseModel):
     #escuela
 
     # Relaciones (opcionalmente navegables desde la pasantía)
-    student: Mapped["Student"] = relationship(back_populates="pasantias")
-    empresa: Mapped["Enterprise"] = relationship(back_populates="pasantias")
-    tutor_academico: Mapped["Tutor_Academico"] = relationship(back_populates="pasantias")
-    tutor_empresarial: Mapped["Tutor_Empresarial"] = relationship(back_populates="pasantias")
+    student: Mapped["Student"] = relationship(
+        "Student",
+        back_populates="pasantias",
+        passive_deletes=True,
+    )
+    empresa: Mapped["Enterprise"] = relationship(
+        "Enterprise",
+        back_populates="pasantias",
+        passive_deletes=True,
+    )
+    tutor_academico: Mapped["Tutor_Academico"] = relationship(
+        "Tutor_Academico",
+        back_populates="pasantias",
+        passive_deletes=True,
+    )
+    tutor_empresarial: Mapped["Tutor_Empresarial"] = relationship(
+        "Tutor_Empresarial",
+        back_populates="pasantias",
+        passive_deletes=True,
+    )
     evaluacion: Mapped[Optional["Evaluacion"]] = relationship(
         back_populates="pasantia", 
         cascade="all, delete-orphan"
     )
-    documentos: Mapped[List["DocumentoAdjunto"]] = relationship(back_populates="pasantia")
+    documentos: Mapped[List["DocumentoAdjunto"]] = relationship(
+        "DocumentoAdjunto",
+        back_populates="pasantia",
+        passive_deletes=True,
+    )
 
 
 @event.listens_for(Pasantia, "before_insert")
@@ -181,14 +231,18 @@ def _pasantia_empty_strings_to_none(mapper, connection, target):
 class Evaluacion(BaseModel):
     __tablename__ = "evaluaciones"
 
-    pasantia_id: Mapped[int] = mapped_column(ForeignKey("pasantias.id"))
+    pasantia_id: Mapped[int] = mapped_column(ForeignKey("pasantias.id", ondelete="CASCADE"))
     nota_tutor_aca: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     nota_tutor_emp: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     exposicion: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     taller_induccion: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     total: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     
-    pasantia: Mapped["Pasantia"] = relationship(back_populates="evaluacion")
+    pasantia: Mapped["Pasantia"] = relationship(
+        "Pasantia",
+        back_populates="evaluacion",
+        passive_deletes=True,
+    )
 
     def __repr__(self) -> str:
         return f"Evaluacion(pasantia_id={self.pasantia_id!r}, nota_tutor_aca={self.nota_tutor_aca!r})"
@@ -196,13 +250,17 @@ class Evaluacion(BaseModel):
 class DocumentoAdjunto(BaseModel):
     __tablename__ = "documentos_adjuntos"
 
-    pasantia_id: Mapped[int] = mapped_column(ForeignKey("pasantias.id"))
+    pasantia_id: Mapped[Optional[int]] = mapped_column(ForeignKey("pasantias.id", ondelete="SET NULL"), nullable=True)
     tipo_de_documento: Mapped[str] = mapped_column(String(100))
     ruta: Mapped[str] = mapped_column(String(255))
     fecha_subida: Mapped[Optional[datetime]] = mapped_column(DateTime, default=datetime.utcnow)
     estado: Mapped[str] = mapped_column(String(20), default="revision")  # aprobado, revision, denegado
 
-    pasantia: Mapped["Pasantia"] = relationship(back_populates="documentos")
+    pasantia: Mapped["Pasantia"] = relationship(
+        "Pasantia",
+        back_populates="documentos",
+        passive_deletes=True,
+    )
 
     def __repr__(self) -> str:
         return f"DocumentoAdjunto(pasantia_id={self.pasantia_id!r}, tipo={self.tipo_de_documento!r})"

@@ -244,7 +244,7 @@ class StackStudent():
     
     def edit_student(self,estudiante):
         from admin.nuevo_estudiante import NewStudent
-        self.newstudent_window=NewStudent(estudiante)
+        self.newstudent_window=NewStudent(self.main.user_authenticated,estudiante)
         self.newstudent_window.exec()
         self.pag_tabla_estudiantes()
         
