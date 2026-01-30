@@ -181,7 +181,7 @@ class Pasantia(BaseModel):
     direccion: Mapped[str] = mapped_column(String(255), nullable=True)
     jefe_de_carta: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     cargo_jefe_de_carta: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
-    #lugar_de_entrenamiento
+    #fue contratado?
     #escuela
 
     # Relaciones (opcionalmente navegables desde la pasantía)
