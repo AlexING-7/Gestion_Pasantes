@@ -175,7 +175,7 @@ class StackStudent():
                                             Student.primer_nombre.ilike(f"{search}%"),
                                             Student.primer_apellido.ilike(f"{search}%")
                                         )
-                                        ).limit(self.tamano_pagina).distinct()
+                                        ).distinct()
         else:
             return select(Student).join(
                                         Student.pasantias).where(

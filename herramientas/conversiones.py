@@ -75,7 +75,8 @@ def nombreCompleto(name):
     segundoN=" "+name.segundo_nombre+" " if name.segundo_nombre else " "
     segundoA=" "+name.segundo_apellido if name.segundo_apellido else ""
     return f"{name.primer_nombre}{segundoN}{name.primer_apellido}{segundoA}"
-
+def nombreParcial(name):
+    return f"{name.primer_nombre} {name.primer_apellido}"
 def cifrar(password:str):
     utf=password.encode("utf-8")
     sal=bcrypt.gensalt()

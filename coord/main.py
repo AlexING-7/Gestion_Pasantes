@@ -19,15 +19,16 @@ from coord.main_solicitud import StackedSolicitud
 from coord.main_pasante import StackPasante
 from coord.main_estadisticas import StackEstadistica
 from herramientas.logs import registrar_log
-
-class MainWindow(QMainWindow):
+from herramientas.CustomMain import CustomWindow
+class MainWindow(CustomWindow):
     
     def __init__(self):
         super(MainWindow,self).__init__()
         load_dotenv()
         self.user_authenticated=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none().user
         self.window=cargar_ui("UI/dashboard.ui",self)
-        self.setWindowTitle("Sistema")
+        self.layout_principal.addWidget(self.window)
+        self.title_label.setText("Sistema")
         self.resize(1120, 700)
         self.conectar_eventos()
         

@@ -17,6 +17,7 @@ class show_documentos():
         self.window=window
         self.comboDoc=window.comboDoc
         self.comboDoc_2=window.comboDoc_2
+        self.comboDoc_2.clear()
         self.comboDoc.setCurrentIndex(-1)
         self.lineRuta=window.lineRuta
         self.lineRuta.clear()
@@ -28,6 +29,17 @@ class show_documentos():
         self.window.StackedPsa.setCurrentIndex(2)
         self.conectar_eventos()
 
+    def list_formats(self):
+        formatos={
+            "Carta de Solicitud de Pasantia":"formatos/1. CARTA SOLICITUD DE PASANTIA.docx",
+            "Carta de Aceptacion del Pasante":"formatos/2.CARTA ACEPTACION DEL PASANTE.docx",
+            "Acto de Inicio":"formatos/3.ACTA DE INICIO.docx",
+            "Acto de Inicio de Ejecucion de Pasantia":"formatos/4.ACTA DE INICIO DE EJECUCIÓN DE PASANTÍA.docx",
+            "Contrato del Pasante":"formatos/5.CONTRATO DEL PASANTE.docx",
+            "Inscripción de Pasantía":"formatos/6. INSCRIPCION DE PASANTIA.docx"
+        }
+        for text,data in formatos.items():
+            self.comboDoc_2.addItem(text,data)
     def pag_tabla(self):
         self.tabla_documentos:QTableWidget
         header=self.tabla_documentos.horizontalHeader()
@@ -65,6 +77,7 @@ class show_documentos():
 
             # 6. Insertar el contenedor en la celda
             self.tabla_documentos.setCellWidget(fila, 4, widget_contenedor)
+
     def conectar_eventos(self):
         self.regresarButtonP_2.clicked.connect(lambda: self.window.StackedPsa.setCurrentIndex(1))
         lista_acciones = self.lineRuta.actions()
@@ -91,6 +104,7 @@ class show_documentos():
         self.icon.triggered.connect(self.path_file)
         self.btnGenDoc.clicked.connect(self.generar_doc)
         self.pag_tabla()
+        self.list_formats()
     
     def path_file(self):
         self.file_path, _ = QFileDialog.getOpenFileName(
@@ -144,17 +158,44 @@ class show_documentos():
         pass
         
     def generar_doc(self):
-        if self.comboDoc_2.currentData():
+        # Validar que haya selección
+        if not self.comboDoc_2.currentData():
+            QMessageBox.warning(self.window, "Atención", "Seleccione un formato de documento.")
             return
 
-        doc=self.comboDoc_2.currentText()
-        if doc=="Carta de Solicitud de Pasantia":
-            file="formatos/1. CARTA SOLICITUD DE PASANTIA.docx"
-        
-        
-        doc_name,_=QFileDialog.getSaveFileName(self.window,
-                                                   "Guardar Documento",
-                                                   f"{self.comboDoc_2.currentText()}.docx",
-                                                   "Documento (*.docx)")
-        
-        reemplazar_texto(self.pasante,file,doc_name)
+        formatos={
+            "Carta de Solicitud de Pasantia":"formatos/1. CARTA SOLICITUD DE PASANTIA.docx",
+            "Carta de Aceptacion del Pasante":"formatos/2.CARTA ACEPTACION DEL PASANTE.docx",
+            "Acto de Inicio":"formatos/3.ACTA DE INICIO.docx",
+            "Acto de Inicio de Ejecucion de Pasantia":"formatos/4.ACTA DE INICIO DE EJECUCIÓN DE PASANTÍA.docx",
+            "Contrato del Pasante":"formatos/5.CONTRATO DEL PASANTE.docx",
+            "Inscripción de Pasantía":"formatos/6. INSCRIPCION DE PASANTIA.docx"
+        }
+
+        doc_key = self.comboDoc_2.currentText()
+        if doc_key not in formatos:
+            QMessageBox.critical(self.window, "Error", f"Formato desconocido: {doc_key}")
+            return
+
+        template_path = self.comboDoc_2.currentData()
+        if not os.path.exists(template_path):
+            QMessageBox.critical(self.window, "Error", f"No se encontró la plantilla: {template_path}")
+            return
+
+        suggested = f"{doc_key}.docx"
+        save_path, _ = QFileDialog.getSaveFileName(self.window, "Guardar Documento", suggested, "Documento (*.docx)")
+        if not save_path:
+            # El usuario canceló
+            return
+
+        # Asegurar extensión .docx
+        if not save_path.lower().endswith('.docx'):
+            save_path = save_path + '.docx'
+
+        try:
+            reemplazar_texto(self.pasante, template_path, save_path)
+        except Exception as e:
+            QMessageBox.critical(self.window, "Error", f"No se pudo generar el documento: {e}")
+            return
+
+        QMessageBox.information(self.window, "Éxito", f"Documento generado: {save_path}")

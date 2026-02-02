@@ -1,157 +1,172 @@
-from PySide6.QtWidgets import (
-    QApplication, QWidget, QLabel, QComboBox, QPushButton,
-    QVBoxLayout, QHBoxLayout, QGridLayout, QScrollArea,
-    QFrame, QMessageBox, QFileDialog
-)
-from PySide6.QtGui import QFont, QPixmap
-from PySide6.QtCore import Qt
 import sys
+from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
+                             QHBoxLayout, QPushButton, QLabel, QFrame, 
+                             QGraphicsDropShadowEffect)
+from PySide6.QtCore import Qt, QPoint, QRect
+from PySide6.QtGui import QColor, QCursor
 
-
-class GeneradorDocumentosPasantias(QWidget):
+class ProBlueFinal(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Generador de Documentos de Pasantías")
-        self.showMaximized()
-        self.setStyleSheet("background-color: #f8fafc;")
 
-        self.formatos = [
-            "Carta de Presentación",
-            "Carta de Aceptación",
-            "Carta de Postulación",
-            "Constancia de Pasantía",
-            "Carta de Culminación",
-            "Plan de Trabajo",
-            "Informe Parcial",
-            "Informe Final",
-            "Evaluación Tutor Académico",
-            "Evaluación Tutor Empresarial",
-            "Acta de Inicio de Pasantía",
-        ]
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.resize(950, 650)
+        
+        # Ajustes de sensibilidad
+        self.shadow_size = 15
+        self.edge_margin = 5 
+        self._resizing = False
+        self._resize_edge = None
+        self.drag_pos = None
 
-        self.init_ui()
+        # 1. Contenedor Raíz (Invisible, para la sombra)
+        self.root_widget = QWidget()
+        self.setCentralWidget(self.root_widget)
+        self.root_layout = QVBoxLayout(self.root_widget)
+        self.root_layout.setContentsMargins(self.shadow_size, self.shadow_size, self.shadow_size, self.shadow_size)
 
-    def init_ui(self):
-        main_layout = QVBoxLayout(self)
+        # 2. El Contenedor Visual (Azul/Gris)
+        self.main_frame = QFrame()
+        self.main_frame.setStyleSheet("""
+            QFrame { 
+                background-color: #f5f5f5; 
+                border-radius: 10px; 
+                border: 1px solid #003366;
+            }
+        """)
+        self.root_layout.addWidget(self.main_frame)
 
-        # Header
-        header = QLabel("Generador de Documentos de Pasantías")
-        header.setAlignment(Qt.AlignCenter)
-        header.setStyleSheet(
-            "background-color: #003366; color: white; padding: 20px;"
-        )
-        header.setFont(QFont("Arial", 20, QFont.Bold))
-        main_layout.addWidget(header)
+        # Aplicar Sombra
+        shadow = QGraphicsDropShadowEffect(self)
+        shadow.setBlurRadius(20)
+        shadow.setXOffset(0)
+        shadow.setYOffset(4)
+        shadow.setColor(QColor(0, 0, 0, 150))
+        self.main_frame.setGraphicsEffect(shadow)
 
-        # Contenido principal
-        content_layout = QHBoxLayout()
-        main_layout.addLayout(content_layout)
+        # Layout del frame principal
+        self.content_layout = QVBoxLayout(self.main_frame)
+        self.content_layout.setContentsMargins(0, 0, 0, 0)
+        self.content_layout.setSpacing(0)
 
-        # Panel izquierdo - Datos del pasante
-        left_panel = QFrame()
-        left_panel.setStyleSheet("background: white; border-radius: 12px;")
-        left_panel.setFixedWidth(320)
-        left_layout = QVBoxLayout(left_panel)
-        left_layout.setAlignment(Qt.AlignTop)
+        # 3. Barra de Título
+        self.title_bar = QFrame()
+        self.title_bar.setFixedHeight(40)
+        self.title_bar.setStyleSheet("background-color: #003366; border-top-left-radius: 9px; border-top-right-radius: 9px; border: none;")
+        
+        self.title_layout = QHBoxLayout(self.title_bar)
+        self.title_label = QLabel("PROYECTO FINAL | AZUL")
+        self.title_label.setStyleSheet("color: white; font-weight: bold; margin-left: 10px;")
+        
+        self.btn_min = self._create_btn("-")
+        self.btn_max = self._create_btn("□")
+        self.btn_close = self._create_btn("✕", True)
 
-        # Foto del estudiante
-        self.photo_label = QLabel()
-        self.photo_label.setFixedSize(180, 180)
-        self.photo_label.setAlignment(Qt.AlignCenter)
-        self.photo_label.setStyleSheet(
-            "border: 2px dashed #003366; border-radius: 90px; color: #64748b;"
-        )
-        self.photo_label.setText("Sin foto")
-        left_layout.addWidget(self.photo_label, alignment=Qt.AlignCenter)
+        self.title_layout.addWidget(self.title_label)
+        self.title_layout.addStretch()
+        self.title_layout.addWidget(self.btn_min)
+        self.title_layout.addWidget(self.btn_max)
+        self.title_layout.addWidget(self.btn_close)
 
-        btn_photo = QPushButton("Cargar foto")
-        btn_photo.clicked.connect(self.cargar_foto)
-        btn_photo.setStyleSheet(self.btn_style())
-        left_layout.addWidget(btn_photo)
+        self.content_layout.addWidget(self.title_bar)
+        self.content_layout.addStretch()
 
-        left_layout.addSpacing(20)
+        # Conexiones
+        self.btn_min.clicked.connect(self.showMinimized)
+        self.btn_max.clicked.connect(self._toggle_maximize)
+        self.btn_close.clicked.connect(self.close)
 
-        lbl_pasante = QLabel("Seleccionar pasante")
-        lbl_pasante.setFont(QFont("Arial", 10, QFont.Bold))
-        left_layout.addWidget(lbl_pasante)
+        # IMPORTANTE: Habilitar tracking en TODO
+        self.setMouseTracking(True)
+        self.root_widget.setMouseTracking(True)
+        self.main_frame.setMouseTracking(True)
+        self.title_bar.setMouseTracking(True)
 
-        self.combo_pasantes = QComboBox()
-        self.combo_pasantes.addItems([
-            "Carlos Ruiz - V-12345678",
-            "María López - V-87654321",
-            "José Fernández - V-11223344",
-        ])
-        left_layout.addWidget(self.combo_pasantes)
+    def _create_btn(self, text, is_close=False):
+        btn = QPushButton(text)
+        btn.setFixedSize(45, 40)
+        hover = "#e81123" if is_close else "#004488"
+        btn.setStyleSheet(f"QPushButton{{background:transparent;color:white;border:none;}} QPushButton:hover{{background:{hover};}}")
+        return btn
 
-        content_layout.addWidget(left_panel)
+    def _toggle_maximize(self):
+        if self.isMaximized():
+            self.showNormal()
+            self.btn_max.setText("□")
+            self.root_layout.setContentsMargins(self.shadow_size, self.shadow_size, self.shadow_size, self.shadow_size)
+            self.main_frame.setStyleSheet("background-color: #f5f5f5; border-radius: 10px; border: 1px solid #003366;")
+        else:
+            self.showMaximized()
+            self.btn_max.setText("❐")
+            self.root_layout.setContentsMargins(0, 0, 0, 0)
+            self.main_frame.setStyleSheet("background-color: #f5f5f5; border-radius: 0px; border: none;")
 
-        # Panel derecho - formatos
-        right_panel = QFrame()
-        right_panel.setStyleSheet("background: white; border-radius: 12px;")
-        right_layout = QVBoxLayout(right_panel)
+    def _get_edge(self, pos):
+        # Usamos coordenadas relativas a la ventana completa
+        w, h = self.width(), self.height()
+        x, y = pos.x(), pos.y()
+        m = self.edge_margin + self.shadow_size
 
-        title = QLabel("Formatos disponibles")
-        title.setFont(QFont("Arial", 14, QFont.Bold))
-        right_layout.addWidget(title)
+        # Esquinas
+        if x < m and y < m: return 'top_left'
+        if x > w - m and y < m: return 'top_right'
+        if x < m and y > h - m: return 'bottom_left'
+        if x > w - m and y > h - m: return 'bottom_right'
+        # Bordes
+        if x < m: return 'left'
+        if x > w - m: return 'right'
+        if y < m: return 'top'
+        if y > h - m: return 'bottom'
+        return None
 
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll_content = QWidget()
-        grid = QGridLayout(scroll_content)
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            edge = self._get_edge(event.pos())
+            if edge:
+                self._resizing = True
+                self._resize_edge = edge
+            elif self.title_bar.underMouse():
+                self.drag_pos = event.globalPosition().toPoint()
 
-        for i, formato in enumerate(self.formatos):
-            card = QFrame()
-            card.setStyleSheet(
-                "border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px;"
-            )
-            card_layout = QVBoxLayout(card)
+    def mouseMoveEvent(self, event):
+        # Actualizar cursor
+        if not self._resizing:
+            edge = self._get_edge(event.pos())
+            if edge:
+                if edge in ['left', 'right']: self.setCursor(Qt.SizeHorCursor)
+                elif edge in ['top', 'bottom']: self.setCursor(Qt.SizeVerCursor)
+                elif edge in ['top_left', 'bottom_right']: self.setCursor(Qt.SizeFDiagCursor)
+                elif edge in ['top_right', 'bottom_left']: self.setCursor(Qt.SizeBDiagCursor)
+            else:
+                # CORRECCIÓN: Si no hay borde, forzar flecha
+                self.setCursor(Qt.ArrowCursor)
 
-            lbl = QLabel(formato)
-            lbl.setFont(QFont("Arial", 10, QFont.Bold))
-            card_layout.addWidget(lbl)
+        # Lógica Resize
+        if self._resizing:
+            rect = self.geometry()
+            gp = event.globalPosition().toPoint()
+            if 'left' in self._resize_edge: rect.setLeft(gp.x())
+            if 'right' in self._resize_edge: rect.setRight(gp.x())
+            if 'top' in self._resize_edge: rect.setTop(gp.y())
+            if 'bottom' in self._resize_edge: rect.setBottom(gp.y())
+            
+            if rect.width() > 300 and rect.height() > 200:
+                self.setGeometry(rect)
+        
+        # Lógica Move
+        elif self.drag_pos:
+            delta = event.globalPosition().toPoint() - self.drag_pos
+            self.move(self.pos() + delta)
+            self.drag_pos = event.globalPosition().toPoint()
 
-            btn = QPushButton("Generar documento")
-            btn.setStyleSheet(self.btn_style())
-            btn.clicked.connect(lambda _, f=formato: self.generar_documento(f))
-            card_layout.addWidget(btn)
-
-            grid.addWidget(card, i // 3, i % 3)
-
-        scroll.setWidget(scroll_content)
-        right_layout.addWidget(scroll)
-
-        content_layout.addWidget(right_panel)
-
-    def btn_style(self):
-        return (
-            "QPushButton {"
-            "background-color: #003366; color: white; padding: 8px;"
-            "border-radius: 6px;}"
-            "QPushButton:hover { background-color: #002244; }"
-        )
-
-    def cargar_foto(self):
-        file, _ = QFileDialog.getOpenFileName(
-            self, "Seleccionar foto", "", "Imágenes (*.png *.jpg *.jpeg)"
-        )
-        if file:
-            pixmap = QPixmap(file).scaled(
-                180, 180, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation
-            )
-            self.photo_label.setPixmap(pixmap)
-            self.photo_label.setStyleSheet("border-radius: 90px;")
-
-    def generar_documento(self, formato):
-        pasante = self.combo_pasantes.currentText()
-        QMessageBox.information(
-            self,
-            "Documento generado",
-            f"Se ha generado el formato:\n\n{formato}\n\nPara el pasante:\n{pasante}",
-        )
-
+    def mouseReleaseEvent(self, event):
+        self._resizing = False
+        self.drag_pos = None
+        self.setCursor(Qt.ArrowCursor)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = GeneradorDocumentosPasantias()
+    window = ProBlueFinal()
     window.show()
     sys.exit(app.exec())

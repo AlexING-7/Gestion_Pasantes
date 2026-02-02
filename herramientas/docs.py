@@ -2,12 +2,13 @@
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from docxtpl import DocxTemplate
+from docxtpl import DocxTemplate,InlineImage
+from docx.shared import Mm, Cm, Inches
 import jinja2
 from modelos.modulo import Pasantia,Enterprise,session,Configuracion
 import datetime
 import os
-from herramientas.conversiones import mes_espanol,convertir_a_romano,fecha_espanol,formato_miles, nombreCompleto
+from herramientas.conversiones import mes_espanol,convertir_a_romano,fecha_espanol,formato_miles, nombreCompleto,nombreParcial
 
 def reemplazar_texto(datos:Pasantia,filename,name):
     conf=session.query(Configuracion).all()
@@ -19,6 +20,7 @@ def reemplazar_texto(datos:Pasantia,filename,name):
     jinja_env.filters['romanos'] = convertir_a_romano
     jinja_env.filters['mes'] = mes_espanol
     jinja_env.filters['completo'] = nombreCompleto
+    jinja_env.filters['parcial'] = nombreParcial
     context = {
         #estudiante
         'primer_nombre_estudiante': str(datos.student.primer_nombre),
@@ -71,11 +73,12 @@ def reemplazar_texto(datos:Pasantia,filename,name):
         'trabajo_asignado': datos.trabajo_asignado,
         'titulo_de_informe': datos.titulo_de_informe,
     }
-
+    perfil_pasante=InlineImage(doc,datos.student.foto,width=Mm(32),height=Mm(35))
     contexto={
         'hoy':datetime.datetime.now(),
         #datos
         'estudiante':datos.student,
+        'foto_estudiante':perfil_pasante,
         'empresa':datos.empresa,
         'tutor_academico':datos.tutor_academico,
         'tutor_empresarial':datos.tutor_academico,

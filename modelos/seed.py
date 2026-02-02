@@ -54,7 +54,7 @@ def crear_usuarios_sistema():
     
     ConfiguracionFactory(
         clave="cargo_autoridad_firmante_1",
-        valor="Jefe del departamento de pasantías"   
+        valor="Jefe del departamento de pasantias"   
     )
     
     ConfiguracionFactory(
@@ -103,10 +103,10 @@ def crear_estudiantes_prueba():
     StudentFactory.create_batch(20, carrera="Arquitectura")
 def crear_empresas_prueba():
     logger.info("Generando Empresas...")
-    EnterpriseFactory.create_batch(100)
+    EnterpriseFactory.create_batch(5)
 def crear_tutoresA_prueba():
     logger.info("Generando Tutores Academicos...")
-    TutorAcademicoFactory.create_batch(50)
+    TutorAcademicoFactory.create_batch(20)
     
 def crear_tutoresE_prueba():
     logger.info("Generando Tutores Empresariales...")
@@ -114,7 +114,8 @@ def crear_tutoresE_prueba():
 
 def crear_pasantias():
     logger.info("Generando Tutores Empresariales...")    
-    PasantiaFactory.create_batch(40)
+    # Usar el método de clase `create_batch` pasando el trait `finalizada=True`
+    PasantiaFactory.create_batch(40, finalizada=True)
 def run_seeds():
     try:
 
@@ -122,6 +123,8 @@ def run_seeds():
 
         # Paso 2: Poblar
         crear_usuarios_sistema()
+        crear_empresas_prueba()
+        crear_tutoresA_prueba()
         crear_pasantias()     
 
         # Paso 3: Confirmar cambios (Aunque FactoryBoy con 'commit' ya lo hace, aseguramos)

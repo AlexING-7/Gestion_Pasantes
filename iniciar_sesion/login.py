@@ -7,14 +7,16 @@ from PySide6.QtWidgets import (QApplication, QLabel,QMainWindow,QLineEdit,QPushB
 from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
 from herramientas.logs import registrar_log
+from PySide6.QtGui import QShortcut,QKeySequence
 from bcrypt import checkpw
-
-class Login(QMainWindow):
+from herramientas.CustomMain import CustomWindow
+class Login(CustomWindow):
     
     def __init__(self):
         super(Login,self).__init__()
         self.logged=False
         self.window=cargar_ui("UI/login.ui",self)
+        self.layout_principal.addWidget(self.window)
         self.conectar_eventos()
         
 
@@ -45,6 +47,11 @@ class Login(QMainWindow):
         self.window.check_view_password.toggled.connect(self.mostrar_password)
         self.window.login_Button.clicked.connect(self.iniciar_mainview)
         self.window.Olvido_ContrasenaButton.clicked.connect(self.open_recovery_window)
+        self.atajos()
+        
+    def atajos(self):
+        self.atajo_secreto = QShortcut(QKeySequence("Return"), self.window)
+        self.atajo_secreto.activated.connect(self.iniciar_mainview)
 
     def mostrar_password(self,clicked):
         if clicked:

@@ -1,7 +1,7 @@
 import factory
 from datetime import date, timedelta
-from modelos.modulo import session,User,Student,Enterprise,Tutor_Academico,Tutor_Empresarial,Pasantia,Configuracion
-
+from modelos.modulo import session,User,Student,Enterprise,Tutor_Academico,Tutor_Empresarial,Pasantia,Configuracion,Evaluacion,DocumentoAdjunto
+import random
 class UserFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:
         model=User
@@ -54,7 +54,7 @@ class StudentFactory(factory.alchemy.SQLAlchemyModelFactory):
     email = factory.Sequence(lambda n: f"estudiante{n}@santiagomarino.edu.ve")
 
     # 7. OTROS DATOS
-    foto = "resources/images/ejemplo.png" # O puedes poner "default.png"
+    foto = factory.LazyAttribute(lambda o: "resources/images/avatar1.png" if o.sexo=="M" else "resources/images/avatar2.png")
     
     # Carreras típicas del Santiago Mariño
     # carrera = factory.Faker('random_element', elements=[
@@ -115,7 +115,7 @@ class TutorAcademicoFactory(factory.alchemy.SQLAlchemyModelFactory):
     )
 
     sexo = factory.Faker('random_element', elements=['M', 'F'])
-    foto = "resources/images/ejemplo.png"
+    foto = "resources/images/avatar1.png"
     cedula = factory.Sequence(lambda n: 30000000 + n)
     email = factory.Sequence(lambda n: f"tutoraca{n}@santiagomarino.edu.ve")
     fecha_de_nacimiento = factory.Faker('date_of_birth', minimum_age=30, maximum_age=70)
@@ -147,7 +147,8 @@ class TutorEmpresarialFactory(factory.alchemy.SQLAlchemyModelFactory):
     )
 
     sexo = factory.Faker('random_element', elements=['M', 'F'])
-    foto = "resources/images/ejemplo.png"
+    
+    foto = factory.LazyAttribute(lambda o: "resources\images\avatar1.png" if o.sexo=="M" else "resources\images\avatar2.png")
     cedula = factory.Sequence(lambda n: 40000000 + n)
     email = factory.Sequence(lambda n: f"tutoremp{n}@santiagomarino.edu.ve")
     fecha_de_nacimiento = factory.Faker('date_of_birth', minimum_age=25, maximum_age=70)
@@ -155,59 +156,143 @@ class TutorEmpresarialFactory(factory.alchemy.SQLAlchemyModelFactory):
     cargo = factory.Faker('job')
     
 class PasantiaFactory(factory.alchemy.SQLAlchemyModelFactory):
-        class Meta:
-            model = Pasantia
-            sqlalchemy_session = session
-            sqlalchemy_session_persistence = 'commit'
+    class Meta:
+        model = Pasantia
+        sqlalchemy_session = session
+        sqlalchemy_session_persistence = 'commit'
 
-        # Asociaciones: crea entidades relacionadas si no existen
-        student = factory.SubFactory(StudentFactory)
-        empresa = factory.SubFactory(EnterpriseFactory)
-        tutor_academico = factory.SubFactory(TutorAcademicoFactory)
+    student = factory.SubFactory(StudentFactory)
+    
+    @factory.lazy_attribute
+    def empresa(self):
+        ids = [e.id for e in session.query(Enterprise.id).all()]
+        if ids:
+            return session.get(Enterprise, random.choice(ids))
+        return EnterpriseFactory()
+    #empresa = factory.SubFactory(EnterpriseFactory)      
+    
+    @factory.lazy_attribute
+    def tutor_academico(self):
+        ids = [t.id for t in session.query(Tutor_Academico.id).all()]
+        if ids:
+            return session.get(Tutor_Academico, random.choice(ids))
+        return TutorAcademicoFactory()
+    #tutor_academico = factory.SubFactory(TutorAcademicoFactory)
 
-        @factory.post_generation
-        def tutor_empresarial(self, create, extracted, **kwargs):
-            if not create:
-                return
+    @factory.post_generation
+    def tutor_empresarial(self, create, extracted, **kwargs):
+        if not create:
+            return
 
-            # If caller passed an explicit tutor instance, use it
-            if extracted:
-                self.tutor_empresarial = extracted
-                return
+        # If caller passed an explicit tutor instance, use it
+        if extracted:
+            self.tutor_empresarial = extracted
+            return
 
-            # Ensure empresa exists; SubFactory on 'empresa' should have created it
-            if not getattr(self, 'empresa', None):
-                self.empresa = EnterpriseFactory()
+        # Ensure empresa exists; SubFactory on 'empresa' should have created it
+        if not getattr(self, 'empresa', None):
+            self.empresa = EnterpriseFactory()
 
-            tutor = TutorEmpresarialFactory(empresa=self.empresa)
-            self.tutor_empresarial = tutor
-            # Persist the association
-            session.add(self)
-            session.commit()
+        tutor = TutorEmpresarialFactory(empresa=self.empresa)
+        self.tutor_empresarial = tutor
+        # Persist the association
+        session.add(self)
+        session.commit()
 
-        # Campos de la pasantía
-        carrera = factory.Faker('random_element', elements=[
-            'Ingeniería de Sistemas', 'Ingeniería Civil', 'Ingeniería Industrial', 'Arquitectura'
-        ])
-        semestre = factory.Faker('random_int', min=1, max=10)
-        lapso_academico = factory.Faker('random_element', elements=['2023-1', '2023-2', '2024-1', '2024-2'])
-        inicio_pasantias = factory.Faker('date_between', start_date='-180d', end_date='today')
-        final_pasantias = factory.LazyAttribute(lambda o: (o.inicio_pasantias + timedelta(days=90)) if o.inicio_pasantias else None)
-        departamento = factory.Faker('random_element', elements=['Sistemas', 'Recursos Humanos', 'Producción', None])
-        estado = factory.Faker('random_element', elements=['solicitada', 'aprobada', 'en progreso', 'finalizada'])
-        trabajo_asignado = factory.Faker('paragraph', nb_sentences=3, locale='es_ES')
-        titulo_de_informe = factory.LazyAttribute(lambda o: f"Informe de {o.carrera} - {o.lapso_academico}")
-        # Campos adicionales existentes en el modelo `Pasantia`
-        plan_de_trabajo = factory.Faker('paragraph', nb_sentences=5, locale='es_ES')
-        sede = factory.Faker('boolean')
+    # Campos de la pasantía
+    carrera = factory.Faker('random_element', elements=[
+        'Ingeniería de Sistemas', 'Ingeniería Civil', 'Ingeniería Industrial', 'Arquitectura'
+    ])
+    semestre = factory.Faker('random_int', min=8, max=10)
+    lapso_academico = factory.Faker('random_element', elements=['2022-1', '2022-2','2023-1', '2023-2', '2024-1', '2024-2', '2025-1', '2025-2', '2026-1'])
+    
+    
+    inicio_pasantias = factory.Faker('date_between', start_date='-180d', end_date='today')
+    final_pasantias = factory.LazyAttribute(lambda o: (o.inicio_pasantias + timedelta(days=90)) if o.inicio_pasantias else None)
+    departamento = factory.Faker('random_element', elements=['Sistemas', 'Recursos Humanos', 'Producción', None])
+    estado = factory.Faker('random_element', elements=['solicitada', 'aprobada', 'en progreso', 'finalizada'])
+    trabajo_asignado = factory.Faker('paragraph', nb_sentences=3, locale='es_ES')
+    titulo_de_informe = factory.LazyAttribute(lambda o: f"Informe de {o.carrera} - {o.lapso_academico}")
+    # Campos adicionales existentes en el modelo `Pasantia`
+    plan_de_trabajo = factory.Faker('paragraph', nb_sentences=5, locale='es_ES')
+    sede = factory.Faker('boolean')
+    
+    direccion = factory.Maybe(
+        'sede',
+        yes_declaration=None,
+        no_declaration=factory.Faker('address', locale='es_ES')
+    )
+    jefe_de_carta = factory.Faker('name', locale='es_ES')
+    cargo_jefe_de_carta = factory.Faker('job', locale='es_ES')
+    
+    @factory.post_generation
+    def crear_evaluacion_asociada(obj, create, extracted, **kwargs):
+        if not create:
+            return
         
-        direccion = factory.Maybe(
-            'sede',
-            yes_declaration=None,
-            no_declaration=factory.Faker('address', locale='es_ES')
+        # Si el estado es finalizada, creamos la evaluación
+        if obj.estado == "finalizada":
+            EvaluacionFactory(pasantia=obj)    
+    class Params:
+        # Pasantía recién creada, sin aprobar
+        nueva = factory.Trait(
+            estado="solicitada",
+            empresa=None,
+            tutor_academico=None,
+            inicio_pasantias=None,
+            final_pasantias=None,
+            trabajo_asignado=None,
+            titulo=None,
+            sede=None,
+            direccion=None,
         )
-        jefe_de_carta = factory.Faker('name', locale='es_ES')
-        cargo_jefe_de_carta = factory.Faker('job', locale='es_ES')
+
+        # Pasantía activa (tiene todo asignado)
+        activa = factory.Trait(
+            estado="aprobada",
+
+        )
+
+        # Pasantía terminada (tiene informe)
+        finalizada = factory.Trait(
+            estado="finalizada",
+        )
+
+
+class EvaluacionFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = Evaluacion
+        sqlalchemy_session = session
+        sqlalchemy_session_persistence = 'commit'
+
+    # Aseguramos que la pasantía asociada esté en un estado evaluable
+    pasantia = factory.SubFactory(
+        PasantiaFactory,
+        estado='finalizada',
+        inicio_pasantias=factory.LazyFunction(lambda: date.today() - timedelta(days=120)),
+        final_pasantias=factory.LazyFunction(lambda: date.today() - timedelta(days=30)),
+    )
+
+    # Notas generadas aleatoriamente en rango realista (1.0 - 20.0)
+    nota_tutor_aca = factory.LazyFunction(lambda: round(random.uniform(1.0, 20.0), 2))
+    nota_tutor_emp = factory.LazyFunction(lambda: round(random.uniform(1.0, 20.0), 2))
+    exposicion = factory.LazyFunction(lambda: round(random.uniform(1.0, 20.0), 2))
+    taller_induccion = factory.LazyFunction(lambda: round(random.uniform(1.0, 20.0), 2))
+
+    @factory.lazy_attribute
+    def total(self):
+        w_a = 0.40
+        w_e = 0.40
+        w_expo = 0.15
+        w_taller = 0.05
+        total = (
+            (self.nota_tutor_aca or 0) * w_a
+            + (self.nota_tutor_emp or 0) * w_e
+            + (self.exposicion or 0) * w_expo
+            + (self.taller_induccion or 0) * w_taller
+        )
+        return round(max(1.0, min(20.0, total)), 2)
+
 
 
 class ConfiguracionFactory(factory.alchemy.SQLAlchemyModelFactory):

@@ -21,15 +21,17 @@ from admin.main_pasante import StackPasante
 from admin.main_logs import StackLogs
 from PySide6.QtWidgets import QHeaderView
 from herramientas.logs import registrar_log
+from herramientas.CustomMain import CustomWindow
 
-class MainWindow(QMainWindow):
+class MainWindow(CustomWindow):
     
     def __init__(self):
         super(MainWindow,self).__init__()
         load_dotenv()
         self.user_authenticated=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none().user
         self.window=cargar_ui("UI/menu.ui",self)
-        self.setWindowTitle("menu")
+        self.layout_principal.addWidget(self.window)
+        self.title_label.setText("menu")
         self.resize(1120, 680)
         self.conectar_eventos()
         #self.web()
@@ -39,18 +41,24 @@ class MainWindow(QMainWindow):
         
     
     def eventFilter(self, source, event):
-        if self.window.stackedWidget.currentIndex()==2:
-            self.student.eventFilter(source,event)
-        elif self.window.stackedWidget.currentIndex()==3:
-            self.enterprise.eventFilter(source,event)
-        elif self.window.stackedWidget.currentIndex()==4:
-            self.tutorA.eventFilter(source,event)
-        elif self.window.stackedWidget.currentIndex()==5:
-            self.tutorE.eventFilter(source,event)
-        elif self.window.stackedWidget.currentIndex()==6:
-            self.pasante.eventFilter(source,event)
-            
-        return super().eventFilter(source, event) 
+        # Evitar errores si `self.window` aún no fue asignado
+        win = getattr(self, 'window', None)
+        if win is None or not hasattr(win, 'stackedWidget'):
+            return super().eventFilter(source, event)
+
+        idx = win.stackedWidget.currentIndex()
+        if idx == 2 and hasattr(self, 'student'):
+            self.student.eventFilter(source, event)
+        elif idx == 3 and hasattr(self, 'enterprise'):
+            self.enterprise.eventFilter(source, event)
+        elif idx == 4 and hasattr(self, 'tutorA'):
+            self.tutorA.eventFilter(source, event)
+        elif idx == 5 and hasattr(self, 'tutorE'):
+            self.tutorE.eventFilter(source, event)
+        elif idx == 6 and hasattr(self, 'pasante'):
+            self.pasante.eventFilter(source, event)
+
+        return super().eventFilter(source, event)
     
     def conectar_eventos(self):
         #realizar una clase de usuario autenticado

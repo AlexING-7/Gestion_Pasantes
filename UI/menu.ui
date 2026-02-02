@@ -6356,7 +6356,7 @@ border-radius:10px;</string>
              <string notr="true"/>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="gestion_5">
              <property name="styleSheet">
@@ -8724,36 +8724,20 @@ QComboBox:on {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     background-color: #ffffff;
+}
+QComboBox QAbstractItemView {
+	color:#333333;
+    background-color: #ffffff;
+    border: 1px solid #c0c0c0;
+    selection-background-color: #0078d7; /* Color de selección azul */
+    selection-color: #ffffff;
+    outline: 0; /* Quita la línea punteada al seleccionar */
+    border-radius: 0px 0px 6px 6px;
 }</string>
                          </property>
                          <property name="placeholderText">
                           <string>Seleccione Tipo</string>
                          </property>
-                         <item>
-                          <property name="text">
-                           <string>Carta de Solicitud de Pasantia</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Carta de Aceptacion del Pasante</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Acto de Inicio</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Acto de Inicio de Ejecucion de Pasantia</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Contrato del Pasante</string>
-                          </property>
-                         </item>
                         </widget>
                        </item>
                        <item>
