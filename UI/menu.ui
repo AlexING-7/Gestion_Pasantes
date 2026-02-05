@@ -104,7 +104,10 @@ padding: 12px 12px;
 color: rgb(255, 255, 255);</string>
            </property>
            <property name="text">
-            <string>Dashboard</string>
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap>../resources/logo - copia (2).png</pixmap>
            </property>
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -161,7 +164,7 @@ QPushButton:hover {
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>../../../.designer/backup/resources/images/user-home-svgrepo-com.svg</normaloff>../../../.designer/backup/resources/images/user-home-svgrepo-com.svg</iconset>
+             <normaloff>../resources/images/user-home-svgrepo-com.svg</normaloff>../resources/images/user-home-svgrepo-com.svg</iconset>
            </property>
           </widget>
          </item>
@@ -175,7 +178,7 @@ QPushButton:hover {
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>../../../.designer/backup/resources/images/user-svgrepo-com.svg</normaloff>../../../.designer/backup/resources/images/user-svgrepo-com.svg</iconset>
+             <normaloff>../resources/images/user-svgrepo-com.svg</normaloff>../resources/images/user-svgrepo-com.svg</iconset>
            </property>
           </widget>
          </item>
