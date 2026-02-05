@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1113</width>
-    <height>1129</height>
+    <height>876</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -6356,7 +6356,7 @@ border-radius:10px;</string>
              <string notr="true"/>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="gestion_5">
              <property name="styleSheet">
@@ -9301,7 +9301,7 @@ QTabBar::tab:selected {
 }</string>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tab">
                 <property name="styleSheet">
