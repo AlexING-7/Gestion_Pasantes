@@ -479,7 +479,7 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
          <number>0</number>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="Pag1_Inicio">
          <property name="enabled">
@@ -2235,6 +2235,12 @@ border-radius:4px;
              </layout>
             </widget>
             <widget class="ShadowWidget" name="visualizarSt">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>100</horstretch>
+               <verstretch>70</verstretch>
+              </sizepolicy>
+             </property>
              <property name="styleSheet">
               <string notr="true">QFrame{
 background-color: transparent;

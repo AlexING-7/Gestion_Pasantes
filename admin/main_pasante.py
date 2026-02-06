@@ -4,7 +4,6 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import os
 from PySide6.QtWidgets import QWidget, QPushButton, QMessageBox,QFileDialog,QTableWidgetItem,QHBoxLayout,QStyle,QLineEdit,QAbstractScrollArea
-from PySide6.QtCore import Qt
 from PySide6.QtGui import  QIcon
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -22,7 +21,7 @@ from herramientas.docs import reemplazar_texto
 from herramientas.img_py import convertir_pil_a_pixmap
 from herramientas.conversiones import null_string,calcular_edad,calcular_duracion_meses
 from PySide6.QtWidgets import QHeaderView
-from PySide6.QtCore import QEvent
+from PySide6.QtCore import QEvent,QSize,Qt
 from admin.main_pasante_adjuntos import show_documentos
 from admin.evaluacion import show_evaluar
 
@@ -52,8 +51,8 @@ class StackPasante():
         self.window.btnExportarPsa.clicked.connect(self.exportar)
         self.window.btnNuevoPsa.clicked.connect(self.open_newpasante)
         #self.window.regresarButton.clicked.connect(lambda :self.window.StackedEstudiantes.setCurrentIndex(0))
-        self.window.btnAntPsa.clicked.connect(lambda :self.change_table(self.window.btnAntPsa.text()))
-        self.window.btnSigPsa.clicked.connect(lambda :self.change_table(self.window.btnSigPsa.text()))
+        self.window.btnAntPsa.clicked.connect(lambda :self.change_table("Anterior"))
+        self.window.btnSigPsa.clicked.connect(lambda :self.change_table("Siguiente"))
         self.window.searchPsa.textChanged.connect(self.search)
         self.window.comboEstados.activated.connect(lambda: self.cambio_programa())
 

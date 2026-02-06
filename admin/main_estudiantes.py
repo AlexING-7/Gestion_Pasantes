@@ -21,7 +21,7 @@ from herramientas.conversiones import null_string,convertir_pil_a_pixmap
 from dotenv import load_dotenv
 from herramientas.docs import reemplazar_texto
 from PySide6.QtWidgets import QHeaderView
-from PySide6.QtCore import QEvent
+from PySide6.QtCore import QEvent,QSize
 
 class StackStudent():
     
@@ -73,6 +73,8 @@ class StackStudent():
     def header(self):
         
         header=self.window.tabla_estudiantes.horizontalHeader()
+        header_vertical = self.window.tabla_estudiantes.verticalHeader()
+        header_vertical.setDefaultSectionSize(30)
         #cedula
         self.window.tabla_estudiantes.setColumnWidth(0, 80)
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)
@@ -87,7 +89,7 @@ class StackStudent():
         self.window.tabla_estudiantes.setColumnWidth(6, 100)
         header.setSectionResizeMode(6, QHeaderView.ResizeMode.Fixed)
         #accion
-        self.window.tabla_estudiantes.setColumnWidth(7, 150)
+        self.window.tabla_estudiantes.setColumnWidth(7, 300)
         header.setSectionResizeMode(7, QHeaderView.ResizeMode.Fixed)
         
         if self.window.tabla_estudiantes.width()>1600:
@@ -134,10 +136,16 @@ class StackStudent():
             layout_botones.setSpacing(10) 
 
             boton_ver=QPushButton("Ver")
+            boton_ver.setIcon(QIcon("resources/images/read-svgrepo-com.svg"))
+            boton_ver.setIconSize(QSize(15, 15))
             boton_ver.clicked.connect(lambda checked,x=estudiante: self.read_student(x))
             btn_editar = QPushButton("Editar")
+            btn_editar.setIcon(QIcon("resources/images/edit-2-svgrepo-com.svg"))
+            btn_editar.setIconSize(QSize(15, 15))
             btn_editar.clicked.connect(lambda checked,x=estudiante: self.edit_student(x))
-            btn_borrar = QPushButton("Borrar")
+            btn_borrar = QPushButton("Eliminar")
+            btn_borrar.setIcon(QIcon("resources/images/delete-1487-svgrepo-com.svg"))
+            btn_borrar.setIconSize(QSize(15, 15))
             btn_borrar.clicked.connect(lambda checked,x=estudiante: self.delete_student(x))
 
             btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 

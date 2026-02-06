@@ -63,6 +63,12 @@
       </property>
       <item row="0" column="0">
        <widget class="QFrame" name="frame_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>50</horstretch>
+          <verstretch>50</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
          <string notr="true">QFrame{
 background:rgba(255, 255, 255, 0.95);
