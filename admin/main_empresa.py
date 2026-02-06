@@ -8,7 +8,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import  QIcon
 from PySide6.QtUiTools import QUiLoader
 
-from modelos.modulo import session,Enterprise
+from modelos.modulo import session,Enterprise,Pasantia
 from sqlalchemy import select
 from sqlalchemy import or_,and_
 from getmac import get_mac_address as gma
@@ -19,6 +19,7 @@ from herramientas.variables import semestre
 from dotenv import load_dotenv
 from herramientas.docs import reemplazar_texto
 from herramientas.img_py import convertir_pil_a_pixmap
+from herramientas.conversiones import nombreCompleto
 from PySide6.QtWidgets import QHeaderView
 from PySide6.QtCore import QEvent
 
@@ -47,8 +48,8 @@ class StackEnterprise():
         self.window.btnExportarEmpr.clicked.connect(self.exportar)
         self.window.btnNuevaEmpr.clicked.connect(self.open_empresa)
         #self.window.regresarButton.clicked.connect(lambda :self.window.StackedEstudiantes.setCurrentIndex(0))
-        self.window.btnAntEmpr.clicked.connect(lambda :self.change_table(self.window.btnAntEmpr.text()))
-        self.window.btnSigEmpr.clicked.connect(lambda :self.change_table(self.window.btnSigEmpr.text()))
+        self.window.btnAntEmpr.clicked.connect(lambda :self.change_table("Anterior"))
+        self.window.btnSigEmpr.clicked.connect(lambda :self.change_table("Siguiente"))
         self.window.searchEmpr.textChanged.connect(self.search)
         self.window.comboRubros.activated.connect(lambda: self.cambio_programa())
                 
@@ -124,7 +125,7 @@ class StackEnterprise():
             layout_botones.setSpacing(10) 
 
             boton_ver=QPushButton("Ver")
-            #boton_ver.clicked.connect(lambda checked,x=estudiante: self.read_student(x))
+            boton_ver.clicked.connect(lambda checked,x=empresa: self.read_empresa(x))
             btn_editar = QPushButton("Editar")
             btn_editar.clicked.connect(lambda checked,x=empresa: self.edit_empresa(x))
             btn_borrar = QPushButton("Borrar")
@@ -208,23 +209,31 @@ class StackEnterprise():
         self.window.email_Emp.setText(empresa.email)
         self.window.tlf_Emp.clear()
         self.window.tlf_Emp.setText(empresa.telefono)
-        self.window.direccionInput.setPlainText(str(empresa.direccion))
+        self.window.direccion_Emp.setText(str(empresa.direccion))
         self.window.StackedEmpresas.setCurrentIndex(1)
-        self.window.editarEmp.clicked.connect(self.edit_empresa(empresa))
-        self.window.EliminarEmp.clicked.connect(self.delete_empresa(empresa))
+        self.window.editarEmp.clicked.connect(lambda: self.edit_empresa(empresa))
+        self.window.EliminarEmp.clicked.connect(lambda: self.delete_empresa(empresa))
         self.window.regresarButtonEmp.clicked.connect(lambda: self.window.StackedEmpresas.setCurrentIndex(0))
         self.pag_tabla_pasantes(empresa.pasantias)
     
     def pag_tabla_pasantes(self,entidad):
+        n=0
+        m=4
+        indice=self.window.NumPasanteEmpr
+        indice.setText(f"{n}-{m} de 4")
+        siguiente=self.window.SigPasanteEmpr
+        anterior=self.window.AntPasanteEmpr
         header=self.tabla_pasantes.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
 
         self.tabla_pasantes.setRowCount(0)
-        for fila,pasante in enumerate(entidad):
+        self.tabla_pasantes.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.tabla_pasantes.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        for fila,pasante in enumerate(entidad[n:m]):
             pasante:Pasantia
             self.tabla_pasantes.insertRow(fila)
             
@@ -233,6 +242,25 @@ class StackEnterprise():
             self.tabla_pasantes.setItem(fila,2,QTableWidgetItem(str(pasante.carrera)))
             self.tabla_pasantes.setItem(fila,3,QTableWidgetItem(str(pasante.lapso_academico)))
             self.tabla_pasantes.setItem(fila,4,QTableWidgetItem(str(pasante.estado)))
+            
+            widget_contenedor = QWidget()
+            
+            layout_botones = QHBoxLayout(widget_contenedor)
+            
+            layout_botones.setContentsMargins(5, 2, 5, 2) 
+            layout_botones.setSpacing(10) 
+
+            boton_ver=QPushButton("Ver")
+            boton_ver.clicked.connect(lambda checked,x=pasante: self.read_pasante(x))
+            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+            
+            layout_botones.addWidget(boton_ver)
+            self.tabla_pasantes.setCellWidget(fila, 5, widget_contenedor)
+
+            
+    def read_pasante(self,pasante:Pasantia):
+        self.window.PasantiasButton.click()
+        self.main.pasante.read_pasante(pasante)
     
     def edit_empresa(self,empresa):
         from admin.nuevo_empresa import NewEnterprise

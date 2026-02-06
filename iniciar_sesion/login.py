@@ -17,6 +17,7 @@ class Login(CustomWindow):
         self.logged=False
         self.window=cargar_ui("UI/login.ui",self)
         self.layout_principal.addWidget(self.window)
+        self.title_label.setText("Sitema de Gestión de Pasantias-LOGIN")
         self.conectar_eventos()
         
 
@@ -65,35 +66,22 @@ class Login(CustomWindow):
     
     def iniciar_mainview(self):
         user=session.query(User).where(User.username==self.window.user_input.text()).one_or_none()
-        sesion=TSession(mac_adresss=gma(),
-                        data_session="uijfdiosjfoifdjiogjdfoginfdoignfdiognfdignjfdigfnjdigondfgujfndgiofdngjfdgnfdikjgnfdiogjniodgjiogjfkdijgndofigjnfiodgnfdiognfdiognfdignfdignfdiognfdiognfdiognignfdigndifgnfdignfdigndfiognfdiongifdgnfdiongfidognifdsgnaiunaiounmfusjinfugkijnb ufgjkeirngvujhynrbguhynrgahuyebngvefuhbnvguizsnburfi",
-                        last_activity=int(time.time()))        
-        
-
+        sesion=TSession(mac_adresss=gma(), data_session="info", last_activity=int(time.time()))               
         try:
             if user:
                 if checkpw(self.window.password_input.text().encode(),user.password.encode()):
-                    QMessageBox.information(self.window,"Usuario Inicio Sesión",
-                                            f"Inicio Sesión Correctamente",
-                                            QMessageBox.StandardButton.Ok,
-                                            QMessageBox.StandardButton.Ok)
+                    QMessageBox.information(self.window,"Usuario Inicio Sesión", f"Inicio Sesión Correctamente", 
+                                            QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Ok)
                     user.tsessions.append(sesion)
 
                     session.commit()
                     self.close()
                     if user.rol=="Administrador":
                         self.open_main_window()
-                        registrar_log(session=session,
-                              usuario=user.username,
-                              accion="LOGIN",
-                              mensaje="Login Rol Administrador",
-                              )
+                        registrar_log(session=session, usuario=user.username, accion="LOGIN", mensaje="Login Rol Administrador",  )
                     elif user.rol=="Coordinador":
                         self.open_main_coord_window()
-                        registrar_log(session=session,
-                              usuario=user.username,
-                              accion="LOGIN",
-                              mensaje="Login Rol Coordinador",
+                        registrar_log(session=session,usuario=user.username,  accion="LOGIN", mensaje="Login Rol Coordinador",
                               )
                 else:
                     QMessageBox.warning(self.window,"Error Mensaje",

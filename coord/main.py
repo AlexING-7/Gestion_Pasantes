@@ -18,8 +18,12 @@ from PySide6.QtGui import QColor
 from coord.main_solicitud import StackedSolicitud
 from coord.main_pasante import StackPasante
 from coord.main_estadisticas import StackEstadistica
+from coord.main_documentos import StackedDocumentos
 from herramientas.logs import registrar_log
 from herramientas.CustomMain import CustomWindow
+from admin.main_empresa import StackEnterprise
+from admin.main_tutor_academico import StackTutorA
+from admin.main_tutor_empresarial import StackTutorE
 class MainWindow(CustomWindow):
     
     def __init__(self):
@@ -28,8 +32,9 @@ class MainWindow(CustomWindow):
         self.user_authenticated=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none().user
         self.window=cargar_ui("UI/dashboard.ui",self)
         self.layout_principal.addWidget(self.window)
-        self.title_label.setText("Sistema")
-        self.resize(1120, 700)
+        self.title_label.setText("Sitema de Gestión de Pasantias-Coordinador")
+        self.setMinimumSize(1150,750)
+        self.resize(1200, 850)
         self.conectar_eventos()
         
 
@@ -39,6 +44,9 @@ class MainWindow(CustomWindow):
         self.window.btnSolicitud.clicked.connect(self.change_widget)
         self.window.btnPasante.clicked.connect(self.change_widget)
         self.window.btnEstadistica.clicked.connect(self.change_widget)
+        self.window.btnEmpresa.clicked.connect(self.change_widget)
+        self.window.btnTutorA.clicked.connect(self.change_widget)
+        self.window.btnTutorE.clicked.connect(self.change_widget)
         self.window.btnSolicitud.click()
         
     def change_widget(self):
@@ -52,29 +60,18 @@ class MainWindow(CustomWindow):
 
         elif buttom.text().lower()=="empresas".lower():
             self.window.stackedWidget.setCurrentIndex(2)
-
+            self.empresa=StackEnterprise(self)
         
         elif buttom.text().lower()=="tutor academico".lower():
             self.window.stackedWidget.setCurrentIndex(3)
+            self.tutorA=StackTutorA(self)
         
         elif buttom.text().lower()=="tutor empresarial".lower():
             self.window.stackedWidget.setCurrentIndex(4)
-
+            self.TutorE=StackTutorE(self)
         
         elif buttom.text().lower()=="Generación de Docs".lower():
-            self.window.stackedWidget.setCurrentIndex(5)
-            self.window.listWidget.setCurrentRow(0)
-            
-            docs=("1. CARTA SOLICITUD DE PASANTIA","2.CARTA ACEPTACION DEL PASANTE","3.ACTA DE INICIO","4.ACTA DE INICIO DE EJECUCIÓN DE PASANTÍA","5.CONTRATO DEL PASANTE","6. INSCRIPCION DE PASANTIA","16.CARTA DE RESPUESTA A SOLICITUD DE EXTENSIÓN DE PASANTIAS")
-            for i in docs:
-            
-                btn=cargar_ui("UI/generar_doc.ui",self)
-                btn.label_Documento.setText(i)
-                item = QListWidgetItem()
-                item.setSizeHint(QSize(430,82))
-                print(btn.sizeHint())
-                self.window.listWidget.addItem(item)
-                self.window.listWidget.setItemWidget(item, btn)
+            self.docs=StackedDocumentos(self)
         elif buttom.text().lower()=="Estadisticas".lower():
             StackEstadistica(self)
       

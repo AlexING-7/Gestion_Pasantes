@@ -54,7 +54,7 @@ class StudentFactory(factory.alchemy.SQLAlchemyModelFactory):
     email = factory.Sequence(lambda n: f"estudiante{n}@santiagomarino.edu.ve")
 
     # 7. OTROS DATOS
-    foto = factory.LazyAttribute(lambda o: "resources/images/avatar1.png" if o.sexo=="M" else "resources/images/avatar2.png")
+    foto = factory.LazyAttribute(lambda o: "resources/images/avatar1.png" if o.sexo=="Masculino" else "resources/images/avatar2.png")
     
     # Carreras típicas del Santiago Mariño
     # carrera = factory.Faker('random_element', elements=[
@@ -148,7 +148,7 @@ class TutorEmpresarialFactory(factory.alchemy.SQLAlchemyModelFactory):
 
     sexo = factory.Faker('random_element', elements=['M', 'F'])
     
-    foto = factory.LazyAttribute(lambda o: "resources\images\avatar1.png" if o.sexo=="M" else "resources\images\avatar2.png")
+    foto = factory.LazyAttribute(lambda o: "resources/images/avatar1.png" if o.sexo=="M" else "resources/images/avatar2.png")
     cedula = factory.Sequence(lambda n: 40000000 + n)
     email = factory.Sequence(lambda n: f"tutoremp{n}@santiagomarino.edu.ve")
     fecha_de_nacimiento = factory.Faker('date_of_birth', minimum_age=25, maximum_age=70)
@@ -213,7 +213,6 @@ class PasantiaFactory(factory.alchemy.SQLAlchemyModelFactory):
     estado = factory.Faker('random_element', elements=['solicitada', 'aprobada', 'en progreso', 'finalizada'])
     trabajo_asignado = factory.Faker('paragraph', nb_sentences=3, locale='es_ES')
     titulo_de_informe = factory.LazyAttribute(lambda o: f"Informe de {o.carrera} - {o.lapso_academico}")
-    # Campos adicionales existentes en el modelo `Pasantia`
     plan_de_trabajo = factory.Faker('paragraph', nb_sentences=5, locale='es_ES')
     sede = factory.Faker('boolean')
     
@@ -242,7 +241,7 @@ class PasantiaFactory(factory.alchemy.SQLAlchemyModelFactory):
             inicio_pasantias=None,
             final_pasantias=None,
             trabajo_asignado=None,
-            titulo=None,
+            titulo_de_informe=None,
             sede=None,
             direccion=None,
         )

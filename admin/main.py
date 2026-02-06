@@ -31,10 +31,11 @@ class MainWindow(CustomWindow):
         self.user_authenticated=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none().user
         self.window=cargar_ui("UI/menu.ui",self)
         self.layout_principal.addWidget(self.window)
-        self.title_label.setText("menu")
-        self.resize(1120, 680)
+        self.title_label.setText("Sitema de Gestión de Pasantias-Administrador")
+        self.setMinimumSize(800, 750)
+        self.resize(1150, 800)
+        print(self.width(),self.height())
         self.conectar_eventos()
-        #self.web()
         
         
 
@@ -61,7 +62,6 @@ class MainWindow(CustomWindow):
         return super().eventFilter(source, event)
     
     def conectar_eventos(self):
-        #realizar una clase de usuario autenticado
         self.window.stackedWidget.setCurrentIndex(0)
         self.window.cerrar_sesionButton.clicked.connect(self.logout)
         self.window.usernameLabel.setText(self.user_authenticated.username)

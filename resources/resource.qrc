@@ -1,49 +1,135 @@
 <RCC>
   <qresource prefix="../resources">
+    <file>images/acad-barra.svg</file>
+    <file>images/arrow-left.svg</file>
+    <file>images/avatar1.png</file>
+    <file>images/avatar2.png</file>
+    <file>images/back2-svgrepo-com.svg</file>
+    <file>images/back-svgrepo-com.svg</file>
+    <file>images/close-svgrepo-com.svg</file>
+    <file>images/config-barra.svg</file>
+    <file>images/doc-barra.svg</file>
+    <file>images/down-arrow-svgrepo-com.svg</file>
+    <file>images/ejemplo.png</file>
+    <file>images/emblemencryptedunlocked_93483.png</file>
+    <file>images/empr-barra.svg</file>
+    <file>images/empresa_barra.svg</file>
+    <file>images/home-barra.svg</file>
+    <file>images/log-out-barra.svg</file>
+    <file>images/pasante-barra.svg</file>
+    <file>images/regresar.svg</file>
+    <file>images/right-arrow.svg</file>
+    <file>images/Screenshot 2025-10-11 095433.png</file>
+    <file>images/search.svg</file>
+    <file>images/sendmail.png</file>
+    <file>images/soli-barra.svg</file>
+    <file>images/statistics-barra.svg</file>
+    <file>images/student-barra.svg</file>
+    <file>images/upload.svg</file>
+    <file>images/upload-img-base.svg</file>
+    <file>images/upload-img-white.svg</file>
+    <file>images/user-barra.svg</file>
+    <file>images/window-maximize-symbolic-svgrepo-com.svg</file>
+    <file>images/window-minimize-svgrepo-com.svg</file>
+    <file>images/window-restore-symbolic-svgrepo-com.svg</file>
+    <file>images/acad-barra.svg</file>
+    <file>images/arrow-left.svg</file>
+    <file>images/avatar1.png</file>
+    <file>images/avatar2.png</file>
+    <file>images/back2-svgrepo-com.svg</file>
+    <file>images/back-svgrepo-com.svg</file>
+    <file>images/close-svgrepo-com.svg</file>
+    <file>images/config-barra.svg</file>
+    <file>images/down-arrow-svgrepo-com.svg</file>
+    <file>images/ejemplo.png</file>
+    <file>images/emblemencryptedunlocked_93483.png</file>
+    <file>images/empr-barra.svg</file>
+    <file>images/empresa_barra.svg</file>
+    <file>images/home-barra.svg</file>
+    <file>images/log-out-barra.svg</file>
+    <file>images/pasante-barra.svg</file>
+    <file>images/regresar.svg</file>
+    <file>images/right-arrow.svg</file>
+    <file>images/Screenshot 2025-10-11 095433.png</file>
+    <file>images/search.svg</file>
+    <file>images/sendmail.png</file>
+    <file>images/student-barra.svg</file>
+    <file>images/upload.svg</file>
+    <file>images/upload-img-base.svg</file>
+    <file>images/upload-img-white.svg</file>
+    <file>images/user-barra.svg</file>
+    <file>images/window-maximize-symbolic-svgrepo-com.svg</file>
+    <file>images/window-minimize-svgrepo-com.svg</file>
+    <file>images/window-restore-symbolic-svgrepo-com.svg</file>
+    <file>images/acad-barra.svg</file>
+    <file>images/avatar1.png</file>
+    <file>images/avatar2.png</file>
+    <file>images/back2-svgrepo-com.svg</file>
+    <file>images/back-svgrepo-com.svg</file>
+    <file>images/close-svgrepo-com.svg</file>
+    <file>images/config-barra.svg</file>
+    <file>images/down-arrow-svgrepo-com.svg</file>
+    <file>images/ejemplo.png</file>
+    <file>images/emblemencryptedunlocked_93483.png</file>
+    <file>images/empr-barra.svg</file>
+    <file>images/empresa_barra.svg</file>
+    <file>images/home-barra.svg</file>
+    <file>images/log-out-barra.svg</file>
+    <file>images/pasante-barra.svg</file>
+    <file>images/regresar.svg</file>
+    <file>images/Screenshot 2025-10-11 095433.png</file>
+    <file>images/search.svg</file>
+    <file>images/sendmail.png</file>
+    <file>images/student-barra.svg</file>
+    <file>images/upload.svg</file>
+    <file>images/upload-img-base.svg</file>
+    <file>images/upload-img-white.svg</file>
+    <file>images/user-barra.svg</file>
+    <file>images/window-maximize-symbolic-svgrepo-com.svg</file>
+    <file>images/window-minimize-svgrepo-com.svg</file>
+    <file>images/window-restore-symbolic-svgrepo-com.svg</file>
+    <file>images/acad-barra.svg</file>
+    <file>images/avatar1.png</file>
+    <file>images/avatar2.png</file>
+    <file>images/back2-svgrepo-com.svg</file>
+    <file>images/back-svgrepo-com.svg</file>
+    <file>images/close-svgrepo-com.svg</file>
+    <file>images/config-barra.svg</file>
+    <file>images/ejemplo.png</file>
+    <file>images/emblemencryptedunlocked_93483.png</file>
+    <file>images/empr-barra.svg</file>
+    <file>images/empresa_barra.svg</file>
+    <file>images/home-barra.svg</file>
+    <file>images/log-out-barra.svg</file>
+    <file>images/pasante-barra.svg</file>
+    <file>images/regresar.svg</file>
+    <file>images/Screenshot 2025-10-11 095433.png</file>
+    <file>images/search.svg</file>
+    <file>images/sendmail.png</file>
+    <file>images/student-barra.svg</file>
+    <file>images/upload.svg</file>
+    <file>images/upload-img-base.svg</file>
+    <file>images/upload-img-white.svg</file>
+    <file>images/user-barra.svg</file>
+    <file>images/window-maximize-symbolic-svgrepo-com.svg</file>
+    <file>images/window-minimize-svgrepo-com.svg</file>
+    <file>images/window-restore-symbolic-svgrepo-com.svg</file>
     <file>images/regresar.svg</file>
     <file>images/back2-svgrepo-com.svg</file>
     <file>images/back-svgrepo-com.svg</file>
     <file>images/emblemencryptedunlocked_93483.png</file>
-    <file>images/enterprise-svgrepo-com.svg</file>
-    <file>images/log-out-svgrepo-com.svg</file>
     <file>images/Screenshot 2025-10-11 095433.png</file>
     <file>images/sendmail.png</file>
-    <file>images/student-cap-svgrepo-com.svg</file>
     <file>images/upload-img-base.svg</file>
     <file>images/upload-img-white.svg</file>
-    <file>images/user-home-svgrepo-com.svg</file>
-    <file>images/user-id-svgrepo-com.svg</file>
-    <file>images/user-suit-male-svgrepo-com.svg</file>
-    <file>images/user-svgrepo-com.svg</file>
-    <file>images/user-waiter-female-svgrepo-com.svg</file>
     <file>images/back2-svgrepo-com.svg</file>
     <file>images/back-svgrepo-com.svg</file>
     <file>images/emblemencryptedunlocked_93483.png</file>
-    <file>images/enterprise-svgrepo-com.svg</file>
-    <file>images/log-out-svgrepo-com.svg</file>
     <file>images/sendmail.png</file>
-    <file>images/student-cap-svgrepo-com.svg</file>
     <file>images/upload-img-base.svg</file>
     <file>images/upload-img-white.svg</file>
-    <file>images/user-home-svgrepo-com.svg</file>
-    <file>images/user-id-svgrepo-com.svg</file>
-    <file>images/user-suit-male-svgrepo-com.svg</file>
-    <file>images/user-svgrepo-com.svg</file>
-    <file>images/user-waiter-female-svgrepo-com.svg</file>
-    <file>images/enterprise-svgrepo-com.svg</file>
-    <file>images/log-out-svgrepo-com.svg</file>
-    <file>images/student-cap-svgrepo-com.svg</file>
-    <file>images/user-home-svgrepo-com.svg</file>
-    <file>images/user-id-svgrepo-com.svg</file>
-    <file>images/user-suit-male-svgrepo-com.svg</file>
-    <file>images/user-svgrepo-com.svg</file>
-    <file>images/user-waiter-female-svgrepo-com.svg</file>
-    <file>images/student-cap-svgrepo-com.svg</file>
-    <file>images/enterprise-svgrepo-com.svg</file>
-    <file>images/user-home-svgrepo-com.svg</file>
-    <file>images/user-id-svgrepo-com.svg</file>
-    <file>images/user-suit-male-svgrepo-com.svg</file>
-    <file>images/user-svgrepo-com.svg</file>
-    <file>images/user-waiter-female-svgrepo-com.svg</file>
+  </qresource>
+  <qresource prefix="../resources">
+    <file>logo-transparent.png</file>
   </qresource>
 </RCC>

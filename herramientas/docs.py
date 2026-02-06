@@ -21,6 +21,49 @@ def reemplazar_texto(datos:Pasantia,filename,name):
     jinja_env.filters['mes'] = mes_espanol
     jinja_env.filters['completo'] = nombreCompleto
     jinja_env.filters['parcial'] = nombreParcial
+    perfil_pasante=InlineImage(doc,datos.student.foto,width=Mm(32),height=Mm(35))
+    contexto={
+        'hoy':datetime.datetime.now(),
+        #datos
+        'estudiante':datos.student,
+        'foto_estudiante':perfil_pasante,
+        'empresa':datos.empresa,
+        'tutor_academico':datos.tutor_academico,
+        'tutor_empresarial':datos.tutor_academico,
+        'carrera': str(datos.carrera),
+        'semestre': datos.semestre,
+        'lapso': str(datos.lapso_academico),
+        'inicio': datos.inicio_pasantias,
+        'final': datos.final_pasantias,
+        'departamento': datos.departamento,
+        'estado': datos.estado,
+        'trabajo_asignado': datos.trabajo_asignado,
+        'titulo_de_informe': datos.titulo_de_informe,
+        'autoridad_empresa':datos.jefe_de_carta,
+        'cargo_empresa':datos.cargo_jefe_de_carta
+       }
+    contexto.update(dic_conf)
+
+    # 3. Renderizar (rellenar) el documento
+    doc.render(contexto,jinja_env)
+
+    # 4. Guardar el resultado final
+    nombre=name
+    doc.save(nombre)
+
+    try:
+        os.startfile(nombre)
+    except AttributeError:
+        # Esto ocurre si intentas correr este código en Mac o Linux
+        print("os.startfile solo funciona en Windows.")
+
+if __name__ == "__main__":
+    pasante=session.query(Enterprise).where(Enterprise.id==8).one_or_none()
+    print(type(pasante.pasantias))
+    conf=session.query(Configuracion).all()
+    print(dict((i.clave,i.valor) for i in conf))
+    #reemplazar_texto(pasante,"formatos/1. CARTA SOLICITUD DE PASANTIA.docx","prueba.docx")
+
     context = {
         #estudiante
         'primer_nombre_estudiante': str(datos.student.primer_nombre),
@@ -73,46 +116,3 @@ def reemplazar_texto(datos:Pasantia,filename,name):
         'trabajo_asignado': datos.trabajo_asignado,
         'titulo_de_informe': datos.titulo_de_informe,
     }
-    perfil_pasante=InlineImage(doc,datos.student.foto,width=Mm(32),height=Mm(35))
-    contexto={
-        'hoy':datetime.datetime.now(),
-        #datos
-        'estudiante':datos.student,
-        'foto_estudiante':perfil_pasante,
-        'empresa':datos.empresa,
-        'tutor_academico':datos.tutor_academico,
-        'tutor_empresarial':datos.tutor_academico,
-        'carrera': str(datos.carrera),
-        'semestre': datos.semestre,
-        'lapso': str(datos.lapso_academico),
-        'inicio': datos.inicio_pasantias,
-        'final': datos.final_pasantias,
-        'departamento': datos.departamento,
-        'estado': datos.estado,
-        'trabajo_asignado': datos.trabajo_asignado,
-        'titulo_de_informe': datos.titulo_de_informe,
-        'autoridad_empresa':datos.jefe_de_carta,
-        'cargo_empresa':datos.cargo_jefe_de_carta
-       }
-    contexto.update(dic_conf)
-
-    # 3. Renderizar (rellenar) el documento
-    doc.render(contexto,jinja_env)
-
-    # 4. Guardar el resultado final
-    nombre=name
-    doc.save(nombre)
-
-    try:
-        os.startfile(nombre)
-    except AttributeError:
-        # Esto ocurre si intentas correr este código en Mac o Linux
-        print("os.startfile solo funciona en Windows.")
-
-if __name__ == "__main__":
-    pasante=session.query(Enterprise).where(Enterprise.id==8).one_or_none()
-    print(type(pasante.pasantias))
-    conf=session.query(Configuracion).all()
-    print(dict((i.clave,i.valor) for i in conf))
-    #reemplazar_texto(pasante,"formatos/1. CARTA SOLICITUD DE PASANTIA.docx","prueba.docx")
-

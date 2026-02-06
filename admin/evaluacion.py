@@ -42,7 +42,6 @@ class show_evaluar():
         self.spinTaller.setValue(self.pasante.evaluacion.taller_induccion)
 
     def calcular(self):
-
         try:
             a = float(self.spinTutorA.value())
             e = float(self.spinTutorE.value())
@@ -51,16 +50,13 @@ class show_evaluar():
         except Exception:
             # Valores inválidos: asegurar al menos 1
             a = e = expo = taller = 1.0
-
         w_a = 0.40
         w_e = 0.40
         w_expo = 0.15
         w_taller = 0.05
-
         total = a * w_a + e * w_e + expo * w_expo + taller * w_taller
         total = max(1.0, min(20.0, total))
-        self.total = round(total, 2)
-        
+        self.total = round(total, 2)     
         if self.editar and getattr(self.pasante, "evaluacion", None):
             evalu = self.pasante.evaluacion
             evalu.nota_tutor_aca = a

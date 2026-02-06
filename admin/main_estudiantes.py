@@ -46,8 +46,8 @@ class StackStudent():
     def conectar_eventos(self):
         self.window.btnExportar.clicked.connect(self.exportar)
         self.window.nuevostudentButton.clicked.connect(self.open_newstudent)
-        self.window.btnAnt.clicked.connect(lambda :self.change_table(self.window.btnAnt.text()))
-        self.window.btnSig.clicked.connect(lambda :self.change_table(self.window.btnSig.text()))
+        self.window.btnAnt.clicked.connect(lambda :self.change_table("Anterior"))
+        self.window.btnSig.clicked.connect(lambda :self.change_table("Siguiente"))
         self.window.searchStudent.textChanged.connect(self.search)
         self.window.comboCarreras.activated.connect(lambda: self.cambio_programa())
         

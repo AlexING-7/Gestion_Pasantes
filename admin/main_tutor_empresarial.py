@@ -19,7 +19,7 @@ from herramientas.exports import exportar_modelo_a_excel
 from herramientas.variables import semestre
 from dotenv import load_dotenv
 from herramientas.docs import reemplazar_texto
-from herramientas.img_py import convertir_pil_a_pixmap
+from herramientas.conversiones import convertir_pil_a_pixmap
 from herramientas.conversiones import calcular_edad,nombreCompleto
 from PySide6.QtWidgets import QHeaderView
 from PySide6.QtCore import QEvent
@@ -48,8 +48,8 @@ class StackTutorE():
     def conectar_eventos(self):
         self.window.btnExportarTutorE.clicked.connect(self.exportar)
         self.window.btnNuevoTutorE.clicked.connect(self.open_newtutor)
-        self.window.btnAntTutorE.clicked.connect(lambda :self.change_table(self.window.btnAntTutorE.text()))
-        self.window.btnSigTutorE.clicked.connect(lambda :self.change_table(self.window.btnSigTutorE.text()))
+        self.window.btnAntTutorE.clicked.connect(lambda :self.change_table("Anterior"))
+        self.window.btnSigTutorE.clicked.connect(lambda :self.change_table("Siguiente"))
         self.window.searchTutorE.textChanged.connect(self.search)
         self.window.comboEmpresas.activated.connect(lambda: self.cambio_programa())
 
@@ -61,10 +61,9 @@ class StackTutorE():
             if icon_path.exists():
                 search_icon = QIcon(str(icon_path))
             else:
-                # Fallback al icono estándar si no encuentra el archivo
+              
                 search_icon = self.window.searchTutorE.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
             
-            # Solo agregamos la acción si no existía ninguna
             self.search_icon = self.window.searchTutorE.addAction(search_icon, QLineEdit.ActionPosition.LeadingPosition)
                          
     def cambio_programa(self):
@@ -238,13 +237,14 @@ class StackTutorE():
     
     def pag_tabla_pasantes(self,entidad):
         header=self.tabla_pasantes.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
-
         self.tabla_pasantes.setRowCount(0)
+        self.tabla_pasantes.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.tabla_pasantes.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         for fila,pasante in enumerate(entidad):
             pasante:Pasantia
             self.tabla_pasantes.insertRow(fila)
@@ -255,6 +255,22 @@ class StackTutorE():
             self.tabla_pasantes.setItem(fila,3,QTableWidgetItem(str(pasante.lapso_academico)))
             self.tabla_pasantes.setItem(fila,4,QTableWidgetItem(str(pasante.estado)))
             
+            widget_contenedor = QWidget()
+            
+            layout_botones = QHBoxLayout(widget_contenedor)
+            
+            layout_botones.setContentsMargins(5, 2, 5, 2) 
+            layout_botones.setSpacing(10) 
+
+            boton_ver=QPushButton("Ver")
+            boton_ver.clicked.connect(lambda checked,x=pasante: read_pasante(x))
+            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+            
+            layout_botones.addWidget(boton_ver)
+            self.tabla_pasantes.setCellWidget(fila, 5, widget_contenedor)
+        def read_pasante(pasante:Pasantia):
+            self.window.PasantiasButton.click()
+            self.main.pasante.read_pasante(pasante)
     def edit_tutor(self,tutor):
         from admin.nuevo_tutorE import NewTutorE
         self.newtutor_window=NewTutorE(tutor)

@@ -282,49 +282,53 @@ class StackPasante():
         #tutor academico
         tutor_acad=pasante.tutor_academico
         if tutor_acad:
-            self.window.tutorAP.clear()
-            self.window.tutorAP.setText(tutor_acad.primer_nombre+" "+null_string(tutor_acad.segundo_nombre)+" "+tutor_acad.primer_apellido+" "+null_string(tutor_acad.segundo_apellido))
-            self.window.cedulaAP.clear()
-            self.window.cedulaAP.setText(str(tutor_acad.cedula))
-            self.window.sexEdadAP.clear()
-            self.window.sexEdadAP.setText(str(tutor_acad.sexo)+" • "+str(calcular_edad(tutor_acad.fecha_de_nacimiento)))
-            self.window.especialidadP.clear()
-            self.window.especialidadP.setText(tutor_acad.especialidad)
+            pass
+            # self.window.tutorAP.clear()
+            # self.window.tutorAP.setText(tutor_acad.primer_nombre+" "+null_string(tutor_acad.segundo_nombre)+" "+tutor_acad.primer_apellido+" "+null_string(tutor_acad.segundo_apellido))
+            # self.window.cedulaAP.clear()
+            # self.window.cedulaAP.setText(str(tutor_acad.cedula))
+            # self.window.sexEdadAP.clear()
+            # self.window.sexEdadAP.setText(str(tutor_acad.sexo)+" • "+str(calcular_edad(tutor_acad.fecha_de_nacimiento)))
+            # self.window.especialidadP.clear()
+            # self.window.especialidadP.setText(tutor_acad.especialidad)
         else:
-            self.window.tutorAP.clear()
-            self.window.tutorAP.setText("-----------------")
-            self.window.cedulaAP.clear()
-            self.window.cedulaAP.setText("-----------------")
-            self.window.sexEdadAP.clear()
-            self.window.sexEdadAP.setText("-----------------")
-            self.window.especialidadP.clear()
-            self.window.especialidadP.setText("-----------------")    
+            pass
+            # self.window.tutorAP.clear()
+            # self.window.tutorAP.setText("-----------------")
+            # self.window.cedulaAP.clear()
+            # self.window.cedulaAP.setText("-----------------")
+            # self.window.sexEdadAP.clear()
+            # self.window.sexEdadAP.setText("-----------------")
+            # self.window.especialidadP.clear()
+            # self.window.especialidadP.setText("-----------------")    
         
         #tutor empresarial
         tutor_emp=pasante.tutor_empresarial
         if tutor_emp:
-            self.window.tutorEP.clear()
-            self.window.tutorEP.setText(tutor_emp.primer_nombre+" "+null_string(tutor_emp.segundo_nombre)+" "+tutor_emp.primer_apellido+" "+null_string(tutor_emp.segundo_apellido))
-            self.window.cedulaEP.clear()
-            self.window.cedulaEP.setText(str(tutor_emp.cedula))
-            self.window.sexEdadEP.clear()
-            self.window.sexEdadEP.setText(str(tutor_emp.sexo)+" • "+str(calcular_edad(tutor_emp.fecha_de_nacimiento)))
-            self.window.cargoP.clear()
-            self.window.cargoP.setText(tutor_emp.cargo)
+            pass
+            # self.window.tutorEP.clear()
+            # self.window.tutorEP.setText(tutor_emp.primer_nombre+" "+null_string(tutor_emp.segundo_nombre)+" "+tutor_emp.primer_apellido+" "+null_string(tutor_emp.segundo_apellido))
+            # self.window.cedulaEP.clear()
+            # self.window.cedulaEP.setText(str(tutor_emp.cedula))
+            # self.window.sexEdadEP.clear()
+            # self.window.sexEdadEP.setText(str(tutor_emp.sexo)+" • "+str(calcular_edad(tutor_emp.fecha_de_nacimiento)))
+            # self.window.cargoP.clear()
+            # self.window.cargoP.setText(tutor_emp.cargo)
         else:
-            self.window.tutorEP.clear()
-            self.window.tutorEP.setText("-----------------")
-            self.window.cedulaEP.clear()
-            self.window.cedulaEP.setText("-----------------")
-            self.window.sexEdadEP.clear()
-            self.window.sexEdadEP.setText("-----------------")
-            self.window.cargoP.clear()
-            self.window.cargoP.setText("-----------------")
+            pass
+            # self.window.tutorEP.clear()
+            # self.window.tutorEP.setText("-----------------")
+            # self.window.cedulaEP.clear()
+            # self.window.cedulaEP.setText("-----------------")
+            # self.window.sexEdadEP.clear()
+            # self.window.sexEdadEP.setText("-----------------")
+            # self.window.cargoP.clear()
+            # self.window.cargoP.setText("-----------------")
             
         self.evaFrame(pasante.evaluacion)
         self.window.StackedPsa.setCurrentIndex(1)
         self.window.regresarButtonP.clicked.connect(lambda: self.window.StackedPsa.setCurrentIndex(0),)
-        # Guardamos el pasante actual; el botón ya está conectado a `_on_view_documentos`
+       
         self.current_pasante = pasante
            
     def edit_pasante(self,pasante):

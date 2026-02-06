@@ -116,6 +116,8 @@ def crear_pasantias():
     logger.info("Generando Tutores Empresariales...")    
     # Usar el método de clase `create_batch` pasando el trait `finalizada=True`
     PasantiaFactory.create_batch(40, finalizada=True)
+    PasantiaFactory.create_batch(10, nueva=True)
+    PasantiaFactory.create_batch(5, activa=True)
 def run_seeds():
     try:
 

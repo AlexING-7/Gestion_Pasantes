@@ -49,8 +49,8 @@ class StackTutorA():
         self.window.btnExportarTutorA.clicked.connect(self.exportar)
         self.window.btnNuevoTutorA.clicked.connect(self.open_newtutor)
         #self.window.regresarButton.clicked.connect(lambda :self.window.StackedEstudiantes.setCurrentIndex(0))
-        self.window.btnAntTutorA.clicked.connect(lambda :self.change_table(self.window.btnAntTutorA.text()))
-        self.window.btnSigTutorA.clicked.connect(lambda :self.change_table(self.window.btnSigTutorA.text()))
+        self.window.btnAntTutorA.clicked.connect(lambda :self.change_table("Anterior"))
+        self.window.btnSigTutorA.clicked.connect(lambda :self.change_table("Siguiente"))
         self.window.searchTutorA.textChanged.connect(self.search)
         self.window.comboEspecialidad.activated.connect(lambda: self.cambio_programa())
 
@@ -137,7 +137,7 @@ class StackTutorA():
             layout_botones.setSpacing(10) 
 
             boton_ver=QPushButton("Ver")
-            #boton_ver.clicked.connect(lambda checked,x=tutores: self.read_student(x))
+            boton_ver.clicked.connect(lambda checked,x=tutores: self.read_tutor(x))
             btn_editar = QPushButton("Editar")
             btn_editar.clicked.connect(lambda checked,x=tutores: self.edit_tutor(x))
             btn_borrar = QPushButton("Borrar")
@@ -236,13 +236,15 @@ class StackTutorA():
     
     def pag_tabla_pasantes(self,entidad):
         header=self.tabla_pasantes.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(5, QHeaderView.ResizeMode.ResizeToContents)
         self.tabla_pasantes.setRowCount(0)
+        self.tabla_pasantes.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.tabla_pasantes.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         for fila,pasante in enumerate(entidad):
             pasante:Pasantia
             self.tabla_pasantes.insertRow(fila)
@@ -250,9 +252,26 @@ class StackTutorA():
             self.tabla_pasantes.setItem(fila,0,QTableWidgetItem(str(nombreCompleto(pasante.student))))
             self.tabla_pasantes.setItem(fila,1,QTableWidgetItem(str(pasante.student.cedula)))
             self.tabla_pasantes.setItem(fila,2,QTableWidgetItem(str(pasante.carrera)))
-            self.tabla_pasantes.setItem(fila,2,QTableWidgetItem(str(pasante.empresa.razon_social)))
-            self.tabla_pasantes.setItem(fila,3,QTableWidgetItem(str(pasante.lapso_academico)))
-            self.tabla_pasantes.setItem(fila,4,QTableWidgetItem(str(pasante.estado)))
+            self.tabla_pasantes.setItem(fila,3,QTableWidgetItem(str(pasante.empresa.razon_social)))
+            self.tabla_pasantes.setItem(fila,4,QTableWidgetItem(str(pasante.lapso_academico)))
+            self.tabla_pasantes.setItem(fila,5,QTableWidgetItem(str(pasante.estado)))
+
+            widget_contenedor = QWidget()
+            
+            layout_botones = QHBoxLayout(widget_contenedor)
+            
+            layout_botones.setContentsMargins(5, 2, 5, 2) 
+            layout_botones.setSpacing(10) 
+
+            boton_ver=QPushButton("Ver")
+            boton_ver.clicked.connect(lambda checked,x=pasante: read_pasante(x))
+            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+            
+            layout_botones.addWidget(boton_ver)
+            self.tabla_pasantes.setCellWidget(fila, 6, widget_contenedor)
+        def read_pasante(pasante:Pasantia):
+            self.window.PasantiasButton.click()
+            self.main.pasante.read_pasante(pasante)
     
     def edit_tutor(self,tutor):
         from admin.nuevo_tutorA import NewTutorA
