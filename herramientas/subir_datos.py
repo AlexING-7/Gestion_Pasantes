@@ -13,7 +13,7 @@ MYSQL_CONFIG = {
 
 # Usa la cadena de conexión de "Transaction Pooler" de Supabase (puerto 6543)
 # para manejar mejor el límite de 60 conexiones de la cuenta gratuita.
-SUPABASE_URL = "postgres://postgres.tu_id:[PASSWORD]@aws-0-region.pooler.supabase.com:6543/postgres"
+SUPABASE_URL = "postgresql://postgres.wafpccynffvtmiwyhmro:alex304094777@aws-1-us-east-1.pooler.supabase.com:6543/postgres"
 
 def obtener_ultima_sincronizacion(cursor_supa, tabla):
     """Obtiene la fecha del último registro actualizado en Supabase."""
@@ -75,14 +75,37 @@ def sincronizar_tabla_optimizada(tabla, columnas):
 # --- Ejecución principal ---
 if __name__ == "__main__":
     tablas_config = {
-        "students": ["id", "primer_nombre", "primer_apellido", "cedula", "email", "updated_at"],
-        "enterprises": ["id", "rif", "razon_social", "email", "updated_at"],
-        "tutores_academicos": ["id", "primer_nombre", "primer_apellido", "cedula", "email", "especialidad", "updated_at"],
-        "tutores_empresariales": ["id", "id_empresa", "primer_nombre", "primer_apellido", "cedula", "email", "cargo", "updated_at"],
-        "pasantias": ["id", "student_id", "empresa_id", "tutor_academico_id", "estado", "updated_at"],
-        "documentos_adjuntos": ["id", "pasantia_id", "tipo_de_documento", "ruta", "estado", "updated_at"],
-        "evaluaciones": ["id", "pasantia_id", "total", "updated_at"],
-        "configuraciones": ["id", "clave", "valor", "updated_at"]
+    "students": [
+        "id", "primer_nombre", "segundo_nombre", "primer_apellido", "segundo_apellido",
+        "sexo", "cedula", "telefono", "email", "foto", "direccion", "fecha_de_nacimiento", "updated_at"
+    ],
+    "enterprises": [
+        "id", "rif", "razon_social", "direccion", "email", "telefono", "rubro", "updated_at"
+    ],
+    "tutores_academicos": [
+        "id", "primer_nombre", "segundo_nombre", "primer_apellido", "segundo_apellido",
+        "sexo", "foto", "cedula", "email", "fecha_de_nacimiento", "telefono", "especialidad", "updated_at"
+    ],
+    "tutores_empresariales": [
+        "id", "id_empresa", "primer_nombre", "segundo_nombre", "primer_apellido", "segundo_apellido",
+        "sexo", "foto", "cedula", "email", "fecha_de_nacimiento", "telefono", "cargo", "updated_at"
+    ],
+    "pasantias": [
+        "id", "student_id", "empresa_id", "tutor_academico_id", "tutor_empresarial_id",
+        "carrera", "semestre", "lapso_academico", "inicio_pasantias", "final_pasantias",
+        "departamento", "estado", "trabajo_asignado", "titulo_de_informe", "plan_de_trabajo",
+        "sede", "direccion", "jefe_de_carta", "cargo_jefe_de_carta", "updated_at"
+    ],
+    "documentos_adjuntos": [
+        "id", "pasantia_id", "tipo_de_documento", "ruta", "fecha_subida", "estado", "updated_at"
+    ],
+    "evaluaciones": [
+        "id", "pasantia_id", "nota_tutor_aca", "nota_tutor_emp", "exposicion", 
+        "taller_induccion", "total", "updated_at"
+    ],
+    "configuraciones": [
+        "id", "clave", "valor", "updated_at"
+    ]
     }
 
     print(f"🚀 Iniciando sincronización incremental ({datetime.datetime.now()})")
