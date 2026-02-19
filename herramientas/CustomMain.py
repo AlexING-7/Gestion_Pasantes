@@ -53,7 +53,7 @@ class CustomWindow(QMainWindow,Ui_MainWindow):
     # Verificamos si el evento es de tipo MouseMove de forma segura
         if event.type() == QEvent.MouseMove:
             # Si NO estamos redimensionando y NO estamos en un borde
-            if not self._resizing:
+            if not self._resizing and not self.drag_pos:
                 pos = self.mapFromGlobal(QCursor.pos()) # Posición relativa a la ventana
                 if not self._get_edge(pos):
                     if self.cursor().shape() != Qt.ArrowCursor:
@@ -160,7 +160,7 @@ class CustomWindow(QMainWindow,Ui_MainWindow):
             # Si está maximizada, no iniciar redimensionado
             if self.isMaximized():
                 if self.title_bar.underMouse():
-                    self.drag_pos = event.globalPosition().toPoint()
+                    self.drag_pos = event.position().toPoint()
                 return
 
             edge = self._get_edge(event.position())
@@ -168,32 +168,26 @@ class CustomWindow(QMainWindow,Ui_MainWindow):
                 self._resizing = True
                 self._resize_edge = edge
             elif self.title_bar.underMouse():
-                self.drag_pos = event.globalPosition().toPoint()
+                self.drag_pos = event.position().toPoint()
 
     def mouseMoveEvent(self, event):
+        pos = event.position().toPoint()
+        gp = event.globalPosition().toPoint()
 
-        # Si la ventana está maximizada, no procesar redimensionado
-        if self.isMaximized():
-            # Asegurar que no quedemos en modo redimensionado accidentalmente
-            if self._resizing:
-                self._resizing = False
-                self._resize_edge = None
-            return
-
-        if not self._resizing:
-            edge = self._get_edge(event.position())
+        # 1. GESTIÓN DEL CURSOR (Solo si no estamos redimensionando ni moviendo)
+        if not self._resizing and not self.drag_pos:
+            edge = self._get_edge(pos)
             if edge:
-
                 if edge in ['left', 'right']: self.setCursor(Qt.SizeHorCursor)
                 elif edge in ['top', 'bottom']: self.setCursor(Qt.SizeVerCursor)
                 elif edge in ['top_left', 'bottom_right']: self.setCursor(Qt.SizeFDiagCursor)
                 elif edge in ['top_right', 'bottom_left']: self.setCursor(Qt.SizeBDiagCursor)
-            else: 
+            else:
                 self.setCursor(Qt.ArrowCursor)
 
-        if self._resizing:
+        # 2. LÓGICA DE REDIMENSIONADO (Solo si no está maximizada)
+        if self._resizing and not self.isMaximized():
             rect = self.geometry()
-            gp = event.globalPosition().toPoint()
             if 'left' in self._resize_edge: rect.setLeft(gp.x())
             if 'right' in self._resize_edge: rect.setRight(gp.x())
             if 'top' in self._resize_edge: rect.setTop(gp.y())
@@ -201,11 +195,43 @@ class CustomWindow(QMainWindow,Ui_MainWindow):
             
             if rect.width() > 300 and rect.height() > 200:
                 self.setGeometry(rect)
-        elif self.drag_pos:
-            diff = event.globalPosition().toPoint() - self.drag_pos
-            self.move(self.pos() + diff)
-            self.drag_pos = event.globalPosition().toPoint()
+            return # Finalizar aquí si estamos redimensionando
 
+        # 3. LÓGICA DE ARRASTRE (DRAG) Y DESPEGUE
+
+        # 3. LÓGICA DE ARRASTRE (DRAG) Y DESPEGUE
+        elif self.drag_pos:
+            if self.isMaximized():
+                # 1. Guardar la posición global actual del ratón
+                current_global_pos = gp
+                
+                # 2. Calcular qué porcentaje del ancho total representa el click original
+                # (Ej: si hiciste clic a la mitad, el factor es 0.5)
+                prev_width = self.width()
+                factor = self.drag_pos.x() / prev_width
+                
+                # 3. Restaurar la ventana (esto cambia el tamaño a 'normal')
+                self._toggle_maximize() 
+                
+                # 4. Calcular el nuevo punto X relativo al nuevo tamaño de ventana
+                # Para que el cursor siga en el mismo lugar proporcional
+                new_local_x = int(self.width() * factor)
+                new_local_y = self.title_bar.height() // 2 # Centramos verticalmente en la barra
+                
+                # 5. Mover la ventana para que el cursor coincida con el punto local calculado
+                self.move(current_global_pos.x() - new_local_x, 
+                          current_global_pos.y() - new_local_y)
+                
+                # 6. ACTUALIZACIÓN CRUCIAL: Redefinir drag_pos con la nueva escala
+                # Sin esto, en el siguiente píxel de movimiento, la ventana "saltará"
+                self.drag_pos = QPoint(new_local_x, new_local_y)
+                
+            else:
+                # Arrastre normal: mover la ventana la distancia que se movió el ratón
+                # usando la diferencia entre la posición global y el anclaje local original
+                self.move(gp - self.drag_pos)
+
+                
     def mouseReleaseEvent(self, event):
         self._resizing = False
         self.drag_pos = None 

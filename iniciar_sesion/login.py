@@ -28,19 +28,21 @@ class Login(CustomWindow):
             self.logged=True
             
             if sesion_mac.user.rol=="Administrador":
-                self.open_main_window()
                 registrar_log(session=session,
                               usuario=sesion_mac.user.username,
                               accion="LOGIN",
                               mensaje="Login Rol Administrador",
                               )
+                self.open_main_window()
+                
             elif sesion_mac.user.rol=="Coordinador":
-                self.open_main_coord_window()
                 registrar_log(session=session,
                               usuario=sesion_mac.user.username,
                               accion="LOGIN",
                               mensaje="Login Rol Coordinador",
                               )
+                self.open_main_coord_window()
+                
         else:
             self.show()
    
@@ -77,12 +79,14 @@ class Login(CustomWindow):
                     session.commit()
                     self.close()
                     if user.rol=="Administrador":
-                        self.open_main_window()
                         registrar_log(session=session, usuario=user.username, accion="LOGIN", mensaje="Login Rol Administrador",  )
+                        self.open_main_window()
+                        
                     elif user.rol=="Coordinador":
-                        self.open_main_coord_window()
                         registrar_log(session=session,usuario=user.username,  accion="LOGIN", mensaje="Login Rol Coordinador",
                               )
+                        self.open_main_coord_window()
+                        
                 else:
                     QMessageBox.warning(self.window,"Error Mensaje",
                                 f"Contraseña Incorrecta",
@@ -119,6 +123,7 @@ class Login(CustomWindow):
         
 if __name__=="__main__":
     app = QApplication(sys.argv)
+    
     login=Login()
     login.sesion_activa()
     sys.exit(app.exec())

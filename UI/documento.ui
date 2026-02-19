@@ -32,7 +32,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,2,6,2">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btnAprobar">
        <property name="styleSheet">
         <string notr="true">QPushButton{
 	background-color: rgb(255, 255, 255);
@@ -54,7 +54,7 @@ QPushButton:hover{
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="btnRechazar">
        <property name="styleSheet">
         <string notr="true">QPushButton{
 	background-color: rgb(255, 255, 255);
@@ -71,7 +71,7 @@ QPushButton:hover{
 }</string>
        </property>
        <property name="text">
-        <string>Denegar</string>
+        <string>Rechazar</string>
        </property>
       </widget>
      </item>
@@ -89,7 +89,7 @@ QPushButton:hover{
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="btnCerrar">
        <property name="styleSheet">
         <string notr="true">QPushButton{
 	background-color: rgb(255, 255, 255);

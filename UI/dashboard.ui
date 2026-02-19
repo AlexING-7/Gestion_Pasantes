@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1062</width>
-    <height>857</height>
+    <width>1059</width>
+    <height>854</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,8">
    <property name="spacing">
@@ -474,7 +477,7 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>4</number>
+         <number>6</number>
         </property>
         <widget class="QWidget" name="page_1">
          <property name="styleSheet">
@@ -502,10 +505,39 @@ color:rgb(0, 51, 102);</string>
                 border: 1px solid #ccc;
 				padding:0px;
             }
-QListView::item:hover {
+/*ListView::item:hover {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #FAFBFE, stop: 1 #DCDEF1);
-}</string>
+}*/
+QScrollBar:vertical {
+        border: none;
+        background: #2d2d2d;
+        width: 12px;
+        margin: 0px 0px 0px 0px;
+        border-radius: 5px;
+    }
+
+    /* El &quot;tirador&quot; o parte movible */
+    QScrollBar::handle:vertical {
+        background: #5c5c5c;
+        min-height: 20px;
+        border-radius: 5px;
+    }
+
+    /* Color al pasar el mouse por el tirador */
+    QScrollBar::handle:vertical:hover {
+        background: #7a7a7a;
+    }
+
+    /* Ocultar las flechas de arriba y abajo */
+    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+        height: 0px;
+    }
+
+    /* Fondo de la barra donde no está el tirador */
+    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+        background: none;
+    }</string>
             </property>
             <property name="movement">
              <enum>QListView::Movement::Static</enum>
@@ -517,16 +549,19 @@ QListView::item:hover {
              <enum>QListView::LayoutMode::SinglePass</enum>
             </property>
             <property name="spacing">
-             <number>5</number>
+             <number>0</number>
             </property>
             <property name="viewMode">
-             <enum>QListView::ViewMode::IconMode</enum>
+             <enum>QListView::ViewMode::ListMode</enum>
             </property>
             <property name="modelColumn">
              <number>0</number>
             </property>
             <property name="uniformItemSizes">
              <bool>false</bool>
+            </property>
+            <property name="batchSize">
+             <number>50</number>
             </property>
             <property name="itemAlignment">
              <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft</set>
@@ -615,7 +650,7 @@ color:#fff;}</string>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,4">
              <item>
-              <widget class="QFrame" name="frame_10">
+              <widget class="ShadowFrame" name="frame_10">
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -721,7 +756,7 @@ padding:6px;
               </widget>
              </item>
              <item>
-              <widget class="QFrame" name="frame_11">
+              <widget class="ShadowFrame" name="frame_11">
                <property name="frameShape">
                 <enum>QFrame::Shape::StyledPanel</enum>
                </property>
@@ -754,6 +789,13 @@ border: 1px solid rgb(0, 51, 102);
 	background-color: rgb(255, 255, 255);
 border-radius:6px;
 padding:6px;
+}
+
+QPushButton::hover{
+
+
+background-color: rgb(210, 211, 221);
+
 }
 </string>
                   </property>
@@ -827,14 +869,14 @@ padding:6px;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_6">
+                    <widget class="QPushButton" name="btnAsignarTutor">
                      <property name="text">
                       <string>Asignar Tutor</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_8">
+                    <widget class="QPushButton" name="btnVerDocs">
                      <property name="text">
                       <string>Ver Documentos</string>
                      </property>
@@ -911,8 +953,130 @@ border:none;
 </string>
                      </property>
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>1</number>
                      </property>
+                     <widget class="QWidget" name="pageP0">
+                      <property name="styleSheet">
+                       <string notr="true">#pageP0{
+	background-color: transparent;
+}</string>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_62">
+                       <item>
+                        <widget class="QFrame" name="frame_38">
+                         <property name="frameShape">
+                          <enum>QFrame::Shape::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Shadow::Raised</enum>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_9">
+                          <item>
+                           <widget class="QLabel" name="label_11">
+                            <property name="styleSheet">
+                             <string notr="true">color:rgb(0, 0, 0);
+font: 14pt &quot;Segoe UI&quot;;</string>
+                            </property>
+                            <property name="text">
+                             <string>Documentos del Estudiante</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_5">
+                            <property name="orientation">
+                             <enum>Qt::Orientation::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>315</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="btnSalirDocs">
+                            <property name="styleSheet">
+                             <string notr="true">QPushButton{
+	background-color: transparent;
+}
+
+QPushButton:hover{
+	background-color: rgb(209, 209, 209);
+}
+</string>
+                            </property>
+                            <property name="text">
+                             <string/>
+                            </property>
+                            <property name="icon">
+                             <iconset>
+                              <normaloff>resources/images/close-svgrepo-comblack.svg</normaloff>resources/images/close-svgrepo-comblack.svg</iconset>
+                            </property>
+                            <property name="iconSize">
+                             <size>
+                              <width>50</width>
+                              <height>50</height>
+                             </size>
+                            </property>
+                            <property name="autoRepeatDelay">
+                             <number>300</number>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QListWidget" name="listDocsPasante">
+                         <property name="styleSheet">
+                          <string notr="true">QListWidget {
+                background-color: transparent;
+                border: 1px solid #ccc;
+				padding:0px;
+            }
+/*ListView::item:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+}*/
+QScrollBar:vertical {
+        border: none;
+        background: #2d2d2d;
+        width: 12px;
+        margin: 0px 0px 0px 0px;
+        border-radius: 5px;
+    }
+
+    /* El &quot;tirador&quot; o parte movible */
+    QScrollBar::handle:vertical {
+        background: #5c5c5c;
+        min-height: 20px;
+        border-radius: 5px;
+    }
+
+    /* Color al pasar el mouse por el tirador */
+    QScrollBar::handle:vertical:hover {
+        background: #7a7a7a;
+    }
+
+    /* Ocultar las flechas de arriba y abajo */
+    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+        height: 0px;
+    }
+
+    /* Fondo de la barra donde no está el tirador */
+    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+        background: none;
+    }</string>
+                         </property>
+                         <property name="viewMode">
+                          <enum>QListView::ViewMode::IconMode</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
                      <widget class="QWidget" name="pageP1">
                       <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,1,1">
                        <property name="leftMargin">
@@ -1017,7 +1181,7 @@ max-height:180px;</string>
                           </widget>
                          </item>
                          <item>
-                          <widget class="QFrame" name="frame_25">
+                          <widget class="ShadowFrame" name="frame_25">
                            <property name="styleSheet">
                             <string notr="true">QFrame{
 background-color: transparent;
@@ -1048,6 +1212,20 @@ border:none;
                             <property name="bottomMargin">
                              <number>16</number>
                             </property>
+                            <item>
+                             <widget class="QLabel" name="pasantes_nombresA">
+                              <property name="styleSheet">
+                               <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+                              </property>
+                              <property name="text">
+                               <string>nombreCompleto</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
                             <item>
                              <layout class="QVBoxLayout" name="verticalLayout_18">
                               <property name="spacing">
@@ -1112,43 +1290,11 @@ color: rgb(0, 0, 0);</string>
                               </item>
                              </layout>
                             </item>
-                            <item>
-                             <layout class="QVBoxLayout" name="verticalLayout_19">
-                              <property name="spacing">
-                               <number>0</number>
-                              </property>
-                              <item>
-                               <widget class="QLabel" name="label_22">
-                                <property name="styleSheet">
-                                 <string notr="true">font: 12pt &quot;Segoe UI&quot;;
-color: rgb(100, 100, 100);</string>
-                                </property>
-                                <property name="text">
-                                 <string>Edad</string>
-                                </property>
-                               </widget>
-                              </item>
-                              <item>
-                               <widget class="QLabel" name="pasantes_edad">
-                                <property name="styleSheet">
-                                 <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);</string>
-                                </property>
-                                <property name="text">
-                                 <string>22</string>
-                                </property>
-                                <property name="wordWrap">
-                                 <bool>true</bool>
-                                </property>
-                               </widget>
-                              </item>
-                             </layout>
-                            </item>
                            </layout>
                           </widget>
                          </item>
                          <item>
-                          <widget class="QFrame" name="frame_24">
+                          <widget class="ShadowFrame" name="frame_24">
                            <property name="styleSheet">
                             <string notr="true">QFrame{
 background-color: transparent;
@@ -1179,6 +1325,74 @@ border:none;
                             <property name="bottomMargin">
                              <number>16</number>
                             </property>
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="3,1">
+                              <item>
+                               <layout class="QVBoxLayout" name="verticalLayout_61">
+                                <property name="spacing">
+                                 <number>0</number>
+                                </property>
+                                <item>
+                                 <widget class="QLabel" name="label_23">
+                                  <property name="styleSheet">
+                                   <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                                  </property>
+                                  <property name="text">
+                                   <string>Fecha de Nacimiento</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                                <item>
+                                 <widget class="QLabel" name="pasantes_fechaN">
+                                  <property name="styleSheet">
+                                   <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+                                  </property>
+                                  <property name="text">
+                                   <string>01/02/2000</string>
+                                  </property>
+                                  <property name="wordWrap">
+                                   <bool>true</bool>
+                                  </property>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </item>
+                              <item>
+                               <layout class="QVBoxLayout" name="verticalLayout_19">
+                                <property name="spacing">
+                                 <number>0</number>
+                                </property>
+                                <item>
+                                 <widget class="QLabel" name="label_22">
+                                  <property name="styleSheet">
+                                   <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+color: rgb(100, 100, 100);</string>
+                                  </property>
+                                  <property name="text">
+                                   <string>Edad</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                                <item>
+                                 <widget class="QLabel" name="pasantes_edad">
+                                  <property name="styleSheet">
+                                   <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+                                  </property>
+                                  <property name="text">
+                                   <string>22</string>
+                                  </property>
+                                  <property name="wordWrap">
+                                   <bool>true</bool>
+                                  </property>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </item>
+                             </layout>
+                            </item>
                             <item>
                              <layout class="QVBoxLayout" name="verticalLayout_21">
                               <property name="spacing">
@@ -1243,26 +1457,13 @@ color: rgb(0, 0, 0);</string>
                               </item>
                              </layout>
                             </item>
-                            <item>
-                             <spacer name="verticalSpacer_3">
-                              <property name="orientation">
-                               <enum>Qt::Orientation::Vertical</enum>
-                              </property>
-                              <property name="sizeHint" stdset="0">
-                               <size>
-                                <width>20</width>
-                                <height>40</height>
-                               </size>
-                              </property>
-                             </spacer>
-                            </item>
                            </layout>
                           </widget>
                          </item>
                         </layout>
                        </item>
                        <item row="1" column="0" colspan="2">
-                        <widget class="QFrame" name="frame_19">
+                        <widget class="ShadowFrame" name="frame_19">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
@@ -1325,7 +1526,7 @@ color: rgb(0, 0, 0);</string>
                         </widget>
                        </item>
                        <item row="2" column="0">
-                        <widget class="QFrame" name="frame_17">
+                        <widget class="ShadowFrame" name="frame_17">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
@@ -1399,7 +1600,7 @@ color: rgb(100, 100, 100);</string>
                              </widget>
                             </item>
                             <item>
-                             <widget class="QLabel" name="pasantes_tutorA_nombreC">
+                             <widget class="QLabel" name="pasantes_tutorE_nombreC">
                               <property name="styleSheet">
                                <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
@@ -1428,7 +1629,7 @@ color: rgb(100, 100, 100);</string>
                              </widget>
                             </item>
                             <item>
-                             <widget class="QLabel" name="pasantes_tutorB_nombreC">
+                             <widget class="QLabel" name="pasantes_tutorA_nombreC">
                               <property name="styleSheet">
                                <string notr="true">font: 600 12pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
@@ -1447,7 +1648,7 @@ color: rgb(0, 0, 0);</string>
                         </widget>
                        </item>
                        <item row="2" column="1">
-                        <widget class="QFrame" name="frame_21">
+                        <widget class="ShadowFrame" name="frame_21">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
@@ -1579,7 +1780,7 @@ color: rgb(0, 0, 0);</string>
                         <number>18</number>
                        </property>
                        <item>
-                        <widget class="QFrame" name="frame_16">
+                        <widget class="ShadowFrame" name="frame_16">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
@@ -1639,7 +1840,7 @@ color: rgb(0, 0, 0);</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QFrame" name="frame_18">
+                        <widget class="ShadowFrame" name="frame_18">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
@@ -1735,7 +1936,7 @@ color: rgb(0, 0, 0);</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QFrame" name="frame_20">
+                        <widget class="ShadowFrame" name="frame_20">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
@@ -1836,7 +2037,7 @@ color: rgb(0, 0, 0);</string>
                         <number>18</number>
                        </property>
                        <item>
-                        <widget class="QFrame" name="frame_22">
+                        <widget class="ShadowFrame" name="frame_22">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
@@ -1896,7 +2097,7 @@ color: rgb(0, 0, 0);</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QFrame" name="frame_23">
+                        <widget class="ShadowFrame" name="frame_23">
                          <property name="styleSheet">
                           <string notr="true">QFrame{
 background-color: transparent;
@@ -1975,7 +2176,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,1,1">
+                    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,1,1,0">
                      <property name="spacing">
                       <number>10</number>
                      </property>
@@ -2032,6 +2233,20 @@ border-radius:4px;</string>
                        </property>
                       </widget>
                      </item>
+                     <item>
+                      <widget class="QPushButton" name="pasantes_btnGen">
+                       <property name="styleSheet">
+                        <string notr="true">background-color: rgb(0, 51, 102);
+color: rgb(255, 255, 255);
+font: 12pt &quot;Segoe UI&quot;;
+padding:5px;
+border-radius:4px;</string>
+                       </property>
+                       <property name="text">
+                        <string>Generar</string>
+                       </property>
+                      </widget>
+                     </item>
                     </layout>
                    </item>
                   </layout>
@@ -2051,10 +2266,7 @@ border-radius:4px;</string>
 	background-color: transparent;
 }</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_43">
-          <property name="spacing">
-           <number>0</number>
-          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_44">
           <item>
            <widget class="QStackedWidget" name="StackedEmpresas">
             <property name="styleSheet">
@@ -2067,7 +2279,7 @@ border-radius:4px;</string>
 	border:none;
 }</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_41" stretch="1,12">
+             <layout class="QVBoxLayout" name="verticalLayout_41" stretch="1,20">
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -2156,7 +2368,7 @@ font: 800 16pt &quot;Segoe UI&quot;;</string>
                 <property name="frameShadow">
                  <enum>QFrame::Shadow::Raised</enum>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_42" stretch="1,20,0,1">
+                <layout class="QVBoxLayout" name="verticalLayout_42" stretch="1,20,0,0">
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_31">
                    <item>
@@ -2239,11 +2451,9 @@ QAbstractItemView {
 	color:#000;
 }</string>
                      </property>
-                     <item>
-                      <property name="text">
-                       <string>Todos los Rubros</string>
-                      </property>
-                     </item>
+                     <property name="placeholderText">
+                      <string>Todos los Rubros</string>
+                     </property>
                     </widget>
                    </item>
                   </layout>
@@ -2382,6 +2592,17 @@ QTableCornerButton::section {
                   </widget>
                  </item>
                  <item>
+                  <widget class="QLabel" name="label_7">
+                   <property name="styleSheet">
+                    <string notr="true">
+border-top: 1px solid rgba(48, 48, 48,48);</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_95" stretch="10,0">
                    <item>
                     <spacer name="horizontalSpacer_37">
@@ -2399,7 +2620,7 @@ QTableCornerButton::section {
                    <item>
                     <widget class="QFrame" name="frame_29">
                      <property name="styleSheet">
-                      <string notr="true">#frame_18{
+                      <string notr="true">#frame_29{
 border:1px solid rgba(0, 51, 102, 100);
 border-radius:4px;
 }</string>
@@ -2486,17 +2707,6 @@ border-radius:4px;
                    </item>
                   </layout>
                  </item>
-                 <item>
-                  <widget class="QLabel" name="label_7">
-                   <property name="styleSheet">
-                    <string notr="true">
-border-top: 1px solid rgba(48, 48, 48,48);</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
                 </layout>
                </widget>
               </item>
@@ -2513,15 +2723,45 @@ border-top: 1px solid rgba(48, 48, 48,48);</string>
 }</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
+              <property name="leftMargin">
+               <number>10</number>
+              </property>
+              <property name="topMargin">
+               <number>10</number>
+              </property>
+              <property name="rightMargin">
+               <number>10</number>
+              </property>
+              <property name="bottomMargin">
+               <number>10</number>
+              </property>
               <item row="0" column="0">
                <widget class="ShadowFrame" name="frame_58">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>800</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>1000</width>
+                  <height>700</height>
+                 </size>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::Shape::StyledPanel</enum>
                 </property>
                 <property name="frameShadow">
                  <enum>QFrame::Shadow::Raised</enum>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_102" stretch="1,10">
+                <layout class="QVBoxLayout" name="verticalLayout_80">
                  <property name="spacing">
                   <number>0</number>
                  </property>
@@ -2618,7 +2858,7 @@ color:#fff;
                    <property name="frameShadow">
                     <enum>QFrame::Shadow::Raised</enum>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_103" stretch="6,8,1">
+                   <layout class="QVBoxLayout" name="verticalLayout_103" stretch="5,8,1">
                     <item>
                      <widget class="ShadowFrame" name="frame_69">
                       <property name="styleSheet">
@@ -2662,7 +2902,7 @@ QComboBox:on {
                       <property name="lineWidth">
                        <number>2</number>
                       </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_44" stretch="1,2,2,3">
+                      <layout class="QGridLayout" name="gridLayout_14" columnstretch="1,1,3">
                        <property name="leftMargin">
                         <number>20</number>
                        </property>
@@ -2675,29 +2915,130 @@ QComboBox:on {
                        <property name="bottomMargin">
                         <number>20</number>
                        </property>
-                       <item>
-                        <widget class="QLabel" name="label_107">
-                         <property name="font">
-                          <font>
-                           <pointsize>12</pointsize>
-                           <fontweight>DemiBold</fontweight>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">color: rgb(0, 51, 102);</string>
-                         </property>
-                         <property name="text">
-                          <string>Datos Generales</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
+                       <property name="horizontalSpacing">
+                        <number>20</number>
+                       </property>
+                       <property name="verticalSpacing">
+                        <number>10</number>
+                       </property>
+                       <item row="0" column="0" colspan="2">
                         <layout class="QHBoxLayout" name="horizontalLayout_37">
                          <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_104">
-                           <property name="spacing">
-                            <number>0</number>
+                          <widget class="QLabel" name="label_100">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="sizeIncrement">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                             <italic>false</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: rgb(0, 51, 102);
+font: 16pt &quot;Segoe UI&quot;;
+padding:0px;
+</string>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                           <property name="pixmap">
+                            <pixmap>resources/images/contact.svg</pixmap>
+                           </property>
+                           <property name="scaledContents">
+                            <bool>true</bool>
+                           </property>
+                           <property name="alignment">
+                            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_107">
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                             <italic>false</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: rgb(0, 51, 102);
+font: 16pt &quot;Segoe UI&quot;;</string>
+                           </property>
+                           <property name="text">
+                            <string>Datos Generales</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="1" column="0">
+                        <layout class="QVBoxLayout" name="verticalLayout_43">
+                         <property name="leftMargin">
+                          <number>20</number>
+                         </property>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_38" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_26">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true"/>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/id-card-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
                            <item>
                             <widget class="QLabel" name="label_66">
                              <property name="font">
@@ -2714,29 +3055,61 @@ QComboBox:on {
                              </property>
                             </widget>
                            </item>
-                           <item>
-                            <widget class="QLabel" name="rif_Emp">
-                             <property name="font">
-                              <font>
-                               <pointsize>12</pointsize>
-                               <fontweight>DemiBold</fontweight>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">color: #000;</string>
-                             </property>
-                             <property name="text">
-                              <string>sdf</string>
-                             </property>
-                            </widget>
-                           </item>
                           </layout>
                          </item>
                          <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_105">
-                           <property name="spacing">
-                            <number>0</number>
+                          <widget class="QLabel" name="rif_Emp">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
                            </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>sdf</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="1" column="1">
+                        <layout class="QVBoxLayout" name="verticalLayout_78">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_59" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_41">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/business-city-corporation-buildings-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
                            <item>
                             <widget class="QLabel" name="label_68">
                              <property name="font">
@@ -2753,29 +3126,61 @@ QComboBox:on {
                              </property>
                             </widget>
                            </item>
-                           <item>
-                            <widget class="QLabel" name="razon_Emp">
-                             <property name="font">
-                              <font>
-                               <pointsize>12</pointsize>
-                               <fontweight>DemiBold</fontweight>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">color: #000;</string>
-                             </property>
-                             <property name="text">
-                              <string>Alexander Jose</string>
-                             </property>
-                            </widget>
-                           </item>
                           </layout>
                          </item>
                          <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_106">
-                           <property name="spacing">
-                            <number>0</number>
+                          <widget class="QLabel" name="razon_Emp">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
                            </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>Alexander Jose</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="1" column="2">
+                        <layout class="QVBoxLayout" name="verticalLayout_79">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_68" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_34">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/business-finance-invoice-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
                            <item>
                             <widget class="QLabel" name="label_70">
                              <property name="font">
@@ -2792,33 +3197,64 @@ QComboBox:on {
                              </property>
                             </widget>
                            </item>
-                           <item>
-                            <widget class="QLabel" name="rubro_Emp">
-                             <property name="font">
-                              <font>
-                               <pointsize>12</pointsize>
-                               <fontweight>DemiBold</fontweight>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">color: #000;</string>
-                             </property>
-                             <property name="text">
-                              <string>Alexander Jose</string>
-                             </property>
-                            </widget>
-                           </item>
                           </layout>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="rubro_Emp">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>Alexander Jose</string>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
-                       <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_38" stretch="1,1,1">
+                       <item row="2" column="0">
+                        <layout class="QVBoxLayout" name="verticalLayout_63">
+                         <property name="leftMargin">
+                          <number>20</number>
+                         </property>
                          <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_107">
-                           <property name="spacing">
-                            <number>0</number>
-                           </property>
+                          <layout class="QHBoxLayout" name="horizontalLayout_46" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_32">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/email-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
                            <item>
                             <widget class="QLabel" name="label_72">
                              <property name="font">
@@ -2835,29 +3271,61 @@ QComboBox:on {
                              </property>
                             </widget>
                            </item>
-                           <item>
-                            <widget class="QLabel" name="email_Emp">
-                             <property name="font">
-                              <font>
-                               <pointsize>12</pointsize>
-                               <fontweight>DemiBold</fontweight>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">color: #000;</string>
-                             </property>
-                             <property name="text">
-                              <string>Alexander Jose</string>
-                             </property>
-                            </widget>
-                           </item>
                           </layout>
                          </item>
                          <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_108">
-                           <property name="spacing">
-                            <number>0</number>
+                          <widget class="QLabel" name="email_Emp">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
                            </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>Alexander Jose</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="1">
+                        <layout class="QVBoxLayout" name="verticalLayout_64">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_45" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_42">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/phone-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
                            <item>
                             <widget class="QLabel" name="label_75">
                              <property name="font">
@@ -2874,46 +3342,10 @@ QComboBox:on {
                              </property>
                             </widget>
                            </item>
-                           <item>
-                            <widget class="QLabel" name="tlf_Emp">
-                             <property name="font">
-                              <font>
-                               <pointsize>12</pointsize>
-                               <fontweight>DemiBold</fontweight>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">color: #000;</string>
-                             </property>
-                             <property name="text">
-                              <string>Alexander Jose</string>
-                             </property>
-                            </widget>
-                           </item>
                           </layout>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_10">
-                           <property name="orientation">
-                            <enum>Qt::Orientation::Horizontal</enum>
-                           </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                          </spacer>
-                         </item>
-                        </layout>
-                       </item>
-                       <item>
-                        <layout class="QVBoxLayout" name="verticalLayout_109">
-                         <property name="spacing">
-                          <number>0</number>
-                         </property>
-                         <item>
-                          <widget class="QLabel" name="label_77">
+                          <widget class="QLabel" name="tlf_Emp">
                            <property name="font">
                             <font>
                              <pointsize>12</pointsize>
@@ -2921,12 +3353,83 @@ QComboBox:on {
                             </font>
                            </property>
                            <property name="styleSheet">
-                            <string notr="true">color: rgb(106, 114, 130);</string>
+                            <string notr="true">color: #000;</string>
                            </property>
                            <property name="text">
-                            <string>Dirección</string>
+                            <string>Alexander Jose</string>
                            </property>
                           </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="2">
+                        <spacer name="horizontalSpacer_10">
+                         <property name="orientation">
+                          <enum>Qt::Orientation::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>477</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item row="3" column="0" colspan="3">
+                        <layout class="QVBoxLayout" name="verticalLayout_76">
+                         <property name="leftMargin">
+                          <number>20</number>
+                         </property>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_58" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_44">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/maps-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_77">
+                             <property name="font">
+                              <font>
+                               <pointsize>12</pointsize>
+                               <fontweight>DemiBold</fontweight>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(106, 114, 130);</string>
+                             </property>
+                             <property name="text">
+                              <string>Dirección</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
                          </item>
                          <item>
                           <widget class="QLabel" name="direccion_Emp">
@@ -3159,7 +3662,7 @@ QTableCornerButton::section {
                          <item>
                           <widget class="QFrame" name="frame_30">
                            <property name="styleSheet">
-                            <string notr="true">#frame_19{
+                            <string notr="true">#frame_30{
 border:1px solid rgba(0, 51, 102, 100);
 border-radius:4px;
 }</string>
@@ -3320,7 +3823,7 @@ border-radius:10px;</string>
 	background-color: transparent;
 }</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_52">
+         <layout class="QVBoxLayout" name="verticalLayout_53">
           <item>
            <widget class="QStackedWidget" name="StackedTutorA">
             <property name="styleSheet">
@@ -3505,11 +4008,9 @@ QAbstractItemView {
 	color:#000;
 }</string>
                      </property>
-                     <item>
-                      <property name="text">
-                       <string>Todas las Especialidades</string>
-                      </property>
-                     </item>
+                     <property name="placeholderText">
+                      <string>Todas las Especialidades</string>
+                     </property>
                     </widget>
                    </item>
                   </layout>
@@ -3691,7 +4192,7 @@ border-top: 1px solid rgba(48, 48, 48,48);</string>
                    <item>
                     <widget class="QFrame" name="frame_32">
                      <property name="styleSheet">
-                      <string notr="true">#frame_20{
+                      <string notr="true">#frame_32{
 border:1px solid rgba(0, 51, 102, 100);
 border-radius:4px;
 }</string>
@@ -3709,7 +4210,7 @@ border-radius:4px;
                          <string notr="true">color:rgb(0, 0, 0);</string>
                         </property>
                         <property name="text">
-                         <string>1</string>
+                         <string>1-10 de 44</string>
                         </property>
                        </widget>
                       </item>
@@ -3792,7 +4293,25 @@ border-radius:4px;
              </property>
              <layout class="QGridLayout" name="gridLayout_6">
               <item row="0" column="0">
-               <widget class="QFrame" name="frame_72">
+               <widget class="ShadowFrame" name="frame_72">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>800</width>
+                  <height>630</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>1000</width>
+                  <height>700</height>
+                 </size>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">#frame_72{
 	background-color: #FFFAFA;
@@ -3928,7 +4447,7 @@ QLineEdit {
                       <property name="lineWidth">
                        <number>2</number>
                       </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_113" stretch="1,5">
+                      <layout class="QGridLayout" name="gridLayout_15" rowstretch="1,2,2,2" columnstretch="1,3,2,2,6" rowminimumheight="1,3,3,3">
                        <property name="leftMargin">
                         <number>20</number>
                        </property>
@@ -3941,28 +4460,87 @@ QLineEdit {
                        <property name="bottomMargin">
                         <number>20</number>
                        </property>
-                       <item>
-                        <widget class="QLabel" name="label_110">
-                         <property name="font">
-                          <font>
-                           <pointsize>12</pointsize>
-                           <fontweight>DemiBold</fontweight>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">color: rgb(0, 51, 102);</string>
-                         </property>
-                         <property name="text">
-                          <string>Datos del Tutor</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_13">
+                       <property name="horizontalSpacing">
+                        <number>20</number>
+                       </property>
+                       <property name="verticalSpacing">
+                        <number>10</number>
+                       </property>
+                       <item row="1" column="2">
+                        <layout class="QVBoxLayout" name="verticalLayout_47">
                          <item>
-                          <widget class="QFrame" name="frame_33">
+                          <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_46">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/user-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_79">
+                             <property name="font">
+                              <font>
+                               <pointsize>12</pointsize>
+                               <fontweight>DemiBold</fontweight>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(106, 114, 130);</string>
+                             </property>
+                             <property name="text">
+                              <string>Nombre Completo</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="nombre_completoA">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
+                           </property>
                            <property name="styleSheet">
-                            <string notr="true">background-color: rgb(0, 51, 102);
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>04126385967</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="1" column="1" rowspan="3">
+                        <widget class="ShadowFrame" name="frame_33">
+                         <property name="styleSheet">
+                          <string notr="true">background-color: rgb(0, 51, 102);
 
 border-radius: 100px;
 border: none;
@@ -3970,302 +4548,552 @@ min-width:200px;
 min-height:200px;
 max-width:200px;
 max-height:200px;</string>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::Shape::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Shadow::Raised</enum>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_7">
+                          <property name="leftMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>0</number>
+                          </property>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="perfil_A">
+                            <property name="text">
+                             <string/>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignmentFlag::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item row="1" column="3">
+                        <layout class="QVBoxLayout" name="verticalLayout_48">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_48">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/id-card-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_81">
+                             <property name="font">
+                              <font>
+                               <pointsize>12</pointsize>
+                               <fontweight>DemiBold</fontweight>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(106, 114, 130);</string>
+                             </property>
+                             <property name="text">
+                              <string>Cedula</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="cedulaA">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
                            </property>
-                           <property name="frameShape">
-                            <enum>QFrame::Shape::StyledPanel</enum>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
                            </property>
-                           <property name="frameShadow">
-                            <enum>QFrame::Shadow::Raised</enum>
+                           <property name="text">
+                            <string>04126385967</string>
                            </property>
-                           <layout class="QGridLayout" name="gridLayout_7">
-                            <property name="leftMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="topMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="rightMargin">
-                             <number>0</number>
-                            </property>
-                            <property name="bottomMargin">
-                             <number>0</number>
-                            </property>
-                            <item row="0" column="0">
-                             <widget class="QLabel" name="perfil_A">
-                              <property name="text">
-                               <string/>
-                              </property>
-                              <property name="alignment">
-                               <set>Qt::AlignmentFlag::AlignCenter</set>
-                              </property>
-                             </widget>
-                            </item>
-                           </layout>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="4">
+                        <layout class="QVBoxLayout" name="verticalLayout_49">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_70">
+                           <item>
+                            <widget class="QLabel" name="label_51">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/email-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_88">
+                             <property name="font">
+                              <font>
+                               <pointsize>12</pointsize>
+                               <fontweight>DemiBold</fontweight>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(106, 114, 130);</string>
+                             </property>
+                             <property name="text">
+                              <string>Email</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="emailA">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>04126385967</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="2">
+                        <layout class="QVBoxLayout" name="verticalLayout_50">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_114">
+                           <item>
+                            <widget class="QLabel" name="label_54">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/calendar-days-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_92">
+                             <property name="font">
+                              <font>
+                               <pointsize>12</pointsize>
+                               <fontweight>DemiBold</fontweight>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(106, 114, 130);</string>
+                             </property>
+                             <property name="text">
+                              <string>Fecha de Nacimiento</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="fechaNA">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>04126385967</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="3" column="2">
+                        <layout class="QVBoxLayout" name="verticalLayout_85">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_115">
+                           <item>
+                            <widget class="QLabel" name="label_55">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/feature-request-device-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_94">
+                             <property name="font">
+                              <font>
+                               <pointsize>12</pointsize>
+                               <fontweight>DemiBold</fontweight>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(106, 114, 130);</string>
+                             </property>
+                             <property name="text">
+                              <string>Especialidad</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="especialidadA">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>04126385967</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="2" column="3">
+                        <layout class="QVBoxLayout" name="verticalLayout_51">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_113">
+                           <item>
+                            <widget class="QLabel" name="label_56">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/phone-svgrepo-com.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_90">
+                             <property name="font">
+                              <font>
+                               <pointsize>12</pointsize>
+                               <fontweight>DemiBold</fontweight>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(106, 114, 130);</string>
+                             </property>
+                             <property name="text">
+                              <string>Teléfono</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="tlfA">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>04126385967</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="1" column="4">
+                        <layout class="QVBoxLayout" name="verticalLayout_52">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="1,20">
+                           <item>
+                            <widget class="QLabel" name="label_57">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>20</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                             <property name="text">
+                              <string/>
+                             </property>
+                             <property name="pixmap">
+                              <pixmap>resources/images/BOEG101.svg</pixmap>
+                             </property>
+                             <property name="scaledContents">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_83">
+                             <property name="font">
+                              <font>
+                               <pointsize>12</pointsize>
+                               <fontweight>DemiBold</fontweight>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(106, 114, 130);</string>
+                             </property>
+                             <property name="text">
+                              <string>Sexo/Edad</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="sexEdadA">
+                           <property name="font">
+                            <font>
+                             <pointsize>12</pointsize>
+                             <fontweight>DemiBold</fontweight>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: #000;</string>
+                           </property>
+                           <property name="text">
+                            <string>04126385967</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item row="1" column="0">
+                        <spacer name="horizontalSpacer_15">
+                         <property name="orientation">
+                          <enum>Qt::Orientation::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item row="0" column="0" colspan="3">
+                        <layout class="QHBoxLayout" name="horizontalLayout_116">
+                         <item>
+                          <widget class="QLabel" name="label_102">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="sizeIncrement">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                             <italic>false</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: rgb(0, 51, 102);
+font: 16pt &quot;Segoe UI&quot;;
+padding:0px;
+</string>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                           <property name="pixmap">
+                            <pixmap>resources/images/contact.svg</pixmap>
+                           </property>
+                           <property name="scaledContents">
+                            <bool>true</bool>
+                           </property>
+                           <property name="alignment">
+                            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+                           </property>
                           </widget>
                          </item>
                          <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_114">
-                           <item>
-                            <layout class="QHBoxLayout" name="horizontalLayout_11">
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_47">
-                               <item>
-                                <widget class="QLabel" name="label_79">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Nombre Completo</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="nombre_completoA">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_48">
-                               <item>
-                                <widget class="QLabel" name="label_81">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Cedula</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="cedulaA">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_49">
-                               <item>
-                                <widget class="QLabel" name="label_83">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Sexo/Edad</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="sexEdadA">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                            </layout>
-                           </item>
-                           <item>
-                            <layout class="QHBoxLayout" name="horizontalLayout_12">
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_50">
-                               <item>
-                                <widget class="QLabel" name="label_88">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Email</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="emailA">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_51">
-                               <item>
-                                <widget class="QLabel" name="label_90">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Teléfono</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="tlfA">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_115">
-                               <item>
-                                <widget class="QLabel" name="label_92">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Fecha de Nacimiento</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="fechaNA">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                            </layout>
-                           </item>
-                           <item>
-                            <layout class="QVBoxLayout" name="verticalLayout_53">
-                             <item>
-                              <widget class="QLabel" name="label_94">
-                               <property name="font">
-                                <font>
-                                 <pointsize>12</pointsize>
-                                 <fontweight>DemiBold</fontweight>
-                                </font>
-                               </property>
-                               <property name="styleSheet">
-                                <string notr="true">color: rgb(106, 114, 130);</string>
-                               </property>
-                               <property name="text">
-                                <string>Especialidad</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QLabel" name="especialidadA">
-                               <property name="font">
-                                <font>
-                                 <pointsize>12</pointsize>
-                                 <fontweight>DemiBold</fontweight>
-                                </font>
-                               </property>
-                               <property name="styleSheet">
-                                <string notr="true">color: #000;</string>
-                               </property>
-                               <property name="text">
-                                <string>04126385967</string>
-                               </property>
-                              </widget>
-                             </item>
-                            </layout>
-                           </item>
-                          </layout>
+                          <widget class="QLabel" name="label_110">
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                             <italic>false</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: rgb(0, 51, 102);
+font: 16pt &quot;Segoe UI&quot;;</string>
+                           </property>
+                           <property name="text">
+                            <string>Datos del Tutor</string>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4486,7 +5314,7 @@ QTableCornerButton::section {
                          <item>
                           <widget class="QFrame" name="frame_34">
                            <property name="styleSheet">
-                            <string notr="true">#frame_29{
+                            <string notr="true">#frame_34{
 border:1px solid rgba(0, 51, 102, 100);
 border-radius:4px;
 }</string>
@@ -4504,7 +5332,7 @@ border-radius:4px;
                                <string notr="true">color:rgb(0, 0, 0);</string>
                               </property>
                               <property name="text">
-                               <string>1-10 de 44</string>
+                               <string>1</string>
                               </property>
                              </widget>
                             </item>
@@ -4642,7 +5470,7 @@ border-radius:10px;</string>
          </layout>
         </widget>
         <widget class="QWidget" name="page_5">
-         <layout class="QVBoxLayout" name="verticalLayout_59">
+         <layout class="QVBoxLayout" name="verticalLayout_60">
           <item>
            <widget class="QStackedWidget" name="StackedTutorE">
             <property name="styleSheet">
@@ -4827,11 +5655,9 @@ QAbstractItemView {
 	color:#000;
 }</string>
                      </property>
-                     <item>
-                      <property name="text">
-                       <string>Todas las Empresas</string>
-                      </property>
-                     </item>
+                     <property name="placeholderText">
+                      <string>Todas las Empresas</string>
+                     </property>
                     </widget>
                    </item>
                   </layout>
@@ -5018,7 +5844,7 @@ border-top: 1px solid rgba(48, 48, 48,48);</string>
                    <item>
                     <widget class="QFrame" name="frame_36">
                      <property name="styleSheet">
-                      <string notr="true">#frame_30{
+                      <string notr="true">#frame_36{
 border:1px solid rgba(0, 51, 102, 100);
 border-radius:4px;
 }</string>
@@ -5036,7 +5862,7 @@ border-radius:4px;
                          <string notr="true">color:rgb(0, 0, 0);</string>
                         </property>
                         <property name="text">
-                         <string>1</string>
+                         <string>1-10 de 44</string>
                         </property>
                        </widget>
                       </item>
@@ -5115,8 +5941,41 @@ border-radius:4px;
               <string notr="true"/>
              </property>
              <layout class="QGridLayout" name="gridLayout_8">
+              <property name="leftMargin">
+               <number>10</number>
+              </property>
+              <property name="topMargin">
+               <number>10</number>
+              </property>
+              <property name="rightMargin">
+               <number>10</number>
+              </property>
+              <property name="bottomMargin">
+               <number>10</number>
+              </property>
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <item row="0" column="0">
                <widget class="ShadowFrame" name="frame_78">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>800</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>1000</width>
+                  <height>700</height>
+                 </size>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">#frame_78{
 	
@@ -5226,7 +6085,7 @@ color:#fff;
                    <property name="frameShadow">
                     <enum>QFrame::Shadow::Raised</enum>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_118" stretch="6,8,1">
+                   <layout class="QVBoxLayout" name="verticalLayout_118" stretch="8,6,1">
                     <item>
                      <widget class="ShadowFrame" name="frame_81">
                       <property name="styleSheet">
@@ -5270,7 +6129,10 @@ QComboBox:on {
                       <property name="lineWidth">
                        <number>2</number>
                       </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_119" stretch="1,7">
+                      <layout class="QVBoxLayout" name="verticalLayout_104" stretch="1,20">
+                       <property name="spacing">
+                        <number>20</number>
+                       </property>
                        <property name="leftMargin">
                         <number>20</number>
                        </property>
@@ -5284,27 +6146,113 @@ QComboBox:on {
                         <number>20</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="label_112">
-                         <property name="font">
-                          <font>
-                           <pointsize>12</pointsize>
-                           <fontweight>DemiBold</fontweight>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">color: rgb(0, 51, 102);</string>
-                         </property>
-                         <property name="text">
-                          <string>Datos del Tutor Empresarial</string>
-                         </property>
-                        </widget>
+                        <layout class="QHBoxLayout" name="horizontalLayout_121" stretch="1,20">
+                         <item>
+                          <widget class="QLabel" name="label_119">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="minimumSize">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="sizeIncrement">
+                            <size>
+                             <width>40</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                             <italic>false</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: rgb(0, 51, 102);
+font: 16pt &quot;Segoe UI&quot;;
+padding:0px;
+</string>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                           <property name="pixmap">
+                            <pixmap>resources/images/contact.svg</pixmap>
+                           </property>
+                           <property name="scaledContents">
+                            <bool>true</bool>
+                           </property>
+                           <property name="alignment">
+                            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_112">
+                           <property name="font">
+                            <font>
+                             <family>Segoe UI</family>
+                             <pointsize>16</pointsize>
+                             <italic>false</italic>
+                             <bold>false</bold>
+                            </font>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">color: rgb(0, 51, 102);
+font: 16pt &quot;Segoe UI&quot;;</string>
+                           </property>
+                           <property name="text">
+                            <string>Datos del Tutor Empresarial</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
                        </item>
                        <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_14">
-                         <item>
-                          <widget class="QFrame" name="frame_37">
-                           <property name="styleSheet">
-                            <string notr="true">background-color: rgb(0, 51, 102);
+                        <widget class="QFrame" name="frame_37">
+                         <property name="frameShape">
+                          <enum>QFrame::Shape::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Shadow::Raised</enum>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_16" rowstretch="1,1,1,1" columnstretch="1,1,1,8">
+                          <property name="leftMargin">
+                           <number>40</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="horizontalSpacing">
+                           <number>20</number>
+                          </property>
+                          <property name="verticalSpacing">
+                           <number>6</number>
+                          </property>
+                          <item row="0" column="0" rowspan="4">
+                           <widget class="ShadowFrame" name="frame_39">
+                            <property name="styleSheet">
+                             <string notr="true">background-color: rgb(0, 51, 102);
 
 border-radius: 100px;
 border: none;
@@ -5312,343 +6260,612 @@ min-width:200px;
 min-height:200px;
 max-width:200px;
 max-height:200px;</string>
-                           </property>
-                           <property name="frameShape">
-                            <enum>QFrame::Shape::StyledPanel</enum>
-                           </property>
-                           <property name="frameShadow">
-                            <enum>QFrame::Shadow::Raised</enum>
-                           </property>
-                           <layout class="QGridLayout" name="gridLayout_9">
-                            <property name="leftMargin">
-                             <number>0</number>
                             </property>
-                            <property name="topMargin">
-                             <number>0</number>
+                            <property name="frameShape">
+                             <enum>QFrame::Shape::StyledPanel</enum>
                             </property>
-                            <property name="rightMargin">
-                             <number>0</number>
+                            <property name="frameShadow">
+                             <enum>QFrame::Shadow::Raised</enum>
                             </property>
-                            <property name="bottomMargin">
-                             <number>0</number>
-                            </property>
-                            <item row="0" column="0">
-                             <widget class="QLabel" name="perfil_E">
-                              <property name="text">
-                               <string/>
+                            <layout class="QGridLayout" name="gridLayout_9">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item row="0" column="1">
+                              <widget class="QLabel" name="perfil_E">
+                               <property name="text">
+                                <string/>
+                               </property>
+                               <property name="alignment">
+                                <set>Qt::AlignmentFlag::AlignCenter</set>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <layout class="QVBoxLayout" name="verticalLayout_102">
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_122" stretch="1,20">
+                              <item>
+                               <widget class="QLabel" name="label_63">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="maximumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="pixmap">
+                                 <pixmap>resources/images/business-city-corporation-buildings-svgrepo-com.svg</pixmap>
+                                </property>
+                                <property name="scaledContents">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_97">
+                                <property name="font">
+                                 <font>
+                                  <pointsize>12</pointsize>
+                                  <fontweight>DemiBold</fontweight>
+                                 </font>
+                                </property>
+                                <property name="styleSheet">
+                                 <string notr="true">color: rgb(106, 114, 130);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Empresa</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="empresaE">
+                              <property name="font">
+                               <font>
+                                <pointsize>12</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
                               </property>
-                              <property name="alignment">
-                               <set>Qt::AlignmentFlag::AlignCenter</set>
+                              <property name="styleSheet">
+                               <string notr="true">color: rgb(0, 51, 102);</string>
+                              </property>
+                              <property name="text">
+                               <string>04126385967</string>
                               </property>
                              </widget>
                             </item>
                            </layout>
-                          </widget>
-                         </item>
-                         <item>
-                          <layout class="QVBoxLayout" name="verticalLayout_120">
-                           <item>
-                            <layout class="QVBoxLayout" name="verticalLayout_121">
-                             <item>
-                              <widget class="QLabel" name="label_97">
-                               <property name="font">
-                                <font>
-                                 <pointsize>12</pointsize>
-                                 <fontweight>DemiBold</fontweight>
-                                </font>
-                               </property>
-                               <property name="styleSheet">
-                                <string notr="true">color: rgb(106, 114, 130);</string>
-                               </property>
-                               <property name="text">
-                                <string>Empresa</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QLabel" name="empresaE">
-                               <property name="font">
-                                <font>
-                                 <pointsize>12</pointsize>
-                                 <fontweight>DemiBold</fontweight>
-                                </font>
-                               </property>
-                               <property name="styleSheet">
-                                <string notr="true">color: rgb(0, 51, 102);</string>
-                               </property>
-                               <property name="text">
-                                <string>04126385967</string>
-                               </property>
-                              </widget>
-                             </item>
-                            </layout>
-                           </item>
-                           <item>
-                            <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="2,1,1">
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_56">
-                               <item>
-                                <widget class="QLabel" name="label_96">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Nombre Completo</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="nombre_completoE">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                 <property name="wordWrap">
-                                  <bool>true</bool>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_57">
-                               <item>
-                                <widget class="QLabel" name="label_115">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Cedula</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="cedulaE">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_58">
-                               <item>
-                                <widget class="QLabel" name="label_117">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Sexo/Edad</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="sexEdadE">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                            </layout>
-                           </item>
-                           <item>
-                            <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="2,1,1">
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_60">
-                               <item>
-                                <widget class="QLabel" name="label_119">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Email</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="emailE">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_122">
-                               <item>
-                                <widget class="QLabel" name="label_121">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Teléfono</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="tlfE">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                             <item>
-                              <layout class="QVBoxLayout" name="verticalLayout_123">
-                               <item>
-                                <widget class="QLabel" name="label_123">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: rgb(106, 114, 130);</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>Fecha de Nacimiento</string>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item>
-                                <widget class="QLabel" name="fechaNE">
-                                 <property name="font">
-                                  <font>
-                                   <pointsize>12</pointsize>
-                                   <fontweight>DemiBold</fontweight>
-                                  </font>
-                                 </property>
-                                 <property name="styleSheet">
-                                  <string notr="true">color: #000;</string>
-                                 </property>
-                                 <property name="text">
-                                  <string>04126385967</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </item>
-                            </layout>
-                           </item>
-                           <item>
-                            <layout class="QVBoxLayout" name="verticalLayout_124">
-                             <item>
-                              <widget class="QLabel" name="label_124">
-                               <property name="font">
-                                <font>
-                                 <pointsize>12</pointsize>
-                                 <fontweight>DemiBold</fontweight>
-                                </font>
-                               </property>
-                               <property name="styleSheet">
-                                <string notr="true">color: rgb(106, 114, 130);</string>
-                               </property>
-                               <property name="text">
-                                <string>Cargo</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QLabel" name="cargoE">
-                               <property name="font">
-                                <font>
-                                 <pointsize>12</pointsize>
-                                 <fontweight>DemiBold</fontweight>
-                                </font>
-                               </property>
-                               <property name="styleSheet">
-                                <string notr="true">color: #000;</string>
-                               </property>
-                               <property name="text">
-                                <string>04126385967</string>
-                               </property>
-                              </widget>
-                             </item>
-                            </layout>
-                           </item>
-                          </layout>
-                         </item>
-                        </layout>
+                          </item>
+                          <item row="1" column="1">
+                           <layout class="QVBoxLayout" name="verticalLayout_56">
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="1,20">
+                              <item>
+                               <widget class="QLabel" name="label_58">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="maximumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="pixmap">
+                                 <pixmap>resources/images/user-svgrepo-com.svg</pixmap>
+                                </property>
+                                <property name="scaledContents">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_96">
+                                <property name="font">
+                                 <font>
+                                  <pointsize>12</pointsize>
+                                  <fontweight>DemiBold</fontweight>
+                                 </font>
+                                </property>
+                                <property name="styleSheet">
+                                 <string notr="true">color: rgb(106, 114, 130);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Nombre Completo</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="nombre_completoE">
+                              <property name="font">
+                               <font>
+                                <pointsize>12</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">color: #000;</string>
+                              </property>
+                              <property name="text">
+                               <string>04126385967</string>
+                              </property>
+                              <property name="wordWrap">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="1" column="2">
+                           <layout class="QVBoxLayout" name="verticalLayout_57">
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="1,20">
+                              <item>
+                               <widget class="QLabel" name="label_61">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="maximumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="pixmap">
+                                 <pixmap>resources/images/id-card-svgrepo-com.svg</pixmap>
+                                </property>
+                                <property name="scaledContents">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_104">
+                                <property name="font">
+                                 <font>
+                                  <pointsize>12</pointsize>
+                                  <fontweight>DemiBold</fontweight>
+                                 </font>
+                                </property>
+                                <property name="styleSheet">
+                                 <string notr="true">color: rgb(106, 114, 130);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Cedula</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="cedulaE">
+                              <property name="font">
+                               <font>
+                                <pointsize>12</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">color: #000;</string>
+                              </property>
+                              <property name="text">
+                               <string>04126385967</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="1" column="3">
+                           <layout class="QVBoxLayout" name="verticalLayout_58">
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="1,20">
+                              <item>
+                               <widget class="QLabel" name="label_62">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="maximumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="pixmap">
+                                 <pixmap>resources/images/BOEG101.svg</pixmap>
+                                </property>
+                                <property name="scaledContents">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_114">
+                                <property name="font">
+                                 <font>
+                                  <pointsize>12</pointsize>
+                                  <fontweight>DemiBold</fontweight>
+                                 </font>
+                                </property>
+                                <property name="styleSheet">
+                                 <string notr="true">color: rgb(106, 114, 130);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Sexo/Edad</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="sexEdadE">
+                              <property name="font">
+                               <font>
+                                <pointsize>12</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">color: #000;</string>
+                              </property>
+                              <property name="text">
+                               <string>04126385967</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="2" column="1">
+                           <layout class="QVBoxLayout" name="verticalLayout_87">
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_119">
+                              <item>
+                               <widget class="QLabel" name="label_64">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="maximumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="pixmap">
+                                 <pixmap>resources/images/calendar-days-svgrepo-com.svg</pixmap>
+                                </property>
+                                <property name="scaledContents">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_117">
+                                <property name="font">
+                                 <font>
+                                  <pointsize>12</pointsize>
+                                  <fontweight>DemiBold</fontweight>
+                                 </font>
+                                </property>
+                                <property name="styleSheet">
+                                 <string notr="true">color: rgb(106, 114, 130);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Fecha de Nacimiento</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="fechaNE">
+                              <property name="font">
+                               <font>
+                                <pointsize>12</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">color: #000;</string>
+                              </property>
+                              <property name="text">
+                               <string>04126385967</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="2" column="2">
+                           <layout class="QVBoxLayout" name="verticalLayout_86">
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_118">
+                              <item>
+                               <widget class="QLabel" name="label_65">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="maximumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="pixmap">
+                                 <pixmap>resources/images/phone-svgrepo-com.svg</pixmap>
+                                </property>
+                                <property name="scaledContents">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_116">
+                                <property name="font">
+                                 <font>
+                                  <pointsize>12</pointsize>
+                                  <fontweight>DemiBold</fontweight>
+                                 </font>
+                                </property>
+                                <property name="styleSheet">
+                                 <string notr="true">color: rgb(106, 114, 130);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Teléfono</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="tlfE">
+                              <property name="font">
+                               <font>
+                                <pointsize>12</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">color: #000;</string>
+                              </property>
+                              <property name="text">
+                               <string>04126385967</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="2" column="3">
+                           <layout class="QVBoxLayout" name="verticalLayout_59">
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_117">
+                              <item>
+                               <widget class="QLabel" name="label_67">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="maximumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="pixmap">
+                                 <pixmap>resources/images/email-svgrepo-com.svg</pixmap>
+                                </property>
+                                <property name="scaledContents">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_115">
+                                <property name="font">
+                                 <font>
+                                  <pointsize>12</pointsize>
+                                  <fontweight>DemiBold</fontweight>
+                                 </font>
+                                </property>
+                                <property name="styleSheet">
+                                 <string notr="true">color: rgb(106, 114, 130);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Email</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="emailE">
+                              <property name="font">
+                               <font>
+                                <pointsize>12</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">color: #000;</string>
+                              </property>
+                              <property name="text">
+                               <string>04126385967</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item row="3" column="1">
+                           <layout class="QVBoxLayout" name="verticalLayout_88">
+                            <item>
+                             <layout class="QHBoxLayout" name="horizontalLayout_120">
+                              <item>
+                               <widget class="QLabel" name="label_69">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="maximumSize">
+                                 <size>
+                                  <width>20</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="pixmap">
+                                 <pixmap>resources/images/feature-request-device-svgrepo-com.svg</pixmap>
+                                </property>
+                                <property name="scaledContents">
+                                 <bool>true</bool>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QLabel" name="label_118">
+                                <property name="font">
+                                 <font>
+                                  <pointsize>12</pointsize>
+                                  <fontweight>DemiBold</fontweight>
+                                 </font>
+                                </property>
+                                <property name="styleSheet">
+                                 <string notr="true">color: rgb(106, 114, 130);</string>
+                                </property>
+                                <property name="text">
+                                 <string>Cargo</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </item>
+                            <item>
+                             <widget class="QLabel" name="cargoE">
+                              <property name="font">
+                               <font>
+                                <pointsize>12</pointsize>
+                                <fontweight>DemiBold</fontweight>
+                               </font>
+                              </property>
+                              <property name="styleSheet">
+                               <string notr="true">color: #000;</string>
+                              </property>
+                              <property name="text">
+                               <string>04126385967</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                        </widget>
                        </item>
                       </layout>
                      </widget>
@@ -5697,7 +6914,7 @@ color: rgb(0, 0, 0);</string>
                           <string notr="true">color: rgb(0, 51, 102);</string>
                          </property>
                          <property name="text">
-                          <string>Pasantes Activos</string>
+                          <string>Pasantes</string>
                          </property>
                         </widget>
                        </item>
@@ -6078,12 +7295,12 @@ background-color: transparent;
 	background-color: transparent;
 }</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_10" rowstretch="1,5,5" columnstretch="1,1">
-          <property name="verticalSpacing">
-           <number>6</number>
-          </property>
-          <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_65" stretch="1,20">
+          <item>
            <widget class="QLabel" name="label_8">
+            <property name="layoutDirection">
+             <enum>Qt::LayoutDirection::LeftToRight</enum>
+            </property>
             <property name="styleSheet">
              <string notr="true">color: rgb(0, 51, 102);
 font: 800 16pt &quot;Segoe UI&quot;;</string>
@@ -6091,113 +7308,238 @@ font: 800 16pt &quot;Segoe UI&quot;;</string>
             <property name="text">
              <string>Estadisticas</string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="ShadowFrame" name="frame_est1">
+          <item>
+           <widget class="QFrame" name="frame_40">
             <property name="frameShape">
              <enum>QFrame::Shape::StyledPanel</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Raised</enum>
             </property>
-            <layout class="QVBoxLayout" name="verticalEst1">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-            </layout>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="ShadowFrame" name="frame_est2">
-            <property name="frameShape">
-             <enum>QFrame::Shape::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Shadow::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalEst2">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-            </layout>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="ShadowFrame" name="frame_est3">
-            <property name="frameShape">
-             <enum>QFrame::Shape::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Shadow::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalEst3">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-            </layout>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="ShadowFrame" name="frame_est4">
-            <property name="frameShape">
-             <enum>QFrame::Shape::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Shadow::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalEst4">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_16">
+             <item>
+              <widget class="QPushButton" name="btnAntEst">
+               <property name="styleSheet">
+                <string notr="true">background-color: transparent;
+padding:0px;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>resources/images/arrow-left.svg</normaloff>resources/images/arrow-left.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>60</width>
+                 <height>60</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QStackedWidget" name="stackedEst">
+               <widget class="QWidget" name="est1">
+                <layout class="QGridLayout" name="gridLayout_10">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="ShadowFrame" name="frame_est1">
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalEst1">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="est2">
+                <layout class="QGridLayout" name="gridLayout_11">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="ShadowFrame" name="frame_est2">
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalEst2">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="est3">
+                <layout class="QGridLayout" name="gridLayout_12">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="ShadowFrame" name="frame_est3">
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalEst3">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="est4">
+                <layout class="QGridLayout" name="gridLayout_13">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="ShadowFrame" name="frame_est4">
+                   <property name="frameShape">
+                    <enum>QFrame::Shape::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Shadow::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalEst4">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnSigEst">
+               <property name="styleSheet">
+                <string notr="true">background-color: transparent;
+padding:0px;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>resources/images/right-arrow.svg</normaloff>resources/images/right-arrow.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>60</width>
+                 <height>60</height>
+                </size>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>

@@ -37,6 +37,26 @@ class MainWindow(CustomWindow):
         self.resize(1200, 850)
         self.conectar_eventos()
         
+    def eventFilter(self, source, event):
+        # Evitar errores si `self.window` aún no fue asignado
+        win = getattr(self, 'window', None)
+        if win is None or not hasattr(win, 'stackedWidget'):
+            return super().eventFilter(source, event)
+
+        idx = win.stackedWidget.currentIndex()
+        if idx==0 and hasattr(self, 'soli'):
+            pass#self.log.eventFilter(source, event)
+        if idx == 1 and hasattr(self, 'pasantes'):
+            pass#self.student.eventFilter(source, event)
+        elif idx == 2 and hasattr(self, 'empresa'):
+            self.empresa.eventFilter(source, event)
+        elif idx == 3 and hasattr(self, 'tutorA'):
+            self.tutorA.eventFilter(source, event)
+        elif idx == 4 and hasattr(self, 'tutorE'):
+            self.tutorE.eventFilter(source, event)
+
+
+        return super().eventFilter(source, event)        
 
     def conectar_eventos(self):
         self.window.cerrar_sesionButton.clicked.connect(self.logout)
@@ -48,15 +68,15 @@ class MainWindow(CustomWindow):
         self.window.btnTutorA.clicked.connect(self.change_widget)
         self.window.btnTutorE.clicked.connect(self.change_widget)
         self.window.btnSolicitud.click()
+    
         
     def change_widget(self):
         buttom=self.sender()
         if buttom.text().lower()=="Solicitudes".lower():
-            StackedSolicitud(self)
+            self.soli=StackedSolicitud(self)
            
         elif buttom.text().lower()=="pasantes".lower():
-            StackPasante(self)
-            
+            self.pasante=StackPasante(self)   
 
         elif buttom.text().lower()=="empresas".lower():
             self.window.stackedWidget.setCurrentIndex(2)
@@ -68,12 +88,13 @@ class MainWindow(CustomWindow):
         
         elif buttom.text().lower()=="tutor empresarial".lower():
             self.window.stackedWidget.setCurrentIndex(4)
-            self.TutorE=StackTutorE(self)
+            self.tutorE=StackTutorE(self)
         
         elif buttom.text().lower()=="Generación de Docs".lower():
             self.docs=StackedDocumentos(self)
+            
         elif buttom.text().lower()=="Estadisticas".lower():
-            StackEstadistica(self)
+            self.esta=StackEstadistica(self)
       
                      
     def logout(self):

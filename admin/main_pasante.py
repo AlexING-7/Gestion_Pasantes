@@ -37,17 +37,22 @@ class StackPasante():
         self.numero_pagina = 1
         self.window.frame_Psa.installEventFilter(main)
         self.conectar_eventos()
-    
+    def offset_count(self):
+        return (self.numero_pagina - 1) * self.tamano_pagina
     def eventFilter(self,source,event):
         
         if source == self.window.frame_Psa and event.type() == QEvent.Type.Resize:
-            self.header()
             height=self.window.tabla_Psa.height()
             self.tamano_pagina=int(height/25.4)
             self.pag_tabla_Psa()
             print("Ejecutando Pasantia")                   
-            
+    def listas(self):
+        Estados=["solicitada","aprobada","en progreso","finalizada"]
+        self.window.comboEstados.addItem('Todos los Estados',None)
+        for i in Estados:
+            self.window.comboEstados.addItem(i.capitalize(),i)         
     def conectar_eventos(self):
+        self.listas()
         self.window.btnExportarPsa.clicked.connect(self.exportar)
         self.window.btnNuevoPsa.clicked.connect(self.open_newpasante)
         #self.window.regresarButton.clicked.connect(lambda :self.window.StackedEstudiantes.setCurrentIndex(0))
@@ -73,18 +78,20 @@ class StackPasante():
             
             # Solo agregamos la acción si no existía ninguna
             self.search_icon = self.window.searchPsa.addAction(search_icon, QLineEdit.ActionPosition.LeadingPosition)
-                     
-    def ver_estudiantes(self):
-        self.window.StackedTutorA.setCurrentIndex(1)
-    
+    def indice(self):
+        ind1=1+self.offset_count()
+        ind2=self.numero_pagina*self.tamano_pagina
+        self.window.btnIndPsa.setText(f"{ind1}-{ind2 if ind2<self.all_data else self.all_data} de {self.all_data}")
+
     def cambio_programa(self):
         self.numero_pagina=1
-        self.window.btnIndPsa.setText(str(self.numero_pagina))
         self.pag_tabla_Psa()
     
     def header(self):
         
         header=self.window.tabla_Psa.horizontalHeader()
+        header_vertical = self.window.tabla_Psa.verticalHeader()
+        header_vertical.setDefaultSectionSize(30)
         
         #nombres
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
@@ -115,19 +122,19 @@ class StackPasante():
         self.window.tabla_Psa.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.window.tabla_Psa.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         
-    def pag_tabla_Psa(self,search=""):
-        offset_count = (self.numero_pagina - 1) * self.tamano_pagina
-        stmt = self.get_data(offset_count,search)
-        pasantes=session.scalars(stmt).all()
+    def pag_tabla_Psa(self):
+        self.header()
+        pasantes=self.get_data()
         tabla=self.window.tabla_Psa
         if not pasantes and tabla.rowCount():
             QMessageBox.warning(self.window, "Aviso", "Busqueda no encontrada")
             return
-        if len(pasantes)<15:
+        if (self.all_data-self.offset_count())<=self.tamano_pagina:
            self.window.btnSigPsa.setEnabled(False)
         else:
             self.window.btnSigPsa.setEnabled(True)
-        
+
+        self.indice()
         tabla.setRowCount(0)
         for fila,pasante in enumerate(pasantes):
             tabla.insertRow(fila)
@@ -145,16 +152,37 @@ class StackPasante():
             layout_botones.setContentsMargins(5, 2, 5, 2) 
             layout_botones.setSpacing(10) 
 
-            boton_ver=QPushButton("Ver")
+            boton_ver=QPushButton("")
             boton_ver.clicked.connect(lambda checked,x=pasante: self.read_pasante(x))
-            btn_editar = QPushButton("Editar")
+            btn_editar = QPushButton("")
             btn_editar.clicked.connect(lambda checked,x=pasante: self.edit_pasante(x))
-            btn_borrar = QPushButton("Borrar")
+            btn_borrar = QPushButton("")
             btn_borrar.clicked.connect(lambda checked,x=pasante: self.delete_pasante(x))
-
-            btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
-            btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
-            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+            btn_editar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/edit-2-svgrepo-com-blue.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        background-color: #808080;
+                                        }""") 
+            btn_borrar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/delete-1487-svgrepo-comR.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        
+                                        background-color: #808080;
+                                        }""")                 
+            boton_ver.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/read-svgrepo-com.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        background-color: #808080;
+                                        }""") 
 
             layout_botones.addWidget(boton_ver)
             layout_botones.addWidget(btn_editar)
@@ -164,51 +192,51 @@ class StackPasante():
             tabla.setCellWidget(fila, 5, widget_contenedor)
         # Esto elimina todas las filas, pero DEJA los títulos de las columnas intactos.
 
-    def get_data(self,offset_count,search=""):
-             
+    def get_data(self):
+        search=self.window.searchPsa.text()     
+        self.all_data=len(self.get_data_all())
         if not self.window.comboEstados.currentData():
-            return select(Pasantia).where(
-                                        or_(
-                                            Pasantia.lapso_academico.ilike(f"{search}%"),
-                                            Pasantia.lapso_academico.ilike(f"{search}%")
-                                        )
-                                        ).limit(self.tamano_pagina).offset(offset_count)
-        else:
-            return select(Pasantia).where(
-                                        and_(
-                                        Pasantia.estado==self.window.comboEstados.currentText(),
-                                        or_(
-                                            Pasantia.lapso_academico.ilike(f"{search}%"),
-                                            Pasantia.lapso_academico.ilike(f"{search}%")
-                                        )
-                                        )
-                                        ).limit(self.tamano_pagina).offset(offset_count)
-            
-    def get_data_all(self,search=""):
-             
-        if not self.window.comboEstados.currentData():
-            return select(Pasantia).where(
+            stmt=select(Pasantia).where(
                                         or_(
                                             Pasantia.lapso_academico.ilike(f"{search}%"),
                                             Pasantia.lapso_academico.ilike(f"{search}%")
                                         )
                                         )
         else:
-            return select(Pasantia).where(
+            stmt=select(Pasantia).where(
                                         and_(
-                                        Pasantia.estado==self.window.comboEstados.currentText(),
+                                        Pasantia.estado==self.window.comboEstados.currentData(),
                                         or_(
                                             Pasantia.lapso_academico.ilike(f"{search}%"),
                                             Pasantia.lapso_academico.ilike(f"{search}%")
                                         )
                                         )
                                         )
+        return session.scalars(stmt.limit(self.tamano_pagina).offset(self.offset_count())).all()    
+    def get_data_all(self):
+        search=self.window.searchPsa.text()     
+        if not self.window.comboEstados.currentData():
+            stmt=select(Pasantia).where(
+                                        or_(
+                                            Pasantia.lapso_academico.ilike(f"{search}%"),
+                                            Pasantia.lapso_academico.ilike(f"{search}%")
+                                        )
+                                        )
+        else:
+            stmt=select(Pasantia).where(
+                                        and_(
+                                        Pasantia.estado==self.window.comboEstados.currentData(),
+                                        or_(
+                                            Pasantia.lapso_academico.ilike(f"{search}%"),
+                                            Pasantia.lapso_academico.ilike(f"{search}%")
+                                        )
+                                        )
+                                        )
+        return session.scalars(stmt).all()
 
     def search(self):
         self.numero_pagina=1
-        self.window.btnIndPsa.setText(str(self.numero_pagina))
-        search_query=self.window.searchPsa.text()
-        self.pag_tabla_Psa(search_query)
+        self.pag_tabla_Psa()
             
     def change_table(self,buttom):
         
@@ -216,9 +244,7 @@ class StackPasante():
             self.numero_pagina=self.numero_pagina-1 if self.numero_pagina>1 else 1
         elif buttom.lower()=="siguiente":
             self.numero_pagina+=1
-        self.window.btnIndPsa.setText(str(self.numero_pagina))
-        search_query=self.window.searchPsa.text()
-        self.pag_tabla_Psa(search_query)
+        self.pag_tabla_Psa()
             
     def read_pasante(self,pasante:Pasantia):
         #Estudiante
@@ -247,8 +273,8 @@ class StackPasante():
             self.window.rubroP.setText(empresa.rubro)
             self.window.deparP.clear()
             self.window.deparP.setText(pasante.departamento)
-            self.window.trabajoP.clear()
-            self.window.trabajoP.setText(pasante.trabajo_asignado)
+            # self.window.trabajoP.clear()
+            # self.window.trabajoP.setText(pasante.trabajo_asignado)
         else:
             self.window.razonP.clear()
             self.window.razonP.setText("-----------------")
@@ -258,8 +284,8 @@ class StackPasante():
             self.window.rubroP.setText("-----------------")
             self.window.deparP.clear()
             self.window.deparP.setText("-----------------")
-            self.window.trabajoP.clear()
-            self.window.trabajoP.setText("-----------------")
+            # self.window.trabajoP.clear()
+            # self.window.trabajoP.setText("-----------------")
         
         #pasantia
         self.window.lapsoP.clear()
@@ -382,7 +408,7 @@ class StackPasante():
             self.window.nota_tutor_aca.setText(str(eva.nota_tutor_aca))
             self.window.nota_tutor_emp.setText(str(eva.nota_tutor_emp))
             self.window.exposicion.setText(str(eva.exposicion))
-            self.window.taller_induccion.setText(str(eva.taller_induccion))
+            self.window.taller_induccion.setText("SI" if eva.taller_induccion else "NO")
             self.window.total.setText(str(eva.total))
         else:
             self.window.frameEva1.setHidden(False)
@@ -405,8 +431,7 @@ class StackPasante():
             try:
                 
                 # Llamas a tu función de exportación aquí (Estrategia A o B)
-                stmt=self.get_data_all(self.window.searchTutorA.text())
-                exportar_modelo_a_excel(session.scalars(stmt).all(),archivo)
+                exportar_modelo_a_excel(self.get_data_all(),archivo,Pasantia)
                 
                 QMessageBox.information(self.main, "Éxito", "La base de datos se exportó correctamente.")
             except Exception as e:

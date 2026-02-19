@@ -1,172 +1,251 @@
 import sys
-from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
-                             QHBoxLayout, QPushButton, QLabel, QFrame, 
-                             QGraphicsDropShadowEffect)
-from PySide6.QtCore import Qt, QPoint, QRect
-from PySide6.QtGui import QColor, QCursor
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+import json
+from PySide6.QtWidgets import (QApplication, QWidget, QDialog, QVBoxLayout, QHBoxLayout, 
+                             QPushButton, QLabel, QScrollArea, QFrame, QLineEdit)
+from PySide6.QtCore import Qt, QSize
+from modelos.modulo import Configuracion,session
+from sqlalchemy import select
+import json
 
-class ProBlueFinal(QMainWindow):
+class ItemWidget(QFrame):
+    """Widget personalizado para cada fila de la lista"""
+    def __init__(self, text, parent_list):
+        super().__init__()
+        self.setObjectName("ItemFrame")
+        self.parent_list = parent_list
+        
+        # Layout principal de la tarjeta
+        layout = QHBoxLayout(self)
+        
+        # Etiqueta de texto
+        self.label = QLabel(text)
+        self.label.setStyleSheet("font-size: 14px; color: #333; border: none;")
+        
+        # Botón de eliminar
+        self.btn_delete = QPushButton("")
+        self.btn_delete.setFixedSize(30, 30)
+        self.btn_delete.setObjectName("DeleteButton")
+        self.btn_delete.clicked.connect(self.remove_self)
+        
+        layout.addWidget(self.label)
+        layout.addStretch()
+        layout.addWidget(self.btn_delete)
+
+    def remove_self(self):
+        """Elimina este widget del layout del padre"""
+        self.setParent(None)
+        self.deleteLater()
+
+class ModernListApp(QDialog):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Lista de Carreras")
+        self.resize(400, 500)
+        self.setStyleSheet(self.get_styles())
 
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.resize(950, 650)
+        # Layout Principal: marco exterior (margen) + contenedor interior
+        self.outer_frame = QFrame(self)
+        self.outer_frame.setObjectName("OuterFrame")
+        self.outer_frame.setStyleSheet("#OuterFrame{background-color: #003366;}")
+        self.outer_layout = QVBoxLayout(self.outer_frame)
+        self.outer_layout.setContentsMargins(25, 25, 25, 25)
+        self.outer_layout.setSpacing(0)
+
+        # Contenedor interior donde irá el contenido real (fondo claro)
+        self.inner_widget = QWidget()
+        self.inner_widget.setObjectName("InnerContainer")
+        self.main_layout = QVBoxLayout(self.inner_widget)
+        self.main_layout.setContentsMargins(15, 15, 15, 15)
+
+        # --- SECCIÓN DE ENTRADA ---
+        self.input_layout = QHBoxLayout()
+        self.entry = QLineEdit()
+        self.entry.setPlaceholderText("Escribe algo nuevo...")
+        self.entry.returnPressed.connect(self.add_item) # Agregar con Enter
         
-        # Ajustes de sensibilidad
-        self.shadow_size = 15
-        self.edge_margin = 5 
-        self._resizing = False
-        self._resize_edge = None
-        self.drag_pos = None
+        self.add_btn = QPushButton("")
+        self.add_btn.setObjectName("AddButton")
+        self.add_btn.clicked.connect(self.add_item)
+        
+        self.input_layout.addWidget(self.entry)
+        self.input_layout.addWidget(self.add_btn)
+        self.main_layout.addLayout(self.input_layout)
 
-        # 1. Contenedor Raíz (Invisible, para la sombra)
-        self.root_widget = QWidget()
-        self.setCentralWidget(self.root_widget)
-        self.root_layout = QVBoxLayout(self.root_widget)
-        self.root_layout.setContentsMargins(self.shadow_size, self.shadow_size, self.shadow_size, self.shadow_size)
+        # --- ÁREA DE SCROLL (LISTA) ---
+        self.scroll = QScrollArea()
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setFrameShape(QFrame.NoFrame)
+        
+        # Contenedor interno para los items
+        self.container = QWidget()
+        self.container.setObjectName("Container")
+        self.list_layout = QVBoxLayout(self.container)
+        self.list_layout.setAlignment(Qt.AlignTop) # Alinea items arriba
+        self.list_layout.setSpacing(10)
+        
+        self.scroll.setWidget(self.container)
+        self.main_layout.addWidget(self.scroll)
 
-        # 2. El Contenedor Visual (Azul/Gris)
-        self.main_frame = QFrame()
-        self.main_frame.setStyleSheet("""
-            QFrame { 
-                background-color: #f5f5f5; 
-                border-radius: 10px; 
+        # --- BOTONES DE ACCIÓN ---
+        self.buttons_layout = QHBoxLayout()
+        self.save_btn = QPushButton("Guardar")
+        self.save_btn.setObjectName("SaveButton")
+        self.save_btn.clicked.connect(self.on_save)
+
+        self.cancel_btn = QPushButton("Cancelar")
+        self.cancel_btn.setObjectName("CancelButton")
+        self.cancel_btn.clicked.connect(self.reject)
+
+        self.buttons_layout.addStretch()
+        self.buttons_layout.addWidget(self.cancel_btn)
+        self.buttons_layout.addWidget(self.save_btn)
+        self.main_layout.addLayout(self.buttons_layout)
+
+        # Añadir el contenedor interior al marco exterior y fijar el layout del diálogo
+        self.outer_layout.addWidget(self.inner_widget)
+        dlg_layout = QVBoxLayout(self)
+        dlg_layout.setContentsMargins(0, 0, 0, 0)
+        dlg_layout.addWidget(self.outer_frame)
+
+    def add_item(self):
+        text = self.entry.text().strip()
+        if text:
+            new_item = ItemWidget(text, self.list_layout)
+            self.list_layout.addWidget(new_item)
+            self.entry.clear()
+
+    def on_save(self):
+        """Genera un JSON con los items visibles y cierra el diálogo aceptándolo."""
+        data = {"carreras": self.stringlist}
+        self.saved_json = json.dumps(data, ensure_ascii=False)
+        print(data)
+        self.accept()
+
+    @property
+    def stringlist(self):
+        """Devuelve una lista de strings con los textos de los items actuales.
+
+        Útil para enviar/almacenar en una base de datos.
+        """
+        items = []
+        for i in range(self.list_layout.count()):
+            w = self.list_layout.itemAt(i).widget()
+            if hasattr(w, 'label'):
+                items.append(w.label.text())
+        return items
+
+    def set_items(self, items):
+        """Llena la lista con los strings provistos (por ejemplo, desde la BD)."""
+        # Limpiar items actuales
+        while self.list_layout.count():
+            child = self.list_layout.takeAt(0)
+            if child.widget():
+                child.widget().setParent(None)
+                child.widget().deleteLater()
+
+        # Añadir nuevos items
+        for text in items:
+            if text is None:
+                continue
+            new_item = ItemWidget(str(text), self.list_layout)
+            self.list_layout.addWidget(new_item)
+
+    def get_styles(self):
+        return """
+
+            QWidget {
+                background-color: #f5f7fa;
+                font-family: 'Segoe UI', sans-serif;
+                
+            }
+            #InnerContainer{
+                border-radius:6px;
+                
+            }
+            QLineEdit {
+                color:#000;
+                padding: 10px;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                background: white;
+            }
+            QLineEdit:focus {
+                border: 2px solid #003366;
+            }
+            #AddButton {
+                background-color: #003366;
+                color: white;
+                padding: 8px;
+                border-radius: 8px;
+                font-weight: bold;
+                qproperty-icon: url(resources/images/plus-large-svgrepo-com.svg);
+                qproperty-iconSize: 25px 25px;
+            }
+            #AddButton:hover {
+                background-color: #005a9e;
+            }
+            #ItemFrame {
+                background-color: white;
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+            }
+            #ItemFrame:hover {
                 border: 1px solid #003366;
             }
-        """)
-        self.root_layout.addWidget(self.main_frame)
-
-        # Aplicar Sombra
-        shadow = QGraphicsDropShadowEffect(self)
-        shadow.setBlurRadius(20)
-        shadow.setXOffset(0)
-        shadow.setYOffset(4)
-        shadow.setColor(QColor(0, 0, 0, 150))
-        self.main_frame.setGraphicsEffect(shadow)
-
-        # Layout del frame principal
-        self.content_layout = QVBoxLayout(self.main_frame)
-        self.content_layout.setContentsMargins(0, 0, 0, 0)
-        self.content_layout.setSpacing(0)
-
-        # 3. Barra de Título
-        self.title_bar = QFrame()
-        self.title_bar.setFixedHeight(40)
-        self.title_bar.setStyleSheet("background-color: #003366; border-top-left-radius: 9px; border-top-right-radius: 9px; border: none;")
-        
-        self.title_layout = QHBoxLayout(self.title_bar)
-        self.title_label = QLabel("PROYECTO FINAL | AZUL")
-        self.title_label.setStyleSheet("color: white; font-weight: bold; margin-left: 10px;")
-        
-        self.btn_min = self._create_btn("-")
-        self.btn_max = self._create_btn("□")
-        self.btn_close = self._create_btn("✕", True)
-
-        self.title_layout.addWidget(self.title_label)
-        self.title_layout.addStretch()
-        self.title_layout.addWidget(self.btn_min)
-        self.title_layout.addWidget(self.btn_max)
-        self.title_layout.addWidget(self.btn_close)
-
-        self.content_layout.addWidget(self.title_bar)
-        self.content_layout.addStretch()
-
-        # Conexiones
-        self.btn_min.clicked.connect(self.showMinimized)
-        self.btn_max.clicked.connect(self._toggle_maximize)
-        self.btn_close.clicked.connect(self.close)
-
-        # IMPORTANTE: Habilitar tracking en TODO
-        self.setMouseTracking(True)
-        self.root_widget.setMouseTracking(True)
-        self.main_frame.setMouseTracking(True)
-        self.title_bar.setMouseTracking(True)
-
-    def _create_btn(self, text, is_close=False):
-        btn = QPushButton(text)
-        btn.setFixedSize(45, 40)
-        hover = "#e81123" if is_close else "#004488"
-        btn.setStyleSheet(f"QPushButton{{background:transparent;color:white;border:none;}} QPushButton:hover{{background:{hover};}}")
-        return btn
-
-    def _toggle_maximize(self):
-        if self.isMaximized():
-            self.showNormal()
-            self.btn_max.setText("□")
-            self.root_layout.setContentsMargins(self.shadow_size, self.shadow_size, self.shadow_size, self.shadow_size)
-            self.main_frame.setStyleSheet("background-color: #f5f5f5; border-radius: 10px; border: 1px solid #003366;")
-        else:
-            self.showMaximized()
-            self.btn_max.setText("❐")
-            self.root_layout.setContentsMargins(0, 0, 0, 0)
-            self.main_frame.setStyleSheet("background-color: #f5f5f5; border-radius: 0px; border: none;")
-
-    def _get_edge(self, pos):
-        # Usamos coordenadas relativas a la ventana completa
-        w, h = self.width(), self.height()
-        x, y = pos.x(), pos.y()
-        m = self.edge_margin + self.shadow_size
-
-        # Esquinas
-        if x < m and y < m: return 'top_left'
-        if x > w - m and y < m: return 'top_right'
-        if x < m and y > h - m: return 'bottom_left'
-        if x > w - m and y > h - m: return 'bottom_right'
-        # Bordes
-        if x < m: return 'left'
-        if x > w - m: return 'right'
-        if y < m: return 'top'
-        if y > h - m: return 'bottom'
-        return None
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            edge = self._get_edge(event.pos())
-            if edge:
-                self._resizing = True
-                self._resize_edge = edge
-            elif self.title_bar.underMouse():
-                self.drag_pos = event.globalPosition().toPoint()
-
-    def mouseMoveEvent(self, event):
-        # Actualizar cursor
-        if not self._resizing:
-            edge = self._get_edge(event.pos())
-            if edge:
-                if edge in ['left', 'right']: self.setCursor(Qt.SizeHorCursor)
-                elif edge in ['top', 'bottom']: self.setCursor(Qt.SizeVerCursor)
-                elif edge in ['top_left', 'bottom_right']: self.setCursor(Qt.SizeFDiagCursor)
-                elif edge in ['top_right', 'bottom_left']: self.setCursor(Qt.SizeBDiagCursor)
-            else:
-                # CORRECCIÓN: Si no hay borde, forzar flecha
-                self.setCursor(Qt.ArrowCursor)
-
-        # Lógica Resize
-        if self._resizing:
-            rect = self.geometry()
-            gp = event.globalPosition().toPoint()
-            if 'left' in self._resize_edge: rect.setLeft(gp.x())
-            if 'right' in self._resize_edge: rect.setRight(gp.x())
-            if 'top' in self._resize_edge: rect.setTop(gp.y())
-            if 'bottom' in self._resize_edge: rect.setBottom(gp.y())
-            
-            if rect.width() > 300 and rect.height() > 200:
-                self.setGeometry(rect)
-        
-        # Lógica Move
-        elif self.drag_pos:
-            delta = event.globalPosition().toPoint() - self.drag_pos
-            self.move(self.pos() + delta)
-            self.drag_pos = event.globalPosition().toPoint()
-
-    def mouseReleaseEvent(self, event):
-        self._resizing = False
-        self.drag_pos = None
-        self.setCursor(Qt.ArrowCursor)
+            #DeleteButton {
+                background-color: transparent;
+                color: #ff4d4d;
+                border-radius: 15px;
+                font-size: 16px;
+                qproperty-icon: url(resources/images/delete-1487-svgrepo-comR.svg);
+                qproperty-iconSize: 20px 20px;
+            }
+            #DeleteButton:hover {
+                background-color: #ffe6e6;
+            }
+            #Container {
+                background-color: transparent;
+            }
+            #SaveButton {
+                background-color: #2e8b57;
+                color: white;
+                padding: 8px 14px;
+                border-radius: 8px;
+                font-weight: bold;
+            }
+            #SaveButton:hover {
+                background-color: #3aa46a;
+            }
+            #CancelButton {
+                background-color: #777;
+                color: white;
+                padding: 8px 14px;
+                border-radius: 8px;
+            }
+            #CancelButton:hover {
+                background-color: #999;
+            }
+            QLabel{
+                background-color:transparent;
+            }
+        """
 
 if __name__ == "__main__":
+
+    stmt=select(Configuracion).where(Configuracion.clave=="carreras")
+    carreras=session.scalars(stmt).one_or_none()
+    carreras_json=json.loads(carreras.valor.strip("'"))
+    if isinstance(carreras_json, str):
+        carreras_json = json.loads(carreras_json)
     app = QApplication(sys.argv)
-    window = ProBlueFinal()
-    window.show()
-    sys.exit(app.exec())
+    dialog = ModernListApp()
+    dialog.set_items(carreras_json["carreras"])
+    
+    result = dialog.exec()
+    # Si el usuario pulsó Guardar, `saved_json` estará disponible
+    if hasattr(dialog, 'saved_json'):
+        carreras.valor=json.dumps(dialog.saved_json, ensure_ascii=False)
+        session.commit()
+    sys.exit(result)

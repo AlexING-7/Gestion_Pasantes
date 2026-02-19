@@ -15,7 +15,7 @@ class show_evaluar():
         self.spinTutorA=self.window.spinTutorA
         self.spinTutorE=self.window.spinTutorE
         self.spinExpo=self.window.spinExpo
-        self.spinTaller=self.window.spinTaller
+        self.spinTaller=self.window.checkBox
         self.btnCalcular=self.window.btnCalcular
         self.conectar_eventos()
         
@@ -39,14 +39,14 @@ class show_evaluar():
         self.spinTutorA.setValue(self.pasante.evaluacion.nota_tutor_aca)
         self.spinTutorE.setValue(self.pasante.evaluacion.nota_tutor_emp)
         self.spinExpo.setValue(self.pasante.evaluacion.exposicion)
-        self.spinTaller.setValue(self.pasante.evaluacion.taller_induccion)
+        self.spinTaller.setChecked(self.pasante.evaluacion.taller_induccion)
 
     def calcular(self):
         try:
             a = float(self.spinTutorA.value())
             e = float(self.spinTutorE.value())
             expo = float(self.spinExpo.value())
-            taller = float(self.spinTaller.value())
+            taller = float(20 if self.spinTaller.isChecked() else 1)
         except Exception:
             # Valores inválidos: asegurar al menos 1
             a = e = expo = taller = 1.0
@@ -62,13 +62,13 @@ class show_evaluar():
             evalu.nota_tutor_aca = a
             evalu.nota_tutor_emp = e
             evalu.exposicion = expo
-            evalu.taller_induccion = taller
+            evalu.taller_induccion = True if taller>1 else False
             evalu.total = self.total
         else:
             evalu = Evaluacion(nota_tutor_aca=a,
                                nota_tutor_emp=e,
                                exposicion=expo,
-                               taller_induccion=taller,
+                               taller_induccion=True if taller>1 else False,
                                total=self.total)
             self.pasante.evaluacion = evalu
         session.add(evalu)

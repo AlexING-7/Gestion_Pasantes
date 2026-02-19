@@ -49,7 +49,16 @@ def crear_usuarios_sistema():
     
     ConfiguracionFactory(
         clave="autoridad_firmante_1",
-        valor="Ing. Franklin España"   
+        valor="Ing. Alex Rodriguez"   
+    )
+    
+    ConfiguracionFactory(
+        clave="ciudad",
+        valor="Barinas"   
+    )
+    ConfiguracionFactory(
+        clave="escuela",
+        valor="instituto politécnico “santiago mariño” extensión barinas"   
     )
     
     ConfiguracionFactory(
@@ -59,7 +68,7 @@ def crear_usuarios_sistema():
     
     ConfiguracionFactory(
         clave="autoridad_firmante_2",
-        valor="Lcda Maria Rosa"   
+        valor="Lcda Febe Montilva"   
     )
     
     ConfiguracionFactory(
@@ -80,6 +89,37 @@ def crear_usuarios_sistema():
     ConfiguracionFactory(
         clave="final_lapso_actual",
         valor="02/02/2026"   
+    )
+    
+    ConfiguracionFactory(
+        clave="final_lapso_actual",
+        valor="02/02/2026"   
+    )
+    
+    ConfiguracionFactory(
+        clave="carreras",
+        valor='{"carreras":["Arquitectura","Ingeniería Civil","Ingeniería Eléctrica","Ingeniería Electrónica","Ingeniería Industrial","Ingeniería Sistemas","Ingeniería Diseño Industrial"]}'   
+    )
+    
+    ConfiguracionFactory(
+        clave="formatos",
+        valor='''{
+                    "Carta de Postulación a Pasantía" : "formatos/1. CARTA SOLICITUD DE PASANTIA.docx",
+                    "Carta de Aceptación de Pasantía" : "formatos/2.CARTA ACEPTACION DEL PASANTE.docx",
+                    "Acta de Inicio" : "formatos/3.ACTA DE INICIO.docx",
+                    "Acta de Inicio de Ejecución de Pasantía" : "formatos/4.ACTA DE INICIO DE EJECUCIÓN DE PASANTÍA.docx",
+                    "Contrado del Pasante":"formatos/5.CONTRATO DEL PASANTE.docx",
+                    "Inscripción de Pasantía":"formatos/6. INSCRIPCION DE PASANTIA.docx",
+                    "Cronograma de Actividades":"formatos/8.CRONOGRAMA DE ACTIVIDADES.docx",
+                    "Plan de Trabajo":"formatos/9.PLAN DE TRABAJO.docx",
+                    "Acta de Aprobacion del Informe de Pasantia":"formatos/10. ACTA DE APROBACION DEL INFORME DE PASANTÍA.docx",
+                    "Evaluacion de la Exposición":"formatos/11. EVALUACIÓN DE LA EXPOSICIÓN.docx",
+                    "Supervisión del Pasante":"formatos/12. SUPERVISION DEL PASANTE.docx",
+                    "Autorización Presentación del Informe":"formatos/14. AUTORIZACION PRESENTACION DEL INFORME.docx",
+                    "Evaluación":"formatos/17. EVALUACION.docx",
+                    "Evaluación Final":"formatos/18. EVALUACION FINAL.docx",
+                    "Carta de Extensión de Pasantía":"formatos/15.CARTA DE EXTENSIÓN DE PASANTIAS.docx"
+                }'''   
     )
     
     

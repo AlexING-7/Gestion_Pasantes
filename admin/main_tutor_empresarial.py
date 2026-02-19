@@ -7,8 +7,6 @@ from PySide6.QtWidgets import QWidget, QPushButton, QMessageBox,QFileDialog,QTab
 from PySide6.QtCore import Qt
 from PySide6.QtGui import  QIcon
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWebEngineWidgets import QWebEngineView
-from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
 from modelos.modulo import session,Tutor_Empresarial,Enterprise,Pasantia
 from sqlalchemy import select
 from sqlalchemy import or_,and_
@@ -32,29 +30,37 @@ class StackTutorE():
         self.window.StackedTutorA.setCurrentIndex(0)
         self.tamano_pagina = 15
         self.numero_pagina = 1
-        self.window.frame_TutorE.installEventFilter(main)
+        self.window.tabla_TutorE.installEventFilter(main)
         self.tabla_pasantes=self.window.tabla_PTE
         self.conectar_eventos()
     
+    def offset_count(self):
+        return (self.numero_pagina - 1) * self.tamano_pagina
+        
     def eventFilter(self,source,event):
         
-        if source == self.window.frame_TutorE and event.type() == QEvent.Type.Resize:
-            self.header()
+        if source == self.window.tabla_TutorE and event.type() == QEvent.Type.Resize:
             height=self.window.tabla_TutorE.height()
             self.tamano_pagina=int(height/25.4)
             self.pag_tabla_tutorE()
             print("Ejecutando Tutores Empresariales")                   
+    def listas(self):
+        self.window.comboEmpresas.clear()
+        empresas=session.scalars(select(Enterprise)).all()
+        self.window.comboEmpresas.addItem('Todas las Empresas',None)
+        for i in empresas:
+            self.window.comboEmpresas.addItem(i.razon_social,i.id)    
+    
             
     def conectar_eventos(self):
+        self.listas()
         self.window.btnExportarTutorE.clicked.connect(self.exportar)
         self.window.btnNuevoTutorE.clicked.connect(self.open_newtutor)
         self.window.btnAntTutorE.clicked.connect(lambda :self.change_table("Anterior"))
         self.window.btnSigTutorE.clicked.connect(lambda :self.change_table("Siguiente"))
         self.window.searchTutorE.textChanged.connect(self.search)
         self.window.comboEmpresas.activated.connect(lambda: self.cambio_programa())
-
-        
-        
+   
         if not self.window.searchTutorE.actions(): 
             icon_path = Path(__file__).resolve().parent.parent / "resources" / "images" / "search.svg"
             
@@ -65,15 +71,21 @@ class StackTutorE():
                 search_icon = self.window.searchTutorE.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
             
             self.search_icon = self.window.searchTutorE.addAction(search_icon, QLineEdit.ActionPosition.LeadingPosition)
+
+    def indice(self):
+        ind1=1+self.offset_count()
+        ind2=self.numero_pagina*self.tamano_pagina
+        self.window.btnIndTutorE.setText(f"{ind1}-{ind2 if ind2<self.all_data else self.all_data} de {self.all_data}")
                          
     def cambio_programa(self):
         self.numero_pagina=1
-        self.window.btnIndTutorE.setText(str(self.numero_pagina))
         self.pag_tabla_tutorE()
     
     def header(self):
         
         header=self.window.tabla_TutorE.horizontalHeader()
+        header_vertical = self.window.tabla_TutorE.verticalHeader()
+        header_vertical.setDefaultSectionSize(30)
         #cedula
         self.window.tabla_TutorE.setColumnWidth(0, 80)
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)
@@ -102,19 +114,19 @@ class StackTutorE():
         self.window.tabla_TutorE.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.window.tabla_TutorE.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         
-    def pag_tabla_tutorE(self,search=""):
-        offset_count = (self.numero_pagina - 1) * self.tamano_pagina
-        stmt = self.get_data(offset_count,search)
-        tutores=session.scalars(stmt).all()
+    def pag_tabla_tutorE(self):
+        self.header()
+        tutores=self.get_data()
         tabla=self.window.tabla_TutorE
         if not tutores and tabla.rowCount():
             QMessageBox.warning(self.window, "Aviso", "Busqueda no encontrada")
             return
-        if len(tutores)<15:
+        if (self.all_data-self.offset_count())<=self.tamano_pagina:
            self.window.btnSigTutorE.setEnabled(False)
         else:
             self.window.btnSigTutorE.setEnabled(True)
-        
+
+        self.indice()
         tabla.setRowCount(0)
         for fila,tutores in enumerate(tutores):
             tabla.insertRow(fila)
@@ -135,70 +147,94 @@ class StackTutorE():
             layout_botones.setContentsMargins(5, 2, 5, 2) 
             layout_botones.setSpacing(10) 
 
-            boton_ver=QPushButton("Ver")
+            boton_ver=QPushButton("")
             boton_ver.clicked.connect(lambda checked,x=tutores: self.read_tutor(x))
-            btn_editar = QPushButton("Editar")
+            btn_editar = QPushButton("")
             btn_editar.clicked.connect(lambda checked,x=tutores: self.edit_tutor(x))
-            btn_borrar = QPushButton("Borrar")
+            btn_borrar = QPushButton("")
             btn_borrar.clicked.connect(lambda checked,x=tutores: self.delete_tutor(x))
 
-            btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
-            btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
-            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+            btn_editar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/edit-2-svgrepo-com-blue.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        background-color: #808080;
+                                        }""") 
+            btn_borrar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/delete-1487-svgrepo-comR.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        
+                                        background-color: #808080;
+                                        }""")                 
+            boton_ver.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/read-svgrepo-com.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        background-color: #808080;
+                                        }""") 
 
             layout_botones.addWidget(boton_ver)
-            layout_botones.addWidget(btn_editar)
-            layout_botones.addWidget(btn_borrar)
+            if self.main.user_authenticated.rol=="Administrador":
+                layout_botones.addWidget(btn_editar)
+                layout_botones.addWidget(btn_borrar)
 
             # 6. Insertar el contenedor en la celda
             tabla.setCellWidget(fila, 8, widget_contenedor)
         # Esto elimina todas las filas, pero DEJA los títulos de las columnas intactos.
 
-    def get_data(self,offset_count,search=""):
-             
-        if self.window.comboEmpresas.currentText()=="Todas las Empresas":
-            return select(Tutor_Empresarial).where(
+    def get_data(self):
+        search=self.window.searchTutorE.text()
+        self.all_data=len(self.get_data_all())      
+        if not self.window.comboEmpresas.currentData():
+            stmt=select(Tutor_Empresarial).where(
                                         or_(
                                             Tutor_Empresarial.primer_nombre.ilike(f"{search}%"),
                                             Tutor_Empresarial.primer_apellido.ilike(f"{search}%")
                                         )
-                                        ).limit(self.tamano_pagina).offset(offset_count)
+                                        )#.limit(self.tamano_pagina).offset(offset_count)
         else:
-            return select(Tutor_Empresarial).where(
+            stmt=select(Tutor_Empresarial).where(
                                         and_(
-                                        Tutor_Empresarial.empresa.razon_social==self.window.comboEmpresas.currentText(),
+                                        Tutor_Empresarial.id_empresa==self.window.comboEmpresas.currentData(),
                                         or_(
                                             Tutor_Empresarial.primer_nombre.ilike(f"{search}%"),
                                             Tutor_Empresarial.primer_apellido.ilike(f"{search}%")
                                         )
                                         )
-                                        ).limit(self.tamano_pagina).offset(offset_count)
+                                        )#.limit(self.tamano_pagina).offset(offset_count)
+        return session.scalars(stmt.limit(self.tamano_pagina).offset(self.offset_count())).all()
             
-    def get_data_all(self,search=""):
-             
-        if self.window.comboEmpresas.currentText()=="Todas las Empresas":
-            return select(Tutor_Empresarial).where(
+    def get_data_all(self):
+        search=self.window.searchTutorE.text()
+        if not self.window.comboEmpresas.currentData():
+            stmt=select(Tutor_Empresarial).where(
                                         or_(
                                             Tutor_Empresarial.primer_nombre.ilike(f"{search}%"),
                                             Tutor_Empresarial.primer_apellido.ilike(f"{search}%")
                                         )
-                                        )
+                                        )#.limit(self.tamano_pagina).offset(offset_count)
         else:
-            return select(Tutor_Empresarial).where(
+            stmt=select(Tutor_Empresarial).where(
                                         and_(
-                                        Tutor_Empresarial.empresa.razon_social==self.window.comboEmpresas.currentText(),
+                                        Tutor_Empresarial.id_empresa==self.window.comboEmpresas.currentData(),
                                         or_(
                                             Tutor_Empresarial.primer_nombre.ilike(f"{search}%"),
                                             Tutor_Empresarial.primer_apellido.ilike(f"{search}%")
                                         )
                                         )
-                                        )
+                                        )#.limit(self.tamano_pagina).offset(offset_count)
+        return session.scalars(stmt).all()
 
     def search(self):
         self.numero_pagina=1
-        self.window.btnIndTutorE.setText(str(self.numero_pagina))
-        search_query=self.window.searchTutorE.text()
-        self.pag_tabla_tutorE(search_query)
+        self.pag_tabla_tutorE()
             
     def change_table(self,buttom):
         
@@ -206,9 +242,7 @@ class StackTutorE():
             self.numero_pagina=self.numero_pagina-1 if self.numero_pagina>1 else 1
         elif buttom.lower()=="siguiente":
             self.numero_pagina+=1
-        self.window.btnIndTutorE.setText(str(self.numero_pagina))
-        search_query=self.window.searchTutorA.text()
-        self.pag_tabla_tutorE(search_query)
+        self.pag_tabla_tutorE()
             
     def read_tutor(self,tutor:Tutor_Empresarial):
         self.window.empresaE.clear()
@@ -229,12 +263,15 @@ class StackTutorE():
         self.window.fechaNE.setText(tutor.fecha_de_nacimiento.isoformat())
         self.window.StackedTutorE.setCurrentIndex(1)
         self.window.perfil_E.setPixmap(convertir_pil_a_pixmap(tutor.foto))
-        
+        if self.main.user_authenticated.rol=="Coordinador":
+            self.window.editarE.setHidden(True)
+            self.window.EliminarE.setHidden(True)
         self.window.editarE.clicked.connect(lambda: self.edit_tutor(tutor))
         self.window.EliminarE.clicked.connect(lambda: self.delete_tutor(tutor))
         self.window.regresarButtonTE.clicked.connect(lambda: self.window.StackedTutorE.setCurrentIndex(0))
         self.pag_tabla_pasantes(tutor.pasantias)
-    
+
+   
     def pag_tabla_pasantes(self,entidad):
         header=self.tabla_pasantes.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
@@ -245,7 +282,7 @@ class StackTutorE():
         self.tabla_pasantes.setRowCount(0)
         self.tabla_pasantes.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.tabla_pasantes.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        for fila,pasante in enumerate(entidad):
+        for fila,pasante in enumerate(entidad[inicio:final]):
             pasante:Pasantia
             self.tabla_pasantes.insertRow(fila)
             
@@ -269,8 +306,14 @@ class StackTutorE():
             layout_botones.addWidget(boton_ver)
             self.tabla_pasantes.setCellWidget(fila, 5, widget_contenedor)
         def read_pasante(pasante:Pasantia):
-            self.window.PasantiasButton.click()
-            self.main.pasante.read_pasante(pasante)
+            if self.main.user_authenticated.rol=="Administrador":
+                self.window.PasantiasButton.click()
+                self.main.pasante.read_pasante(pasante)
+            else:
+                self.window.btnPasante.click()
+                self.main.pasante.datos(pasante)
+                
+        
     def edit_tutor(self,tutor):
         from admin.nuevo_tutorE import NewTutorE
         self.newtutor_window=NewTutorE(tutor)
@@ -320,8 +363,7 @@ class StackTutorE():
             try:
                 
                 # Llamas a tu función de exportación aquí (Estrategia A o B)
-                stmt=self.get_data_all(self.window.searchTutorE.text())
-                exportar_modelo_a_excel(session.scalars(stmt).all(),archivo)
+                exportar_modelo_a_excel(self.get_data_all(),archivo,Tutor_Empresarial)
                 
                 QMessageBox.information(self.main, "Éxito", "La base de datos se exportó correctamente.")
             except Exception as e:

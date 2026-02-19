@@ -4,8 +4,8 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import os
 from PySide6.QtWidgets import QWidget, QPushButton, QMessageBox,QFileDialog,QTableWidgetItem,QHBoxLayout,QStyle,QLineEdit,QAbstractScrollArea
-from PySide6.QtCore import Qt
-from PySide6.QtGui import  QIcon
+from PySide6.QtCore import Qt,QRegularExpression
+from PySide6.QtGui import  QIcon,QRegularExpressionValidator
 from PySide6.QtUiTools import QUiLoader
 
 from modelos.modulo import session,User
@@ -25,16 +25,37 @@ class StackUsers():
         self.window=main.window
         self.tabla_users=self.window.tabla_users
         self.window.tabla_users.installEventFilter(main)
+        self.window.username_input.clear()
+        self.window.correo_input.clear()
+        self.window.comboAccionUser.setCurrentIndex(0)
+        self.tamano_pagina = 5
+        self.numero_pagina = 1
         self.conectar_eventos()
+
+    
+    def offset_count(self):
+        return (self.numero_pagina - 1) * self.tamano_pagina 
         
     def conectar_eventos(self):
         self.pag_users()
         self.window.usuarios_btnGuardar.clicked.connect(self.guardar)
         self.window.comboAccionUser.currentIndexChanged.connect(self.labelChange)
-        
+        self.window.btnAntUsers.clicked.connect(lambda :self.change_table("Anterior"))
+        self.window.btnSigUsers.clicked.connect(lambda :self.change_table("Siguiente"))
+        self.validaciones()
+    
+    def change_table(self,buttom):
+        if buttom.lower()=="anterior":
+            self.numero_pagina=self.numero_pagina-1 if self.numero_pagina>1 else 1
+        elif buttom.lower()=="siguiente":
+            self.numero_pagina+=1
+        self.pag_users()
+    
     def labelChange(self):
         if self.window.comboAccionUser.currentText()=="Create":
             self.window.labelCrearEditarUser.setText("Crear Usuario")
+            self.window.username_input.clear()
+            self.window.correo_input.clear()
         elif self.window.comboAccionUser.currentText()=="Update":
             self.window.labelCrearEditarUser.setText("Editar Usuario")
     
@@ -56,10 +77,26 @@ class StackUsers():
         #accion
         self.tabla_users.setColumnWidth(3, 150)
         header.setSectionResizeMode(3, QHeaderView.ResizeMode.Fixed)
+        
+        self.tabla_users.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self.tabla_users.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+    
+    def indice(self):
+        ind1=1+self.offset_count()
+        ind2=self.numero_pagina*self.tamano_pagina
+        self.window.btnIndUsers.setText(f"{ind1}-{ind2 if ind2<self.all_data else self.all_data} de {self.all_data}")
     
     def pag_users(self):
         self.header()
         users=self.get_data()
+        if not users and self.tabla_users.rowCount():
+            QMessageBox.warning(self.window, "Aviso", "Busqueda no encontrada")
+            return
+        if (self.all_data-self.offset_count())<=self.tamano_pagina:
+           self.window.btnSigUsers.setEnabled(False)
+        else:
+            self.window.btnSigUsers.setEnabled(True)
+        self.indice()
         self.tabla_users.setRowCount(0)
         for fila,user in enumerate(users):
             user:User
@@ -76,13 +113,28 @@ class StackUsers():
             
             layout_botones.setContentsMargins(5, 2, 5, 2) 
             layout_botones.setSpacing(10) 
-            btn_editar = QPushButton("Editar")
+            btn_editar = QPushButton("")
             btn_editar.clicked.connect(lambda checked,x=user: self.read(x))
-            btn_borrar = QPushButton("Borrar")
+            btn_borrar = QPushButton("")
             btn_borrar.clicked.connect(lambda checked,x=user: self.delete(x))
 
-            btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
-            btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
+            btn_editar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/edit-2-svgrepo-com-blue.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        background-color: #808080;
+                                        }""") 
+            btn_borrar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/delete-1487-svgrepo-comR.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        
+                                        background-color: #808080;
+                                        }""")                
 
             layout_botones.addWidget(btn_editar)
             layout_botones.addWidget(btn_borrar)
@@ -92,6 +144,11 @@ class StackUsers():
             
     
     def get_data(self):
+        self.all_data=len(self.get_data_all())
+        stmt=select(User)
+        return session.scalars(stmt.limit(self.tamano_pagina).offset(self.offset_count())).all()
+    
+    def get_data_all(self):
         stmt=select(User)
         return session.scalars(stmt).all()
     
@@ -115,6 +172,10 @@ class StackUsers():
             QMessageBox.warning(self.window, "Campos incompletos", "Completa todos los campos requeridos.")
             return
 
+        if not self.window.correo_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos", "El correo deben cumplir el formato")
+            return
+        
         if contraseña != confirmar_contraseña:
             QMessageBox.warning(self.window, "Contraseñas no coinciden", "Las contraseñas ingresadas no coinciden.")
             return
@@ -180,6 +241,10 @@ class StackUsers():
         # Validaciones básicas
         if not username or not correo:
             QMessageBox.warning(self.window, "Campos incompletos", "El nombre de usuario y el correo son obligatorios.")
+            return
+        
+        if not self.window.correo_input.hasAcceptableInput() and not self.window.username_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos", "El nombre de usuario y el correo deben cumplir el formato")
             return
 
         # Si el usuario cambia la contraseña, validar coincidencia
@@ -298,7 +363,41 @@ class StackUsers():
         except Exception:
             pass
 
-        # Si la UI necesita enfoque o cambio de pestaña, el llamador puede manejarlo
+    def validaciones(self):
+        regex_username = QRegularExpression(r"^[a-zA-Z0-9_]{4,15}$")
+
+       
+        validador_user = QRegularExpressionValidator(regex_username)
+        self.window.username_input.setValidator(validador_user)
+        
+        
+        patron_email = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+        regex = QRegularExpression(patron_email)
+        
+        # 2. Crear el validador y asignarlo al QLineEdit
+        validador = QRegularExpressionValidator(regex)
+        self.window.correo_input.setValidator(validador)
+        self.window.correo_input.setProperty("estado", "neutral")
+
+        
+        self.window.correo_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.correo_input))
+        
+    def actualizar_estilo(self,widget):
+        texto = widget.text()
+        if not texto:
+            widget.setProperty("estado", "neutral")
+
+        elif widget.hasAcceptableInput():
+
+            widget.setProperty("estado", "valido")
+
+        else:
+            widget.setProperty("estado", "invalido")
+
+        widget.style().unpolish(widget)
+        widget.style().polish(widget)
+
     
+            
     
     

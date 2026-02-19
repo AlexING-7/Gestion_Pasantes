@@ -1,10 +1,14 @@
 from datetime import date
 import bcrypt
 import sys
+import os
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QFrame
 from PySide6.QtGui import QPixmap, QImage
 from PySide6.QtCore import Qt
 from PIL import Image
+import json
 import numpy as np
 
 
@@ -117,5 +121,26 @@ def convertir_pil_a_pixmap(ruta:str="ejemplo.jpg"):
 def guion_telefono(telefono:str):
     return f"{telefono[0:4]}-{telefono[4:]}"
 
+def convertir_a_json(valor:str):
+    _json=json.loads(valor.strip("'"))
+    if isinstance(_json, str):
+        _json = json.loads(_json)
+    return _json
+
+def jsonFormatos():
+    from sqlalchemy import select
+    from modelos.modulo import Configuracion,session
+    stmt = select(Configuracion.valor).where(Configuracion.clave == "formatos")
+    cfg = session.scalars(stmt).one_or_none()
+    return convertir_a_json(cfg)
+
+def sede_Sucursal(dato):
+    if dato.sede:
+        return dato.empresa.razon_social
+    else:
+        return dato.direccion
+
+
+
 if __name__=="__main__":
-    print(guion_telefono("04126385967"))
+    print(jsonFormatos()['Carta de Postulación a Pasantía'])

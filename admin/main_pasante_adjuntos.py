@@ -9,11 +9,13 @@ import shutil
 from herramientas.docs import reemplazar_texto
 from modelos.modulo import DocumentoAdjunto,session
 from PySide6.QtWidgets import QHeaderView
+from herramientas.conversiones import jsonFormatos
 
 class show_documentos():
     
     def __init__(self,window,pasante:Pasantia) -> None:
         self.pasante=pasante
+        self.documentos=pasante.documentos
         self.window=window
         self.comboDoc=window.comboDoc
         self.comboDoc_2=window.comboDoc_2
@@ -25,31 +27,26 @@ class show_documentos():
         self.btnSubirDoc=window.btnSubirDoc
         self.btnGenDoc=window.btnGenDoc
         self.tabla_documentos=window.tabla_documentos
+        
         self.regresarButtonP_2=self.window.regresarButtonP_2
         self.window.StackedPsa.setCurrentIndex(2)
         self.conectar_eventos()
 
     def list_formats(self):
-        formatos={
-            "Carta de Solicitud de Pasantia":"formatos/1. CARTA SOLICITUD DE PASANTIA.docx",
-            "Carta de Aceptacion del Pasante":"formatos/2.CARTA ACEPTACION DEL PASANTE.docx",
-            "Acto de Inicio":"formatos/3.ACTA DE INICIO.docx",
-            "Acto de Inicio de Ejecucion de Pasantia":"formatos/4.ACTA DE INICIO DE EJECUCIÓN DE PASANTÍA.docx",
-            "Contrato del Pasante":"formatos/5.CONTRATO DEL PASANTE.docx",
-            "Inscripción de Pasantía":"formatos/6. INSCRIPCION DE PASANTIA.docx"
-        }
+        formatos=jsonFormatos()
         for text,data in formatos.items():
             self.comboDoc_2.addItem(text,data)
+            
     def pag_tabla(self):
         self.tabla_documentos:QTableWidget
         header=self.tabla_documentos.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
-        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
-        header.setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
         self.tabla_documentos.setRowCount(0)
-        for fila,doc in enumerate(self.pasante.documentos):
+        for fila,doc in enumerate(self.documentos):
             self.tabla_documentos.insertRow(fila)
             ruta=doc.ruta.split("/")
             self.tabla_documentos.setItem(fila,0,QTableWidgetItem(str(doc.tipo_de_documento)))
@@ -64,13 +61,28 @@ class show_documentos():
             layout_botones.setContentsMargins(5, 2, 5, 2) 
             layout_botones.setSpacing(10) 
 
-            boton_ver=QPushButton("Ver")
+            boton_ver=QPushButton("")
             boton_ver.clicked.connect(lambda checked,x=doc: self.ver_documento(x))
-            btn_borrar = QPushButton("Borrar")
+            btn_borrar = QPushButton("")
             #btn_borrar.clicked.connect(lambda checked,x=empresa: self.delete_empresa(x))
 
-            btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
-            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+            btn_borrar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/delete-1487-svgrepo-comR.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        
+                                        background-color: #808080;
+                                        }""")                
+            boton_ver.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/read-svgrepo-com.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        background-color: #808080;
+                                        }""") 
 
             layout_botones.addWidget(boton_ver)
             layout_botones.addWidget(btn_borrar)
@@ -103,8 +115,53 @@ class show_documentos():
         self.btnSubirDoc.clicked.connect(self.subir_documento)
         self.icon.triggered.connect(self.path_file)
         self.btnGenDoc.clicked.connect(self.generar_doc)
+        self.window.NumDocs_2.setText("1")
+        self.elementos_por_pagina=5
+        self.window.SigDocs_2.clicked.connect(lambda:self.cambiar_pagina(1,self.pasante.documentos))
+        self.window.AntDocs_2.clicked.connect(lambda:self.cambiar_pagina(-1,self.pasante.documentos))
+        self.documentos=self.documentos[0:self.elementos_por_pagina]
         self.pag_tabla()
         self.list_formats()
+        
+    def cambiar_pagina(self, direccion: int, lista_datos: list):
+        """
+        Controla la paginación y actualiza la tabla de pasantes.
+        
+        :param direccion: 1 para Siguiente, -1 para Anterior.
+        :param lista_datos: La lista completa de tutores.pasantias.
+        """
+        self.pagina_actual=int(self.window.NumDocs_2.text())
+        # 1. Calcular el total de páginas
+        total_elementos = len(lista_datos)
+        total_paginas = (total_elementos + self.elementos_por_pagina - 1) // self.elementos_por_pagina
+
+        # 2. Actualizar el índice de página actual con validación
+        nueva_pagina = self.pagina_actual + direccion
+        
+        if nueva_pagina < 1:
+            nueva_pagina = 1
+        elif nueva_pagina > total_paginas:
+            nueva_pagina = total_paginas
+
+        # Si la página no cambió realmente (ej. ya estás en la 1), no hacemos nada
+        if nueva_pagina == self.pagina_actual and total_elementos > 0:
+            return
+
+        self.pagina_actual = nueva_pagina
+        self.window.NumDocs_2.setText(str(self.pagina_actual))
+
+        # 3. Calcular los índices de rebanado (slice) para la lista
+        # Ejemplo: Página 1 -> inicio 0, fin 10
+        inicio = (self.pagina_actual - 1) * self.elementos_por_pagina
+        fin = min(inicio + self.elementos_por_pagina, total_elementos)
+
+        # 4. Obtener el subconjunto de datos
+        datos_paginados = lista_datos[inicio:fin]
+
+        # 5. Llamar a tu función existente para renderizar la tabla
+        # Pasamos la entidad (datos recortados), y los índices para referencia visual.
+        self.documentos=datos_paginados
+        self.pag_tabla()
     
     def path_file(self):
         self.file_path, _ = QFileDialog.getOpenFileName(
@@ -163,14 +220,7 @@ class show_documentos():
             QMessageBox.warning(self.window, "Atención", "Seleccione un formato de documento.")
             return
 
-        formatos={
-            "Carta de Solicitud de Pasantia":"formatos/1. CARTA SOLICITUD DE PASANTIA.docx",
-            "Carta de Aceptacion del Pasante":"formatos/2.CARTA ACEPTACION DEL PASANTE.docx",
-            "Acto de Inicio":"formatos/3.ACTA DE INICIO.docx",
-            "Acto de Inicio de Ejecucion de Pasantia":"formatos/4.ACTA DE INICIO DE EJECUCIÓN DE PASANTÍA.docx",
-            "Contrato del Pasante":"formatos/5.CONTRATO DEL PASANTE.docx",
-            "Inscripción de Pasantía":"formatos/6. INSCRIPCION DE PASANTIA.docx"
-        }
+        formatos=jsonFormatos()
 
         doc_key = self.comboDoc_2.currentText()
         if doc_key not in formatos:

@@ -37,17 +37,19 @@ def registrar_log(
                     s.close()
                 except Exception:
                     pass
+    def _sanitize(obj):
+        if obj is None:
+            return None
+        # Convertir objetos no JSON-serializables (p. ej. date/datetime) a strings
+        return json.loads(json.dumps(obj, ensure_ascii=False, default=_json_default))
+
     log = SistemaLog(
         usuario=usuario,
         accion=accion,
         tabla_afectada=tabla_afectada,
         id_registro_afectado=id_registro_afectado,
-        valores_anteriores=json.dumps(
-            valores_anteriores, ensure_ascii=False, default=_json_default
-        ) if valores_anteriores else None,
-        valores_nuevos=json.dumps(
-            valores_nuevos, ensure_ascii=False, default=_json_default
-        ) if valores_nuevos else None,
+        valores_anteriores=_sanitize(valores_anteriores),
+        valores_nuevos=_sanitize(valores_nuevos),
         mensaje=mensaje,
         ip_maquina=ip_maquina,
     )

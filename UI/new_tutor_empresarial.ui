@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>565</width>
-    <height>748</height>
+    <height>798</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -146,15 +146,18 @@ QLineEdit:focus {
     background-color: #ffffff;
 }
 
-QLineEdit[state=&quot;valid&quot;] {
-                border-color: #2ecc71; /* Verde */
-  }
- QLineEdit[state=&quot;invalid&quot;] {
-                border-color: #e74c3c; /* Rojo */
-  }
- QLineEdit[state=&quot;empty&quot;] {
-        border-color: #555; /* Gris */
- }
+QLineEdit[estado=&quot;valido&quot;] {
+        border: 2px solid #20c997; 
+        background-color: #f0fdf8; /* Blanco con un levísimo toque esmeralda */
+        color: #003366;
+    }
+
+    /* ESTADO INVÁLIDO: Rojo carmesí */
+    QLineEdit[estado=&quot;invalido&quot;] {
+        border: 2px solid #e63946; 
+        background-color: #fff0f1; /* Blanco con un levísimo toque rojo */
+        color: #003366;
+    }
 
 </string>
         </property>
@@ -462,6 +465,57 @@ QPushButton:hover {
              </item>
              <item>
               <widget class="QComboBox" name="genero_input">
+               <property name="styleSheet">
+                <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+               </property>
                <property name="placeholderText">
                 <string>Ingrese Genero</string>
                </property>
@@ -500,6 +554,12 @@ QPushButton:hover {
                 font-size: 13px;
                 background-color: white;
             }
+QDateEdit::down-arrow {
+   image: url(resources/images/down-arrow-svgrepo-com.svg); /* Ruta a tu imagen */
+    width: 12px;  /* Ajusta el tamaño del icono */
+    height: 12px;
+}
+
             QDateEdit::drop-down {
                 subcontrol-origin: padding;
                 subcontrol-position: top right;
@@ -683,6 +743,57 @@ QPushButton:hover {
              </item>
              <item>
               <widget class="QComboBox" name="empresa_input">
+               <property name="styleSheet">
+                <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+               </property>
                <property name="placeholderText">
                 <string>Ingrese Empresa</string>
                </property>

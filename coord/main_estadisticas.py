@@ -23,8 +23,23 @@ class StackEstadistica():
         self.window=main.window
         self.current_pasante = None
          
-        self.conectar_eventos()
+        
         self.window.stackedWidget.setCurrentIndex(6)
+        self.window.stackedEst.setCurrentIndex(0)
+        self.conectar_eventos()
+
+    def ir_a_siguiente(self):
+        indice_actual = self.window.stackedEst.currentIndex()
+        total_paginas = self.window.stackedEst.count()
+        proximo_indice = (indice_actual + 1) % total_paginas
+        self.window.stackedEst.setCurrentIndex(proximo_indice)
+        
+    def ir_a_anterior(self):
+        indice_actual = self.window.stackedEst.currentIndex()
+        total_paginas = self.window.stackedEst.count()
+        indice_anterior = (indice_actual - 1 + total_paginas) % total_paginas
+        self.window.stackedEst.setCurrentIndex(indice_anterior)
+
 
     def get_empresas(self)->dict:
         try:
@@ -51,6 +66,8 @@ class StackEstadistica():
         tutores=session.execute(stmt).all()
         return tutores
     def conectar_eventos(self):
+        self.window.btnAntEst.clicked.connect(self.ir_a_anterior)
+        self.window.btnSigEst.clicked.connect(self.ir_a_siguiente)
         self.estadistica1()
         self.estadistica2()
         self.estadistica3()
@@ -60,8 +77,7 @@ class StackEstadistica():
         from PySide6.QtCharts import QChart, QChartView, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
         from PySide6.QtGui import QPainter, QColor
         from PySide6.QtCore import Qt
-        
-        self.window.stackedWidget.setCurrentIndex(6)
+
         notas=self.get_notas()
         
         lapsos = [i.lapso_academico for i in notas]
@@ -126,7 +142,7 @@ class StackEstadistica():
         from PySide6.QtCharts import QChart, QChartView, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
         from PySide6.QtGui import QPainter, QColor
         from PySide6.QtCore import Qt
-        self.window.stackedWidget.setCurrentIndex(6)
+
         dato=self.get_carrera()
         carreras = [i.carrera for i in dato]
         cantidades = [i.cantidad for i in dato]
@@ -186,7 +202,7 @@ class StackEstadistica():
         from PySide6.QtCharts import QChart, QChartView, QHorizontalBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
         from PySide6.QtGui import QPainter, QColor
         from PySide6.QtCore import Qt
-        self.window.stackedWidget.setCurrentIndex(6)
+
         dato=self.get_cargaAcad()
         tutores = [f"{i.primer_nombre[0]}. {i.primer_apellido}" for i in dato]
         cantidades = [i.pasantes for i in dato]
@@ -246,7 +262,7 @@ class StackEstadistica():
         from PySide6.QtCharts import QChart, QChartView, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
         from PySide6.QtGui import QPainter, QColor
         from PySide6.QtCore import Qt
-        self.window.stackedWidget.setCurrentIndex(6)
+
         carreras = list(self.get_empresas().keys())
         cantidades = list(self.get_empresas().values())
         set_pasantes = QBarSet("Empresas Con Mas Pasantes")

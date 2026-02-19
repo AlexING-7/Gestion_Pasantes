@@ -19,6 +19,7 @@ from admin.main_tutor_academico import StackTutorA
 from admin.main_tutor_empresarial import StackTutorE
 from admin.main_pasante import StackPasante
 from admin.main_logs import StackLogs
+from admin.main_configuracion import StackConfig
 from PySide6.QtWidgets import QHeaderView
 from herramientas.logs import registrar_log
 from herramientas.CustomMain import CustomWindow
@@ -48,6 +49,8 @@ class MainWindow(CustomWindow):
             return super().eventFilter(source, event)
 
         idx = win.stackedWidget.currentIndex()
+        if idx==0 and hasattr(self, 'log'):
+            self.log.eventFilter(source, event)
         if idx == 2 and hasattr(self, 'student'):
             self.student.eventFilter(source, event)
         elif idx == 3 and hasattr(self, 'enterprise'):
@@ -81,7 +84,7 @@ class MainWindow(CustomWindow):
     def change_widget(self):
         buttom=self.sender()
         if buttom.text().lower()=="inicio":
-            StackLogs(self)
+            self.log=StackLogs(self)
         elif buttom.text().lower()=="usuarios":
             self.window.stackedWidget.setCurrentIndex(1)
             StackUsers(self)
@@ -101,7 +104,7 @@ class MainWindow(CustomWindow):
             self.pasante=StackPasante(self)
             self.window.stackedWidget.setCurrentIndex(6)
         elif buttom.text().lower()=="configuración":
-            self.window.stackedWidget.setCurrentIndex(7)          
+            self.conf=StackConfig(self)        
                      
     def logout(self):
         sesion_mac=session.query(TSession).where(TSession.mac_adresss==gma()).one_or_none()

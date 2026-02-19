@@ -31,6 +31,8 @@ class NewEnterprise:
         self.window.close()   
     
     def registrar(self):
+        if self.is_valid():
+            return
         empresa=Enterprise(
                            rif=int(self.window.rif_input.text()),
                            razon_social=self.window.razon_input.text(),
@@ -48,6 +50,8 @@ class NewEnterprise:
         self.close()
     
     def actualizar(self):
+        if self.is_valid():
+            return
         self.empresa.razon_social=self.window.razon_input.text()
         self.empresa.rif=int(self.window.rif_input.text())
         self.empresa.telefono=self.window.telefono_input.text()
@@ -108,11 +112,45 @@ class NewEnterprise:
         
         self.window.email_input.setValidator(validator)
         
-        #_______________________________________________________________
-        #self.window.semestre_input.
-        #self.window.direccion_input.
-        #self.window.genero_input.
-    
+        self.window.razon_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.razon_input))
+        self.window.rubro_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.rubro_input))
+        self.window.rif_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.rif_input))
+        self.window.telefono_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.telefono_input))
+        self.window.email_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.email_input))
+        
+    def actualizar_estilo(self,widget):
+        texto = widget.text()
+        if not texto:
+            widget.setProperty("estado", "neutral")
+
+        elif widget.hasAcceptableInput():
+
+            widget.setProperty("estado", "valido")
+
+        else:
+            widget.setProperty("estado", "invalido")
+
+        widget.style().unpolish(widget)
+        widget.style().polish(widget)
+        
+    def is_valid(self):
+        if not self.window.razon_input.text() or not self.window.rubro_input.text():
+            QMessageBox.warning(self.window, "Campos Vacios", "El Razon o Rubro de la Empresa debe registrarse")
+            return True
+        
+        if not self.window.rif_input.text() or not self.window.rif_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos o Vacios", "El RIF de la Empresa debe cumplir con el formato")
+            return True
+        
+        if not self.window.telefono_input.text() or not self.window.telefono_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos o Vacio", "El Telefono de la Empresa debe cumplir con el formato")
+            return True
+        
+        if not self.window.email_input.text() or not self.window.email_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos o Vacios", "El Correo de la Empresa debe cumplir con el formato")
+            return True
+
+        
 
 
     

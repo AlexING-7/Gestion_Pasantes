@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>570</width>
-    <height>941</height>
+    <height>973</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -158,15 +158,19 @@ QLineEdit:focus {
     background-color: #ffffff;
 }
 
-QLineEdit[state=&quot;valid&quot;] {
-                border-color: #2ecc71; /* Verde */
-  }
- QLineEdit[state=&quot;invalid&quot;] {
-                border-color: #e74c3c; /* Rojo */
-  }
- QLineEdit[state=&quot;empty&quot;] {
-        border-color: #555; /* Gris */
- }
+QLineEdit[estado=&quot;valido&quot;] {
+        border: 2px solid #20c997; 
+        background-color: #f0fdf8; /* Blanco con un levísimo toque esmeralda */
+        color: #003366;
+    }
+
+    /* ESTADO INVÁLIDO: Rojo carmesí */
+    QLineEdit[estado=&quot;invalido&quot;] {
+        border: 2px solid #e63946; 
+        background-color: #fff0f1; /* Blanco con un levísimo toque rojo */
+        color: #003366;
+    }
+
 </string>
         </property>
         <property name="frameShape">
@@ -485,6 +489,57 @@ QPushButton:hover {
              </item>
              <item>
               <widget class="QComboBox" name="genero_input">
+               <property name="styleSheet">
+                <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+               </property>
                <property name="placeholderText">
                 <string>Ingrese Genero</string>
                </property>
@@ -523,6 +578,12 @@ QPushButton:hover {
                 font-size: 13px;
                 background-color: white;
             }
+QDateEdit::down-arrow {
+   image: url(resources/images/down-arrow-svgrepo-com.svg); /* Ruta a tu imagen */
+    width: 12px;  /* Ajusta el tamaño del icono */
+    height: 12px;
+}
+
             QDateEdit::drop-down {
                 subcontrol-origin: padding;
                 subcontrol-position: top right;
@@ -552,8 +613,18 @@ QPushButton:hover {
                  <day>1</day>
                 </date>
                </property>
+               <property name="displayFormat">
+                <string>dd/MM/yyyy</string>
+               </property>
                <property name="calendarPopup">
                 <bool>true</bool>
+               </property>
+               <property name="date">
+                <date>
+                 <year>2000</year>
+                 <month>1</month>
+                 <day>13</day>
+                </date>
                </property>
               </widget>
              </item>
@@ -632,7 +703,7 @@ QPushButton:hover {
              <item>
               <widget class="QLabel" name="email_label">
                <property name="text">
-                <string>Email *</string>
+                <string>Email</string>
                </property>
               </widget>
              </item>
@@ -722,7 +793,8 @@ QPushButton:hover {
          <item>
           <widget class="QCheckBox" name="checkBox">
            <property name="styleSheet">
-            <string notr="true">QCheckBox { spacing: 15px; font-size: 15px; }
+            <string notr="true">QCheckBox { spacing: 15px; font-size: 15px; 
+background-color: transparent;}
 
 QCheckBox::indicator {
  width: 12px; height: 12px;
@@ -819,6 +891,57 @@ QCheckBox::indicator:checked {
                 </item>
                 <item>
                  <widget class="QComboBox" name="carrera_input">
+                  <property name="styleSheet">
+                   <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                  </property>
                   <property name="placeholderText">
                    <string>Ingrese carrera</string>
                   </property>
@@ -851,7 +974,56 @@ QCheckBox::indicator:checked {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="semestre_input"/>
+                 <widget class="QSpinBox" name="semestre_input">
+                  <property name="styleSheet">
+                   <string notr="true">
+/* Estilo de los botones laterales */
+QSpinBox::up-button, QSpinBox::down-button {
+    subcontrol-origin: border;
+    width: 25px;
+    border: none;
+    background-color: transparent;
+}
+
+QSpinBox::up-button {
+    subcontrol-position: top right;
+    border-top-right-radius: 3px;
+}
+
+QSpinBox::down-button {
+    subcontrol-position: bottom right;
+    border-bottom-right-radius: 3px;
+}
+
+/* Manejo de los iconos (Flechas) */
+QSpinBox::up-arrow {
+    image: url(resources/images/arrow-up-svgrepo-com.svg); /* Tu icono aquí */
+    width: 15px;
+    height: 15px;
+}
+
+QSpinBox::down-arrow {
+    image: url(resources/images/arrow-down-svgrepo-com.svg); /* Tu icono aquí */
+    width: 15px;
+    height: 15px;
+}
+
+/* Efecto Hover para feedback visual */
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background-color: rgb(225, 225, 225);
+}
+
+QSpinBox::up-button:pressed, QSpinBox::down-button:pressed {
+    background-color: rgb(225, 225, 225);
+}</string>
+                  </property>
+                  <property name="minimum">
+                   <number>8</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10</number>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>
@@ -889,6 +1061,34 @@ QCheckBox::indicator:checked {
                </layout>
               </item>
              </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame">
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent;</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Orientation::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>8</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </widget>

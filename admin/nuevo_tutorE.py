@@ -36,6 +36,8 @@ class NewTutorE:
             self.window.empresa_input.addItem(f"{empresa.razon_social}:{empresa.rif}",empresa)
     
     def registrar(self):
+        if self.is_valid():
+            return
         self.guardar_foto()
         tutor=Tutor_Empresarial(primer_nombre=self.window.primernombre_input.text(),
                            segundo_nombre=self.window.segundonombre_input.text(),
@@ -60,6 +62,8 @@ class NewTutorE:
         self.close()
     
     def actualizar(self):
+        if self.is_valid():
+            return
         self.guardar_foto()
         self.tutor.primer_hombre=self.window.primernombre_input.text()
         self.tutor.segundo_nombre=self.window.segundonombre_input.text()
@@ -134,6 +138,9 @@ class NewTutorE:
             
                 
     def guardar_foto(self):
+        if not hasattr(self,"file_path"):
+            self.ruta_foto_guardada=None
+            return
         try:
             shutil.copy(self.file_path, self.ruta_final)
             self.ruta_foto_guardada = self.ruta_final  # Guardamos la ruta en una variable
@@ -167,16 +174,55 @@ class NewTutorE:
         
         self.window.email_input.setValidator(validator)
         
-        #_______________________________________________________________
-        #self.window.semestre_input.
-        #self.window.direccion_input.
-        #self.window.genero_input.
-    
+        self.window.email_input.setValidator(validator)
+        
+        self.window.primernombre_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.primernombre_input))
+        self.window.segundonombre_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.segundonombre_input))
+        self.window.primerapellido_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.primerapellido_input))
+        self.window.segundoapellido_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.segundoapellido_input))
+        self.window.telefono_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.telefono_input))
+        self.window.cedula_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.cedula_input))
+        self.window.email_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.email_input))
+        
+    def actualizar_estilo(self,widget):
+        texto = widget.text()
+        if not texto:
+            widget.setProperty("estado", "neutral")
 
+        elif widget.hasAcceptableInput():
 
-    
+            widget.setProperty("estado", "valido")
 
-    
+        else:
+            widget.setProperty("estado", "invalido")
+
+        widget.style().unpolish(widget)
+        widget.style().polish(widget)
+        
+    def is_valid(self):
+        if not self.window.primernombre_input.text() or not self.window.primerapellido_input.text():
+            QMessageBox.warning(self.window, "Campos Vacios", "El nombre y el apellido del Tutor Empresarial debe registrarse")
+            return True
+        
+        if not self.window.cedula_input.text() or not self.window.cedula_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos o Vacios", "La cedula del Tutor Empresarial debe cumplir con el formato")
+            return True
+        
+        if self.window.telefono_input.text() and not self.window.telefono_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos", "El Telefono del Tutor Empresarial debe cumplir con el formato")
+            return True
+        
+        if not self.window.email_input.text() or not self.window.email_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos o Vacios", "El Correo del Tutor Empresarial debe cumplir con el formato")
+            return True
+        
+        if not self.window.cargo_input.text():
+            QMessageBox.warning(self.window, "Campos Vacios", "EL Cargo del Tutor Empresarial debe registrarse")
+            return True
+        
+        if not self.window.empresa_input.currentData():
+            QMessageBox.warning(self.window, "Campos Vacios", "La Empresa del Tutor Empresarial debe registrarse")
+            return True
 
 
 

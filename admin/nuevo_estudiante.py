@@ -6,13 +6,15 @@ import shutil
 from datetime import datetime
 from PySide6.QtWidgets import QWidget, QLabel, QMessageBox,QMainWindow, QFileDialog
 from PySide6.QtGui import QRegularExpressionValidator, QValidator
-from PySide6.QtCore import QRegularExpression
+from PySide6.QtCore import QRegularExpression,QDate
 from PySide6.QtCore import QFile, Qt
 # from PySide6.QtUiTools import QUiLoader
-from modelos.modulo import Student,session,Pasantia,User
+from sqlalchemy import select
+from modelos.modulo import Student,session,Pasantia,User,Configuracion
 # from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
 from herramientas.logs import registrar_log
+from herramientas.conversiones import convertir_a_json
 
 from dotenv import load_dotenv
 
@@ -32,7 +34,16 @@ class NewStudent:
     def close(self):
         self.window.close()   
     
+    def listas(self):
+        self.window.carrera_input.clear()
+        carreras=session.scalars(select(Configuracion.valor).where(Configuracion.clave=="carreras")).one_or_none()
+        carreras_json=convertir_a_json(carreras)
+        for i in carreras_json["carreras"]:
+            self.window.carrera_input.addItem(i,i) 
+    
     def registrar(self):
+        if self.is_valid():
+            return
         self.guardar_foto()
         estudiante=Student(primer_nombre=self.window.primernombre_input.text(),
                            segundo_nombre=self.window.segundonombre_input.text(),
@@ -66,6 +77,8 @@ class NewStudent:
         self.close()
     
     def actualizar(self):
+        if self.is_valid():
+            return
         # Capturar valores anteriores para el log
         prev = {
             "primer_nombre": self.estudiante.primer_nombre,
@@ -147,11 +160,13 @@ class NewStudent:
     
 
     def conectar_eventos(self):
+        self.listas()
         if not self.estudiante:
             self.window.RegistrarButton.setText("Registrar")
             self.window.RegistrarButton.clicked.connect(self.registrar)
             self.window.subirfotoButton.clicked.connect(self.subir_foto)
             self.window.checkBox.toggled.connect(self.show_pasantias)
+            self.window.frame.setHidden(True)
         else:
             self.datos()
             self.window.RegistrarButton.setText("Actualizar")
@@ -159,13 +174,16 @@ class NewStudent:
             self.window.subirfotoButton.clicked.connect(self.subir_foto)
             self.window.checkBox.setHidden(True)
             self.window.frame_pasantia.setHidden(True)
+            self.window.frame.setHidden(False)
         self.validaciones()
 
     def show_pasantias(self,x):
         if x:
             self.window.frame_pasantia.setHidden(False)
+            self.window.frame.setHidden(True)
         else:
             self.window.frame_pasantia.setHidden(True)
+            self.window.frame.setHidden(False)
 
 
     def datos(self):
@@ -205,6 +223,9 @@ class NewStudent:
             
                 
     def guardar_foto(self):
+        if not hasattr(self,"file_path"):
+            self.ruta_foto_guardada=None
+            return
         try:#aquiiiiiiii self file da error
             shutil.copy(self.file_path, self.ruta_final)
             self.ruta_foto_guardada = self.ruta_final  # Guardamos la ruta en una variable
@@ -238,10 +259,66 @@ class NewStudent:
         
         self.window.email_input.setValidator(validator)
         
+        
+        min_date = QDate(1944, 1, 1)
+        max_date = QDate.currentDate().addYears(-17) # El día de hoy
+        self.window.dateFecha.setDateRange(min_date, max_date)
         #_______________________________________________________________
-        #self.window.semestre_input.
-        #self.window.direccion_input.
-        #self.window.genero_input.
+        
+        patron = r"^19|20\d{2}-[1-2]$"
+        regex = QRegularExpression(patron)
+        validador = QRegularExpressionValidator(regex)
+        
+        self.window.lapso_input.setValidator(validador)
+        
+        self.window.primernombre_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.primernombre_input))
+        self.window.segundonombre_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.segundonombre_input))
+        self.window.primerapellido_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.primerapellido_input))
+        self.window.segundoapellido_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.segundoapellido_input))
+        self.window.telefono_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.telefono_input))
+        self.window.cedula_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.cedula_input))
+        self.window.email_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.email_input))
+        self.window.lapso_input.textChanged.connect(lambda: self.actualizar_estilo(self.window.lapso_input))
+
+
+    def actualizar_estilo(self,widget):
+        texto = widget.text()
+        if not texto:
+            widget.setProperty("estado", "neutral")
+
+        elif widget.hasAcceptableInput():
+
+            widget.setProperty("estado", "valido")
+
+        else:
+            widget.setProperty("estado", "invalido")
+
+        widget.style().unpolish(widget)
+        widget.style().polish(widget)
+        
+    def is_valid(self):
+        if not self.window.primernombre_input.text() or not self.window.primerapellido_input.text():
+            QMessageBox.warning(self.window, "Campos Vacios", "El nombre y el apellido del Estudiante debe registrarse")
+            return True
+        
+        if not self.window.cedula_input.text() or not self.window.cedula_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos o Vacios", "La cedula del Estudiante debe cumplir con el formato")
+            return True
+        
+        if self.window.telefono_input.text() and not self.window.telefono_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos", "El Telefono del Estudiante debe cumplir con el formato")
+            return True
+        
+        if not self.window.email_input.text() or not self.window.email_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos o Vacios", "El Correo del Estudiante debe cumplir con el formato")
+            return True
+        
+        if self.window.lapso_input.text() and not self.window.lapso_input.hasAcceptableInput():
+            QMessageBox.warning(self.window, "Campos Invalidos", "El Lapso del Estudiante debe cumplir con el formato")
+            return True
+              
+        
+    
     
 
 

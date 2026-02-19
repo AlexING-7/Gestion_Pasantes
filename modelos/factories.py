@@ -2,6 +2,9 @@ import factory
 from datetime import date, timedelta
 from modelos.modulo import session,User,Student,Enterprise,Tutor_Academico,Tutor_Empresarial,Pasantia,Configuracion,Evaluacion,DocumentoAdjunto
 import random
+import os
+import shutil
+import uuid
 class UserFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:
         model=User
@@ -201,7 +204,7 @@ class PasantiaFactory(factory.alchemy.SQLAlchemyModelFactory):
 
     # Campos de la pasantía
     carrera = factory.Faker('random_element', elements=[
-        'Ingeniería de Sistemas', 'Ingeniería Civil', 'Ingeniería Industrial', 'Arquitectura'
+       "Arquitectura","Ingeniería Civil","Ingeniería Eléctrica","Ingeniería Electrónica","Ingeniería Industrial","Ingeniería Sistemas","Ingeniería Diseño Industrial"
     ])
     semestre = factory.Faker('random_int', min=8, max=10)
     lapso_academico = factory.Faker('random_element', elements=['2022-1', '2022-2','2023-1', '2023-2', '2024-1', '2024-2', '2025-1', '2025-2', '2026-1'])
@@ -231,19 +234,34 @@ class PasantiaFactory(factory.alchemy.SQLAlchemyModelFactory):
         
         # Si el estado es finalizada, creamos la evaluación
         if obj.estado == "finalizada":
-            EvaluacionFactory(pasantia=obj)    
+            EvaluacionFactory(pasantia=obj)  
+            
+    @factory.post_generation
+    def generar_documentos_asociados(obj, create, extracted, **kwargs):
+        if not create:
+            return
+
+        DocumentoAdjuntoFactory.create_batch(2, pasantia=obj, solicitud=True)
+
+
+        if obj.estado in ["aprobada", "en_curso", "finalizada"]:
+            DocumentoAdjuntoFactory(pasantia=obj, aprobada=True)
+
+        if obj.estado in ["en_curso", "finalizada"]:
+            DocumentoAdjuntoFactory.create_batch(3, pasantia=obj, en_curso=True)
+
+        if obj.estado == "finalizada":
+            DocumentoAdjuntoFactory.create_batch(2, pasantia=obj, finalizada=True)  
     class Params:
         # Pasantía recién creada, sin aprobar
         nueva = factory.Trait(
             estado="solicitada",
-            empresa=None,
             tutor_academico=None,
             inicio_pasantias=None,
             final_pasantias=None,
             trabajo_asignado=None,
             titulo_de_informe=None,
-            sede=None,
-            direccion=None,
+
         )
 
         # Pasantía activa (tiene todo asignado)
@@ -251,6 +269,11 @@ class PasantiaFactory(factory.alchemy.SQLAlchemyModelFactory):
             estado="aprobada",
 
         )
+        en_curso = factory.Trait(
+            estado="en_curso",
+
+        )
+
 
         # Pasantía terminada (tiene informe)
         finalizada = factory.Trait(
@@ -276,7 +299,7 @@ class EvaluacionFactory(factory.alchemy.SQLAlchemyModelFactory):
     nota_tutor_aca = factory.LazyFunction(lambda: round(random.uniform(1.0, 20.0), 2))
     nota_tutor_emp = factory.LazyFunction(lambda: round(random.uniform(1.0, 20.0), 2))
     exposicion = factory.LazyFunction(lambda: round(random.uniform(1.0, 20.0), 2))
-    taller_induccion = factory.LazyFunction(lambda: round(random.uniform(1.0, 20.0), 2))
+    taller_induccion = factory.Faker('boolean')
 
     @factory.lazy_attribute
     def total(self):
@@ -288,11 +311,121 @@ class EvaluacionFactory(factory.alchemy.SQLAlchemyModelFactory):
             (self.nota_tutor_aca or 0) * w_a
             + (self.nota_tutor_emp or 0) * w_e
             + (self.exposicion or 0) * w_expo
-            + (self.taller_induccion or 0) * w_taller
+            + (20 if self.taller_induccion else 0) * w_taller
         )
         return round(max(1.0, min(20.0, total)), 2)
 
 
+class DocumentoAdjuntoFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = DocumentoAdjunto
+        sqlalchemy_session = session
+        sqlalchemy_session_persistence = 'commit'
+        
+        exclude = ('_doc_data',)
+
+    # Relación por defecto (puedes sobrescribirla al llamarlo)
+    pasantia_id = None 
+
+    # Fecha aleatoria en los últimos 6 meses
+    fecha_subida = factory.Faker('date_time_between', start_date='-1w', end_date='now')
+
+    # ---------------------------------------------------------
+    # 1. EL DATO VIRTUAL (Tupla por defecto)
+    # ---------------------------------------------------------
+    # Si no le pasas ningún parámetro, usará esto por defecto:
+    _doc_data = factory.Faker('random_element', elements=[
+        ("Documento Genérico", "/storage/docs/general/archivo.pdf")
+    ])
+
+    # ---------------------------------------------------------
+    # 2. SEPARACIÓN DE LOS DATOS (Lazy Attributes)
+    # ---------------------------------------------------------
+    @factory.lazy_attribute
+    def tipo_de_documento(self):
+        # Toma el primer elemento de la tupla seleccionada
+        return self._doc_data[0]
+    
+    @factory.lazy_attribute
+    def ruta(self):
+        CARPETA_DESTINO="resources/documentos/prueba"
+        # 1. Obtenemos la ruta base (Origen) que definiste en el Trait
+        # Ej: "storage/docs/solicitudes/postulacion.pdf"
+        ruta_origen = self._doc_data[1]
+        
+        # --- SALVAVIDAS ---
+        # Si el archivo original no existe en tu PC, Python dará error al intentar copiarlo.
+        # Este bloque crea un archivo PDF falso (vacío) en el origen si no lo encuentra.
+        if not os.path.exists(ruta_origen):
+            os.makedirs(os.path.dirname(ruta_origen), exist_ok=True)
+            with open(ruta_origen, 'w') as f:
+                f.write("Este es un documento de prueba generado para la tesis.")
+        # -----------------
+
+        # 2. Generamos el nuevo nombre único
+        nombre_archivo = os.path.basename(ruta_origen) # "postulacion.pdf"
+        nombre, extension = os.path.splitext(nombre_archivo) # "postulacion", ".pdf"
+        
+        uuid_str = uuid_str = str(uuid.uuid4())[:6]
+        nuevo_nombre = f"{nombre}_{uuid_str}{extension}" # "postulacion_a1b2c3.pdf"
+
+        # 3. Preparamos la ruta de destino (donde se va a copiar)
+        ruta_destino_fisica = os.path.join(CARPETA_DESTINO, nuevo_nombre)
+
+        # 4. Nos aseguramos de que la carpeta destino exista
+        os.makedirs(CARPETA_DESTINO, exist_ok=True)
+
+        # 5. ¡LA MAGIA! Copiamos el archivo físico del Origen al Destino
+        shutil.copy(ruta_origen, ruta_destino_fisica)
+
+        # 6. Devolvemos la ruta que se va a guardar en la Base de Datos
+        # Es buena práctica guardar rutas relativas en la BD, no rutas absolutas como "C:/Usuarios/..."
+        ruta_para_bd = f"resources/documentos/prueba/{nuevo_nombre}"
+        return ruta_para_bd
+
+    # ---------------------------------------------------------
+    # 3. LOS PARÁMETROS CONDICIONALES (Traits)
+    # ---------------------------------------------------------
+    class Params:
+        # Etapa 1: Solicitud de Pasantía
+        solicitud = factory.Trait(
+            estado="revision",#factory.Faker('random_element', elements=['revision', 'aprobado']),
+            _doc_data=factory.Faker('random_element', elements=[
+                ("Carta de Postulación", "resources/formatos_pdf_BD/1. CARTA SOLICITUD DE PASANTIA.pdf"),
+                ("Carta de Aceptación", "resources/formatos_pdf_BD/2.CARTA ACEPTACION DEL PASANTE.pdf")
+            ])
+        )
+
+        # Etapa 2: Pasantía Aprobada
+        aprobada = factory.Trait(
+            estado="aprobado",
+            _doc_data=factory.Faker('random_element', elements=[
+                ("Carta de Aceptación", "resources/formatos_pdf_BD/2.CARTA ACEPTACION DEL PASANTE.pdf"),
+                ("Acta de Inicio De Ejecución de Pasantias", "resources/formatos_pdf_BD/3.ACTA DE INICIO.pdf"),
+                ("Contrato del Pasante", "resources/formatos_pdf_BD/5.CONTRATO DEL PASANTE.pdf"),
+                ("Inscripción de Pasantias", "resources/formatos_pdf_BD/6. INSCRIPCION DE PASANTIA.pdf"),
+            ])
+        )
+
+        # Etapa 3: Pasantía En Curso
+        en_curso = factory.Trait(
+            estado=factory.Faker('random_element', elements=['revision', 'aprobado']),
+            _doc_data=factory.Faker('random_element', elements=[
+                ("Cronograma de Actividades", "resources/formatos_pdf_BD/8.CRONOGRAMA DE ACTIVIDADES.pdf"),
+                ("Plan de Trabajo", "resources/formatos_pdf_BD/9.PLAN DE TRABAJO.pdf"),
+                ("Acta de Aprobación del Informe", "resources/formatos_pdf_BD/10. ACTA DE APROBACION DEL INFORME DE PASANTÍA.pdf"),
+                ("Autorización Presentación del Informe", "resources/formatos_pdf_BD/14. AUTORIZACION PRESENTACION DEL INFORME.pdf"),
+            ])
+        )
+
+        # Etapa 4: Pasantía Finalizada
+        finalizada = factory.Trait(
+            estado="aprobado",
+            _doc_data=factory.Faker('random_element', elements=[
+                ("Evaluacion", "resources/formatos_pdf_BD/EVALUACION.pdf"),
+                ("Evaluacion Final", "resources/formatos_pdf_BD/EVALUACION FINAL.pdf"),
+            ])
+        )
 
 class ConfiguracionFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:

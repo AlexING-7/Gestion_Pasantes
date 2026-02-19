@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
-    <height>672</height>
+    <width>500</width>
+    <height>700</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>500</width>
+    <height>700</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -176,15 +188,18 @@ QLineEdit:focus {
     background-color: #ffffff;
 }
 
-QLineEdit[state=&quot;valid&quot;] {
-                border-color: #2ecc71; /* Verde */
-  }
- QLineEdit[state=&quot;invalid&quot;] {
-                border-color: #e74c3c; /* Rojo */
-  }
- QLineEdit[state=&quot;empty&quot;] {
-        border-color: #555; /* Gris */
- }
+QLineEdit[estado=&quot;valido&quot;] {
+        border: 2px solid #20c997; 
+        background-color: #f0fdf8; /* Blanco con un levísimo toque esmeralda */
+        color: #003366;
+    }
+
+    /* ESTADO INVÁLIDO: Rojo carmesí */
+    QLineEdit[estado=&quot;invalido&quot;] {
+        border: 2px solid #e63946; 
+        background-color: #fff0f1; /* Blanco con un levísimo toque rojo */
+        color: #003366;
+    }
 
 </string>
            </property>
@@ -432,10 +447,16 @@ QLineEdit[state=&quot;valid&quot;] {
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
                <widget class="QPlainTextEdit" name="direccion_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">QPlainTextEdit{
 	border:2px solid;
-	border-color: rgb(0, 51, 102);
+	border-color: rgb(225, 225, 255);
 }
 </string>
                 </property>

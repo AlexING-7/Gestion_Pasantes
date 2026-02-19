@@ -3,9 +3,10 @@ import os
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from PySide6.QtCore import QUrl,Qt
-from PySide6.QtWebEngineCore import QWebEngineSettings,QWebEnginePage
+from PySide6.QtWebEngineCore import QWebEngineSettings
 from herramientas.plantilla_ui import cargar_ui
 from PySide6.QtWidgets import QMessageBox
+from modelos.modulo import DocumentoAdjunto,session
 
 
 class WebViewDoc():
@@ -13,6 +14,9 @@ class WebViewDoc():
     def __init__(self,documento):
         self.window=cargar_ui("UI/documento.ui")
         self.documento=documento
+        self.window.btnAprobar.clicked.connect(self.Aprobar)
+        self.window.btnRechazar.clicked.connect(self.Rechazar)
+        self.window.btnCerrar.clicked.connect(self.close)
         self.web()
         
     def exec(self):
@@ -22,7 +26,7 @@ class WebViewDoc():
         self.window.close() 
         
     def web(self):
-        
+        self.window.web_view:QWebEnginePage
         self.window.web_view.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
         self.window.web_view.settings().setAttribute(QWebEngineSettings.PdfViewerEnabled, True)
         self.window.web_view.setContextMenuPolicy(Qt.NoContextMenu)
@@ -50,3 +54,19 @@ class WebViewDoc():
         # Desactivar más características
         #self.window.web_view.settings().setAttribute(QWebEngineSettings.WebAttribute.ShowScrollBars, False)
         self.window.web_view.settings().setAttribute(QWebEngineSettings.WebAttribute.AllowWindowActivationFromJavaScript, False) 
+        
+    def Aprobar(self):
+        self.documento:DocumentoAdjunto
+        self.documento.estado="aprobado"
+        session.commit()
+        QMessageBox.information(self.window, "Éxito", "Archivo Aprobado correctamente.")
+        self.close()
+        
+    def Rechazar(self):
+        self.documento
+        self.documento.estado="rechazado"
+        session.commit()
+        QMessageBox.information(self.window, "Éxito", "Archivo Rechazado correctamente.")
+        self.close()
+        
+        

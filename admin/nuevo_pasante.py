@@ -9,9 +9,11 @@ from PySide6.QtGui import QRegularExpressionValidator, QValidator
 from PySide6.QtCore import QRegularExpression
 from PySide6.QtCore import QFile, Qt, QDate
 # from PySide6.QtUiTools import QUiLoader
-from modelos.modulo import Pasantia,Tutor_Academico,Student,Enterprise,Tutor_Empresarial,session
+from modelos.modulo import Pasantia,Tutor_Academico,Student,Enterprise,Tutor_Empresarial,session,Configuracion
 # from getmac import get_mac_address as gma
 from herramientas.plantilla_ui import cargar_ui
+from sqlalchemy import select
+from herramientas.conversiones import convertir_a_json
 
 from dotenv import load_dotenv
 
@@ -33,7 +35,8 @@ class NewPasante:
     
     def close(self):
         self.window.close()   
-    
+
+        
     def listas(self):
         for empresa in self.empresas:
             self.window.empresa_input.addItem(f"{empresa.razon_social}:{empresa.rif}",empresa)
@@ -41,6 +44,10 @@ class NewPasante:
             self.window.estudiante_input.addItem(f"{estudiante.primer_nombre}:{estudiante.cedula},",estudiante)
         for tutorA in self.tutorA:
             self.window.tutorA_input.addItem(f"{tutorA.primer_nombre}:{tutorA.cedula},",tutorA)
+        carreras=session.scalars(select(Configuracion.valor).where(Configuracion.clave=="carreras")).one_or_none()
+        carreras_json=convertir_a_json(carreras)
+        for i in carreras_json["carreras"]:
+            self.window.carrera_input.addItem(i,i) 
     
     def lista_tutoresE(self):
         
@@ -48,6 +55,12 @@ class NewPasante:
         print(empresa)
         for tutor in empresa.tutores:
             self.window.tutorE_input.addItem(f"{tutor.primer_nombre}:{tutor.cedula},",tutor)
+            
+    def show_sucursal(self,x):
+        if x:
+            self.window.frame.setHidden(True)
+        else:
+            self.window.frame.setHidden(False)        
             
     def registrar(self):
         pasante=Pasantia()
@@ -76,6 +89,10 @@ class NewPasante:
     
     def actualizar(self):
         self.datos_pasante(self.pasante)
+        self.pasante:Pasantia
+        self.pasante.empresa=self.window.empresa_input.currentData()
+        self.pasante.tutor_academico=self.window.tutorA_input.currentData()
+        self.pasante.tutor_empresarial=self.window.tutorE_input.currentData()
         session.commit()
         QMessageBox.information(self.window,"Pasante Actualizado",
                                     "Se a actualizado satisfactoriamente",
@@ -105,16 +122,28 @@ class NewPasante:
         if not self.pasante:
             self.window.RegistrarButton.setText("Registrar")
             self.window.RegistrarButton.clicked.connect(self.registrar)
+            self.window.checkBox.toggled.connect(self.show_sucursal)
         else:
             self.datos()
             self.window.RegistrarButton.setText("Actualizar")
-            self.window.RegistrarButton.clicked.connect(self.actualizar)     
+            self.window.RegistrarButton.clicked.connect(self.actualizar)
+            self.window.checkBox.toggled.connect(self.show_sucursal)     
         self.window.empresa_input.currentIndexChanged.connect(self.lista_tutoresE)
-        self.window.btnAtras.clicked.connect(lambda: self.window.stackedWidget.setCurrentIndex(0))
-        self.window.btnSiguiente.clicked.connect(lambda: self.window.stackedWidget.setCurrentIndex(1))
+        self.window.btnAtras.clicked.connect(self.ir_a_anterior)
+        self.window.btnSiguiente.clicked.connect(self.ir_a_siguiente)
 
         #self.validaciones()
-
+    def ir_a_siguiente(self):
+        indice_actual = self.window.stackedWidget.currentIndex()
+        total_paginas = self.window.stackedWidget.count()
+        proximo_indice = (indice_actual + 1) % total_paginas
+        self.window.stackedWidget.setCurrentIndex(proximo_indice)
+        
+    def ir_a_anterior(self):
+        indice_actual = self.window.stackedWidget.currentIndex()
+        total_paginas = self.window.stackedWidget.count()
+        indice_anterior = (indice_actual - 1 + total_paginas) % total_paginas
+        self.window.stackedWidget.setCurrentIndex(indice_anterior)
 
     def datos(self):
         index1=self.window.estudiante_input.findData(self.pasante.student)

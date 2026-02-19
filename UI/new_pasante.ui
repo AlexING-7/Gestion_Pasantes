@@ -64,7 +64,7 @@ QLabel{
      <property name="frameShadow">
       <enum>QFrame::Shadow::Raised</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_13" stretch="14">
+     <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -86,17 +86,11 @@ QLabel{
          <string notr="true">#frame_3{
 	background-color: transparent;
 }
-QLineEdit, QComboBox, QDateEdit, QSpinBox{
+QLineEdit, QDateEdit, QSpinBox{
     border: 1px solid #ced4da;
     border-radius: 4px;
     padding: 5px 10px;
     background-color: #f8f9fa;
-}
-QComboBox:on {
-	color:#333333;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    background-color: #ffffff;
 }
 QLineEdit:focus {
     border: 1px solid #0056b3;
@@ -141,7 +135,7 @@ QLineEdit[state=&quot;valid&quot;] {
 background-color: transparent;}</string>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page">
             <property name="styleSheet">
@@ -150,7 +144,7 @@ background-color: transparent;
 }
 </string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,1,1,1,1,1,8,1">
+            <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,1,1,1,1,1,8">
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -210,6 +204,57 @@ background-color: transparent;
                  </item>
                  <item>
                   <widget class="QComboBox" name="estudiante_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
                    <property name="placeholderText">
                     <string>Ingrese Estudiante</string>
                    </property>
@@ -228,6 +273,57 @@ background-color: transparent;
                  </item>
                  <item>
                   <widget class="QComboBox" name="empresa_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
                    <property name="placeholderText">
                     <string>Ingrese Empresa</string>
                    </property>
@@ -253,6 +349,57 @@ background-color: transparent;
                  </item>
                  <item>
                   <widget class="QComboBox" name="tutorA_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
                    <property name="placeholderText">
                     <string>Ingrese Tutor Academico</string>
                    </property>
@@ -271,6 +418,57 @@ background-color: transparent;
                  </item>
                  <item>
                   <widget class="QComboBox" name="tutorE_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
                    <property name="placeholderText">
                     <string>Ingrese Tutor Empresarial</string>
                    </property>
@@ -332,6 +530,57 @@ background-color: transparent;
                  </item>
                  <item>
                   <widget class="QComboBox" name="estado_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
                    <property name="placeholderText">
                     <string/>
                    </property>
@@ -382,6 +631,57 @@ background-color: transparent;
                  </item>
                  <item>
                   <widget class="QComboBox" name="carrera_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
                    <property name="placeholderText">
                     <string>Ingrese carrera</string>
                    </property>
@@ -414,7 +714,56 @@ background-color: transparent;
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="semestre_input"/>
+                  <widget class="QSpinBox" name="semestre_input">
+                   <property name="styleSheet">
+                    <string notr="true">
+/* Estilo de los botones laterales */
+QSpinBox::up-button, QSpinBox::down-button {
+    subcontrol-origin: border;
+    width: 25px;
+    border: none;
+    background-color: transparent;
+}
+
+QSpinBox::up-button {
+    subcontrol-position: top right;
+    border-top-right-radius: 3px;
+}
+
+QSpinBox::down-button {
+    subcontrol-position: bottom right;
+    border-bottom-right-radius: 3px;
+}
+
+/* Manejo de los iconos (Flechas) */
+QSpinBox::up-arrow {
+    image: url(resources/images/arrow-up-svgrepo-com.svg); /* Tu icono aquí */
+    width: 15px;
+    height: 15px;
+}
+
+QSpinBox::down-arrow {
+    image: url(resources/images/arrow-down-svgrepo-com.svg); /* Tu icono aquí */
+    width: 15px;
+    height: 15px;
+}
+
+/* Efecto Hover para feedback visual */
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background-color: rgb(225, 225, 225);
+}
+
+QSpinBox::up-button:pressed, QSpinBox::down-button:pressed {
+    background-color: rgb(225, 225, 225);
+}</string>
+                   </property>
+                   <property name="minimum">
+                    <number>5</number>
+                   </property>
+                   <property name="maximum">
+                    <number>10</number>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -446,6 +795,12 @@ background-color: transparent;
                 font-size: 13px;
                 background-color: white;
             }
+QDateEdit::down-arrow {
+   image: url(resources/images/down-arrow-svgrepo-com.svg); /* Ruta a tu imagen */
+    width: 12px;  /* Ajusta el tamaño del icono */
+    height: 12px;
+}
+
             QDateEdit::drop-down {
                 subcontrol-origin: padding;
                 subcontrol-position: top right;
@@ -503,6 +858,12 @@ background-color: transparent;
                 font-size: 13px;
                 background-color: white;
             }
+QDateEdit::down-arrow {
+   image: url(resources/images/down-arrow-svgrepo-com.svg); /* Ruta a tu imagen */
+    width: 12px;  /* Ajusta el tamaño del icono */
+    height: 12px;
+}
+
             QDateEdit::drop-down {
                 subcontrol-origin: padding;
                 subcontrol-position: top right;
@@ -553,52 +914,6 @@ background-color: transparent;
                 </size>
                </property>
               </spacer>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7">
-               <item>
-                <spacer name="horizontalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Orientation::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btnSiguiente">
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">
-QPushButton{
-	background-color: rgb(0, 51, 102);
-	border: none;
-    border-radius: 6px;
-	font: 400 14pt &quot;Segoe UI&quot;;
-	color: rgb(255, 255, 255);
-	margin-left:20px;
-	margin-right:20px;
-	padding:4px;
- }
-
-
-QPushButton:hover {
-    background-color: #004a99;
-}
-</string>
-                 </property>
-                 <property name="text">
-                  <string>Siguiente</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
              </item>
             </layout>
            </widget>
@@ -653,7 +968,7 @@ background-color: transparent;
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_4">
                  <item>
@@ -847,7 +1162,8 @@ background-color: transparent;
              <item>
               <widget class="QCheckBox" name="checkBox">
                <property name="styleSheet">
-                <string notr="true">QCheckBox { spacing: 15px; font-size: 15px; }
+                <string notr="true">QCheckBox {background-color: transparent; spacing: 15px; font-size: 15px; }
+
 
 QCheckBox::indicator {
  width: 12px; height: 12px;
@@ -905,7 +1221,7 @@ QCheckBox::indicator:checked {
                   <item>
                    <widget class="QLabel" name="primernombre_label_8">
                     <property name="text">
-                     <string>Dirección</string>
+                     <string>Dirección de la Sucursal</string>
                     </property>
                    </widget>
                   </item>
@@ -925,56 +1241,73 @@ QCheckBox::indicator:checked {
                </layout>
               </widget>
              </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_10">
-               <item>
-                <spacer name="horizontalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Orientation::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btnAtras">
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">
-QPushButton{
-	background-color: rgb(0, 51, 102);
-	border: none;
-    border-radius: 6px;
-	font: 400 14pt &quot;Segoe UI&quot;;
-	color: rgb(255, 255, 255);
-	margin-left:20px;
-	margin-right:20px;
-	padding:4px;
-
- }
-
-
-QPushButton:hover {
-    background-color: #004a99;
-}
-</string>
-                 </property>
-                 <property name="text">
-                  <string>Atras</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
             </layout>
            </widget>
           </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QPushButton" name="btnAtras">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+QPushButton{
+	background-color: transparent;
+	border:none;
+}
+QPushButton:hover{
+	background-color: rgb(214, 214, 214);
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>resources/images/arrow-left.svg</normaloff>resources/images/arrow-left.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>30</width>
+               <height>30</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnSiguiente">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+QPushButton{
+	background-color: transparent;
+	border:none;
+}
+QPushButton:hover{
+	background-color: rgb(214, 214, 214);
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>resources/images/right-arrow.svg</normaloff>resources/images/right-arrow.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>30</width>
+               <height>30</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QPushButton" name="RegistrarButton">

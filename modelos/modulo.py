@@ -2,7 +2,8 @@
 
 from sqlalchemy import (create_engine,ForeignKey,Column,Integer,String,Date,Float,DateTime,Boolean,event)
 from sqlalchemy.orm import Mapped, mapped_column,declarative_base,relationship,sessionmaker
-from sqlalchemy.dialects.mysql import LONGTEXT
+from sqlalchemy.dialects.mysql import LONGTEXT, JSON
+from sqlalchemy import func
 from typing import Optional,List
 from datetime import date, datetime
 import socket
@@ -20,6 +21,8 @@ class BaseModel(Base):
     __allow_unmapped__=True
     
     id: Mapped[int] = mapped_column(primary_key=True, sort_order=-1)
+    created_at: Mapped[datetime] = mapped_column(insert_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(insert_default=func.now(), onupdate=func.now())
     
 class User(BaseModel):
     __tablename__="users"
@@ -62,7 +65,7 @@ class Student(BaseModel):
     segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
     primer_apellido: Mapped[str]=mapped_column(String(20))
     segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
-    sexo: Mapped[Optional[str]] = mapped_column(String(3))
+    sexo: Mapped[Optional[str]] = mapped_column(String(10))
     cedula:Mapped[int]=mapped_column(unique=True)
     telefono: Mapped[str]=mapped_column(String(11),nullable=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
@@ -78,6 +81,18 @@ class Student(BaseModel):
     
     def __repr__(self) -> str:
         return f"Student {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
+    
+@event.listens_for(Student, "before_insert")
+@event.listens_for(Student, "before_update")
+def _student_empty_strings_to_none(mapper, connection, target):
+    """Convertir atributos tipo str con cadena vacía a None antes de persistir."""
+    for col in target.__table__.columns:
+        try:
+            val = getattr(target, col.name)
+        except AttributeError:
+            continue
+        if isinstance(val, str) and val == "":
+            setattr(target, col.name, None)
 
 class Enterprise(BaseModel):
     __tablename__="enterprises"
@@ -103,6 +118,17 @@ class Enterprise(BaseModel):
     def __repr__(self) -> str:
         return f"Enterprise {self.razon_social} RIF:{self.rif}"
     
+@event.listens_for(Enterprise, "before_insert")
+@event.listens_for(Enterprise, "before_update")
+def _enterprise_empty_strings_to_none(mapper, connection, target):
+    """Convertir atributos tipo str con cadena vacía a None antes de persistir."""
+    for col in target.__table__.columns:
+        try:
+            val = getattr(target, col.name)
+        except AttributeError:
+            continue
+        if isinstance(val, str) and val == "":
+            setattr(target, col.name, None)   
     
 class Tutor_Academico(BaseModel):
     __tablename__="tutores_academicos"
@@ -111,7 +137,7 @@ class Tutor_Academico(BaseModel):
     segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
     primer_apellido: Mapped[str]=mapped_column(String(20))
     segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
-    sexo: Mapped[Optional[str]] = mapped_column(String(3))
+    sexo: Mapped[Optional[str]] = mapped_column(String(10))
     foto: Mapped[str]=mapped_column(String(255),nullable=True)
     cedula:Mapped[int]=mapped_column(unique=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
@@ -127,6 +153,19 @@ class Tutor_Academico(BaseModel):
 
     def __repr__(self) -> str:
         return f"Tutor Academico {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
+    
+@event.listens_for(Tutor_Academico, "before_insert")
+@event.listens_for(Tutor_Academico, "before_update")
+def _tutor_academicos_empty_strings_to_none(mapper, connection, target):
+    """Convertir atributos tipo str con cadena vacía a None antes de persistir."""
+    for col in target.__table__.columns:
+        try:
+            val = getattr(target, col.name)
+        except AttributeError:
+            continue
+        if isinstance(val, str) and val == "":
+            setattr(target, col.name, None)
+
 
 class Tutor_Empresarial(BaseModel):
     __tablename__="tutores_empresariales"
@@ -136,7 +175,7 @@ class Tutor_Empresarial(BaseModel):
     segundo_nombre: Mapped[str]=mapped_column(String(20),nullable=True)
     primer_apellido: Mapped[str]=mapped_column(String(20))
     segundo_apellido: Mapped[str]=mapped_column(String(20),nullable=True)
-    sexo: Mapped[Optional[str]] = mapped_column(String(3), nullable=True)
+    sexo: Mapped[Optional[str]] = mapped_column(String(10), nullable=True)
     foto: Mapped[str]=mapped_column(String(255),nullable=True)
     cedula:Mapped[int]=mapped_column(unique=True)
     email: Mapped[str]=mapped_column(String(100), unique=True)
@@ -156,6 +195,18 @@ class Tutor_Empresarial(BaseModel):
     
     def __repr__(self) -> str:
         return f"Tutores Empresariales {self.primer_nombre} {self.primer_apellido} CIV:{self.cedula}"
+@event.listens_for(Tutor_Empresarial, "before_insert")
+@event.listens_for(Tutor_Empresarial, "before_update")
+def _tutor_empresarial_empty_strings_to_none(mapper, connection, target):
+    """Convertir atributos tipo str con cadena vacía a None antes de persistir."""
+    for col in target.__table__.columns:
+        try:
+            val = getattr(target, col.name)
+        except AttributeError:
+            continue
+        if isinstance(val, str) and val == "":
+            setattr(target, col.name, None)
+
 
 class Pasantia(BaseModel):
     __tablename__ = "pasantias"
@@ -235,7 +286,7 @@ class Evaluacion(BaseModel):
     nota_tutor_aca: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     nota_tutor_emp: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     exposicion: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
-    taller_induccion: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    taller_induccion: Mapped[Optional[bool]] = mapped_column(Boolean, default=False)
     total: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     
     pasantia: Mapped["Pasantia"] = relationship(
@@ -254,7 +305,7 @@ class DocumentoAdjunto(BaseModel):
     tipo_de_documento: Mapped[str] = mapped_column(String(100))
     ruta: Mapped[str] = mapped_column(String(255))
     fecha_subida: Mapped[Optional[datetime]] = mapped_column(DateTime, default=datetime.utcnow)
-    estado: Mapped[str] = mapped_column(String(20), default="revision")  # aprobado, revision, denegado
+    estado: Mapped[str] = mapped_column(String(20), default="revision")  # aprobado, revision, rechazado
 
     pasantia: Mapped["Pasantia"] = relationship(
         "Pasantia",
@@ -268,7 +319,7 @@ class DocumentoAdjunto(BaseModel):
 class Configuracion(BaseModel):
     __tablename__ = "configuraciones"
     clave:Mapped[str] = mapped_column(String(100))
-    valor:Mapped[str] = mapped_column(String(100))
+    valor:Mapped[str] = mapped_column(LONGTEXT)
 
     def __repr__(self) -> str:
         return (f"Variable(clave={self.clave!r}, valor={self.valor!r})")
@@ -281,8 +332,8 @@ class SistemaLog(BaseModel):
     accion: Mapped[str] = mapped_column(String(20), nullable=False)
     tabla_afectada: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     id_registro_afectado: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    valores_anteriores = Column(LONGTEXT, nullable=True)
-    valores_nuevos = Column(LONGTEXT, nullable=True)
+    valores_anteriores = Column(JSON, nullable=True)
+    valores_nuevos = Column(JSON, nullable=True)
     mensaje: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
     ip_maquina: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
 
@@ -294,8 +345,8 @@ class SistemaLog(BaseModel):
 
     @classmethod
     def crear_log(cls, session, usuario: str, accion: str, tabla_afectada: Optional[str] = None,
-                  id_registro_afectado: Optional[int] = None, valores_anteriores: Optional[str] = None,
-                  valores_nuevos: Optional[str] = None, mensaje: Optional[str] = None,
+                  id_registro_afectado: Optional[int] = None, valores_anteriores: Optional[dict] = None,
+                  valores_nuevos: Optional[dict] = None, mensaje: Optional[str] = None,
                   ip_maquina: Optional[str] = None):
         # Si no se proporciona `ip_maquina`, intentar detectar la IP local
         if ip_maquina is None:

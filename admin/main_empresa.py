@@ -35,16 +35,24 @@ class StackEnterprise():
         self.window.frame_TablaEmpresa.installEventFilter(main)
         self.conectar_eventos()
     
+    def offset_count(self):
+        return (self.numero_pagina - 1) * self.tamano_pagina
+    
     def eventFilter(self,source,event):
         
         if source == self.window.frame_TablaEmpresa and event.type() == QEvent.Type.Resize:
-            self.header()
             height=self.window.tabla_Empresas.height()
             self.tamano_pagina=int(height/25.4)
             self.pag_tabla_empresa()
             print("Ejecutando Empresa")                   
-            
+    def listas(self):
+        self.window.comboRubros.clear()
+        rubros=session.scalars(select(Enterprise.rubro)).all()
+        self.window.comboRubros.addItem('Todas los Rubros',None)
+        for i in set(rubros):
+            self.window.comboRubros.addItem(i,i)         
     def conectar_eventos(self):
+        self.listas()
         self.window.btnExportarEmpr.clicked.connect(self.exportar)
         self.window.btnNuevaEmpr.clicked.connect(self.open_empresa)
         #self.window.regresarButton.clicked.connect(lambda :self.window.StackedEstudiantes.setCurrentIndex(0))
@@ -60,18 +68,20 @@ class StackEnterprise():
             else:
                 search_icon = self.window.searchEmpr.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView)
             self.search_icon = self.window.searchEmpr.addAction(search_icon, QLineEdit.ActionPosition.LeadingPosition)
-                     
-    def ver_estudiantes(self):
-        self.window.StackedEmpresas.setCurrentIndex(1)
-    
+    def indice(self):
+        ind1=1+self.offset_count()
+        ind2=self.numero_pagina*self.tamano_pagina
+        self.window.btnIndEmpr.setText(f"{ind1}-{ind2 if ind2<self.all_data else self.all_data} de {self.all_data}")
+                        
     def cambio_programa(self):
         self.numero_pagina=1
-        self.window.btnIndEmpr.setText(str(self.numero_pagina))
         self.pag_tabla_empresa()
     
     def header(self):
         
         header=self.window.tabla_Empresas.horizontalHeader()
+        header_vertical = self.window.tabla_Empresas.verticalHeader()
+        header_vertical.setDefaultSectionSize(30)
         #RIF
         self.window.tabla_Empresas.setColumnWidth(0, 80)
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)
@@ -96,18 +106,19 @@ class StackEnterprise():
         self.window.tabla_Empresas.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.window.tabla_Empresas.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         
-    def pag_tabla_empresa(self,search=""):
-        offset_count = (self.numero_pagina - 1) * self.tamano_pagina
-        stmt = self.get_data(offset_count,search)
-        empresas=session.scalars(stmt).all()
+    def pag_tabla_empresa(self):
+        self.header()
+        empresas=self.get_data()
         tabla=self.window.tabla_Empresas
         if not empresas and tabla.rowCount():
             QMessageBox.warning(self.window, "Aviso", "Busqueda no encontrada")
             return
-        if len(empresas)<15:
+        if (self.all_data-self.offset_count())<=self.tamano_pagina:
            self.window.btnSigEmpr.setEnabled(False)
         else:
             self.window.btnSigEmpr.setEnabled(True)
+
+        self.indice()
         tabla.setRowCount(0)
         for fila,empresa in enumerate(empresas):
             tabla.insertRow(fila)
@@ -124,69 +135,92 @@ class StackEnterprise():
             layout_botones.setContentsMargins(5, 2, 5, 2) 
             layout_botones.setSpacing(10) 
 
-            boton_ver=QPushButton("Ver")
+            boton_ver=QPushButton("")
             boton_ver.clicked.connect(lambda checked,x=empresa: self.read_empresa(x))
-            btn_editar = QPushButton("Editar")
+            btn_editar = QPushButton("")
             btn_editar.clicked.connect(lambda checked,x=empresa: self.edit_empresa(x))
-            btn_borrar = QPushButton("Borrar")
+            btn_borrar = QPushButton("")
             btn_borrar.clicked.connect(lambda checked,x=empresa: self.delete_empresa(x))
 
-            btn_editar.setStyleSheet("background-color: #4CAF50; color: white;") 
-            btn_borrar.setStyleSheet("background-color: #f44336; color: white;")                 
-            boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
+            btn_editar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/edit-2-svgrepo-com-blue.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        background-color: #808080;
+                                        }""") 
+            btn_borrar.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/delete-1487-svgrepo-comR.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        
+                                        background-color: #808080;
+                                        }""")                 
+            boton_ver.setStyleSheet("""QPushButton{background-color: transparent;
+                                        border:none;
+                                        qproperty-icon: url(resources/images/read-svgrepo-com.svg);
+                                        qproperty-iconSize: 20px 20px;}
+                                        
+                                        QPushButton:hover{
+                                        background-color: #808080;
+                                        }""") 
 
             layout_botones.addWidget(boton_ver)
-            layout_botones.addWidget(btn_editar)
-            layout_botones.addWidget(btn_borrar)
+            if self.main.user_authenticated.rol=="Administrador":
+                layout_botones.addWidget(btn_editar)
+                layout_botones.addWidget(btn_borrar)
 
             tabla.setCellWidget(fila, 4, widget_contenedor)
         
 
-    def get_data(self,offset_count,search=""):
-             
-        if self.window.comboRubros.currentText()=="Todos los Rubros":
-            return select(Enterprise).where(
-                                        or_(
-                                            Enterprise.rif.ilike(f"{search}%"),
-                                            Enterprise.razon_social.ilike(f"{search}%")
-                                        )
-                                        ).limit(self.tamano_pagina).offset(offset_count)
-        else:
-            return select(Enterprise).where(
-                                        and_(
-                                        Enterprise.rubro==self.window.comboRubros.currentText(),
-                                        or_(
-                                            Enterprise.rif.ilike(f"{search}%"),
-                                            Enterprise.razon_social.ilike(f"{search}%")
-                                        )
-                                        )
-                                        ).limit(self.tamano_pagina).offset(offset_count)
-            
-    def get_data_all(self,search=""):
-             
-        if self.window.comboRubros.currentText()=="Todos los Rubros":
-            return select(Enterprise).where(
+    def get_data(self):
+        search=self.window.searchEmpr.text()
+        self.all_data=len(self.get_data_all())
+        if not self.window.comboRubros.currentData():
+            stmt=select(Enterprise).where(
                                         or_(
                                             Enterprise.rif.ilike(f"{search}%"),
                                             Enterprise.razon_social.ilike(f"{search}%")
                                         )
                                         )
         else:
-            return select(Enterprise).where(
+            stmt=select(Enterprise).where(
                                         and_(
-                                        Enterprise.rubro==self.window.comboRubros.currentText(),
+                                        Enterprise.rubro==self.window.comboRubros.currentData(),
                                         or_(
                                             Enterprise.rif.ilike(f"{search}%"),
                                             Enterprise.razon_social.ilike(f"{search}%")
                                         )
                                         )
                                         )
+        return session.scalars(stmt.limit(self.tamano_pagina).offset(self.offset_count())).all()
+    def get_data_all(self):
+        search=self.window.searchEmpr.text()     
+        if not self.window.comboRubros.currentData():
+            stmt=select(Enterprise).where(
+                                        or_(
+                                            Enterprise.rif.ilike(f"{search}%"),
+                                            Enterprise.razon_social.ilike(f"{search}%")
+                                        )
+                                        )
+        else:
+            stmt=select(Enterprise).where(
+                                        and_(
+                                        Enterprise.rubro==self.window.comboRubros.currentData(),
+                                        or_(
+                                            Enterprise.rif.ilike(f"{search}%"),
+                                            Enterprise.razon_social.ilike(f"{search}%")
+                                        )
+                                        )
+                                        )
+        return session.scalars(stmt).all()
 
     def search(self):
         self.numero_pagina=1
-        self.window.btnIndEmpr.setText(str(self.numero_pagina))
-        search_query=self.window.searchEmpr.text()
-        self.pag_tabla_empresa(search_query)
+        self.pag_tabla_empresa()
             
     def change_table(self,buttom):
         
@@ -194,9 +228,7 @@ class StackEnterprise():
             self.numero_pagina=self.numero_pagina-1 if self.numero_pagina>1 else 1
         elif buttom.lower()=="siguiente":
             self.numero_pagina+=1
-        self.window.btnIndEmpr.setText(str(self.numero_pagina))
-        search_query=self.window.searchEmpr.text()
-        self.pag_tabla_empresa(search_query)
+        self.pag_tabla_empresa()
             
     def read_empresa(self,empresa:Enterprise):
         self.window.rif_Emp.clear()
@@ -211,18 +243,62 @@ class StackEnterprise():
         self.window.tlf_Emp.setText(empresa.telefono)
         self.window.direccion_Emp.setText(str(empresa.direccion))
         self.window.StackedEmpresas.setCurrentIndex(1)
+        if self.main.user_authenticated.rol=="Coordinador":
+            self.window.editarEmp.setHidden(True)
+            self.window.EliminarEmp.setHidden(True)
         self.window.editarEmp.clicked.connect(lambda: self.edit_empresa(empresa))
         self.window.EliminarEmp.clicked.connect(lambda: self.delete_empresa(empresa))
         self.window.regresarButtonEmp.clicked.connect(lambda: self.window.StackedEmpresas.setCurrentIndex(0))
-        self.pag_tabla_pasantes(empresa.pasantias)
+        self.window.NumPasanteEmpr.setText("1")
+        self.window.SigPasanteEmpr.clicked.connect(lambda:self.cambiar_pagina(1,empresa.pasantias))
+        self.window.AntPasanteEmpr.clicked.connect(lambda:self.cambiar_pagina(-1,empresa.pasantias))
+        self.pag_tabla_pasantes(empresa.pasantias[0:4])
+        
+    def cambiar_pagina(self, direccion: int, lista_datos: list):
+        """
+        Controla la paginación y actualiza la tabla de pasantes.
+        
+        :param direccion: 1 para Siguiente, -1 para Anterior.
+        :param lista_datos: La lista completa de tutores.pasantias.
+        """
+        self.pagina_actual=int(self.window.NumPasanteEmpr.text())
+        self.elementos_por_pagina=4
+        # 1. Calcular el total de páginas
+        total_elementos = len(lista_datos)
+        total_paginas = (total_elementos + self.elementos_por_pagina - 1) // self.elementos_por_pagina
+
+        # 2. Actualizar el índice de página actual con validación
+        nueva_pagina = self.pagina_actual + direccion
+        
+        if nueva_pagina < 1:
+            nueva_pagina = 1
+        elif nueva_pagina > total_paginas:
+            nueva_pagina = total_paginas
+
+        # Si la página no cambió realmente (ej. ya estás en la 1), no hacemos nada
+        if nueva_pagina == self.pagina_actual and total_elementos > 0:
+            return
+
+        self.pagina_actual = nueva_pagina
+        self.window.NumPasanteEmpr.setText(str(self.pagina_actual))
+
+        # 3. Calcular los índices de rebanado (slice) para la lista
+        # Ejemplo: Página 1 -> inicio 0, fin 10
+        inicio = (self.pagina_actual - 1) * self.elementos_por_pagina
+        fin = min(inicio + self.elementos_por_pagina, total_elementos)
+
+        # 4. Obtener el subconjunto de datos
+        datos_paginados = lista_datos[inicio:fin]
+
+        # 5. Llamar a tu función existente para renderizar la tabla
+        # Pasamos la entidad (datos recortados), y los índices para referencia visual
+        self.pag_tabla_pasantes(datos_paginados)    
+        
     
     def pag_tabla_pasantes(self,entidad):
-        n=0
-        m=4
+
         indice=self.window.NumPasanteEmpr
-        indice.setText(f"{n}-{m} de 4")
-        siguiente=self.window.SigPasanteEmpr
-        anterior=self.window.AntPasanteEmpr
+
         header=self.tabla_pasantes.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
@@ -233,7 +309,7 @@ class StackEnterprise():
         self.tabla_pasantes.setRowCount(0)
         self.tabla_pasantes.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.tabla_pasantes.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        for fila,pasante in enumerate(entidad[n:m]):
+        for fila,pasante in enumerate(entidad):
             pasante:Pasantia
             self.tabla_pasantes.insertRow(fila)
             
@@ -251,16 +327,19 @@ class StackEnterprise():
             layout_botones.setSpacing(10) 
 
             boton_ver=QPushButton("Ver")
-            boton_ver.clicked.connect(lambda checked,x=pasante: self.read_pasante(x))
+            boton_ver.clicked.connect(lambda checked,x=pasante: read_pasante(x))
             boton_ver.setStyleSheet("background-color: #3d8ec9; color: white; font-weight: bold;") 
             
             layout_botones.addWidget(boton_ver)
             self.tabla_pasantes.setCellWidget(fila, 5, widget_contenedor)
-
-            
-    def read_pasante(self,pasante:Pasantia):
-        self.window.PasantiasButton.click()
-        self.main.pasante.read_pasante(pasante)
+        
+        def read_pasante(pasante:Pasantia):
+            if self.main.user_authenticated.rol=="Administrador":
+                self.window.PasantiasButton.click()
+                self.main.pasante.read_pasante(pasante)
+            else:
+                self.window.btnPasante.click()
+                self.main.pasante.datos(pasante)
     
     def edit_empresa(self,empresa):
         from admin.nuevo_empresa import NewEnterprise
@@ -311,8 +390,7 @@ class StackEnterprise():
             try:
                 
                 # Llamas a tu función de exportación aquí (Estrategia A o B)
-                stmt=self.get_data_all(self.window.searchEmpr.text())
-                exportar_modelo_a_excel(session.scalars(stmt).all(),archivo)
+                exportar_modelo_a_excel(self.get_data_all(),archivo,Enterprise)
                 
                 QMessageBox.information(self.main, "Éxito", "La base de datos se exportó correctamente.")
             except Exception as e:
