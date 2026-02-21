@@ -605,7 +605,7 @@ font: 350 italic 9pt &quot;Segoe UI&quot;;</string>
          <number>0</number>
         </property>
         <property name="currentIndex">
-         <number>7</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="Pag1_Inicio">
          <property name="enabled">
@@ -2027,7 +2027,7 @@ border-radius:4px;
              <string notr="true"/>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="gestion">
              <property name="styleSheet">
@@ -9480,6 +9480,18 @@ border-radius:4px;
              <layout class="QGridLayout" name="gridLayout">
               <item row="0" column="0">
                <widget class="ShadowFrame" name="frame_38">
+                <property name="minimumSize">
+                 <size>
+                  <width>900</width>
+                  <height>600</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>1200</width>
+                  <height>850</height>
+                 </size>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">#frame_38{
 	background-color: #FFFAFA;
@@ -11939,22 +11951,10 @@ font: 16pt &quot;Segoe UI&quot;;</string>
                    <property name="frameShadow">
                     <enum>QFrame::Shadow::Raised</enum>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_27" stretch="1,1,1,1,1">
+                   <layout class="QHBoxLayout" name="horizontalLayout_27" stretch="1,1,1,1">
                     <property name="topMargin">
                      <number>0</number>
                     </property>
-                    <item>
-                     <widget class="QPushButton" name="btnviewDocumentos_2">
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(0, 51, 102);
-padding:8px;
-font: 600 12pt &quot;Segoe UI&quot;;</string>
-                      </property>
-                      <property name="text">
-                       <string>Otros Datos</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item>
                      <widget class="QPushButton" name="btnviewDocumentos">
                       <property name="styleSheet">
@@ -12924,7 +12924,7 @@ QTabBar::tab:selected {
 }</string>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tab_2">
                 <attribute name="title">
@@ -13233,6 +13233,9 @@ font: 350 16pt &quot;Segoe UI&quot;;</string>
                      <layout class="QHBoxLayout" name="horizontalLayout_50">
                       <item>
                        <widget class="QPushButton" name="btnGenCopiaSeguridad">
+                        <property name="cursor">
+                         <cursorShape>PointingHandCursor</cursorShape>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(0, 51, 102);
@@ -13247,6 +13250,9 @@ border-radius:7px;</string>
                       </item>
                       <item>
                        <widget class="QPushButton" name="btnRestaurarBD">
+                        <property name="cursor">
+                         <cursorShape>PointingHandCursor</cursorShape>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(0, 51, 102);
@@ -13261,6 +13267,9 @@ border-radius:7px;</string>
                       </item>
                       <item>
                        <widget class="QPushButton" name="btnBorrarLogs">
+                        <property name="cursor">
+                         <cursorShape>PointingHandCursor</cursorShape>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(0, 51, 102);
@@ -15151,7 +15160,7 @@ font: 350 16pt &quot;Segoe UI&quot;;</string>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="guardar1_3">
+                       <widget class="QPushButton" name="btnConfFormatos">
                         <property name="styleSheet">
                          <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(0, 51, 102);

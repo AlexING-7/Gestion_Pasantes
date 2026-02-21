@@ -7,15 +7,16 @@ from PySide6.QtWidgets import QListWidgetItem
 
 from modelos.modulo import session,Student,Pasantia,DocumentoAdjunto
 from sqlalchemy import select
-from sqlalchemy import or_,and_, cast, String
+from sqlalchemy import or_,and_, cast, String,func, case,desc,Integer
 from getmac import get_mac_address as gma
 from herramientas.widgets_personalizados import MiWidgetClickeable
 from herramientas.plantilla_ui import cargar_ui
 from herramientas.modern_messagebox import ModernMessageBox
 from herramientas.conversiones import nombreCompleto,calcular_edad,calcular_duracion_meses,convertir_pil_a_pixmap,formato_miles,guion_telefono
-from PySide6.QtWidgets import QHeaderView
+from PySide6.QtWidgets import QHeaderView,QMessageBox
 from PySide6.QtCore import QEvent,QSize
 from coord.main_documentos import StackedDocumentos
+
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -91,6 +92,15 @@ class StackPasante():
         search_query=self.window.searchPasante.text()
         search_query = (search_query or "").strip()
         stmt = select(Pasantia).join(Pasantia.student)
+        stmt = stmt.order_by(
+                # 1. Ordenar por el año (Primeros 4 caracteres)
+                desc(func.substr(Pasantia.lapso_academico, 1, 4)),
+        
+                # 2. Ordenar por el número del lapso (Convertido a Entero)
+                # Tomamos desde el carácter 6 hasta el final y lo hacemos número
+                desc(cast(func.substr(Pasantia.lapso_academico, 6), Integer))
+                )
+        
         if search_query:
             # cedula is stored as int; cast to String to allow prefix searches
             stmt = stmt.where(cast(Student.cedula, String).ilike(f"{search_query}%"))
@@ -111,9 +121,9 @@ class StackPasante():
         widget=self.window
         widget.pasantes_nombreC.setText(f"{estudiante.primer_nombre} {estudiante.primer_apellido}")
         widget.pasantes_carrera.setText(data.carrera)
-        widget.pasantes_nombresA.setText(nombreCompleto(estudiante))
+        #widget.pasantes_nombresA.setText(nombreCompleto(estudiante))
         widget.pasantes_fechaN.setText(str(estudiante.fecha_de_nacimiento))
-        widget.pasantes_foto.setPixmap(convertir_pil_a_pixmap(estudiante.foto))
+        widget.pasantes_foto.setPixmap(convertir_pil_a_pixmap(estudiante.foto,160,160))
         widget.pasantes_sexo.setText(estudiante.sexo)
         widget.pasantes_cedula.setText(f"V-{formato_miles(estudiante.cedula)}")
         widget.pasantes_edad.setText(str(calcular_edad(estudiante.fecha_de_nacimiento)))
@@ -141,11 +151,15 @@ class StackPasante():
         try:
             widget.btnAsignarTutor.clicked.disconnect()
             self.window.pasantes_btnGen.clicked.disconnect()
+            widget.btnEditarPasante.clicked.disconnect()
+            self.window.btnEvaluar.clicked.disconnect()
         except TypeError:
             pass
         self.ver_documentos()
         widget.btnAsignarTutor.clicked.connect(lambda: self.asignarTutorA(data))
+        widget.btnEditarPasante.clicked.connect(lambda: self.editar())
         self.window.pasantes_btnGen.clicked.connect(lambda: self.irGenerar(data))
+        self.window.btnEvaluar.clicked.connect(lambda: self.evaluar())
     
     def irGenerar(self,dato):
         self.docs=StackedDocumentos(self.main)
@@ -161,7 +175,13 @@ class StackPasante():
         asignar.exec()
     
     def editar(self):
-        pass
+        from coord.nuevo_pasante import NewPasante
+        
+        self.VentanaPasante=NewPasante(self.current_pasante)
+        self.VentanaPasante.exec()
+        self.datos(self.current_pasante)
+        self.lista_pasantes()
+        
     
     def ver_documentos(self):
         if not hasattr(self,"current_pasante"):
@@ -176,6 +196,19 @@ class StackPasante():
             self.window.listDocsPasante.addItem(item)
             self.window.listDocsPasante.setItemWidget(item, planilla)
             self.conectarDocsWidget(planilla,id)
+        else:
+            planilla=cargar_ui("UI/documento_pasantes - Copy.ui",self.main)
+            item = QListWidgetItem()
+            item.setSizeHint(QSize(125,125))
+            self.window.listDocsPasante.addItem(item)
+            self.window.listDocsPasante.setItemWidget(item, planilla)
+            planilla.frame.clicked.connect(lambda:self.subir())
+    
+    def subir(self):
+        from coord.subirdocs import NewDoc
+        doc=NewDoc(self.current_pasante)
+        doc.exec()
+        self.ver_documentos()
     
     def conectarDocsWidget(self,widget,id:DocumentoAdjunto):
         widget.nombre.setText(f"{id.tipo_de_documento}")
@@ -208,7 +241,15 @@ class StackPasante():
             session.delete(tutor)
             session.commit()
             self.ver_documentos()
+    
     def evaluar(self):
-        pass
+        from admin.evaluacion import show_evaluar
+        session.commit()
+        if self.current_pasante.estado!="finalizada":
+            if QMessageBox.question(self.main, "Pasante Evaluacion", "El pasante no ha terminado la pasantais para evaluar ¿Deseas Continuar?") == QMessageBox.StandardButton.Yes:
+                show_evaluar(self.current_pasante).exec()
+        else:
+            show_evaluar(self.current_pasante,True).exec()
+        
         
         

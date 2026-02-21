@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>210</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Dialog{
+background-color: rgb(0, 51, 102);
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>15</number>
+   </property>
+   <property name="topMargin">
+    <number>15</number>
+   </property>
+   <property name="rightMargin">
+    <number>15</number>
+   </property>
+   <property name="bottomMargin">
+    <number>15</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);
+border-radius:9px;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="leftMargin">
+       <number>25</number>
+      </property>
+      <property name="topMargin">
+       <number>15</number>
+      </property>
+      <property name="rightMargin">
+       <number>25</number>
+      </property>
+      <property name="bottomMargin">
+       <number>25</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">font: 350 16pt &quot;Segoe UI&quot;;
+color:rgb(0, 51, 102)</string>
+        </property>
+        <property name="text">
+         <string>Subir Documentos</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 51, 102);</string>
+        </property>
+        <property name="text">
+         <string>Elige el Tipo</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="input_tipo">
+        <property name="styleSheet">
+         <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+        <item>
+         <widget class="QPushButton" name="btnAsignar">
+          <property name="styleSheet">
+           <string notr="true">QPushButton{
+font: 350 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 51, 102);
+padding:3px;
+border: 1px solid rgb(0,51,102);
+}
+
+QPushButton::hover{
+
+color: rgb(255, 255, 255);
+	background-color: rgb(0, 51, 102);
+border: 1px solid rgb(0,51,102);
+}</string>
+          </property>
+          <property name="text">
+           <string>Subir</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

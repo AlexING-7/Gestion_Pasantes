@@ -1,6 +1,6 @@
 import factory
 from datetime import date, timedelta
-from modelos.modulo import session,User,Student,Enterprise,Tutor_Academico,Tutor_Empresarial,Pasantia,Configuracion,Evaluacion,DocumentoAdjunto
+from modelos.modulo import session,User,Student,SistemaLog,Enterprise,Tutor_Academico,Tutor_Empresarial,Pasantia,Configuracion,Evaluacion,DocumentoAdjunto
 import random
 import os
 import shutil
@@ -437,3 +437,32 @@ class ConfiguracionFactory(factory.alchemy.SQLAlchemyModelFactory):
     clave = factory.Sequence(lambda n: f"clave_{n}")
     # Valor puede ser cualquier cadena; usamos una frase corta en español
     valor = factory.Faker('sentence', nb_words=4, locale='es_ES')
+    
+# ...existing code...
+
+
+class SistemaLogFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = SistemaLog
+        sqlalchemy_session = session
+        sqlalchemy_session_persistence = 'commit'
+
+    fecha_hora = factory.Faker('date_time_between', start_date='-30d', end_date='now')
+    usuario = factory.LazyAttribute(lambda o: (
+        random.choice([u.username for u in session.query(User).all()]) if session.query(User).count() else "sistema"
+    ))
+    accion = factory.Faker('random_element', elements=['UPDATE','INSERT','DELETE','LOGIN','LOGOUT','IMPORT','EXPORT','REPORT','ERROR'])
+    tabla_afectada = factory.Faker('random_element', elements=['users', 'students', 'pasantias', 'documentos_adjuntos', 'configuraciones'])
+    id_registro_afectado = factory.LazyFunction(lambda: random.choice([None, random.randint(1, 5000)]))
+    valores_anteriores = factory.LazyFunction(lambda: {"campo": random.choice([None, "antiguo", 123])})
+    valores_nuevos = factory.LazyFunction(lambda: {"campo": random.choice(["nuevo", 456])})
+    mensaje = factory.Faker('sentence', nb_words=6, locale='es_ES')
+    ip_maquina = factory.LazyFunction(lambda: random.choice(["127.0.0.1", "192.168.1.10", "10.0.0.5"]))
+
+    @factory.lazy_attribute
+    def usuario(self):
+        ids = [u.id for u in session.query(User.id).all()]
+        if ids:
+            return session.get(User, random.choice(ids)).username
+        return UserFactory()
+# ...existing code...

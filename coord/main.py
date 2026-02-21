@@ -33,7 +33,7 @@ class MainWindow(CustomWindow):
         self.window=cargar_ui("UI/dashboard.ui",self)
         self.layout_principal.addWidget(self.window)
         self.title_label.setText("Sitema de Gestión de Pasantias-Coordinador")
-        self.setMinimumSize(1150,750)
+        self.setMinimumSize(1175,800)
         self.resize(1200, 850)
         self.conectar_eventos()
         
@@ -59,6 +59,9 @@ class MainWindow(CustomWindow):
         return super().eventFilter(source, event)        
 
     def conectar_eventos(self):
+        self.window.stackedWidget.setCurrentIndex(0)
+        self.window.usernameLabel.setText(self.user_authenticated.username)
+        self.window.rolLabel.setText(self.user_authenticated.rol)
         self.window.cerrar_sesionButton.clicked.connect(self.logout)
         self.window.btnGen.clicked.connect(self.change_widget)
         self.window.btnSolicitud.clicked.connect(self.change_widget)
@@ -74,22 +77,22 @@ class MainWindow(CustomWindow):
         buttom=self.sender()
         if buttom.text().lower()=="Solicitudes".lower():
             self.soli=StackedSolicitud(self)
-           
+            
         elif buttom.text().lower()=="pasantes".lower():
             self.pasante=StackPasante(self)   
-
+            
         elif buttom.text().lower()=="empresas".lower():
             self.window.stackedWidget.setCurrentIndex(2)
             self.empresa=StackEnterprise(self)
-        
+            self.empresa.pag_tabla_empresa()
         elif buttom.text().lower()=="tutor academico".lower():
             self.window.stackedWidget.setCurrentIndex(3)
             self.tutorA=StackTutorA(self)
-        
+            self.tutorA.pag_tabla_tutorA()
         elif buttom.text().lower()=="tutor empresarial".lower():
             self.window.stackedWidget.setCurrentIndex(4)
             self.tutorE=StackTutorE(self)
-        
+            self.tutorE.pag_tabla_tutorE()
         elif buttom.text().lower()=="Generación de Docs".lower():
             self.docs=StackedDocumentos(self)
             

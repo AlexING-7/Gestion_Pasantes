@@ -78,6 +78,9 @@ class StackConfig():
         self.window.guardar1.clicked.connect(self.guardar1)
         self.btnBorrarLogs.clicked.connect(self.borrarLogs)
         self.window.btnConfCarreras.clicked.connect(self.verCarreras)
+        self.window.btnConfFormatos.clicked.connect(self.verFormatos)
+        self.window.btnGenCopiaSeguridad.clicked.connect(self.copiarbase)
+        self.window.btnRestaurarBD.clicked.connect(self.restaurarBD)
 
     def cargar_configuracion(self):
         mapeo = {
@@ -220,10 +223,67 @@ class StackConfig():
             QMessageBox.information(self.main, "Éxito", "Se Guardaron las carreras en el sistema")
     
     def verFormatos(self):
-        pass
+        from admin.formato_docs import ModernListApp
+        
+        stmt=select(Configuracion).where(Configuracion.clave=="formatos")
+        cfg = session.scalars(stmt).one_or_none()
+        initial = {}
+        if cfg and cfg.valor:
+            try:
+                initial = json.loads(cfg.valor)
+                if isinstance(initial, str):
+                    initial = json.loads(initial)
+            except Exception:
+                initial = {}
+
+        dialog = ModernListApp()
+        dialog.set_items(initial)
+    
+        dialog.exec()
+        # Si el usuario pulsó Guardar, `saved_json` estará disponible
+        if hasattr(dialog, 'saved_json'):
+            if not cfg:
+                cfg = Configuracion(clave="formatos", valor=dialog.saved_json)
+                session.add(cfg)
+            else:
+                cfg.valor = dialog.saved_json
+            session.commit()
+            QMessageBox.information(None, "Éxito", "Se Guardaron los formatos en el sistema")
+    
             
-    def guardar2(self):
-        pass
+    def copiarbase(self):
+        from herramientas.BD import respaldo_desde_url
+        respaldo_desde_url("mysql+pymysql://root@127.0.0.1/gestion_pasantes")
+    
+    def restaurarBD(self):
+        # Abrir diálogo para seleccionar archivo SQL o SQL.gz
+        ruta, _ = QFileDialog.getOpenFileName(self.main, "Seleccionar respaldo SQL", str(Path.home()), "Archivos SQL (*.sql *.sql.gz);;Todos los archivos (*)")
+        if not ruta:
+            return
+
+        resp = QMessageBox.question(self.main, "Restaurar Base de Datos",
+            f"Se restaurará la base de datos desde:\n{ruta}\nEsto reemplazará los datos actuales. ¿Continuar?",
+            QMessageBox.Yes | QMessageBox.No)
+        if resp != QMessageBox.Yes:
+            return
+
+        try:
+            import subprocess
+            # Si es .gz, descomprimir al vuelo con gunzip; si no, redirigir el archivo al cliente mysql
+            if ruta.lower().endswith(".gz"):
+                cmd = f'gunzip -c "{ruta}" | mysql -u root -h 127.0.0.1 gestion_pasantes'
+            else:
+                cmd = f'mysql -u root -h 127.0.0.1 gestion_pasantes < "{ruta}"'
+
+            resultado = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            if resultado.returncode == 0:
+                QMessageBox.information(self.main, "Éxito", "La base de datos fue restaurada correctamente.")
+            else:
+                QMessageBox.critical(self.main, "Error al restaurar", f"Salida:\n{resultado.stderr or resultado.stdout}")
+        except FileNotFoundError:
+            QMessageBox.critical(self.main, "Error", "No se encontró el cliente 'mysql' o 'gunzip'. Asegúrese de que estén instalados y en el PATH.")
+        except Exception as e:
+            QMessageBox.critical(self.main, "Error", f"Excepción al restaurar la BD:\n{e}")
     
     def borrarLogs(self):
         logs=delete(SistemaLog)

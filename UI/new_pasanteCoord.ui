@@ -1,0 +1,1885 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>565</width>
+    <height>758</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 51, 102);</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame_2">
+     <property name="styleSheet">
+      <string notr="true">
+QWidget {
+    background-color: rgba(255, 255, 255, 0.95);
+    font-family: &quot;Segoe UI&quot;, sans-serif;
+    color: #333333;
+}
+
+QFrame{
+border-radius: 12px;
+width: 100%;          
+}
+QLabel{
+	color: rgb(0, 51, 102);
+	background-color: transparent;
+	font: 14pt &quot;Segoe UI&quot;;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="frame_3">
+        <property name="styleSheet">
+         <string notr="true">#frame_3{
+	background-color: transparent;
+}
+QLineEdit, QDateEdit, QSpinBox{
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background-color: #f8f9fa;
+}
+QLineEdit:focus {
+    border: 1px solid #0056b3;
+    background-color: #ffffff;
+}
+
+QLineEdit[state=&quot;valid&quot;] {
+                border-color: #2ecc71; /* Verde */
+  }
+ QLineEdit[state=&quot;invalid&quot;] {
+                border-color: #e74c3c; /* Rojo */
+  }
+ QLineEdit[state=&quot;empty&quot;] {
+        border-color: #555; /* Gris */
+ }
+
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_21">
+         <property name="leftMargin">
+          <number>35</number>
+         </property>
+         <property name="topMargin">
+          <number>25</number>
+         </property>
+         <property name="rightMargin">
+          <number>35</number>
+         </property>
+         <property name="bottomMargin">
+          <number>25</number>
+         </property>
+         <item>
+          <widget class="QStackedWidget" name="stackedWidget">
+           <property name="styleSheet">
+            <string notr="true">#stackedWidget{
+background-color: transparent;}
+
+QLineEdit[estado=&quot;valido&quot;] {
+        border: 2px solid #20c997; 
+        background-color: #f0fdf8; /* Blanco con un levísimo toque esmeralda */
+        color: #003366;
+    }
+
+    /* ESTADO INVÁLIDO: Rojo carmesí */
+    QLineEdit[estado=&quot;invalido&quot;] {
+        border: 2px solid #e63946; 
+        background-color: #fff0f1; /* Blanco con un levísimo toque rojo */
+        color: #003366;
+    }</string>
+           </property>
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="page_0">
+            <property name="styleSheet">
+             <string notr="true">#page_0{
+	background-color: transparent;
+}</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_43" stretch="1,1,1,1,1,1,1,6">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_20">
+               <item>
+                <widget class="QLabel" name="email_label_8">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel{
+	color: rgb(0, 51, 102);
+	background-color: transparent;
+	font: 18pt &quot;Segoe UI&quot;;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Información Personal</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_9">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_21">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_31">
+                 <item>
+                  <widget class="QLabel" name="primernombre_label_10">
+                   <property name="text">
+                    <string>Primer Nombre *</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="primernombre_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Primer Nombre</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_32">
+                 <item>
+                  <widget class="QLabel" name="segundonombre_label_2">
+                   <property name="text">
+                    <string>Segundo Nombre</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="segundonombre_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Segundo Nombre</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_22">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_33">
+                 <item>
+                  <widget class="QLabel" name="primerapellido_label_2">
+                   <property name="text">
+                    <string>Primer Apellido *</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="primerapellido_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Primer Apellido</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_34">
+                 <item>
+                  <widget class="QLabel" name="segundoapellido_label_2">
+                   <property name="text">
+                    <string>Segundo Apellido</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="segundoapellido_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Segundo Apellido</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_23">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_35" stretch="3,4">
+                 <item>
+                  <widget class="QLabel" name="cedula_label_5">
+                   <property name="text">
+                    <string>Cedula /Identificación*</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="cedula_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Cedula</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_24">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_36" stretch="3,4">
+                   <item>
+                    <widget class="QLabel" name="carrera_label_8">
+                     <property name="text">
+                      <string>Foto *</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="subirfotoButton">
+                     <property name="font">
+                      <font>
+                       <family>Segoe UI</family>
+                       <pointsize>10</pointsize>
+                       <italic>false</italic>
+                       <fontweight></fontweight>
+                      </font>
+                     </property>
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">
+QPushButton{
+	background-color: rgb(0, 51, 102);
+	border: none;
+    border-radius: 6px;
+	font: 550 10pt &quot;Segoe UI&quot;;
+	color: rgb(255, 255, 255);
+	padding:1px;
+ }
+
+
+QPushButton:hover {
+    background-color: #004a99;
+}
+</string>
+                     </property>
+                     <property name="text">
+                      <string>Subir foto</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>resources/images/upload-img-white.svg</normaloff>resources/images/upload-img-white.svg</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>30</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_10">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>13</width>
+                     <height>17</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_25">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_37">
+                 <item>
+                  <widget class="QLabel" name="carrera_label_9">
+                   <property name="text">
+                    <string>Genero *</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="genero_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Genero</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Masculino</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Femenino</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_38" stretch="3,4">
+                 <item>
+                  <widget class="QLabel" name="cedula_label_6">
+                   <property name="text">
+                    <string>Fecha de Nacimiento</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDateEdit" name="dateFecha">
+                   <property name="styleSheet">
+                    <string notr="true">
+            QDateEdit {
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                padding:5px 10px;
+                color: #333333;
+                font-size: 13px;
+                background-color: white;
+            }
+QDateEdit::down-arrow {
+   image: url(resources/images/down-arrow-svgrepo-com.svg); /* Ruta a tu imagen */
+    width: 12px;  /* Ajusta el tamaño del icono */
+    height: 12px;
+}
+
+            QDateEdit::drop-down {
+                subcontrol-origin: padding;
+                subcontrol-position: top right;
+                width: 30px;
+                border-left: 1px solid #f8f9fa;
+            }
+            /* Estilo para el calendario desplegable */
+            QCalendarWidget QWidget {
+                background-color: #003366;
+                color: white;
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+                background-color: white;
+                color: #003366;
+                selection-background-color: #003366;
+                selection-color: white;
+            }
+</string>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1940</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>dd/MM/yyyy</string>
+                   </property>
+                   <property name="calendarPopup">
+                    <bool>true</bool>
+                   </property>
+                   <property name="date">
+                    <date>
+                     <year>2000</year>
+                     <month>1</month>
+                     <day>13</day>
+                    </date>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_27">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_41">
+                 <item>
+                  <widget class="QLabel" name="telefono_label_2">
+                   <property name="text">
+                    <string>Teléfono *</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="telefono_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Télefono</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_42">
+                 <item>
+                  <widget class="QLabel" name="email_label_9">
+                   <property name="text">
+                    <string>Email</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="email_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Email</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_28">
+               <item>
+                <widget class="QLabel" name="email_label_10">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel{
+	color: rgb(0, 51, 102);
+	background-color: transparent;
+	font: 18pt &quot;Segoe UI&quot;;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Dirección</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_11">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QPlainTextEdit" name="direccion_estudiante">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>160000</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPlainTextEdit{
+	background-color: transparent;
+	border:1px solid #ced4da;
+}
+</string>
+               </property>
+               <property name="backgroundVisible">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="page_1">
+            <property name="styleSheet">
+             <string notr="true">#page_1{
+background-color: transparent;
+}
+</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,1,1,1,1,1,8">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <widget class="QLabel" name="email_label_2">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel{
+	color: rgb(0, 51, 102);
+	background-color: transparent;
+	font: 18pt &quot;Segoe UI&quot;;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Datos de Pasantias</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_3">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_15">
+                 <item>
+                  <widget class="QLabel" name="carrera_label_3">
+                   <property name="text">
+                    <string>Empresa</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="empresa_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Empresa</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_16">
+                 <item>
+                  <widget class="QLabel" name="carrera_label_5">
+                   <property name="text">
+                    <string>Tutor Academico</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="tutorA_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Tutor Academico</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <item>
+                  <widget class="QLabel" name="carrera_label_6">
+                   <property name="text">
+                    <string>Tutor Empresarial</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="tutorE_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Tutor Empresarial</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1">
+                 <item>
+                  <widget class="QLabel" name="primernombre_label">
+                   <property name="text">
+                    <string>Lapso Academico *</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="lapso_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese Lapso</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_18" stretch="1,1">
+                 <item>
+                  <widget class="QLabel" name="carrera_label_7">
+                   <property name="text">
+                    <string>Estado</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="estado_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
+                   <property name="placeholderText">
+                    <string/>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Solicitada</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Aprobada</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>En Curso</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Finalizada</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Cancelada</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <item>
+                  <widget class="QLabel" name="carrera_label">
+                   <property name="text">
+                    <string>Carrera *</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="carrera_input">
+                   <property name="styleSheet">
+                    <string notr="true">/* Estilo principal del ComboBox */
+QComboBox {
+    background-color: rgb(245, 247, 250);
+    border: 1px solid #d1d9e6; /* Un borde suave que combina con el fondo */
+    border-radius: 4px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #2e3440; /* Gris muy oscuro para buen contraste */
+    min-height: 30px;
+}
+
+/* Estado cuando pasas el ratón por encima */
+QComboBox:hover {
+    border: 1px solid #aeb9cc;
+    background-color: #ffffff; /* Se aclara un poco al interactuar */
+}
+
+/* Estado cuando el combo está abierto */
+QComboBox:on { 
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 2px solid #5e81ac; /* Color de énfasis (azul) al estar activo */
+}
+
+/* Estilo del botón de la flecha */
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border-left-width: 0px; /* Quitamos la línea divisoria para un look más limpio */
+}
+
+/* Estilo de la flecha (puedes usar un caracter o una imagen) */
+QComboBox::down-arrow {
+    image: url(resources/images/down-arrow-svgrepo-com.svg); /* Si tienes un icono */
+    width: 12px;
+    height: 12px;
+}
+
+/* Estilo de la lista desplegable (el menú) */
+QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid ;
+    selection-background-color: #5e81ac; /* Color de fondo al seleccionar un item */
+    selection-color: white;
+    outline: none;
+    border-radius: 0px;
+	color:#000;
+}</string>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ingrese carrera</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>Ingeniería Informática</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Arquitectura</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>TSU Civil</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <widget class="QLabel" name="semestre_label">
+                   <property name="text">
+                    <string>Semestre *</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="semestre_input">
+                   <property name="styleSheet">
+                    <string notr="true">
+/* Estilo de los botones laterales */
+QSpinBox::up-button, QSpinBox::down-button {
+    subcontrol-origin: border;
+    width: 25px;
+    border: none;
+    background-color: transparent;
+}
+
+QSpinBox::up-button {
+    subcontrol-position: top right;
+    border-top-right-radius: 3px;
+}
+
+QSpinBox::down-button {
+    subcontrol-position: bottom right;
+    border-bottom-right-radius: 3px;
+}
+
+/* Manejo de los iconos (Flechas) */
+QSpinBox::up-arrow {
+    image: url(resources/images/arrow-up-svgrepo-com.svg); /* Tu icono aquí */
+    width: 15px;
+    height: 15px;
+}
+
+QSpinBox::down-arrow {
+    image: url(resources/images/arrow-down-svgrepo-com.svg); /* Tu icono aquí */
+    width: 15px;
+    height: 15px;
+}
+
+/* Efecto Hover para feedback visual */
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background-color: rgb(225, 225, 225);
+}
+
+QSpinBox::up-button:pressed, QSpinBox::down-button:pressed {
+    background-color: rgb(225, 225, 225);
+}</string>
+                   </property>
+                   <property name="minimum">
+                    <number>5</number>
+                   </property>
+                   <property name="maximum">
+                    <number>10</number>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_19" stretch="3,4">
+                 <item>
+                  <widget class="QLabel" name="cedula_label_3">
+                   <property name="text">
+                    <string>Fecha de Inicio</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDateEdit" name="inicio_input">
+                   <property name="styleSheet">
+                    <string notr="true">
+            QDateEdit {
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                padding:5px 10px;
+                color: #333333;
+                font-size: 13px;
+                background-color: white;
+            }
+QDateEdit::down-arrow {
+   image: url(resources/images/down-arrow-svgrepo-com.svg); /* Ruta a tu imagen */
+    width: 12px;  /* Ajusta el tamaño del icono */
+    height: 12px;
+}
+
+            QDateEdit::drop-down {
+                subcontrol-origin: padding;
+                subcontrol-position: top right;
+                width: 30px;
+                border-left: 1px solid #f8f9fa;
+            }
+            /* Estilo para el calendario desplegable */
+            QCalendarWidget QWidget {
+                background-color: #003366;
+                color: white;
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+                background-color: white;
+                color: #003366;
+                selection-background-color: #003366;
+                selection-color: white;
+            }
+</string>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1940</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="calendarPopup">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_12" stretch="3,4">
+                 <item>
+                  <widget class="QLabel" name="cedula_label_2">
+                   <property name="text">
+                    <string>Fecha Final</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDateEdit" name="final_input">
+                   <property name="styleSheet">
+                    <string notr="true">
+            QDateEdit {
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                padding:5px 10px;
+                color: #333333;
+                font-size: 13px;
+                background-color: white;
+            }
+QDateEdit::down-arrow {
+   image: url(resources/images/down-arrow-svgrepo-com.svg); /* Ruta a tu imagen */
+    width: 12px;  /* Ajusta el tamaño del icono */
+    height: 12px;
+}
+
+            QDateEdit::drop-down {
+                subcontrol-origin: padding;
+                subcontrol-position: top right;
+                width: 30px;
+                border-left: 1px solid #f8f9fa;
+            }
+            /* Estilo para el calendario desplegable */
+            QCalendarWidget QWidget {
+                background-color: #003366;
+                color: white;
+            }
+            QCalendarWidget QAbstractItemView:enabled {
+                background-color: white;
+                color: #003366;
+                selection-background-color: #003366;
+                selection-color: white;
+            }
+</string>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1940</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="calendarPopup">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Orientation::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>130</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="page_2">
+            <property name="styleSheet">
+             <string notr="true">#page_2{
+background-color: transparent;
+}</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_20">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <item>
+                <widget class="QLabel" name="email_label_3">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel{
+	color: rgb(0, 51, 102);
+	background-color: transparent;
+	font: 18pt &quot;Segoe UI&quot;;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Datos Empresariales de Pasantias</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <item>
+                  <widget class="QLabel" name="primernombre_label_5">
+                   <property name="text">
+                    <string>Repr. de la Empresa </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="repr_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ej: Ing Jose Sanchez</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QLabel" name="primernombre_label_6">
+                   <property name="text">
+                    <string>Cargo del Repr. de la Empresa </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="cargo_repr_input">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="echoMode">
+                    <enum>QLineEdit::EchoMode::Normal</enum>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Ej: Jefe de Talento Humano</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_5">
+               <item>
+                <widget class="QLabel" name="primernombre_label_4">
+                 <property name="text">
+                  <string>Titulo del Informe</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="titulo_input">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="echoMode">
+                  <enum>QLineEdit::EchoMode::Normal</enum>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Ingrese Titulo del Informe</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <widget class="QLabel" name="primernombre_label_3">
+                 <property name="text">
+                  <string>Departamento</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="departamento_input">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="echoMode">
+                  <enum>QLineEdit::EchoMode::Normal</enum>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Ingrese Departamento</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <widget class="QLabel" name="primernombre_label_2">
+                 <property name="text">
+                  <string>Trabajo Asignado</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPlainTextEdit" name="trabajo_input">
+                 <property name="styleSheet">
+                  <string notr="true">QPlainTextEdit{
+	background-color: transparent;
+	border:1px solid #ced4da;
+}
+</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item>
+                <widget class="QLabel" name="primernombre_label_7">
+                 <property name="text">
+                  <string>Plan de trabajo</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPlainTextEdit" name="plan_input">
+                 <property name="styleSheet">
+                  <string notr="true">QPlainTextEdit{
+	background-color: transparent;
+	border:1px solid #ced4da;
+}
+</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox {background-color: transparent; spacing: 15px; font-size: 15px; }
+
+
+QCheckBox::indicator {
+ width: 12px; height: 12px;
+ border: 2px solid #555; border-radius: 6px;
+ background: #2b2b2b;
+}
+
+QCheckBox::indicator:checked {
+                background-color: #003366; border-color: #003366;
+            }
+</string>
+               </property>
+               <property name="text">
+                <string>Sede</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <property name="tristate">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFrame" name="frame">
+               <property name="styleSheet">
+                <string notr="true">#frame{
+	background-color:transparent;
+}</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Shape::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Shadow::Raised</enum>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_2">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <item row="0" column="0">
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <item>
+                   <widget class="QLabel" name="primernombre_label_8">
+                    <property name="text">
+                     <string>Dirección de la Sucursal</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPlainTextEdit" name="direccion_input">
+                    <property name="styleSheet">
+                     <string notr="true">QPlainTextEdit{
+	background-color: transparent;
+	border:1px solid #ced4da;
+}
+</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QPushButton" name="btnAtras">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+QPushButton{
+	background-color: transparent;
+	border:none;
+}
+QPushButton:hover{
+	background-color: rgb(214, 214, 214);
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>resources/images/arrow-left.svg</normaloff>resources/images/arrow-left.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>30</width>
+               <height>30</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnSiguiente">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+QPushButton{
+	background-color: transparent;
+	border:none;
+}
+QPushButton:hover{
+	background-color: rgb(214, 214, 214);
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>resources/images/right-arrow.svg</normaloff>resources/images/right-arrow.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>30</width>
+               <height>30</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="RegistrarButton">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">
+QPushButton{
+	background-color: rgb(0, 51, 102);
+	border: none;
+    border-radius: 6px;
+	font: 400 14pt &quot;Segoe UI&quot;;
+	color: rgb(255, 255, 255);
+	margin-left:20px;
+	margin-right:20px;
+	padding: 10px;
+ }
+
+
+QPushButton:hover {
+    background-color: #004a99;
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Actualizar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources/resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

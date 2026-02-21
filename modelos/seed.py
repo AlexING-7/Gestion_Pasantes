@@ -10,7 +10,7 @@ from herramientas.conversiones import cifrar
 from modelos.modulo import session, engine, Base,User, Student,Enterprise,Tutor_Academico,Tutor_Empresarial
 
 # 2. Importa tus Factories
-from factories import UserFactory, StudentFactory,EnterpriseFactory,TutorAcademicoFactory,TutorEmpresarialFactory,PasantiaFactory,ConfiguracionFactory
+from factories import UserFactory, StudentFactory,SistemaLogFactory,EnterpriseFactory,TutorAcademicoFactory,TutorEmpresarialFactory,PasantiaFactory,ConfiguracionFactory
 
 # Configuración básica de logs para ver qué pasa en la consola
 logging.basicConfig(level=logging.INFO)
@@ -158,6 +158,13 @@ def crear_pasantias():
     PasantiaFactory.create_batch(40, finalizada=True)
     PasantiaFactory.create_batch(10, nueva=True)
     PasantiaFactory.create_batch(5, activa=True)
+    
+def crear_logs_prueba(n=50):
+    logger.info("Generando logs del sistema...")
+    # logs aleatorios
+    SistemaLogFactory.create_batch(n)
+    # un par de logs vinculados al admin si existe
+    
 def run_seeds():
     try:
 
@@ -168,6 +175,7 @@ def run_seeds():
         crear_empresas_prueba()
         crear_tutoresA_prueba()
         crear_pasantias()     
+        crear_logs_prueba(200)
 
         # Paso 3: Confirmar cambios (Aunque FactoryBoy con 'commit' ya lo hace, aseguramos)
         session.commit()

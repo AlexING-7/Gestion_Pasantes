@@ -24,6 +24,20 @@ class MiWidgetClickeable(QWidget):
         # Emitimos la señal cuando el usuario hace clic físicamente
         self.click()
         super().mousePressEvent(event)
+
+class MiFrameClickeable(QFrame):
+    # Creamos la señal personalizada
+    clicked = Signal()
+
+    def click(self):
+        """Permite simular el clic programáticamente."""
+        if self.isEnabled():
+            self.clicked.emit()
+
+    def mousePressEvent(self, event):
+        # Emitimos la señal cuando el usuario hace clic físicamente
+        self.click()
+        super().mousePressEvent(event)
         
 class ShadowFrame(QFrame):
     def __init__(self, parent=None):
@@ -36,6 +50,19 @@ class ShadowFrame(QFrame):
         self.shadow.setYOffset(8)               
         self.shadow.setColor(QColor(0, 0, 0, 45)) 
         
+        # Aplicar el efecto al widget
+        self.setGraphicsEffect(self.shadow)
+        
+class ShadowFrameAzul(QFrame):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        # Crear el efecto de sombra azul
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(25)
+        self.shadow.setXOffset(0)
+        self.shadow.setYOffset(8)
+        # Sombra azul (R,G,B,Alpha) - ajusta opacidad si es necesario
+        self.shadow.setColor(QColor(0, 122, 204, 120))
         # Aplicar el efecto al widget
         self.setGraphicsEffect(self.shadow)
         

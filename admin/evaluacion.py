@@ -28,11 +28,7 @@ class show_evaluar():
     def conectar_eventos(self):
         self.btnCalcular.clicked.connect(self.calcular)
         self.datos()
-        
-    
-    def edit(self):
-        pass
-    
+          
     def datos(self):
         if not self.editar:
             return

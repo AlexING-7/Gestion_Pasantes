@@ -8,6 +8,8 @@ from typing import Optional,List
 from datetime import date, datetime
 import socket
 from sqlalchemy_utils import database_exists,create_database
+from sqlalchemy.orm import object_session
+
 mysql_db_url="mysql+pymysql://root@127.0.0.1/gestion_pasantes"
 
 engine=create_engine(mysql_db_url)
@@ -265,7 +267,26 @@ class Pasantia(BaseModel):
         back_populates="pasantia",
         passive_deletes=True,
     )
-
+@event.listens_for(Pasantia, 'load')
+def check_pasantia_expiry(target, context):
+    """
+    Se ejecuta automáticamente cada vez que una instancia de Pasantia 
+    es cargada desde la base de datos.
+    """
+    hoy = date.today()
+    
+    # Verificamos si tiene fecha final, si ya pasó, y si aún no está finalizada
+    if (target.final_pasantias and 
+        target.final_pasantias < hoy and 
+        target.estado != "finalizado"):
+        
+        target.estado = "finalizado"
+        
+        # Obtenemos la sesión actual para marcar el objeto como 'sucio' (dirty)
+        # Esto asegura que el próximo session.commit() guarde el cambio en MySQL
+        session = object_session(target)
+        if session:
+            session.add(target)
 
 @event.listens_for(Pasantia, "before_insert")
 @event.listens_for(Pasantia, "before_update")

@@ -10,6 +10,9 @@
     <height>97</height>
    </rect>
   </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -18,7 +21,7 @@
 background-color: rgb(255, 255, 255);
 color: rgb(0, 0, 0);
 border-radius:3px;
-border:1px solid rgb(173,173,173);
+border:1px solid rgb(0,51,102);
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -40,10 +43,7 @@ border:1px solid rgb(173,173,173);
    <item row="0" column="0">
     <widget class="MiWidgetClickeable" name="widget" native="true">
      <property name="styleSheet">
-      <string notr="true">#widget::hover{
-border:2px solid;
-
-}</string>
+      <string notr="true"/>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -75,7 +75,7 @@ border:none;</string>
       <item>
        <widget class="QLabel" name="carrera">
         <property name="styleSheet">
-         <string notr="true">color: rgb(100, 100, 100);
+         <string notr="true">color: rgb(0, 51, 102);
 border:none;</string>
         </property>
         <property name="text">

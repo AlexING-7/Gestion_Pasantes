@@ -4,11 +4,11 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from sqlalchemy import select
 from modelos.modulo import session,Pasantia,DocumentoAdjunto,Configuracion
-from PySide6.QtWidgets import QMessageBox,QGraphicsDropShadowEffect, QLabel, QPushButton, QListWidgetItem, QFileDialog, QWidget
+from PySide6.QtWidgets import QMessageBox,QListView,QGraphicsDropShadowEffect, QLabel, QPushButton, QListWidgetItem, QFileDialog, QWidget
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtGui import QColor
 from herramientas.plantilla_ui import cargar_ui
-from herramientas.docs import reemplazar_texto,asignacion_pasantias
+from herramientas.docs import reemplazar_texto,asignacion_pasantias,evaluacionAcademico
 from herramientas.conversiones import jsonFormatos
 
 class StackedDocumentos():
@@ -18,6 +18,9 @@ class StackedDocumentos():
         self.window=main.window        
         self.listPasante=self.window.comboBox
         self.lista=self.window.listWidget
+        self.lista.setResizeMode(QListView.ResizeMode.Adjust)
+        self.lista.setFlow(QListView.Flow.LeftToRight)
+        self.lista.setWrapping(True)
         
         self.formatos=jsonFormatos()
         self.formatos:dict
@@ -93,22 +96,34 @@ class StackedDocumentos():
         if not os.path.exists(template_path):
             QMessageBox.critical(self.window, "Error", f"No se encontró la plantilla: {template_path}")
             return
-
-        suggested = f"{formato}.docx"
-        save_path, _ = QFileDialog.getSaveFileName(self.window, "Guardar Documento", suggested, "Documento (*.docx)")
+        extension = os.path.splitext(template_path)[1]
+        
+        suggested = f"{formato}.{extension}"
+        save_path, _ = QFileDialog.getSaveFileName(self.window, "Guardar Documento", suggested, "Documento (*.docx,*xlsx)")
         if not save_path:
             # El usuario canceló
             return
 
         # Asegurar extensión .docx
-        if not save_path.lower().endswith('.docx'):
-            save_path = save_path + '.docx'
+        if extension==".docx":
+            if not save_path.lower().endswith('.docx'):
+                save_path = save_path + '.docx'
 
-        try:
-            reemplazar_texto(self.pasante, template_path, save_path)
-        except Exception as e:
-            QMessageBox.critical(self.window, "Error", f"No se pudo generar el documento: {e}")
-            return
+            try:
+                reemplazar_texto(self.pasante, template_path, save_path)
+            except Exception as e:
+                QMessageBox.critical(self.window, "Error", f"No se pudo generar el documento: {e}")
+                return
+        if extension==".xlsx":
+            if not save_path.lower().endswith('.xlsx'):
+                save_path = save_path + '.xlsx'
+
+            try:
+                evaluacionAcademico(self.pasante,formato, template_path, save_path)
+            except Exception as e:
+                QMessageBox.critical(self.window, "Error", f"No se pudo generar el documento: {e}")
+                return
+            
 
         QMessageBox.information(self.window, "Éxito", f"Documento generado: {save_path}")
 

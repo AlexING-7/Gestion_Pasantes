@@ -6,7 +6,7 @@ from PySide6.QtGui import  QIcon
 from modelos.modulo import Pasantia
 from PySide6.QtWidgets import QWidget,QHBoxLayout, QPushButton, QMessageBox,QFileDialog,QTableWidgetItem,QTableWidget,QStyle,QLineEdit,QAbstractScrollArea
 import shutil
-from herramientas.docs import reemplazar_texto
+from herramientas.docs import reemplazar_texto,evaluacionAcademico
 from modelos.modulo import DocumentoAdjunto,session
 from PySide6.QtWidgets import QHeaderView
 from herramientas.conversiones import jsonFormatos
@@ -34,7 +34,12 @@ class show_documentos():
 
     def list_formats(self):
         formatos=jsonFormatos()
+        self.comboDoc.clear()
+        self.comboDoc_2.clear()
+        self.comboDoc.addItem("Foto de Carnet",None)
+        self.comboDoc.addItem("Copia de Cedula",None)
         for text,data in formatos.items():
+            self.comboDoc.addItem(text,data)
             self.comboDoc_2.addItem(text,data)
             
     def pag_tabla(self):
@@ -232,20 +237,33 @@ class show_documentos():
             QMessageBox.critical(self.window, "Error", f"No se encontró la plantilla: {template_path}")
             return
 
-        suggested = f"{doc_key}.docx"
-        save_path, _ = QFileDialog.getSaveFileName(self.window, "Guardar Documento", suggested, "Documento (*.docx)")
+        extension = os.path.splitext(template_path)[1]
+        
+        suggested = f"{doc_key}.{extension}"
+        save_path, _ = QFileDialog.getSaveFileName(self.window, "Guardar Documento", suggested, "Documento (*.docx,*xlsx)")
         if not save_path:
             # El usuario canceló
             return
 
         # Asegurar extensión .docx
-        if not save_path.lower().endswith('.docx'):
-            save_path = save_path + '.docx'
+        if extension==".docx":
+            if not save_path.lower().endswith('.docx'):
+                save_path = save_path + '.docx'
 
-        try:
-            reemplazar_texto(self.pasante, template_path, save_path)
-        except Exception as e:
-            QMessageBox.critical(self.window, "Error", f"No se pudo generar el documento: {e}")
-            return
+            try:
+                reemplazar_texto(self.pasante, template_path, save_path)
+            except Exception as e:
+                QMessageBox.critical(self.window, "Error", f"No se pudo generar el documento: {e}")
+                return
+        if extension==".xlsx":
+            if not save_path.lower().endswith('.xlsx'):
+                save_path = save_path + '.xlsx'
+
+            try:
+                evaluacionAcademico(self.pasante,doc_key, template_path, save_path)
+            except Exception as e:
+                QMessageBox.critical(self.window, "Error", f"No se pudo generar el documento: {e}")
+                return
 
         QMessageBox.information(self.window, "Éxito", f"Documento generado: {save_path}")
+

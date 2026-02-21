@@ -84,9 +84,46 @@ def asignacion_pasantias(datos,name="prueba.docx"):
         # Esto ocurre si intentas correr este código en Mac o Linux
         print("os.startfile solo funciona en Windows.")
 
+from openpyxl import load_workbook
 
-if __name__ == "__main__":
-    pasantes=session.query(Pasantia).where(Pasantia.lapso_academico=="2025-2").all()
-    #reemplazar_texto(pasante,"formatos/1. CARTA SOLICITUD DE PASANTIA.docx","prueba.docx")
-    asignacion_pasantias(pasantes)
+def evaluacionAcademico(datos:Pasantia,formato,filename,path):
+    wb = load_workbook(filename)
+    ws = wb.active  # O wb['Nombre de la hoja']
+    conf=session.query(Configuracion).all()
+    dic_conf=dict((i.clave,i.valor) for i in conf)
+    # 2. Rellenar los campos de texto
+    # Nota: Debes verificar en qué celda exacta cae cada campo en tu Excel
+    if 'Evaluación Tutor Académico'==formato:
+        ws['B9'] = f"{datos.student.primer_apellido} {getattr(datos.student,"segundo_apellido","")}"    
+        ws['D9'] = f"{datos.student.primer_nombre} {getattr(datos.student,"segundo_nombre","")}"        
+        ws['G9'] = f"{datos.student.cedula}"    
+        ws['B10'] = f"{dic_conf["ciudad"]}"     
+        ws['D10']=f"{datos.carrera}"
+        ws['G10']=f"{datos.lapso_academico}"
+        ws['B12'] = f"{datos.empresa.razon_social}"   
+        ws['D12'] = f"{datos.inicio_pasantias}" 
+        ws['G12'] = f"{datos.final_pasantias}" 
+        ws['B13'] = f"{nombreCompleto(datos.tutor_empresarial)}" 
+        ws['D13'] = f"{nombreCompleto(datos.tutor_academico)}" 
+
+    if 'Evaluación Tutor Empresarial'==formato:
+        ws['B5'] = f"{datos.student.primer_apellido} {getattr(datos.student,"segundo_apellido","")}"     
+        ws['D5'] = f"{datos.student.primer_nombre} {getattr(datos.student,"segundo_nombre","")}"           
+        ws['G5'] = f"{datos.student.cedula}"    
+        ws['B6'] = f"{dic_conf["ciudad"]}"      
+        ws['D6']=f"{datos.carrera}"
+        ws['G6']=f"{datos.lapso_academico}"
+        ws['B8'] = f"{datos.empresa.razon_social}"    
+        ws['D8'] = f"{datos.inicio_pasantias}" 
+        ws['G8'] = f"{datos.final_pasantias}" 
+        ws['B9'] = f"{nombreCompleto(datos.tutor_academico)}" 
+        ws['D9'] = f"{nombreCompleto(datos.tutor_empresarial)}" 
+        ws['B10'] = f"{datos.tutor_empresarial.telefono}" 
+        ws['D10'] = f"{datos.tutor_empresarial.email}" 
+
+
+    # 4. Guardar como un archivo nuevo para no borrar la plantilla
+    wb.save(path)
+    os.startfile(path)
+
     

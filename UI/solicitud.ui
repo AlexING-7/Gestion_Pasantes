@@ -75,7 +75,7 @@ QLabel{
         <property name="frameShadow">
          <enum>QFrame::Shadow::Raised</enum>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,3,3,1">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,3,4,1">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
@@ -92,14 +92,34 @@ QLabel{
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="label_3">
+            <widget class="QLabel" name="estado">
              <property name="styleSheet">
-              <string notr="true">background-color: rgb(255, 170, 0);
+              <string notr="true">QLabel[estado=&quot;revision&quot;] {
+background-color: rgb(255, 170, 0);
 border-radius:2px;
-padding:3px;</string>
+padding:3px;
+}
+
+QLabel[estado=&quot;aprobado&quot;] {
+background-color: rgb(0, 170, 0);
+border-radius:2px;
+padding:3px;
+}
+
+QLabel[estado=&quot;rechazado&quot;] {
+background-color: rgb(255, 0, 0);
+border-radius:2px;
+padding:3px;
+}
+
+
+</string>
              </property>
              <property name="text">
-              <string>Pendiente</string>
+              <string>Revision</string>
+             </property>
+             <property name="estado" stdset="0">
+              <string>rechazado</string>
              </property>
             </widget>
            </item>
@@ -119,18 +139,21 @@ padding:3px;</string>
           </layout>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <layout class="QVBoxLayout" name="verticalLayout_3" stretch="2,1,1">
+           <property name="spacing">
+            <number>3</number>
+           </property>
            <property name="leftMargin">
             <number>9</number>
            </property>
            <property name="topMargin">
-            <number>9</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
             <number>9</number>
            </property>
            <property name="bottomMargin">
-            <number>9</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="QLabel" name="label">
@@ -139,12 +162,12 @@ padding:3px;</string>
                <family>Segoe UI</family>
                <pointsize>13</pointsize>
                <italic>false</italic>
-               <fontweight></fontweight>
+               <fontweight>DemiBold</fontweight>
               </font>
              </property>
              <property name="styleSheet">
               <string notr="true">color: rgb(0, 51, 102);
-font: 520 13pt 'Segoe UI';</string>
+font: 600 13pt &quot;Segoe UI&quot;;</string>
              </property>
              <property name="text">
               <string>Pasantia</string>
@@ -161,6 +184,16 @@ font: 520 13pt 'Segoe UI';</string>
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QLabel" name="Hora">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(91, 91, 91);</string>
+             </property>
+             <property name="text">
+              <string>18-25</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>
@@ -169,7 +202,7 @@ font: 520 13pt 'Segoe UI';</string>
             <widget class="QLabel" name="label_4">
              <property name="styleSheet">
               <string notr="true">color: rgb(121, 121, 121);
-font: 400 10pt &quot;Segoe UI&quot;;</string>
+font: 400 12pt &quot;Segoe UI&quot;;</string>
              </property>
              <property name="text">
               <string>Solicitante</string>
@@ -179,7 +212,7 @@ font: 400 10pt &quot;Segoe UI&quot;;</string>
            <item>
             <widget class="QLabel" name="nombre">
              <property name="styleSheet">
-              <string notr="true">color: rgb(0, 0, 0);
+              <string notr="true">color: #003366;
 font: 250 12pt &quot;Segoe UI&quot;;</string>
              </property>
              <property name="text">
@@ -195,7 +228,7 @@ font: 250 12pt &quot;Segoe UI&quot;;</string>
             <widget class="QLabel" name="label_6">
              <property name="styleSheet">
               <string notr="true">color: rgb(121, 121, 121);
-font: 400 10pt &quot;Segoe UI&quot;;</string>
+font: 400 12pt &quot;Segoe UI&quot;;</string>
              </property>
              <property name="text">
               <string>Descripcion</string>
@@ -205,8 +238,8 @@ font: 400 10pt &quot;Segoe UI&quot;;</string>
            <item>
             <widget class="QLabel" name="descripcion">
              <property name="styleSheet">
-              <string notr="true">color: rgb(121, 121, 121);
-font: 600 12pt &quot;Segoe UI&quot;;</string>
+              <string notr="true">color: #003366;
+font: 550 12pt &quot;Segoe UI&quot;;</string>
              </property>
              <property name="text">
               <string>Solicitud de Aprobación de Pasantías</string>

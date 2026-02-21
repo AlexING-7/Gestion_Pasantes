@@ -86,7 +86,7 @@ def cifrar(password:str):
     sal=bcrypt.gensalt()
     return bcrypt.hashpw(utf, sal).decode('utf-8')
 
-def convertir_pil_a_pixmap(ruta:str="ejemplo.jpg"):
+def convertir_pil_a_pixmap(ruta:str="ejemplo.jpg", ancho=190,alto=190):
         
     pil_image = Image.open(ruta)
     
@@ -96,13 +96,13 @@ def convertir_pil_a_pixmap(ruta:str="ejemplo.jpg"):
     
 
     
-    pil_image = pil_image.resize((190, 190), resample=Image.Resampling.LANCZOS)
+    pil_image = pil_image.resize((ancho, alto), resample=Image.Resampling.LANCZOS)
     
        
     array_img=np.array(pil_image)
-    for y in range(0,190):
-        for x in range(0,190):
-            if ((95-y)**2+(95-x)**2)>95**2:
+    for y in range(0,alto):
+        for x in range(0,ancho):
+            if (((alto/2)-y)**2+((ancho/2)-x)**2)>(ancho/2)**2:
                 array_img[y,x]=[0,0,0,0]
                
  
@@ -140,6 +140,19 @@ def sede_Sucursal(dato):
     else:
         return dato.direccion
 
+def formatear_hora(dt):
+    # %I: Hora en formato 12h (01-12)
+    # %M: Minutos (00-59)
+    # %p: AM/PM (en mayúsculas por defecto)
+    
+    # Usamos .lstrip("0") para quitar el cero inicial de la hora si existe
+    hora_formateada = dt.strftime("%I:%M%p").lower()
+    
+    # Quitamos el cero a la izquierda para que "04:34pm" sea "4:34pm"
+    if hora_formateada.startswith("0"):
+        hora_formateada = hora_formateada[1:]
+        
+    return hora_formateada
 
 
 if __name__=="__main__":

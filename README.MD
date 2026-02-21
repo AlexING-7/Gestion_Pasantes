@@ -21,3 +21,8 @@ alembic history
 
 Convertir ui a py
 pyside6-uic pasante_id.ui -o pasante_ui.py 
+
+setx PATH "%PATH%;C:\xampp\mysql\bin"
+
+setx MYSQLDUMP_PATH "C:\xampp\mysql\bin\mysqldump.exe"
+setx MYSQL_CLIENT_PATH "C:\xampp\mysql\bin\mysql.exe"

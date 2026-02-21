@@ -60,6 +60,8 @@ class StackLogs():
         self.comboAcciones.addItem('Todas las Acciones',None)
         for i in ['UPDATE','INSERT','DELETE','LOGIN','LOGOUT','IMPORT','EXPORT','REPORT','ERROR']:
             self.comboAcciones.addItem(i,i)
+        for i in ['users', 'students', 'pasantias', 'documentos_adjuntos', 'configuraciones']:
+            self.comboTablas.addItem(i,i)
         for i in users:
             self.comboUsuarios.addItem(i,i)
     

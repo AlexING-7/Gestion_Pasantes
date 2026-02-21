@@ -1,4 +1,7 @@
 import sys
+import os
+import shutil
+from datetime import datetime
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import json
@@ -124,12 +127,13 @@ class ModernListApp(QDialog):
     def add_item(self):
         name = self.entry.text().strip()
         if not name:
+            QMessageBox.critical(None, "Error", "Debe Colocar un Nombre al Formato")
             return
 
         # Pedir ruta mediante FileDialog
         path, _ = QFileDialog.getOpenFileName(self, "Seleccionar archivo para '" + name + "'", "", "Todos los archivos (*)")
         if not path:
-            # Si no seleccionó archivo, no añadir
+            QMessageBox.critical(None, "Error", "Debe Seleccionar un Archivo")
             return
 
         # Evitar claves duplicadas: si existe, agregar sufijo numérico
@@ -138,10 +142,25 @@ class ModernListApp(QDialog):
         while unique_name in self.items_map:
             unique_name = f"{name}_{i}"
             i += 1
-
-        new_item = ItemWidget(unique_name, self, path)
+            
+        #Crear carpeta de destino si no existe
+        destino_dir = f"formatos/documentos"
+        if not os.path.exists(destino_dir):
+            os.makedirs(destino_dir)
+        extension = os.path.splitext(path)[1]    
+        nombre_archivo = f"{unique_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{extension}"
+        ruta_final = os.path.join(destino_dir, nombre_archivo).replace("\\","/")
+        try:
+            shutil.copy(path, ruta_final)
+             # Guardamos la ruta en una variable
+                
+        except Exception as e:
+            QMessageBox.critical(None, "Error", f"No se pudo copiar el archivo: {e}")  
+        
+        
+        new_item = ItemWidget(unique_name, self, ruta_final)
         self.list_layout.addWidget(new_item)
-        self.items_map[unique_name] = path
+        self.items_map[unique_name] = ruta_final
         self.entry.clear()
 
     def on_save(self):

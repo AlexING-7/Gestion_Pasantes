@@ -35,7 +35,6 @@ class MainWindow(CustomWindow):
         self.title_label.setText("Sitema de Gestión de Pasantias-Administrador")
         self.setMinimumSize(800, 750)
         self.resize(1150, 800)
-        print(self.width(),self.height())
         self.conectar_eventos()
         
         
@@ -122,6 +121,8 @@ class MainWindow(CustomWindow):
         self.login.show()
 
 
-
+if __name__=="__main__":
+    extension = os.path.splitext("admin/main_configuracion.py")[1]
+    print(extension)
         
     
